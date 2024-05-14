@@ -11,7 +11,7 @@ import com.scramble_like.game.GameConstant;
 
 import java.util.ArrayList;
 
-public class Scene implements Screen
+public abstract class Scene implements Screen
 {
     protected Game game;
     public SpriteBatch batch;
