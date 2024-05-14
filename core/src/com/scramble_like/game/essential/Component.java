@@ -18,11 +18,11 @@ public abstract class Component
 
     public boolean IsMarkedForDestruction() { return this.isMarkedForDestruction; }
 
-    public abstract void BeginPlay();
+    public void BeginPlay() {}
 
-    public abstract void Update(double DeltaTime);
+    public void Update(double DeltaTime) {}
 
-    public abstract void Render();
+    public void Render() {}
 
     public void Destroy() { this.isMarkedForDestruction = true; }
 }
