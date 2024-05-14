@@ -5,9 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.GameConstant;
-import com.scramble_like.game.component.Sprite;
 
 import java.util.ArrayList;
 
@@ -17,6 +17,7 @@ public class Scene implements Screen
     public SpriteBatch batch;
     public BitmapFont font;
 
+    protected Vector4 backgroundColor = new Vector4(0, 0, 0.2f, 1);
     protected OrthographicCamera camera;
     protected ArrayList<GameObject> gameObjects;
     protected ArrayList<GameObject> markedForDestructionGos;
@@ -35,13 +36,6 @@ public class Scene implements Screen
 
         batch = new SpriteBatch();
         font = new BitmapFont();
-
-        // Debug - Add GO
-        //GameObject go = new GameObject("Test", this);
-        //AddGameObject(go);
-        GameObject go2 = new GameObject("test2", this);
-        go2.AddComponent(new Sprite());
-        AddGameObject(go2);
     }
 
     public ArrayList<GameObject> GetGameObjects() { return this.gameObjects; }
@@ -72,7 +66,7 @@ public class Scene implements Screen
     @Override
     public void render(float v)
     {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
