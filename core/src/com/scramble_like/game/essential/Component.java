@@ -12,6 +12,8 @@ public abstract class Component
 
     public int getID() { return this.ID; }
 
+    public GameObject getOwner() { return this.Owner; }
+
     public boolean IsActive() { return this.isActive; }
 
     public void SetActive(boolean isActive) { this.isActive = isActive; }
