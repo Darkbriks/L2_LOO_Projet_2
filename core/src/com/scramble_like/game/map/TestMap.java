@@ -24,7 +24,7 @@ public class TestMap extends Scene
         GameObject go2 = new GameObject("test2", this);
         go2.AddComponent(new Sprite());
         go2.AddComponent(new TestComponent());
-        //go2.AddComponent(new Collider(0,0,200,200));
+        go2.AddComponent(new Collider(0,0,200,200));
         AddGameObject(go2);
         //go2.getTransform().setAlignment(new Vector2(1.0f, 1.0f));
     }

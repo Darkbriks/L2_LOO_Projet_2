@@ -3,7 +3,11 @@ package com.scramble_like.game.map;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.Vector4;
+import com.scramble_like.game.component.Collider;
+import com.scramble_like.game.component.Sprite;
+import com.scramble_like.game.component.TestComponent;
 import com.scramble_like.game.component.Text;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -25,7 +29,6 @@ public class MainMenu extends Scene
         startText.AddComponent(new Text("Tap anywhere to begin!"));
         startText.getTransform().Translate(-75, -25, 0);
         AddGameObject(startText);
-
     }
 
     @Override

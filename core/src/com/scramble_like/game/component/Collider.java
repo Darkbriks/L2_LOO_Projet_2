@@ -82,7 +82,7 @@ public class Collider extends Component {
         this.setHeight(h);
     }
 
-    private void detect(GameObject other) {
+    public void detect(GameObject other) {
         ArrayList<Collider> l = other.GetAllComponentsFromClass(Collider.class);
         Iterator var3 = l.iterator();
 
@@ -99,8 +99,10 @@ public class Collider extends Component {
                 float bottom2 = this.hitbox.y + this.hitbox.height;
                 if (right1 >= left2 && left1 <= right2 && bottom1 >= top2 && top1 <= bottom2 && this.isGenerateOverlappedEvent()) {
                     this.beginOverllap(c);
+                    c.hitbox.setX(0);
                 } else {
                     this.hit(c);
+                    c.hitbox.setX(100);
                 }
             }
 
