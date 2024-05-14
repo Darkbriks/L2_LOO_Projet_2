@@ -27,4 +27,6 @@ public abstract class Component
     public void Render() {}
 
     public void Destroy() { this.isMarkedForDestruction = true; }
+
+    public void Destroying() { this.Owner = null; }
 }

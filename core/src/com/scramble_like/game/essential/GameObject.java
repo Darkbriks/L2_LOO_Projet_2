@@ -31,6 +31,8 @@ public class GameObject
 
     public Transform getTransform() { return this.transform; }
 
+    public Scene getScene() { return this.scene; }
+
     public boolean IsActive() { return this.isActive; }
 
     public void SetActive(boolean isActive) { this.isActive = isActive; }
@@ -96,6 +98,9 @@ public class GameObject
     {
         if (!this.isActive) { return; }
         for (Component c : this.components) { c.Render(); }
+
+        // Debug - Draw the GameObject's name
+        this.scene.font.draw(this.scene.batch, this.name, this.transform.getLocation().x, this.transform.getLocation().y);
     }
 
     public void Destroy()
@@ -103,5 +108,13 @@ public class GameObject
         for (Component c : this.components) { c.Destroy(); }
         this.components.clear();
         this.isMarkedForDestruction = true;
+    }
+
+    public void Destroying()
+    {
+        this.name = null;
+        this.transform = null;
+        this.scene = null;
+        this.components = null;
     }
 }
