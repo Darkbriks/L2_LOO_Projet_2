@@ -11,14 +11,16 @@ public class GameObject
     private final int ID;
     private String name;
     private Transform transform;
+    private Scene scene;
     private boolean isActive = true;
     private boolean isMarkedForDestruction = false;
     private ArrayList<Component> components;
 
-    public GameObject(String name)
+    public GameObject(String name, Scene scene)
     {
         this.ID = globalID++;
         this.name = name;
+        this.scene = scene;
         this.components = new ArrayList<>();
         this.transform = new Transform();
     }
