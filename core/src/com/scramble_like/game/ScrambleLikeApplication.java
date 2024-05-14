@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.map.MainMenu;
 
 /*public class ScrambleLikeApplication extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -36,6 +37,6 @@ public class ScrambleLikeApplication extends Game
 {
 	@Override
 	public void create () {
-		setScreen(new Scene(this));
+		setScreen(new MainMenu(this));
 	}
 }

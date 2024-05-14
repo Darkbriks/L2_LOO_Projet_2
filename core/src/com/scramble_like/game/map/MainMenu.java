@@ -1,33 +1,34 @@
 package com.scramble_like.game.map;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.ScrambleLikeApplication;
+import com.scramble_like.game.essential.Scene;
 
 
-public class MainMenu {
-    final ScrambleLikeApplication scramble;
+public class MainMenu extends Scene {
     OrthographicCamera camera;
 
-    public MainMenu(ScrambleLikeApplication scramble){
-        this.scramble = scramble;
+    public MainMenu(Game scramble){
+        super(scramble);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
     }
     @Override
-    public void Render(float delta) {
+    public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
         camera.update();
-        scramble.batch.setProjectionMatrix(camera.combined);
-        scramble.batch.begin();
-        scramble.font.draw(scramble.batch, "Welcome to Scramble Like!!! ", 100, 150);
-        scramble.font.draw(scramble.batch, "Tap anywhere to begin!", 100, 100);
-        scramble.batch.end();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        font.draw(batch, "Welcome to Scramble Like!!! ", 100, 150);
+        font.draw(batch, "Tap anywhere to begin!", 100, 100);
+        batch.end();
         if (Gdx.input.isTouched()) {
-            scramble.setScreen(new GameScreen(scramble));
+            game.setScreen(new Scene(game));
             dispose();
         }
     }
@@ -50,7 +51,12 @@ public class MainMenu {
     }
 
     @Override
-    public void Destroy(){
-        
+    public void show() {
+
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }
