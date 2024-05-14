@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public abstract class Scene implements Screen
     protected ArrayList<GameObject> gameObjects;
     protected ArrayList<GameObject> markedForDestructionGos;
     protected ArrayList<Component> markedForDestructionComps;
+    public EventDispatcher eventDispatcher = new EventDispatcher();
 
     public Scene(Game game)
     {

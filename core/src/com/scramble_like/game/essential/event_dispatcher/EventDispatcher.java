@@ -1,25 +1,20 @@
 package com.scramble_like.game.essential.event_dispatcher;
 
-import com.scramble_like.game.essential.event_dispatcher.event.EventBeginOverlapp;
-import com.scramble_like.game.essential.event_dispatcher.listener.ListenerBeginOverlapp;
-
 import java.util.ArrayList;
-import java.util.List;
+import java.util.EventObject;
+import java.util.Map;
 
-public class EventDispatcher {
-    private List<ListenerBeginOverlapp> listeners = new ArrayList<>();
+public class EventDispatcher
+{
+    private Map<EventIndex, ArrayList<EventListener>> listeners = new java.util.HashMap<EventIndex, ArrayList<EventListener>>();
 
-    public void addListener(ListenerBeginOverlapp listener) {
-        listeners.add(listener);
-    }
+    public void AddListener(EventIndex EventID, EventListener listener) { if (!listeners.containsKey(EventID)) listeners.put(EventID, new ArrayList<EventListener>()); listeners.get(EventID).add(listener); }
 
-    public void removeListener(ListenerBeginOverlapp listener) {
-        listeners.remove(listener);
-    }
+    public void RemoveListener(EventIndex EventID, EventListener listener) { if (!listeners.containsKey(EventID)) return; listeners.get(EventID).remove(listener); }
 
-    public void dispatchEvent(EventBeginOverlapp event) {
-        for (ListenerBeginOverlapp listener : listeners) {
-            //listener.handleEvent(event);
-        }
+    public void DispatchEvent(EventIndex EventID, EventObject event)
+    {
+        if (!listeners.containsKey(EventID)) return;
+        for (EventListener listener : listeners.get(EventID)) { listener.handleEvent(event); }
     }
 }

@@ -1,13 +1,11 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.scramble_like.game.component;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
+import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
+import com.scramble_like.game.essential.event_dispatcher.EventIndex;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -98,7 +96,7 @@ public class Collider extends Component {
                 float top2 = this.hitbox.y;
                 float bottom2 = this.hitbox.y + this.hitbox.height;
                 if (right1 >= left2 && left1 <= right2 && bottom1 >= top2 && top1 <= bottom2 && this.isGenerateOverlappedEvent()) {
-                    this.beginOverllap(c);
+                    this.beginOverlap(c);
                     c.hitbox.setX(0);
                 } else {
                     this.hit(c);
@@ -110,16 +108,19 @@ public class Collider extends Component {
         }
     }
 
-    private GameObject hit(Collider collision) {
-        return null;
+    private void hit(Collider other)
+    {
+        this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.HIT, new EventBeginOverlap(this.getOwner(), this, other.getOwner(), other));
     }
 
-    private GameObject beginOverllap(Collider collision) {
-        return null;
+    private void beginOverlap(Collider other)
+    {
+        this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.BEGIN_OVERLAP, new EventBeginOverlap(this.getOwner(), this, other.getOwner(), other));
     }
 
-    private GameObject endOverllap(Collider collision) {
-        return null;
+    private void endOverlap(Collider other)
+    {
+        this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.END_OVERLAP, new EventBeginOverlap(this.getOwner(), this, other.getOwner(), other));
     }
 
     public void Update(double DeltaTime) {

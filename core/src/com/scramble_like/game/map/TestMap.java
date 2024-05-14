@@ -14,6 +14,14 @@ public class TestMap extends Scene
     {
         super(game);
 
+        /*eventDispatcher.AddListener(EventIndex.BEGIN_OVERLAP, new EventListener() {
+            @Override
+            public void handleEvent(EventObject event) {
+                EventBeginOverlap e = (EventBeginOverlap) event;
+                System.out.println("Begin Overlap with " + e.sourceGameObject.getName());
+            }
+        });*/
+
         // Debug - Add GO
         //TODO
         GameObject go = new GameObject("Test", this);

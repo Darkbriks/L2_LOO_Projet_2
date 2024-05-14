@@ -1,5 +1,6 @@
 package com.scramble_like.game.essential;
 
+import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.utils.Transform;
 
 import java.lang.reflect.Constructor;
@@ -15,6 +16,7 @@ public class GameObject
     private boolean isActive = true;
     private boolean isMarkedForDestruction = false;
     private ArrayList<Component> components;
+    private EventDispatcher eventDispatcher;
 
     public GameObject(String name, Scene scene)
     {
@@ -23,6 +25,7 @@ public class GameObject
         this.scene = scene;
         this.components = new ArrayList<>();
         this.transform = new Transform();
+        this.eventDispatcher = new EventDispatcher();
     }
 
     public int getID() { return this.ID; }
@@ -35,7 +38,7 @@ public class GameObject
 
     public boolean IsActive() { return this.isActive; }
 
-    public void SetActive(boolean isActive) { this.isActive = isActive; }
+    public void setActive(boolean isActive) { this.isActive = isActive; }
 
     public boolean IsMarkedForDestruction() { return this.isMarkedForDestruction; }
 
@@ -77,6 +80,8 @@ public class GameObject
     public void RemoveComponent(Component component) { this.components.remove(component); }
 
     public void RemoveAllComponents() { this.components.clear(); }
+
+    public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
 
     public void BeginPlay()
     {
