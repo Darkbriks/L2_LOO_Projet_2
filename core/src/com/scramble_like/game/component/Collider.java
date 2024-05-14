@@ -21,14 +21,22 @@ public class Collider extends Component {
     private boolean simulatePhysics;
 
     public Collider(float x, float y, float w, float h) {
-        this.x = this.getOwner().getTransform().getLocation().x;
-        this.y = this.getOwner().getTransform().getLocation().y;
+        /*this.x = this.getOwner().getTransform().getLocation().x;
+        this.y = this.getOwner().getTransform().getLocation().y;*/
         this.simulatePhysics = false;
         this.hitbox = new Rectangle();
         this.hitbox.x = x;
         this.hitbox.y = y;
         this.hitbox.height = h;
         this.hitbox.width = h;
+    }
+
+    @Override
+    public void Init(GameObject Owner)
+    {
+        super.Init(Owner);
+        this.x = this.getOwner().getTransform().getLocation().x;
+        this.y = this.getOwner().getTransform().getLocation().y;
     }
 
     public void setHeight(int height) {
