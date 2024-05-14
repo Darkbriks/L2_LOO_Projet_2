@@ -1,11 +1,13 @@
 package com.scramble_like.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.scramble_like.game.essential.Scene;
 
-public class ScrambleLikeApplication extends ApplicationAdapter {
+/*public class ScrambleLikeApplication extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	
@@ -27,5 +29,13 @@ public class ScrambleLikeApplication extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
+	}
+}*/
+
+public class ScrambleLikeApplication extends Game
+{
+	@Override
+	public void create () {
+		setScreen(new Scene(this));
 	}
 }
