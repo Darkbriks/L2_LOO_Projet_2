@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.Sprite;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,9 @@ public class Scene implements Screen
         // Debug - Add GO
         GameObject go = new GameObject("Test", this);
         AddGameObject(go);
+        GameObject go2 = new GameObject("test2", this);
+        go2.AddComponent(Sprite.class);
+        AddGameObject(go2);
     }
 
     public ArrayList<GameObject> GetGameObjects() { return this.gameObjects; }
