@@ -8,7 +8,9 @@ public abstract class Component
     private boolean isActive = true;
     private boolean isMarkedForDestruction = false;
 
-    public Component(GameObject Owner) { this.ID = globalID++; this.Owner = Owner; }
+    public Component() { this.ID = globalID++; }
+
+    public void Init(GameObject Owner) { this.Owner = Owner; }
 
     public int getID() { return this.ID; }
 

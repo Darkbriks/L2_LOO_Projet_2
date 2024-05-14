@@ -37,10 +37,10 @@ public class Scene implements Screen
         font = new BitmapFont();
 
         // Debug - Add GO
-        GameObject go = new GameObject("Test", this);
-        AddGameObject(go);
+        //GameObject go = new GameObject("Test", this);
+        //AddGameObject(go);
         GameObject go2 = new GameObject("test2", this);
-        go2.AddComponent(Sprite.class);
+        go2.AddComponent(new Sprite());
         AddGameObject(go2);
     }
 

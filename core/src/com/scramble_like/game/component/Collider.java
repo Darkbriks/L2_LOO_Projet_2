@@ -6,8 +6,8 @@ import com.scramble_like.game.essential.GameObject;
 
 public class Collider extends Component {
     private Rectangle hitbox;
-    public Collider(GameObject Owner) {
-        super(Owner);
+    public Collider() {
+        super();
         hitbox = new Rectangle();
     }
 

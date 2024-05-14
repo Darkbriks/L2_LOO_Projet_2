@@ -68,15 +68,10 @@ public class GameObject
         return components;
     }
 
-    public void AddComponent(Class<? extends Component> componentClass)
+    public void AddComponent(Component component)
     {
-        try
-        {
-            Constructor<? extends Component> constructor = componentClass.getDeclaredConstructor(Object.class);
-            Component component = constructor.newInstance(this);
-            components.add(component);
-        }
-        catch (Exception ex) { System.err.println("Erreur : " + ex.getMessage()); } //TODO: Handle this exception
+        component.Init(this);
+        this.components.add(component);
     }
 
     public void RemoveComponent(Component component) { this.components.remove(component); }
@@ -100,7 +95,7 @@ public class GameObject
         for (Component c : this.components) { c.Render(); }
 
         // Debug - Draw the GameObject's name
-        this.scene.font.draw(this.scene.batch, this.name, this.transform.getLocation().x, this.transform.getLocation().y);
+        //this.scene.font.draw(this.scene.batch, this.name, this.transform.getLocation().x, this.transform.getLocation().y);
     }
 
     public void Destroy()
