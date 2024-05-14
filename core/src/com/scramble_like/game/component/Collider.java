@@ -1,13 +1,35 @@
 package com.scramble_like.game.component;
 
-import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.math.Rectangle;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
 
 public class Collider extends Component {
-    private Class<? extends Shape> hitbox;
+    private Rectangle hitbox;
     public Collider(GameObject Owner) {
         super(Owner);
+        hitbox = new Rectangle();
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public void setHitbox(Rectangle hitbox) {
+        this.hitbox = hitbox;
+    }
+    //Renvoi Owner si une collision a eu lieu entre 2 Owners (celui de l'appel et celui en paramètre)
+    private GameObject hit(Collider collision){
+        if(getOwner().getTransform().getLocation().x==collision.getOwner().getTransform().getLocation().x){
+            if(getOwner().getTransform().getLocation().y==collision.getOwner().getTransform().getLocation().y){
+                if(getOwner().getTransform().getLocation().z==collision.getOwner().getTransform().getLocation().z){
+                    return getOwner();
+                }
+                else{return null;}
+            }
+            else{return null;}
+        }
+        else{return null;}
     }
 
     @Override
@@ -24,4 +46,7 @@ public class Collider extends Component {
     public void Render() {
 
     }
+
+
+
 }
