@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class EventDispatcher
 {
-    private Map<EventIndex, ArrayList<EventListener>> listeners = new java.util.HashMap<EventIndex, ArrayList<EventListener>>();
+    private final Map<EventIndex, ArrayList<EventListener>> listeners = new java.util.HashMap<>();
 
-    public void AddListener(EventIndex EventID, EventListener listener) { if (!listeners.containsKey(EventID)) listeners.put(EventID, new ArrayList<EventListener>()); listeners.get(EventID).add(listener); }
+    public void AddListener(EventIndex EventID, EventListener listener) { if (!listeners.containsKey(EventID)) listeners.put(EventID, new ArrayList<>()); listeners.get(EventID).add(listener); }
 
     public void RemoveListener(EventIndex EventID, EventListener listener) { if (!listeners.containsKey(EventID)) return; listeners.get(EventID).remove(listener); }
 

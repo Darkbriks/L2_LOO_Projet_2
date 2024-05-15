@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class DebugRenderer
 {
-    private static ShapeRenderer debugRenderer = new ShapeRenderer();
+    private static final ShapeRenderer debugRenderer = new ShapeRenderer();
 
     public static void DrawDebugLine(Vector2 start, Vector2 end, int lineWidth, Color color, Matrix4 projectionMatrix)
     {

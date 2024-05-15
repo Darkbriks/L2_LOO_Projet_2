@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public abstract class Scene implements Screen
 {
     private String name;
-    private Game game;
+    private final Game game;
     public SpriteBatch batch;
     public BitmapFont font;
 
@@ -46,7 +46,6 @@ public abstract class Scene implements Screen
     public String GetName() { return this.name; }
     public Game GetGame() { return this.game; }
     public OrthographicCamera GetCamera() { return this.camera; }
-
     public ArrayList<GameObject> GetGameObjects() { return this.gameObjects; }
     public ArrayList<GameObject> GetGameObjects(ArrayList<GameObject> ExcludeGos)
     {
@@ -54,6 +53,7 @@ public abstract class Scene implements Screen
         for (GameObject go : this.gameObjects) { if (!ExcludeGos.contains(go)) { gos.add(go); } }
         return gos;
     }
+
     public void AddGameObject(GameObject gameObject) { this.gameObjects.add(gameObject); gameObject.BeginPlay(); }
     public void DestroyGameObject(GameObject gameObject)
     {
@@ -61,6 +61,12 @@ public abstract class Scene implements Screen
         markedForDestructionComps.addAll(gameObject.GetComponents());
         this.gameObjects.remove(gameObject);
         gameObject.Destroy();
+    }
+
+    public void DestroyComponent(Component component)
+    {
+        markedForDestructionComps.add(component);
+        component.Destroy();
     }
 
     public void LateUpdate()

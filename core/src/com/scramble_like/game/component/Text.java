@@ -24,6 +24,7 @@ public class Text extends Component
     @Override
     public void Render()
     {
+        if (!this.IsActive()) { return; }
         this.getOwner().getScene().font.setColor(color);
         this.getOwner().getScene().font.getData().setScale(size);
         this.getOwner().getScene().font.draw(this.getOwner().getScene().batch, text, this.getOwner().getTransform().getLocation().x, this.getOwner().getTransform().getLocation().y);
