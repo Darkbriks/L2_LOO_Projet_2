@@ -11,6 +11,8 @@ public class Chunk{
     public ArrayList<String> chunkOriginal;
     public ArrayList<Rectangle> chunk = new ArrayList<>();
 
+    public boolean actif = false;
+
     public Chunk(){
     }
     public void convertion(ArrayList<String> co){
@@ -24,9 +26,23 @@ public class Chunk{
             yy++;
         }
     }
-    public void wave(ArrayList<Rectangle> r){
-        for (Rectangle w : r) {
-            w.x-=1;
+
+    public void convertion(ArrayList<String> co,int X,int Y){
+        int yy =0;
+        for (String ligne : co) {
+            for (int xx = 0; xx < ligne.length(); xx++) {
+                if (ligne.charAt(xx) != ' ') {
+                    chunk.add(new Rectangle((xx * GameConstant.SQUARE_SIDE)+(x*GameConstant.CHUNK_SIZE) , -(yy * GameConstant.SQUARE_SIDE)+(y*GameConstant.CHUNK_SIZE)-(55), GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE)); // Exemple de coordonnées et taille
+                }
+            }
+            yy++;
         }
     }
+
+    public void wave(ArrayList<Rectangle> r){
+        for (Rectangle w : r) {
+            w.x-=3;
+        }
+    }
+
 }
