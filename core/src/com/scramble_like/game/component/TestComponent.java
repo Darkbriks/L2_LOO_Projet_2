@@ -11,6 +11,7 @@ public class TestComponent extends Component
     @Override
     public void Update(double DeltaTime)
     {
+        if (!this.IsActive()) { return; }
         this.getOwner().getTransform().getRotation().x += (float) (10 * DeltaTime);
         this.getOwner().getTransform().getScale().x += (float) (0.5f * DeltaTime * ScaleDirection);
         this.getOwner().getTransform().getScale().y += (float) (0.5f * DeltaTime * ScaleDirection);

@@ -1,14 +1,11 @@
 package com.scramble_like.game.component.collider;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.essential.utils.DebugRenderer;
 import com.scramble_like.game.essential.utils.Utils;
 
 public class SphereCollider extends Collider
 {
     ////////// Attributes //////////
-    private float radius;
+    private final float radius;
 
     ////////// Constructor //////////
     public SphereCollider() { super(); this.radius = 50; }
@@ -32,6 +29,7 @@ public class SphereCollider extends Collider
     /*@Override
     public void Render()
     {
+        if (!this.IsActive()) { return; }
         DebugRenderer.DrawDebugCircle(getX(), getY(), radius, !overlappedCollider.isEmpty() ? Color.RED : Color.GREEN, this.getOwner().getScene().GetCamera().combined);
         DebugRenderer.DrawDebugCircle(this.getOwnerX(), this.getOwnerY(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().GetCamera().combined);
         DebugRenderer.DrawDebugCircle(this.getX1(), this.getY1(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().GetCamera().combined);

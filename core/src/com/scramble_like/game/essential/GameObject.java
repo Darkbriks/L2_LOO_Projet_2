@@ -1,6 +1,8 @@
 package com.scramble_like.game.essential;
 
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
+import com.scramble_like.game.essential.exception.OwnerIsNullException;
+import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.utils.Transform;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class GameObject
     private ArrayList<Component> components;
     private final EventDispatcher eventDispatcher;
 
-    public GameObject(String name, Scene scene)
+    public GameObject(String name, Scene scene) throws SceneIsNullException
     {
         this.ID = globalID++;
         this.name = name;
@@ -24,6 +26,7 @@ public class GameObject
         this.components = new ArrayList<>();
         this.transform = new Transform();
         this.eventDispatcher = new EventDispatcher();
+        if (this.scene == null) { this.Destroy(); this.Destroying(); throw new SceneIsNullException(this); }
     }
 
     public int getID() { return this.ID; }
@@ -71,13 +74,13 @@ public class GameObject
 
     public void AddComponent(Component component)
     {
-        component.Init(this);
-        this.components.add(component);
+        try { component.Init(this); this.components.add(component); }
+        catch (OwnerIsNullException e) { System.err.println("Error: " + e.getMessage()); }
     }
 
-    public void RemoveComponent(Component component) { this.components.remove(component); }
+    public void RemoveComponent(Component component) { this.getScene().DestroyComponent(component); this.components.remove(component); }
 
-    public void RemoveAllComponents() { this.components.clear(); }
+    public void RemoveAllComponents() { for (Component c : this.components) { this.getScene().DestroyComponent(c); } this.components.clear(); }
 
     public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
 
@@ -96,15 +99,11 @@ public class GameObject
     {
         if (!this.isActive) { return; }
         for (Component c : this.components) { c.Render(); }
-
-        // Debug - Draw the GameObject's name
-        //this.scene.font.draw(this.scene.batch, this.name, this.transform.getLocation().x, this.transform.getLocation().y);
     }
 
     public void Destroy()
     {
-        for (Component c : this.components) { c.Destroy(); }
-        this.components.clear();
+        for (Component c : this.components) { this.getScene().DestroyComponent(c); }
         this.isMarkedForDestruction = true;
     }
 

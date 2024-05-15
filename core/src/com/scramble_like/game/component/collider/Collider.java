@@ -57,8 +57,6 @@ public abstract class Collider extends Component
 
 
     ////////// Methods //////////
-    //protected abstract boolean Collide(Collider other);
-
     protected boolean Collide(Collider other)
     {
         if (this instanceof SphereCollider && other instanceof SphereCollider) { return Collider.Collide((SphereCollider) this, (SphereCollider)  other); }
@@ -98,8 +96,7 @@ public abstract class Collider extends Component
         if (Collider.Collide(sphere.getX(), sphere.getY(), box)) { return true; }
         boolean projvertical = Utils.ProjectionSurSegment(sphere.getX(), sphere.getY(), box.getX1(), box.getY1(), box.getX1(), box.getY1() + box.getHeight());
         boolean projhorizontal = Utils.ProjectionSurSegment(sphere.getX(), sphere.getY(), box.getX1(), box.getY1(), box.getX1() + box.getWidth(), box.getY1());
-        if (projvertical || projhorizontal) { return true; }
-        return false;
+        return projvertical || projhorizontal;
     }
 
     protected void Hit(Collider other)
@@ -119,8 +116,8 @@ public abstract class Collider extends Component
 
     public void Update(double DeltaTime)
     {
-        if (!simulatePhysics) { return; }
-        ArrayList<Collider> tempOverlappedCollider = new ArrayList<Collider>();
+        if (!this.IsActive() || !simulatePhysics) { return; }
+        ArrayList<Collider> tempOverlappedCollider = new ArrayList<>();
 
         for(GameObject go : this.getOwner().getScene().GetGameObjects())
         {

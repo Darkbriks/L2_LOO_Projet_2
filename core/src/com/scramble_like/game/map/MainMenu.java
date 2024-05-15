@@ -8,6 +8,7 @@ import com.scramble_like.game.component.Text;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.GameIsNullException;
+import com.scramble_like.game.essential.exception.SceneIsNullException;
 
 public class MainMenu extends Scene
 {
@@ -17,15 +18,19 @@ public class MainMenu extends Scene
 
         backgroundColor = new Vector4(0, 0, 0, 1);
 
-        GameObject titleText = new GameObject("TitleText", this);
-        titleText.AddComponent(new Text("Welcome to Scramble Like!!!", 2, Color.CORAL));
-        titleText.getTransform().Translate(-190, 25, 0);
-        AddGameObject(titleText);
+        try
+        {
+            GameObject titleText = new GameObject("TitleText", this);
+            titleText.AddComponent(new Text("Welcome to Scramble Like!!!", 2, Color.CORAL));
+            titleText.getTransform().Translate(-190, 25, 0);
+            AddGameObject(titleText);
 
-        GameObject startText = new GameObject("StartText", this);
-        startText.AddComponent(new Text("Tap anywhere to begin!"));
-        startText.getTransform().Translate(-75, -25, 0);
-        AddGameObject(startText);
+            GameObject startText = new GameObject("StartText", this);
+            startText.AddComponent(new Text("Tap anywhere to begin!"));
+            startText.getTransform().Translate(-75, -25, 0);
+            AddGameObject(startText);
+        }
+        catch (SceneIsNullException e) { System.err.println(e.getMessage()); }
     }
 
     @Override
@@ -34,7 +39,7 @@ public class MainMenu extends Scene
         if (Gdx.input.isTouched())
         {
             try { GetGame().setScreen(new TestMap(GetGame())); }
-            catch (GameIsNullException e) { System.out.println(e.getMessage()); Gdx.app.exit(); }
+            catch (GameIsNullException e) { System.err.println(e.getMessage()); Gdx.app.exit(); }
             dispose(); return;
         }
         super.render(delta);

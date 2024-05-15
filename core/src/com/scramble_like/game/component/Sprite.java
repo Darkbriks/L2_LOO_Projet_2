@@ -25,9 +25,9 @@ public class Sprite extends Component{
     public void setFlipY(boolean flipY) { this.flipY = flipY; }
 
     @Override
-    public void Render() {
-        
-        //batch.draw(img, this.Owner.getTransform().getLocation().x, this.Owner.getTransform().getLocation().y);
+    public void Render()
+    {
+        if (!this.IsActive()) { return; }
         this.Owner.getScene().batch.draw(img,
                 this.Owner.getTransform().getLocation().x - this.img.getWidth() / 2.0f, this.Owner.getTransform().getLocation().y - this.img.getHeight() / 2.0f,
                 Utils.lerp(this.Owner.getTransform().getLocation().x, this.img.getWidth(), this.Owner.getTransform().getAlignment().x), Utils.lerp(this.Owner.getTransform().getLocation().y, this.img.getHeight(), this.Owner.getTransform().getAlignment().y),

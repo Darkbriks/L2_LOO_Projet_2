@@ -1,5 +1,7 @@
 package com.scramble_like.game.essential;
 
+import com.scramble_like.game.essential.exception.OwnerIsNullException;
+
 public abstract class Component
 {
     private static int globalID = 0;
@@ -10,7 +12,7 @@ public abstract class Component
 
     public Component() { this.ID = globalID++; }
 
-    public void Init(GameObject Owner) { this.Owner = Owner; }
+    public void Init(GameObject Owner) throws OwnerIsNullException { this.Owner = Owner; if (this.Owner == null) { this.Destroy(); this.Destroying(); throw new OwnerIsNullException(this); } }
 
     public int getID() { return this.ID; }
 

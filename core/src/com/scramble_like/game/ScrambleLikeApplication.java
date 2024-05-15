@@ -11,7 +11,7 @@ public class ScrambleLikeApplication extends Game
 	public void create ()
 	{
 		try { setScreen(new MainMenu(this)); }
-		catch (GameIsNullException e) { System.out.println(e.getMessage()); Gdx.app.exit(); }
+		catch (GameIsNullException e) { System.err.println(e.getMessage()); Gdx.app.exit(); }
 		dispose(); return;
 	}
 }
