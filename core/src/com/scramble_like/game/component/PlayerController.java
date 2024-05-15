@@ -7,10 +7,10 @@ import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.utils.Utils;
 
-public class Player extends Component {
+public class PlayerController extends Component {
     private float speed;
 
-    public Player(float speed) {
+    public PlayerController(float speed) {
         super();
         this.speed = speed;
     }
@@ -32,8 +32,6 @@ public class Player extends Component {
 
         owner.getTransform().getLocation().x = (float) Utils.Clamp(newX, (double) -GameConstant.WIDTH / 2, (double) GameConstant.WIDTH / 2);
         owner.getTransform().getLocation().y = (float) Utils.Clamp(newY, (double) -GameConstant.HEIGHT / 2, (double) GameConstant.HEIGHT / 2);
-
-
     }
 }
 
