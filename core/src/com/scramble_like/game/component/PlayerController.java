@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Component;
-import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
 import com.scramble_like.game.essential.exception.GameIsNullException;
@@ -47,7 +46,8 @@ public class PlayerController extends Component {
 
         if(!this.isAlive()){
             this.getOwner().getScene().eventDispatcher.DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
-            this.getOwner().getScene().GetGame().setScreen(new GameOver(this.getOwner().getScene().GetGame()));
+            try { this.getOwner().getScene().GetGame().setScreen(new GameOver(this.getOwner().getScene().GetGame())); }
+            catch (GameIsNullException e) { System.err.println(e.getMessage()); Gdx.app.exit(); }
         }
     }
 }

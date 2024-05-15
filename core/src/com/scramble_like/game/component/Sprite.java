@@ -2,18 +2,20 @@ package com.scramble_like.game.component;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.scramble_like.game.essential.Component;
+import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.essential.utils.Utils;
 
 public class Sprite extends Component{
 
     private Texture img;
+    private final String fileName;
 
     private boolean flipX = false;
     private boolean flipY = false;
 
-    public Sprite() { super(); img = new Texture("badlogic.jpg"); }
-    public Sprite(String path) { super(); img = new Texture(path); }
-    public Sprite(String path, boolean flipX, boolean flipY) { super(); img = new Texture(path); this.flipX = flipX; this.flipY = flipY; }
+    public Sprite() { super(); img = ImageFactory.getTexture("badlogic.jpg"); fileName = "badlogic.jpg"; }
+    public Sprite(String path) { super(); img = ImageFactory.getTexture(path); fileName = path; }
+    public Sprite(String path, boolean flipX, boolean flipY) { super(); img = ImageFactory.getTexture(path); this.flipX = flipX; this.flipY = flipY; fileName = path; }
 
     public Texture getImg() { return img; }
     public void setImg(Texture img) { this.img = img; }
@@ -39,5 +41,5 @@ public class Sprite extends Component{
                 false, false);
     }
     @Override
-    public void Destroy() { img.dispose(); }
+    public void Destroy() { ImageFactory.disposeTexture(fileName); }
 }

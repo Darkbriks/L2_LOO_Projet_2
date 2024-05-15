@@ -31,6 +31,7 @@ public abstract class Scene implements Screen
     {
         if (game == null) { throw new GameIsNullException("Game is null in scene " + name); }
         this.game = game;
+        this.name = name;
 
         this.camera = new OrthographicCamera(GameConstant.WIDTH, GameConstant.HEIGHT);
         this.camera.update();
@@ -87,13 +88,7 @@ public abstract class Scene implements Screen
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        for (GameObject go : gameObjects) {
-            try {
-                go.Update(v);
-            } catch (GameIsNullException e) {
-                throw new RuntimeException(e);
-            }
-            go.Render(); }
+        for (GameObject go : gameObjects) { go.Update(v); go.Render(); }
 
         batch.end();
 
