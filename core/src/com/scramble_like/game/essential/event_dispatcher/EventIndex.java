@@ -6,4 +6,7 @@ public enum EventIndex
     BEGIN_OVERLAP,
     END_OVERLAP,
     HIT,
+
+    //Game Events
+    DIE,
 }

@@ -81,7 +81,13 @@ public abstract class Scene implements Screen
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        for (GameObject go : gameObjects) { go.Update(v); go.Render(); }
+        for (GameObject go : gameObjects) {
+            try {
+                go.Update(v);
+            } catch (GameIsNullException e) {
+                throw new RuntimeException(e);
+            }
+            go.Render(); }
 
         batch.end();
 

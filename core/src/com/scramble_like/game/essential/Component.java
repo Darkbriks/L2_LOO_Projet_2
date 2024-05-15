@@ -1,5 +1,7 @@
 package com.scramble_like.game.essential;
 
+import com.scramble_like.game.essential.exception.GameIsNullException;
+
 public abstract class Component
 {
     private static int globalID = 0;
@@ -24,7 +26,7 @@ public abstract class Component
 
     public void BeginPlay() {}
 
-    public void Update(double DeltaTime) {}
+    public void Update(double DeltaTime) throws GameIsNullException {}
 
     public void Render() {}
 

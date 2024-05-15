@@ -1,6 +1,7 @@
 package com.scramble_like.game.essential;
 
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
+import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.essential.utils.Transform;
 import java.util.ArrayList;
 
@@ -86,8 +87,7 @@ public class GameObject
         for (Component c : this.components) { c.BeginPlay(); }
     }
 
-    public void Update(double dt)
-    {
+    public void Update(double dt) throws GameIsNullException {
         if (!this.isActive) { return; }
         for (Component c : this.components) { c.Update(dt); }
     }
