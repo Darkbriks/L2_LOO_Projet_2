@@ -43,12 +43,21 @@ public class DebugRenderer
         Gdx.gl.glLineWidth(1);
     }
 
-    public static void DrawDebugPoint(Vector2 point, int size, Color color, Matrix4 projectionMatrix)
+    public static void DrawDebugCircle(Vector2 point, int size, Color color, Matrix4 projectionMatrix)
     {
         debugRenderer.setProjectionMatrix(projectionMatrix);
-        debugRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
         debugRenderer.setColor(color);
         debugRenderer.circle(point.x, point.y, size);
+        debugRenderer.end();
+    }
+
+    public static void DrawDebugCircle(float x, float y, float radius, Color color, Matrix4 projectionMatrix)
+    {
+        debugRenderer.setProjectionMatrix(projectionMatrix);
+        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+        debugRenderer.setColor(color);
+        debugRenderer.circle(x, y, radius);
         debugRenderer.end();
     }
 }

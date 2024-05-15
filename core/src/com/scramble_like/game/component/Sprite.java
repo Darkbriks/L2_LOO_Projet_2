@@ -2,6 +2,7 @@ package com.scramble_like.game.component;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.scramble_like.game.essential.Component;
+import com.scramble_like.game.essential.utils.Utils;
 
 public class Sprite extends Component{
 
@@ -23,15 +24,13 @@ public class Sprite extends Component{
     public boolean isFlipY() { return flipY; }
     public void setFlipY(boolean flipY) { this.flipY = flipY; }
 
-    private float lerp(float a, float b, float t) { return a + (b - a) * t; }
-    
     @Override
     public void Render() {
         
         //batch.draw(img, this.Owner.getTransform().getLocation().x, this.Owner.getTransform().getLocation().y);
         this.Owner.getScene().batch.draw(img,
-                this.Owner.getTransform().getLocation().x, this.Owner.getTransform().getLocation().y,
-                lerp(this.Owner.getTransform().getLocation().x, this.img.getWidth(), this.Owner.getTransform().getAlignment().x), lerp(this.Owner.getTransform().getLocation().y, this.img.getHeight(), this.Owner.getTransform().getAlignment().y),
+                this.Owner.getTransform().getLocation().x - this.img.getWidth() / 2.0f, this.Owner.getTransform().getLocation().y - this.img.getHeight() / 2.0f,
+                Utils.lerp(this.Owner.getTransform().getLocation().x, this.img.getWidth(), this.Owner.getTransform().getAlignment().x), Utils.lerp(this.Owner.getTransform().getLocation().y, this.img.getHeight(), this.Owner.getTransform().getAlignment().y),
                 img.getWidth(), img.getHeight(),
                 this.Owner.getTransform().getScale().x, this.Owner.getTransform().getScale().y,
                 this.Owner.getTransform().getRotation().x,
