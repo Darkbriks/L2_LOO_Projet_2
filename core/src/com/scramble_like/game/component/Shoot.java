@@ -1,10 +1,12 @@
 package com.scramble_like.game.component;
 
 import com.badlogic.gdx.math.Vector3;
+import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
 
-public class Shoot extends Projectile{
-    private GameObject target;
+public class Shoot extends Component
+{
+    /*private GameObject target;
 
     public Shoot(float speed, GameObject target) {
         super(speed);
@@ -23,5 +25,5 @@ public class Shoot extends Projectile{
         float newY = owner.getTransform().getLocation().y + direction.y * getSpeed() * (float)DeltaTime;
         owner.getTransform().getLocation().x = newX;
         owner.getTransform().getLocation().y = newY;
-    }
+    }*/
 }

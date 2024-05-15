@@ -1,8 +1,12 @@
 package com.scramble_like.game.essential.utils;
 
+import com.badlogic.gdx.math.Vector3;
+
 public class Utils
 {
     public static float lerp(float a, float b, float t) { return a + (b - a) * t; }
+
+    public static Vector3 lerp(Vector3 a, Vector3 b, float t) { return new Vector3(lerp(a.x, b.x, t), lerp(a.y, b.y, t), lerp(a.z, b.z, t)); }
 
     public static boolean ProjectionSurSegment(float Cx, float Cy, float Ax, float Ay, float Bx, float By)
     {
