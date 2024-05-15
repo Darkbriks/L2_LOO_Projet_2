@@ -16,4 +16,10 @@ public class Utils
         float s2 = (BCx * ABx) + (BCy * ABy);
         return s1 * s2 > 0;
     }
+
+    public static double Clamp(double value, double min, double max)
+    {
+        if (value < min) { return min; }
+        return Math.min(value, max);
+    }
 }
