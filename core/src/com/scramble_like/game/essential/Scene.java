@@ -9,12 +9,14 @@ import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
+import com.scramble_like.game.essential.exception.GameIsNullException;
 
 import java.util.ArrayList;
 
 public abstract class Scene implements Screen
 {
-    protected Game game;
+    private String name;
+    private Game game;
     public SpriteBatch batch;
     public BitmapFont font;
 
@@ -25,8 +27,9 @@ public abstract class Scene implements Screen
     protected ArrayList<Component> markedForDestructionComps;
     public EventDispatcher eventDispatcher = new EventDispatcher();
 
-    public Scene(Game game)
+    public Scene(Game game, String name) throws GameIsNullException
     {
+        if (game == null) { throw new GameIsNullException("Game is null in scene " + name); }
         this.game = game;
 
         this.camera = new OrthographicCamera(GameConstant.WIDTH, GameConstant.HEIGHT);
@@ -40,7 +43,9 @@ public abstract class Scene implements Screen
         font = new BitmapFont();
     }
 
-    public OrthographicCamera getCamera() { return this.camera; }
+    public String GetName() { return this.name; }
+    public Game GetGame() { return this.game; }
+    public OrthographicCamera GetCamera() { return this.camera; }
 
     public ArrayList<GameObject> GetGameObjects() { return this.gameObjects; }
     public ArrayList<GameObject> GetGameObjects(ArrayList<GameObject> ExcludeGos)

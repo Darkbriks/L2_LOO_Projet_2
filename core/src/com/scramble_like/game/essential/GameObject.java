@@ -2,8 +2,6 @@ package com.scramble_like.game.essential;
 
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.utils.Transform;
-
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 public class GameObject
@@ -16,7 +14,7 @@ public class GameObject
     private boolean isActive = true;
     private boolean isMarkedForDestruction = false;
     private ArrayList<Component> components;
-    private EventDispatcher eventDispatcher;
+    private final EventDispatcher eventDispatcher;
 
     public GameObject(String name, Scene scene)
     {

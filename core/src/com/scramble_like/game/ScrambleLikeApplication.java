@@ -1,42 +1,17 @@
 package com.scramble_like.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.scramble_like.game.essential.Scene;
+import com.badlogic.gdx.Gdx;
+import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.map.MainMenu;
-
-/*public class ScrambleLikeApplication extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
-
-	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
-}*/
 
 public class ScrambleLikeApplication extends Game
 {
 	@Override
-	public void create () {
-		setScreen(new MainMenu(this));
+	public void create ()
+	{
+		try { setScreen(new MainMenu(this)); }
+		catch (GameIsNullException e) { System.out.println(e.getMessage()); Gdx.app.exit(); }
+		dispose(); return;
 	}
 }
