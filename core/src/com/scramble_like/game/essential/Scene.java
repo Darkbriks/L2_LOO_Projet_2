@@ -40,6 +40,8 @@ public abstract class Scene implements Screen
         font = new BitmapFont();
     }
 
+    public OrthographicCamera getCamera() { return this.camera; }
+
     public ArrayList<GameObject> GetGameObjects() { return this.gameObjects; }
     public ArrayList<GameObject> GetGameObjects(ArrayList<GameObject> ExcludeGos)
     {

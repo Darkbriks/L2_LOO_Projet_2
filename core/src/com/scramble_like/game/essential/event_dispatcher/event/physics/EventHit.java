@@ -5,14 +5,14 @@ import com.scramble_like.game.essential.GameObject;
 
 import java.util.EventObject;
 
-public class Hit extends EventObject
+public class EventHit extends EventObject
 {
     public GameObject sourceGameObject;
     public Component overlappedComponent;
     public GameObject otherGameObject;
     public Component otherComponent;
 
-    public Hit(GameObject sourceGameObject, Component overlappedComponent, GameObject otherGameObject, Component otherComponent)
+    public EventHit(GameObject sourceGameObject, Component overlappedComponent, GameObject otherGameObject, Component otherComponent)
     {
         super(sourceGameObject);
         this.sourceGameObject = sourceGameObject;

@@ -38,15 +38,6 @@ public class Sprite extends Component{
                 0, 0,
                 img.getWidth(), img.getHeight(),
                 false, false);
-        /*this.Owner.getScene().batch.draw(img,
-                -400, 0,
-                lerp(this.Owner.getTransform().getLocation().x, this.img.getWidth(), this.Owner.getTransform().getAlignment().x), lerp(this.Owner.getTransform().getLocation().y, this.img.getHeight(), this.Owner.getTransform().getAlignment().y),
-                img.getWidth(), img.getHeight(),
-                this.Owner.getTransform().getScale().x, this.Owner.getTransform().getScale().y,
-                this.Owner.getTransform().getRotation().x,
-                0, 0,
-                img.getWidth(), img.getHeight(),
-                false, false);*/
     }
     @Override
     public void Destroy() { img.dispose(); }
