@@ -29,12 +29,12 @@ public class SphereCollider extends Collider
     public float getX2() { return getX() + radius; }
     public float getY2() { return getY() + radius; }
 
-    @Override
+    /*@Override
     public void Render()
     {
         DebugRenderer.DrawDebugCircle(getX(), getY(), radius, !overlappedCollider.isEmpty() ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().combined);
         DebugRenderer.DrawDebugCircle(this.getOwnerX(), this.getOwnerY(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().getCamera().combined);
         DebugRenderer.DrawDebugCircle(this.getX1(), this.getY1(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().getCamera().combined);
         DebugRenderer.DrawDebugCircle(this.getX2(), this.getY2(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().getCamera().combined);
-    }
+    }*/
 }
