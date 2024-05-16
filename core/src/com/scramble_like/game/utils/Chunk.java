@@ -5,15 +5,20 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.collider.AABBCollider;
+import com.scramble_like.game.component.collider.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.chunk.ChunkLoadedEvent;
+import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.ChunkManager;
 import org.w3c.dom.css.Rect;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Chunk
@@ -58,23 +63,31 @@ public class Chunk
 
     private final String fileName;
     private char[][] chunk;
+
+    private List<Collider> colliders;
     private List<RectangleData> rectanglesList;
     private boolean isLoaded;
     private boolean isRendered;
+    protected boolean isSimulated;
     private final EventDispatcher eventDispatcher;
+    private ChunkManager chunkManager;
 
-    public Chunk(String fileName)
+    public Chunk(String fileName, ChunkManager chunkManager)
     {
         this.fileName = fileName;
         this.chunk = null;
         this.rectanglesList = null;
         isLoaded = false;
         isRendered = false;
+        isSimulated = false;
         eventDispatcher = new EventDispatcher();
+        this.chunkManager = chunkManager;
+        colliders = null;
     }
 
     public boolean isLoaded() { return isLoaded; }
     public boolean isRendered() { return isRendered; }
+    public boolean isSimulated(){ return isSimulated;}
     public EventDispatcher getEventDispatcher() { return eventDispatcher; }
 
     protected void load() throws IOException
@@ -141,6 +154,67 @@ public class Chunk
         this.rectanglesList = null;
         this.isRendered = false;
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNRENDERED, new ChunkLoadedEvent(this));
+    }
+
+    public int[][] obtenirVoisins(int[][] tableau, int x, int y) {
+        List<int[]> voisinsList = new ArrayList<>();
+
+        // Les déplacements possibles pour atteindre les voisins (haut, bas, gauche, droite, et diagonales)
+        int[] deplacementsX = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int[] deplacementsY = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+        for (int i = 0; i < deplacementsX.length; i++) {
+            int voisinX = x + deplacementsX[i];
+            int voisinY = y + deplacementsY[i];
+
+            // Vérifiez si le voisin est dans les limites du tableau
+            if (voisinX >= 0 && voisinX < tableau.length && voisinY >= 0 && voisinY < tableau[0].length) {
+                voisinsList.add(new int[]{voisinX, voisinY});
+            }
+        }
+
+        // Convertir la liste en tableau 2D
+        int[][] voisinsArray = new int[voisinsList.size()][2];
+        for (int i = 0; i < voisinsList.size(); i++) {
+            voisinsArray[i] = voisinsList.get(i);
+        }
+
+        return voisinsArray;
+    }
+
+    public void Simulate() {
+        colliders = new ArrayList<>();
+        for (int i = 0; i < chunk.length; i++) {
+            for (int j = 1; j < chunk[i].length; j++) {
+                if (this.chunk[i][j] != ' ') {
+                    int[][] voisins = this.obtenirVoisins(new int[chunk.length][chunk[0].length], i, j);
+                    boolean tousLesVoisinsNonVides = false;
+
+                    // Vérifier si tous les voisins ne sont pas ' '
+                    for (int[] voisin : voisins) {
+                        int voisinX = voisin[0];
+                        int voisinY = voisin[1];
+                        if (this.chunk[voisinX][voisinY] != ' ') {
+                            tousLesVoisinsNonVides = true;
+                            break;
+                        }
+                    }
+
+                    if (tousLesVoisinsNonVides) {
+                        Collider collider = new AABBCollider(GameConstant.SQUARE_SIDE,GameConstant.SQUARE_SIDE);
+                        colliders.add(collider);
+                        this.chunkManager.AddComponent(collider);
+                    }
+                }
+            }
+        }
+        this.isSimulated = true;
+    }
+    public void unSimulate(){
+        for(Collider c : colliders){
+            this.chunkManager.RemoveComponent(c);
+        }
+        this.isSimulated = false;
     }
 
     public void draw(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch, Vector2 position)

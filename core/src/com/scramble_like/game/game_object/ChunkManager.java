@@ -3,6 +3,8 @@ package com.scramble_like.game.game_object;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.collider.AABBCollider;
+import com.scramble_like.game.component.collider.Collider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -10,7 +12,9 @@ import com.scramble_like.game.utils.Chunk;
 import com.scramble_like.game.utils.ChunkHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChunkManager extends GameObject
 {
@@ -19,6 +23,7 @@ public class ChunkManager extends GameObject
     protected Chunk[][] chunks;
     protected List<String> drawnChunks;
     protected boolean isLoaded;
+    //protected Map<Integer, Vector2> listCollision;
 
     protected double xOffSet = 0;
 
@@ -29,12 +34,14 @@ public class ChunkManager extends GameObject
         levelChunkCount = ChunkHelper.getLevelChunkCount(0);
         chunks = new Chunk[(int) levelChunkCount.x][(int) levelChunkCount.y];
         drawnChunks = new ArrayList<>();
+        //listCollision = new HashMap<>();
         isLoaded = false;
 
         xOffSet = 0;
     }
 
     boolean isLoaded() { return isLoaded; }
+
 
     @Override
     public void BeginPlay()
@@ -46,7 +53,7 @@ public class ChunkManager extends GameObject
             {
                 for (int j = 0; j < levelChunkCount.y; j++)
                 {
-                    chunks[i][j] = new Chunk(ChunkHelper.getChunk(level, new Vector2(i, j)));
+                    chunks[i][j] = new Chunk(ChunkHelper.getChunk(level, new Vector2(i, j)),this);
                 }
             }
             isLoaded = true;
@@ -92,6 +99,16 @@ public class ChunkManager extends GameObject
                 else if (chunks[i][j].isLoaded())
                 {
                     chunks[i][j].unload();
+                }
+                if (distance < GameConstant.CHUNK_SIMULATING_DISTANCE){
+                    if (chunks[i][j].isLoaded()&&!chunks[i][j].isSimulated()){
+                        chunks[i][j].Simulate();
+                    }
+                }
+                else{
+                    if (chunks[i][j].isLoaded()&&chunks[i][j].isSimulated()){
+                        chunks[i][j].unSimulate();
+                    }
                 }
             }
         }
