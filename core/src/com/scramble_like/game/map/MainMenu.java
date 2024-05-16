@@ -41,7 +41,6 @@ public class MainMenu extends Scene
         {
             try { getGame().setScreen(new TestMap(getGame())); }
             catch (GameIsNullException e) { System.err.println(e.getMessage()); Gdx.app.exit(); }
-            dispose(); return;
         }
         super.render(delta);
     }
