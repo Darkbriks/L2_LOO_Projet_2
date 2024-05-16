@@ -3,27 +3,38 @@ package com.scramble_like.game.component;
 import com.badlogic.gdx.math.Vector3;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
+import com.scramble_like.game.essential.exception.OwnerIsNullException;
+import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.Projectile;
 
 public class Shoot extends Component
 {
-    /*private GameObject target;
+    private GameObject target;
+    private float speed;
 
-    public Shoot(float speed, GameObject target) {
-        super(speed);
+    public Shoot(GameObject owner, float speed, GameObject target) throws OwnerIsNullException {
+        super();
+        this.Init(owner);
+        this.speed = speed;
         this.target = target;
+    }
+
+    public void shoot() throws SceneIsNullException {
+
+        Projectile projectile = new Projectile("projectile", this.Owner.getScene(), this.target);
+        this.Owner.getScene().AddGameObject(projectile);
+
+
+        projectile.getTransform().setLocation(this.Owner.getTransform().getLocation());
     }
 
     @Override
     public void Update(double DeltaTime) {
-        GameObject owner = getOwner();
-        Vector3 direction = new Vector3(target.getTransform().getLocation().x - owner.getTransform().getLocation().x,
-                target.getTransform().getLocation().y - owner.getTransform().getLocation().y,
-                target.getTransform().getLocation().z - owner.getTransform().getLocation().z);
-        direction.nor();
 
-        float newX = owner.getTransform().getLocation().x + direction.x * getSpeed() * (float)DeltaTime;
-        float newY = owner.getTransform().getLocation().y + direction.y * getSpeed() * (float)DeltaTime;
-        owner.getTransform().getLocation().x = newX;
-        owner.getTransform().getLocation().y = newY;
-    }*/
+        try {
+            shoot();
+        } catch (SceneIsNullException e) {
+            e.printStackTrace();
+        }
+    }
 }

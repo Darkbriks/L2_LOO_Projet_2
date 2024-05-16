@@ -22,6 +22,7 @@ public class GameObject
     private ArrayList<Component> components;
     private final EventDispatcher eventDispatcher;
 
+
     public GameObject(String name, Scene scene) throws SceneIsNullException
     {
         this.ID = globalID++;
