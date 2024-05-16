@@ -17,11 +17,13 @@ public class Enemy extends GameObject {
     {
         super(name, scene);
 
-        this.collider = new AABBCollider(width, height,false, true);
+        this.collider = new AABBCollider(width, height, false, true);
+
         this.AddComponent(this.collider);
 
         this.sprite = new Sprite(spritePath);
         this.AddComponent(this.sprite);
+
 
         if (canShoot)
         {
@@ -29,5 +31,4 @@ public class Enemy extends GameObject {
             this.AddComponent(this.shootComponent);
         }
     }
-
 }
