@@ -55,12 +55,12 @@ public class Chunk
         List<String> lines = Files.readAllLines(Paths.get(this.fileName));
 
         this.chunk = new char[GameConstant.CHUNK_SIDE][GameConstant.CHUNK_SIDE];
-        for (int i = 1; i < lines.size(); i++)
+        for (int i = 0; i < lines.size(); i++)
         {
             String line = lines.get(i);
             for (int j = 0; j < line.length(); j++)
             {
-                this.chunk[j][i - 1] = line.charAt(j);
+                this.chunk[j][i] = line.charAt(j);
             }
         }
 
@@ -87,7 +87,7 @@ public class Chunk
 
         for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
         {
-            for (int j = 1; j < GameConstant.CHUNK_SIDE; j++)
+            for (int j = 0; j < GameConstant.CHUNK_SIDE; j++)
             {
                 if (this.chunk[j][i] != GameConstant.AIR_BLOCK)
                 {
@@ -116,7 +116,7 @@ public class Chunk
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNRENDERED, new ChunkLoadedEvent(this));
     }
 
-    public int[][] obtenirVoisins(int[][] tableau, int x, int y) {
+    private int[][] obtenirVoisins(int[][] tableau, int x, int y) {
         List<int[]> voisinsList = new ArrayList<>();
 
         // Les déplacements possibles pour atteindre les voisins (haut, bas, gauche, droite, et diagonales)
@@ -142,35 +142,37 @@ public class Chunk
         return voisinsArray;
     }
 
-    private void simulate(Vector2 position) {
+    private boolean asAnyAirBlockInNeighbour(int x, int y)
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if (i == 0 && j == 0) continue;
+                if (x + i < 0 || x + i >= this.chunk.length || y + j < 0 || y + j >= this.chunk[0].length) continue;
+                if (this.chunk[x + i][y + j] == GameConstant.AIR_BLOCK) return true;
+            }
+        }
+        return false;
+    }
+
+    private void simulate(Vector2 position)
+    {
+        //state = 5;
         colliders = new ArrayList<>();
-        for (int i = 0; i < chunk.length; i++) {
-            for (int j = 1; j < chunk[i].length; j++) {
-                if (this.chunk[i][j] != GameConstant.AIR_BLOCK) {
-                    int[][] voisins = this.obtenirVoisins(new int[chunk.length][chunk[0].length], i, j);
-                    boolean tousLesVoisinsNonVides = false;
 
-                    // Vérifier si tous les voisins ne sont pas ' '
-                    for (int[] voisin : voisins) {
-                        int voisinX = voisin[0];
-                        int voisinY = voisin[1];
-                        if (this.chunk[voisinX][voisinY] != GameConstant.AIR_BLOCK) {
-                            tousLesVoisinsNonVides = true;
-                            break;
-                        }
-                    }
+        for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
+        {
+            for (int j = 0; j < GameConstant.CHUNK_SIDE; j++)
+            {
+                if (asAnyAirBlockInNeighbour(i, j))
+                {
+                    RectangleData rectangleData = rectanglesList.get(i + " " + j);
+                    if (rectangleData == null) { return; }
 
-                    if (tousLesVoisinsNonVides)
-                    {
-                        int centerX = 0;
-                        int centerY = 0;
-                        RectangleData rectangleData = rectanglesList.get(i + " " + j);
-                        if (rectangleData == null) { return; }
-
-                        TileCollider collider = new TileCollider(rectangleData.x + centerX + (int) position.x, rectangleData.y + centerY + (int) position.y);
-                        colliders.add(collider);
-                        this.chunkManager.AddComponent(collider);
-                    }
+                    TileCollider collider = new TileCollider(rectangleData.x + (int) position.x, rectangleData.y + (int) position.y);
+                    colliders.add(collider);
+                    this.chunkManager.AddComponent(collider);
                 }
             }
         }
@@ -183,19 +185,19 @@ public class Chunk
         new Thread(() -> {this.simulate(position); }).start();
     }
 
+    public void unSimulate()
+    {
+        for(Collider c : colliders) { this.chunkManager.RemoveComponent(c); }
+        colliders = null;
+        this.isSimulated = false;
+    }
+
     public void update(Vector2 frameOffsetValue)
     {
         for (TileCollider tileCollider : colliders)
         {
             tileCollider.addOffset(frameOffsetValue);
         }
-    }
-
-    public void unSimulate(){
-        for(Collider c : colliders){
-            this.chunkManager.RemoveComponent(c);
-        }
-        this.isSimulated = false;
     }
 
     public void draw(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch, Vector2 position)
