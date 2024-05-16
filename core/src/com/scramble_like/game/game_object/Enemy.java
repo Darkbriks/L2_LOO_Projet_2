@@ -18,12 +18,15 @@ public class Enemy extends GameObject {
         super(name, scene);
 
         this.collider = new AABBCollider(width, height, false, true);
+
         this.AddComponent(this.collider);
 
         this.sprite = new Sprite(spritePath);
         this.AddComponent(this.sprite);
 
-        if (canShoot) {
+
+        if (canShoot)
+        {
             this.shootComponent = new Shoot(speed, target);
             this.AddComponent(this.shootComponent);
         }

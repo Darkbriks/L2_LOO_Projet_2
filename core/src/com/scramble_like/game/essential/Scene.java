@@ -1,13 +1,12 @@
 package com.scramble_like.game.essential;
 
-import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector4;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.exception.GameIsNullException;
@@ -18,12 +17,11 @@ public abstract class Scene implements Screen
 {
     private String name;
     private final ScrambleLikeApplication game;
-    //public SpriteBatch batch;
-    //public BitmapFont font;
+    private Stage stage;
 
     protected Vector4 backgroundColor = new Vector4(0, 0, 0.2f, 1);
-    //protected OrthographicCamera camera;
     protected ArrayList<GameObject> gameObjects;
+    protected ArrayList<GameObject> addGameObjects;
     protected ArrayList<GameObject> markedForDestructionGos;
     protected ArrayList<Component> markedForDestructionComps;
     protected EventDispatcher eventDispatcher = new EventDispatcher();
@@ -34,27 +32,25 @@ public abstract class Scene implements Screen
         this.game = game;
         this.name = name;
 
-        //this.camera = new OrthographicCamera(GameConstant.WIDTH, GameConstant.HEIGHT);
-        //this.camera.update();
-
+        stage = new Stage();
         this.gameObjects = new ArrayList<>();
+        this.addGameObjects = new ArrayList<>();
         this.markedForDestructionGos = new ArrayList<>();
         this.markedForDestructionComps = new ArrayList<>();
 
-        //batch = new SpriteBatch();
-        //font = new BitmapFont();
+        Gdx.input.setInputProcessor(stage);
     }
 
     public String getName() { return this.name; }
     public ScrambleLikeApplication getGame() { return this.game; }
-    //public OrthographicCamera GetCamera() { return this.camera; }
+    public Stage getStage() { return this.stage; }
     public GameCamera getCamera() { return this.game.getCamera(); }
     public SpriteBatch getBatch() { return this.game.getBatch(); }
     public BitmapFont getFont() { return this.game.getFont(); }
     public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
     public ArrayList<GameObject> getGameObjects() { return this.gameObjects; }
 
-    public void AddGameObject(GameObject gameObject) { this.gameObjects.add(gameObject); gameObject.BeginPlay(); }
+    public void AddGameObject(GameObject gameObject) { this.addGameObjects.add(gameObject); gameObject.BeginPlay(); }
     public void DestroyGameObject(GameObject gameObject)
     {
         markedForDestructionGos.add(gameObject);
@@ -82,10 +78,9 @@ public abstract class Scene implements Screen
     public void render(float v)
     {
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
-
-        //camera.update();
-        //batch.setProjectionMatrix(camera.combined);
         game.getBatch().begin();
+
+        gameObjects.addAll(addGameObjects);
 
         for (GameObject go : gameObjects) { go.Update(v); go.Render(); }
 
