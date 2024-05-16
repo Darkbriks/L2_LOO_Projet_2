@@ -35,7 +35,6 @@ public class ReachTarget extends Component
         if (!this.IsActive()) { return; }
 
         t += (float)DeltaTime  * speed;
-        if (t >= 1) { System.out.println("Reach Target"); t = 1; }
         this.getOwner().getTransform().setLocation(Utils.lerp(initialLocation, target.getTransform().getLocation(), t));
     }
 }
