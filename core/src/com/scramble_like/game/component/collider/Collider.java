@@ -119,7 +119,7 @@ public abstract class Collider extends Component
         if (!this.IsActive() || !simulatePhysics) { return; }
         ArrayList<Collider> tempOverlappedCollider = new ArrayList<>();
 
-        for(GameObject go : this.getOwner().getScene().GetGameObjects())
+        for(GameObject go : this.getOwner().getScene().getGameObjects())
         {
             if (go == this.getOwner()) { continue; }
             for(Collider other : go.GetAllComponentsFromClass(Collider.class))

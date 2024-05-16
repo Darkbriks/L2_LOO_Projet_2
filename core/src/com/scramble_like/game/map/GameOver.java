@@ -1,8 +1,8 @@
 package com.scramble_like.game.map;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector4;
+import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.component.Text;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -11,7 +11,7 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 
 public class GameOver extends Scene
 {
-    public GameOver(Game game) throws GameIsNullException
+    public GameOver(ScrambleLikeApplication game) throws GameIsNullException
     {
         super(game, "GameOver");
 

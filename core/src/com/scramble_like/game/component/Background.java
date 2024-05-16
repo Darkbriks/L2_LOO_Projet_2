@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Background extends Component {
-    ArrayList<String> map = new ArrayList<>();
+    /*ArrayList<String> map = new ArrayList<>();
     ArrayList<Chunk> chunks = new ArrayList<>();
     ShapeRenderer s = new ShapeRenderer();
     int compteur =0;
@@ -136,7 +136,7 @@ public class Background extends Component {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }*/
-        }
+        /*}
     }
 
     @Override
@@ -157,5 +157,5 @@ public class Background extends Component {
             s.dispose();
         }
         s.end();
-    }
+    }*/
 }

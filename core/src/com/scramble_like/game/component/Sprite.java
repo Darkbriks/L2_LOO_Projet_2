@@ -30,15 +30,16 @@ public class Sprite extends Component{
     public void Render()
     {
         if (!this.IsActive()) { return; }
-        this.Owner.getScene().batch.draw(img,
-                this.Owner.getTransform().getLocation().x - this.img.getWidth() / 2.0f, this.Owner.getTransform().getLocation().y - this.img.getHeight() / 2.0f,
-                Utils.lerp(this.Owner.getTransform().getLocation().x, this.img.getWidth(), this.Owner.getTransform().getAlignment().x), Utils.lerp(this.Owner.getTransform().getLocation().y, this.img.getHeight(), this.Owner.getTransform().getAlignment().y),
-                img.getWidth(), img.getHeight(),
-                this.Owner.getTransform().getScale().x, this.Owner.getTransform().getScale().y,
-                this.Owner.getTransform().getRotation().x,
+        this.getOwner().getBatch().draw(img,
+                this.getOwner().getTransform().getLocation().x - Utils.lerp(0, img.getWidth() * this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getAlignment().x),
+                this.getOwner().getTransform().getLocation().y - Utils.lerp(0, img.getHeight() * this.getOwner().getTransform().getScale().y, this.getOwner().getTransform().getAlignment().y),
                 0, 0,
                 img.getWidth(), img.getHeight(),
-                false, false);
+                this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getScale().y,
+                this.getOwner().getTransform().getRotation().x,
+                0, 0,
+                img.getWidth(), img.getHeight(),
+                flipX, flipY);
     }
     @Override
     public void Destroy() { ImageFactory.disposeTexture(fileName); }

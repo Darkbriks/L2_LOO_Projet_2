@@ -2,38 +2,42 @@ package com.scramble_like.game.map;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector3;
-import com.scramble_like.game.component.Collider;
-import com.scramble_like.game.component.Sprite;
+import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.component.TestComponent;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.event_dispatcher.EventIndex;
+import com.scramble_like.game.essential.event_dispatcher.EventListener;
+import com.scramble_like.game.essential.event_dispatcher.event.chunk.ChunkLoadedEvent;
+import com.scramble_like.game.essential.exception.GameIsNullException;
+import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
+import com.scramble_like.game.game_object.ChunkManager;
+import com.scramble_like.game.game_object.Player;
+import com.scramble_like.game.game_object.Projectile;
+import com.scramble_like.game.utils.Chunk;
+
+import java.util.EventObject;
 
 public class TestMap extends Scene
 {
-    public TestMap(Game game)
+    public TestMap(ScrambleLikeApplication game) throws GameIsNullException
     {
-        super(game);
+        super(game, "TestMap");
 
-        /*eventDispatcher.AddListener(EventIndex.BEGIN_OVERLAP, new EventListener() {
-            @Override
-            public void handleEvent(EventObject event) {
-                EventBeginOverlap e = (EventBeginOverlap) event;
-                System.out.println("Begin Overlap with " + e.sourceGameObject.getName());
-            }
-        });*/
+        try
+        {
+            GameObject go1 = new Player("Player", this, new Vector3(-350, 0, 0));
+            //go1.AddComponent(new TestComponent("Map/Level_1/text_art (1).txt"));
+            //go1.AddComponent(new TestComponent("Map/Level_1/text_art (2).txt"));
+            //go1.AddComponent(new TestComponent("Map/Level_1/text_art (3).txt"));
+            //go1.AddComponent(new TestComponent("Map/Level_1/text_art (4).txt"));
+            AddGameObject(go1);
+            //AddGameObject(new Projectile("Projectile", this, go1, new Vector3(500, 0, 0)));
+            AddGameObject(new ChunkManager("ChunkManager", this));
+        }
+        catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 
-        // Debug - Add GO
-        //TODO
-        GameObject go = new GameObject("Test", this);
-        go.getTransform().setLocation(new Vector3(-400,0,0));
-        go.AddComponent(new Collider(0,0,200,200));
-        AddGameObject(go);
 
-        GameObject go2 = new GameObject("test2", this);
-        go2.AddComponent(new Sprite());
-        go2.AddComponent(new TestComponent());
-        go2.AddComponent(new Collider(0,0,200,200));
-        AddGameObject(go2);
-        //go2.getTransform().setAlignment(new Vector2(1.0f, 1.0f));
     }
 }

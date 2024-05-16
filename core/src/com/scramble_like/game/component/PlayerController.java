@@ -10,22 +10,20 @@ import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.essential.utils.Utils;
 import com.scramble_like.game.map.GameOver;
 
-public class PlayerController extends Component {
+public class PlayerController extends Component
+{
     private final float speed;
-    private int life = 50;
+    private int life;
 
-
-    public PlayerController() { super(); this.speed = 500; }
-
-    public PlayerController(float speed) { super(); this.speed = speed; }
+    public PlayerController() { super(); this.speed = 500; life = 50;}
+    public PlayerController(float speed) { super(); this.speed = speed; life = 50; }
+    public PlayerController(float speed, int life) { super(); this.speed = speed; this.life = life; }
 
     public float getSpeed() { return speed; }
-
     public int getLife() { return life; }
 
-    public boolean isAlive(){
-        return life > 0;
-    }
+    public boolean isAlive() { return life > 0; }
+
     @Override
     public void Update(double DeltaTime)
     {
@@ -44,9 +42,10 @@ public class PlayerController extends Component {
         this.getOwner().getTransform().getLocation().x = (float) Utils.Clamp(newX, (double) -GameConstant.WIDTH / 2, (double) GameConstant.WIDTH / 2);
         this.getOwner().getTransform().getLocation().y = (float) Utils.Clamp(newY, (double) -GameConstant.HEIGHT / 2, (double) GameConstant.HEIGHT / 2);
 
-        if(!this.isAlive()){
-            this.getOwner().getScene().eventDispatcher.DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
-            try { this.getOwner().getScene().GetGame().setScreen(new GameOver(this.getOwner().getScene().GetGame())); }
+        if(!this.isAlive())
+        {
+            this.getOwner().getScene().getEventDispatcher().DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
+            try { this.getOwner().getScene().getGame().setScreen(new GameOver(this.getOwner().getScene().getGame())); }
             catch (GameIsNullException e) { System.err.println(e.getMessage()); Gdx.app.exit(); }
         }
     }

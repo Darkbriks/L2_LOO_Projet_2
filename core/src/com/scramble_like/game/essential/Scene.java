@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.exception.GameIsNullException;
 
@@ -16,44 +17,42 @@ import java.util.ArrayList;
 public abstract class Scene implements Screen
 {
     private String name;
-    private final Game game;
-    public SpriteBatch batch;
-    public BitmapFont font;
+    private final ScrambleLikeApplication game;
+    //public SpriteBatch batch;
+    //public BitmapFont font;
 
     protected Vector4 backgroundColor = new Vector4(0, 0, 0.2f, 1);
-    protected OrthographicCamera camera;
+    //protected OrthographicCamera camera;
     protected ArrayList<GameObject> gameObjects;
     protected ArrayList<GameObject> markedForDestructionGos;
     protected ArrayList<Component> markedForDestructionComps;
-    public EventDispatcher eventDispatcher = new EventDispatcher();
+    protected EventDispatcher eventDispatcher = new EventDispatcher();
 
-    public Scene(Game game, String name) throws GameIsNullException
+    public Scene(ScrambleLikeApplication game, String name) throws GameIsNullException
     {
         if (game == null) { throw new GameIsNullException("Game is null in scene " + name); }
         this.game = game;
         this.name = name;
 
-        this.camera = new OrthographicCamera(GameConstant.WIDTH, GameConstant.HEIGHT);
-        this.camera.update();
+        //this.camera = new OrthographicCamera(GameConstant.WIDTH, GameConstant.HEIGHT);
+        //this.camera.update();
 
         this.gameObjects = new ArrayList<>();
         this.markedForDestructionGos = new ArrayList<>();
         this.markedForDestructionComps = new ArrayList<>();
 
-        batch = new SpriteBatch();
-        font = new BitmapFont();
+        //batch = new SpriteBatch();
+        //font = new BitmapFont();
     }
 
-    public String GetName() { return this.name; }
-    public Game GetGame() { return this.game; }
-    public OrthographicCamera GetCamera() { return this.camera; }
-    public ArrayList<GameObject> GetGameObjects() { return this.gameObjects; }
-    public ArrayList<GameObject> GetGameObjects(ArrayList<GameObject> ExcludeGos)
-    {
-        ArrayList<GameObject> gos = new ArrayList<>();
-        for (GameObject go : this.gameObjects) { if (!ExcludeGos.contains(go)) { gos.add(go); } }
-        return gos;
-    }
+    public String getName() { return this.name; }
+    public ScrambleLikeApplication getGame() { return this.game; }
+    //public OrthographicCamera GetCamera() { return this.camera; }
+    public GameCamera getCamera() { return this.game.getCamera(); }
+    public SpriteBatch getBatch() { return this.game.getBatch(); }
+    public BitmapFont getFont() { return this.game.getFont(); }
+    public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
+    public ArrayList<GameObject> getGameObjects() { return this.gameObjects; }
 
     public void AddGameObject(GameObject gameObject) { this.gameObjects.add(gameObject); gameObject.BeginPlay(); }
     public void DestroyGameObject(GameObject gameObject)
@@ -84,13 +83,13 @@ public abstract class Scene implements Screen
     {
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
+        //camera.update();
+        //batch.setProjectionMatrix(camera.combined);
+        game.getBatch().begin();
 
         for (GameObject go : gameObjects) { go.Update(v); go.Render(); }
 
-        batch.end();
+        game.getBatch().end();
 
         LateUpdate();
     }
@@ -113,8 +112,5 @@ public abstract class Scene implements Screen
         for (GameObject go : gameObjects) { DestroyGameObject(go); }
         for (GameObject go : markedForDestructionGos) { go.Destroying(); }
         for (Component c : markedForDestructionComps) { c.Destroying(); }
-
-        batch.dispose();
-        font.dispose();
     }
 }

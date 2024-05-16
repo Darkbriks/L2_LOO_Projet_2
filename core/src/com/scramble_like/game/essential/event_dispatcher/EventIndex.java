@@ -7,6 +7,12 @@ public enum EventIndex
     END_OVERLAP,
     HIT,
 
-    //Game Events
+    // Game Events
     DIE,
+
+    // Chunk Events
+    CHUNK_LOADED,
+    CHUNK_UNLOADED,
+    CHUNK_RENDERED,
+    CHUNK_UNRENDERED,
 }

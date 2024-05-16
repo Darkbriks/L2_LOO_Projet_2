@@ -25,10 +25,10 @@ public class Text extends Component
     public void Render()
     {
         if (!this.IsActive()) { return; }
-        this.getOwner().getScene().font.setColor(color);
-        this.getOwner().getScene().font.getData().setScale(size);
-        this.getOwner().getScene().font.draw(this.getOwner().getScene().batch, text, this.getOwner().getTransform().getLocation().x, this.getOwner().getTransform().getLocation().y);
-        this.getOwner().getScene().font.getData().setScale(1);
-        this.getOwner().getScene().font.setColor(Color.WHITE);
+        this.getOwner().getFont().setColor(color);
+        this.getOwner().getFont().getData().setScale(size);
+        this.getOwner().getFont().draw(this.getOwner().getScene().getBatch(), text, this.getOwner().getTransform().getLocation().x, this.getOwner().getTransform().getLocation().y);
+        this.getOwner().getFont().getData().setScale(1);
+        this.getOwner().getFont().setColor(Color.WHITE);
     }
 }

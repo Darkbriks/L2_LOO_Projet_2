@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector4;
+import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.component.Text;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -12,7 +13,7 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 
 public class MainMenu extends Scene
 {
-    public MainMenu(Game game) throws GameIsNullException
+    public MainMenu(ScrambleLikeApplication game) throws GameIsNullException
     {
         super(game, "MainMenu");
 
@@ -38,7 +39,7 @@ public class MainMenu extends Scene
     {
         if (Gdx.input.isTouched())
         {
-            try { GetGame().setScreen(new TestMap(GetGame())); }
+            try { getGame().setScreen(new TestMap(getGame())); }
             catch (GameIsNullException e) { System.err.println(e.getMessage()); Gdx.app.exit(); }
             dispose(); return;
         }

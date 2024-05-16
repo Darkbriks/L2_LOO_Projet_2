@@ -1,5 +1,9 @@
 package com.scramble_like.game.essential;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.exception.OwnerIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -30,18 +34,19 @@ public class GameObject
     }
 
     public int getID() { return this.ID; }
-
     public String getName() { return this.name; }
-
     public Transform getTransform() { return this.transform; }
-
     public Scene getScene() { return this.scene; }
+    public ScrambleLikeApplication getGame() { return this.scene.getGame(); }
+    public GameCamera getCamera() { return this.scene.getCamera(); }
+    public ShapeRenderer getShapeRenderer() { return this.scene.getGame().getShapeRenderer(); }
+    public SpriteBatch getBatch() { return this.scene.getBatch(); }
+    public BitmapFont getFont() { return this.scene.getFont(); }
 
     public boolean IsActive() { return this.isActive; }
+    public boolean IsMarkedForDestruction() { return this.isMarkedForDestruction; }
 
     public void setActive(boolean isActive) { this.isActive = isActive; }
-
-    public boolean IsMarkedForDestruction() { return this.isMarkedForDestruction; }
 
     public ArrayList<Component> GetComponents() { return this.components; }
 
@@ -84,10 +89,7 @@ public class GameObject
 
     public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
 
-    public void BeginPlay()
-    {
-        for (Component c : this.components) { c.BeginPlay(); }
-    }
+    public void BeginPlay() { for (Component c : this.components) { c.BeginPlay(); } }
 
     public void Update(double dt)
     {
