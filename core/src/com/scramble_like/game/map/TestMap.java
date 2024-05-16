@@ -13,6 +13,7 @@ import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.game_object.ChunkManager;
+import com.scramble_like.game.game_object.Enemy;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.Projectile;
 import com.scramble_like.game.utils.Chunk;
@@ -35,6 +36,7 @@ public class TestMap extends Scene
             AddGameObject(go1);
             //AddGameObject(new Projectile("Projectile", this, go1, new Vector3(500, 0, 0)));
             AddGameObject(new ChunkManager("ChunkManager", this));
+            AddGameObject(new Enemy("Enemy", this, 100, 100, true, go1, "badlogic.jpg", 10));
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 
