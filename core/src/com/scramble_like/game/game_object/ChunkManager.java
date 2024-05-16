@@ -23,9 +23,9 @@ public class ChunkManager extends GameObject
     protected Chunk[][] chunks;
     protected List<String> drawnChunks;
     protected boolean isLoaded;
-    //protected Map<Integer, Vector2> listCollision;
 
-    protected double xOffSet = 0;
+    protected float xOffSet;
+    protected float xLastOffset;
 
     public ChunkManager(String name, Scene scene) throws SceneIsNullException
     {
@@ -38,10 +38,10 @@ public class ChunkManager extends GameObject
         isLoaded = false;
 
         xOffSet = 0;
+        xLastOffset = 0;
     }
 
     boolean isLoaded() { return isLoaded; }
-
 
     @Override
     public void BeginPlay()
@@ -68,17 +68,31 @@ public class ChunkManager extends GameObject
         if (!isLoaded) { return; }
         super.Update(DeltaTime);
 
-        xOffSet += DeltaTime * 50;
+        xLastOffset = xOffSet;
+        xOffSet += (float) (DeltaTime * 50);
 
         // On calcule la distance entre this et chaque chunk
         for (int i = 0; i < levelChunkCount.x; i++)
         {
             for (int j = 0; j < levelChunkCount.y; j++)
             {
-                Vector2 referencePosition = new Vector2(this.getTransform().getLocation().x + (float) xOffSet, this.getTransform().getLocation().y);
+                if (chunks[i][j].isSimulated()) { chunks[i][j].update(new Vector2(xOffSet - xLastOffset, 0)); }
+
+                Vector2 referencePosition = new Vector2(this.getTransform().getLocation().x + xOffSet, this.getTransform().getLocation().y);
                 float distance = ChunkHelper.getChunkDistanceWithPosition(new Vector2(i, j), referencePosition, (int) levelChunkCount.y);
-                if (distance < GameConstant.RENDERED_CHUNK_DISTANCE)
+                if (distance < GameConstant.CHUNK_SIMULATING_DISTANCE)
                 {
+                    if (chunks[i][j].isLoaded() && !chunks[i][j].isSimulated())
+                    {
+                        Vector2 chunkPositionInSceneUnits = ChunkHelper.getChunkPositionInSceneUnits(new Vector2(i, j), (int) levelChunkCount.y);
+                        chunkPositionInSceneUnits.x -= xOffSet + GameConstant.SQUARE_SIDE * i;
+                        chunks[i][j].simulateAsynchronously(chunkPositionInSceneUnits);
+                    }
+                    else if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
+                }
+                else if (distance < GameConstant.RENDERED_CHUNK_DISTANCE)
+                {
+                    if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
                     if (chunks[i][j].isLoaded() && !chunks[i][j].isRendered())
                     {
                         chunks[i][j].renderAsynchronously();
@@ -99,16 +113,6 @@ public class ChunkManager extends GameObject
                 else if (chunks[i][j].isLoaded())
                 {
                     chunks[i][j].unload();
-                }
-                if (distance < GameConstant.CHUNK_SIMULATING_DISTANCE){
-                    if (chunks[i][j].isLoaded()&&!chunks[i][j].isSimulated()){
-                        chunks[i][j].Simulate();
-                    }
-                }
-                else{
-                    if (chunks[i][j].isLoaded()&&chunks[i][j].isSimulated()){
-                        chunks[i][j].unSimulate();
-                    }
                 }
             }
         }

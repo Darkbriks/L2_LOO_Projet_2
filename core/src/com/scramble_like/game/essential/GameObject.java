@@ -52,11 +52,11 @@ public class GameObject
 
     public <T extends Component> T GetFirstComponentFromClass(Class<T> componentClass)
     {
-        for (Component c : this.components)
+        for (int i = 0; i < components.size(); i++)
         {
-            if (componentClass.isAssignableFrom(c.getClass()))
+            if (componentClass.isAssignableFrom(components.get(i).getClass()))
             {
-                try { return componentClass.cast(c); }
+                try { return componentClass.cast(components.get(i)); }
                 catch (ClassCastException e) { System.err.println("Error: " + e.getMessage()); }
             }
         }
@@ -65,20 +65,21 @@ public class GameObject
 
     public <T extends Component> ArrayList<T> GetAllComponentsFromClass(Class<T> componentClass)
     {
-        ArrayList<T> components = new ArrayList<>();
-        for (Component c : this.components)
+        ArrayList<T> allComponents = new ArrayList<>();
+        for (int i = 0; i < components.size(); i++)
         {
-            if (componentClass.isAssignableFrom(c.getClass()))
+            if (componentClass.isAssignableFrom(components.get(i).getClass()))
             {
-                try { components.add(componentClass.cast(c)); }
+                try { allComponents.add(componentClass.cast(components.get(i))); }
                 catch (ClassCastException e) { System.err.println("Error: " + e.getMessage()); }
             }
         }
-        return components;
+        return allComponents;
     }
 
     public void AddComponent(Component component)
     {
+        if (component == null) { return; }
         try { component.Init(this); this.components.add(component); }
         catch (OwnerIsNullException e) { System.err.println("Error: " + e.getMessage()); }
     }
@@ -94,18 +95,18 @@ public class GameObject
     public void Update(double dt)
     {
         if (!this.isActive) { return; }
-        for (Component c : this.components) { c.Update(dt); }
+        for (int i = 0; i < components.size(); i++) { components.get(i).Update(dt); }
     }
 
     public void Render()
     {
         if (!this.isActive) { return; }
-        for (Component c : this.components) { c.Render(); }
+        for (int i = 0; i < components.size(); i++) { components.get(i).Render(); }
     }
 
     public void Destroy()
     {
-        for (Component c : this.components) { this.getScene().DestroyComponent(c); }
+        for (int i = 0; i < components.size(); i++) { this.getScene().DestroyComponent(components.get(i)); }
         this.isMarkedForDestruction = true;
     }
 

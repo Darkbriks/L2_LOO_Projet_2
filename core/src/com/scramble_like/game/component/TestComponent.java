@@ -18,7 +18,7 @@ public class TestComponent extends Component
     {
         super();
 
-        chunk = new Chunk(fileName);
+        /*chunk = new Chunk(fileName);
         chunk.getEventDispatcher().AddListener(EventIndex.CHUNK_LOADED, new EventListener() {
             @Override
             public void handleEvent(EventObject event)
@@ -27,7 +27,7 @@ public class TestComponent extends Component
                 chunkLoadedEvent.chunk.renderAsynchronously();
             }
         });
-        chunk.loadAsynchronously();
+        chunk.loadAsynchronously();*/
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.collider.AABBCollider;
 import com.scramble_like.game.component.collider.Collider;
+import com.scramble_like.game.component.collider.TileCollider;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.chunk.ChunkLoadedEvent;
@@ -17,72 +18,31 @@ import org.w3c.dom.css.Rect;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Chunk
 {
-    /*public int x=0,y=1;
-    public ArrayList<String> chunkOriginal;
-    public ArrayList<Rectangle> chunk = new ArrayList<>();
-
-    public boolean actif = false;
-
-    public Chunk(){
-    }
-    public void convertion(ArrayList<String> co){
-        int yy =0;
-        for (String ligne : co) {
-            for (int xx = 0; xx < ligne.length(); xx++) {
-                if (ligne.charAt(xx) != ' ') {
-                    chunk.add(new Rectangle((xx * GameConstant.SQUARE_SIDE)+(x*GameConstant.CHUNK_SIZE) , -(yy * GameConstant.SQUARE_SIDE)+(y*GameConstant.CHUNK_SIZE)-(55), GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE)); // Exemple de coordonnées et taille
-                }
-            }
-            yy++;
-        }
-    }
-
-    public void convertion(ArrayList<String> co,int X,int Y){
-        int yy =0;
-        for (String ligne : co) {
-            for (int xx = 0; xx < ligne.length(); xx++) {
-                if (ligne.charAt(xx) != ' ') {
-                    chunk.add(new Rectangle((xx * GameConstant.SQUARE_SIDE)+(x*GameConstant.CHUNK_SIZE) , -(yy * GameConstant.SQUARE_SIDE)+(y*GameConstant.CHUNK_SIZE)-(55), GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE)); // Exemple de coordonnées et taille
-                }
-            }
-            yy++;
-        }
-    }
-
-    public void wave(ArrayList<Rectangle> r){
-        for (Rectangle w : r) {
-            w.x-=3;
-        }
-    }*/
-
     private final String fileName;
     private char[][] chunk;
-
-    private List<Collider> colliders;
-    private List<RectangleData> rectanglesList;
+    private Map<String, RectangleData> rectanglesList;
+    private List<TileCollider> colliders;
     private boolean isLoaded;
     private boolean isRendered;
     protected boolean isSimulated;
     private final EventDispatcher eventDispatcher;
-    private ChunkManager chunkManager;
+    private final ChunkManager chunkManager;
 
     public Chunk(String fileName, ChunkManager chunkManager)
     {
+        this.chunkManager = chunkManager;
         this.fileName = fileName;
         this.chunk = null;
         this.rectanglesList = null;
+        colliders = null;
         isLoaded = false;
         isRendered = false;
         isSimulated = false;
         eventDispatcher = new EventDispatcher();
-        this.chunkManager = chunkManager;
-        colliders = null;
     }
 
     public boolean isLoaded() { return isLoaded; }
@@ -123,15 +83,15 @@ public class Chunk
 
     private void render()
     {
-        this.rectanglesList = new ArrayList<>();
+        this.rectanglesList = new HashMap<>();
 
         for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
         {
             for (int j = 1; j < GameConstant.CHUNK_SIDE; j++)
             {
-                if (this.chunk[j][i] != ' ')
+                if (this.chunk[j][i] != GameConstant.AIR_BLOCK)
                 {
-                    this.rectanglesList.add(new RectangleData(
+                    this.rectanglesList.put(i + " " + j, new RectangleData(
                             j * GameConstant.SQUARE_SIDE - ((GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
                             - i * GameConstant.SQUARE_SIDE + ((GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
                             GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE));
@@ -182,11 +142,11 @@ public class Chunk
         return voisinsArray;
     }
 
-    public void Simulate() {
+    private void simulate(Vector2 position) {
         colliders = new ArrayList<>();
         for (int i = 0; i < chunk.length; i++) {
             for (int j = 1; j < chunk[i].length; j++) {
-                if (this.chunk[i][j] != ' ') {
+                if (this.chunk[i][j] != GameConstant.AIR_BLOCK) {
                     int[][] voisins = this.obtenirVoisins(new int[chunk.length][chunk[0].length], i, j);
                     boolean tousLesVoisinsNonVides = false;
 
@@ -194,22 +154,43 @@ public class Chunk
                     for (int[] voisin : voisins) {
                         int voisinX = voisin[0];
                         int voisinY = voisin[1];
-                        if (this.chunk[voisinX][voisinY] != ' ') {
+                        if (this.chunk[voisinX][voisinY] != GameConstant.AIR_BLOCK) {
                             tousLesVoisinsNonVides = true;
                             break;
                         }
                     }
 
-                    if (tousLesVoisinsNonVides) {
-                        Collider collider = new AABBCollider(GameConstant.SQUARE_SIDE,GameConstant.SQUARE_SIDE);
+                    if (tousLesVoisinsNonVides)
+                    {
+                        int centerX = 0;
+                        int centerY = 0;
+                        RectangleData rectangleData = rectanglesList.get(i + " " + j);
+                        if (rectangleData == null) { return; }
+
+                        TileCollider collider = new TileCollider(rectangleData.x + centerX + (int) position.x, rectangleData.y + centerY + (int) position.y);
                         colliders.add(collider);
                         this.chunkManager.AddComponent(collider);
                     }
                 }
             }
         }
-        this.isSimulated = true;
     }
+
+    public void simulateAsynchronously(Vector2 position)
+    {
+        if (!this.isLoaded || !this.isRendered) return;
+        this.isSimulated = true;
+        new Thread(() -> {this.simulate(position); }).start();
+    }
+
+    public void update(Vector2 frameOffsetValue)
+    {
+        for (TileCollider tileCollider : colliders)
+        {
+            tileCollider.addOffset(frameOffsetValue);
+        }
+    }
+
     public void unSimulate(){
         for(Collider c : colliders){
             this.chunkManager.RemoveComponent(c);
@@ -227,7 +208,7 @@ public class Chunk
         int centerY = GameConstant.HEIGHT / 2;
         if (this.isRendered)
         {
-            for (RectangleData rectangle : this.rectanglesList)
+            for (RectangleData rectangle : this.rectanglesList.values())
             {
                 shapeRenderer.rect(rectangle.x + centerX + (int) position.x, rectangle.y + centerY + (int) position.y, rectangle.width, rectangle.height);
             }
@@ -235,20 +216,5 @@ public class Chunk
 
         shapeRenderer.end();
         spriteBatch.begin();
-    }
-
-    public void ToString()
-    {
-        System.out.println("Chunk: " + this.fileName);
-        System.out.println("Loaded: " + this.isLoaded);
-        System.out.println("Rendered: " + this.isRendered);
-        for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
-        {
-            for (int j = 0; j < GameConstant.CHUNK_SIDE; j++)
-            {
-                System.out.print(this.chunk[j][i]);
-            }
-            System.out.println();
-        }
     }
 }

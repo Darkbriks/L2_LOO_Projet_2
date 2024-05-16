@@ -1,6 +1,5 @@
 package com.scramble_like.game;
 
-
 public class GameConstant
 {
     // Screen
@@ -13,6 +12,6 @@ public class GameConstant
     public static int CHUNK_SIZE = CHUNK_SIDE * SQUARE_SIDE;
     public static int LOADED_CHUNK_DISTANCE = 2000; // In scene units
     public static int RENDERED_CHUNK_DISTANCE = 1500; // In scene units
-
-    public static int CHUNK_SIMULATING_DISTANCE = RENDERED_CHUNK_DISTANCE;
+    public static int CHUNK_SIMULATING_DISTANCE = 1000; // In scene units
+    public static int AIR_BLOCK = 32;
 }
