@@ -51,6 +51,14 @@ public class ChunkHelper
         return new Vector2(x, y);
     }
 
+    public static Vector2 getChunkIndex(Vector2 positionInSceneUnits, int numberOfChunksVertical)
+    {
+        int x = (int) positionInSceneUnits.x / GameConstant.CHUNK_SIZE;
+        int y = (int) positionInSceneUnits.y / GameConstant.CHUNK_SIZE;
+        System.out.println("Start: " + positionInSceneUnits + " End: " + new Vector2(x, y));// TODO
+        return new Vector2(x, y);
+    }
+
     public static float getChunkDistanceWithPosition(Vector2 chunkPosition, Vector2 position, int numberOfChunksVertical)
     {
         Vector2 chunkPositionInSceneUnits = getChunkPositionInSceneUnits(chunkPosition, numberOfChunksVertical);

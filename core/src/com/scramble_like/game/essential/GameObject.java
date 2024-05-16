@@ -20,6 +20,7 @@ public class GameObject
     private boolean isActive = true;
     private boolean isMarkedForDestruction = false;
     private ArrayList<Component> components;
+    private ArrayList<Component> componentsToRemove;
     private final EventDispatcher eventDispatcher;
 
     public GameObject(String name, Scene scene) throws SceneIsNullException
@@ -28,6 +29,7 @@ public class GameObject
         this.name = name;
         this.scene = scene;
         this.components = new ArrayList<>();
+        this.componentsToRemove = new ArrayList<>();
         this.transform = new Transform();
         this.eventDispatcher = new EventDispatcher();
         if (this.scene == null) { this.Destroy(); this.Destroying(); throw new SceneIsNullException(this); }
@@ -84,9 +86,9 @@ public class GameObject
         catch (OwnerIsNullException e) { System.err.println("Error: " + e.getMessage()); }
     }
 
-    public void RemoveComponent(Component component) { this.getScene().DestroyComponent(component); this.components.remove(component); }
+    public void RemoveComponent(Component component) { this.getScene().DestroyComponent(component); this.componentsToRemove.add(component); }
 
-    public void RemoveAllComponents() { for (Component c : this.components) { this.getScene().DestroyComponent(c); } this.components.clear(); }
+    public void RemoveAllComponents() { for (Component c : this.components) { this.getScene().DestroyComponent(c); } this.componentsToRemove.clear(); }
 
     public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
 
@@ -102,6 +104,8 @@ public class GameObject
     {
         if (!this.isActive) { return; }
         for (int i = 0; i < components.size(); i++) { components.get(i).Render(); }
+
+        for (int i = 0; i < componentsToRemove.size(); i++) { components.remove(componentsToRemove.get(i)); }
     }
 
     public void Destroy()

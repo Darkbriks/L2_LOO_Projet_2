@@ -149,7 +149,7 @@ public class Chunk
             for (int j = -1; j <= 1; j++)
             {
                 if (i == 0 && j == 0) continue;
-                if (x + i < 0 || x + i >= this.chunk.length || y + j < 0 || y + j >= this.chunk[0].length) continue;
+                if (x + i < 0 || x + i >= this.chunk.length || y + j < 0 || y + j >= this.chunk[0].length) return true;
                 if (this.chunk[x + i][y + j] == GameConstant.AIR_BLOCK) return true;
             }
         }
@@ -161,27 +161,39 @@ public class Chunk
         //state = 5;
         colliders = new ArrayList<>();
 
-        for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
+        /*for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
         {
             for (int j = 0; j < GameConstant.CHUNK_SIDE; j++)
             {
-                if (asAnyAirBlockInNeighbour(i, j))
+                if (this.chunk[i][j] == GameConstant.AIR_BLOCK && asAnyAirBlockInNeighbour(i, j))
                 {
                     RectangleData rectangleData = rectanglesList.get(i + " " + j);
-                    if (rectangleData == null) { return; }
+                    if (rectangleData == null) { System.out.println("Error: rectangleData is null"); continue; }
 
                     TileCollider collider = new TileCollider(rectangleData.x + (int) position.x, rectangleData.y + (int) position.y);
                     colliders.add(collider);
                     this.chunkManager.AddComponent(collider);
                 }
             }
+        }*/
+
+        for (RectangleData rectangleData : rectanglesList.values())
+        {
+            Vector2 chunkIndex = ChunkHelper.getChunkIndex(new Vector2(rectangleData.x, rectangleData.y), GameConstant.CHUNK_SIDE);
+            if (this.chunk[(int) chunkIndex.x][(int) chunkIndex.y] != GameConstant.AIR_BLOCK && asAnyAirBlockInNeighbour((int) chunkIndex.x, (int) chunkIndex.y))
+            {
+                TileCollider collider = new TileCollider(rectangleData.x + (int) position.x, rectangleData.y + (int) position.y);
+                colliders.add(collider);
+                this.chunkManager.AddComponent(collider);
+            }
         }
+
+        this.isSimulated = true;
     }
 
     public void simulateAsynchronously(Vector2 position)
     {
         if (!this.isLoaded || !this.isRendered) return;
-        this.isSimulated = true;
         new Thread(() -> {this.simulate(position); }).start();
     }
 
