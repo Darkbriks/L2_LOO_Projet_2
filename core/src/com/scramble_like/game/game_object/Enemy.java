@@ -13,19 +13,19 @@ public class Enemy extends GameObject {
     private Sprite sprite;
     private Shoot shootComponent;
 
-    public Enemy(String name, Scene scene, float width, float height, boolean canShoot, GameObject target, String spritePath,float speed) throws SceneIsNullException, OwnerIsNullException {
+    public Enemy(String name, Scene scene, float width, float height, boolean canShoot, GameObject target, String spritePath,float speed) throws SceneIsNullException
+    {
         super(name, scene);
 
-        this.collider = new AABBCollider(width, height,false);
+        this.collider = new AABBCollider(width, height, false, true);
         this.AddComponent(this.collider);
 
         this.sprite = new Sprite(spritePath);
         this.AddComponent(this.sprite);
 
         if (canShoot) {
-            this.shootComponent = new Shoot(this, speed, target);
+            this.shootComponent = new Shoot(speed, target);
             this.AddComponent(this.shootComponent);
         }
     }
-
 }

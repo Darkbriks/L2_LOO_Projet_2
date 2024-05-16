@@ -5,36 +5,44 @@ import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.exception.OwnerIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.ChunkManager;
+import com.scramble_like.game.game_object.Enemy;
+import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.Projectile;
 
 public class Shoot extends Component
 {
     private GameObject target;
-    private float speed;
+    private float timeBetweenShoots = 1;
+    private float timeSinceLastShoot = 0;
 
-    public Shoot(GameObject owner, float speed, GameObject target) throws OwnerIsNullException {
+    public Shoot(float timeBetweenShoots, GameObject target)
+    {
         super();
-        this.Init(owner);
-        this.speed = speed;
+        this.timeBetweenShoots = timeBetweenShoots;
+        this.timeSinceLastShoot = 0;
         this.target = target;
     }
 
-    public void shoot() throws SceneIsNullException {
-
-        Projectile projectile = new Projectile("projectile", this.Owner.getScene(), this.target);
-        this.Owner.getScene().AddGameObject(projectile);
-
-
-        projectile.getTransform().setLocation(this.Owner.getTransform().getLocation());
+    public void shoot()
+    {
+        try
+        {
+            Projectile projectile = new Projectile("projectile", this.Owner.getScene(), this.target);
+            this.Owner.getScene().AddGameObject(projectile);
+            projectile.getTransform().setLocation(this.Owner.getTransform().getLocation());
+        }
+        catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
     }
 
     @Override
     public void Update(double DeltaTime) {
 
-        try {
+        timeSinceLastShoot += (float) DeltaTime;
+        if (timeSinceLastShoot >= timeBetweenShoots)
+        {
             shoot();
-        } catch (SceneIsNullException e) {
-            e.printStackTrace();
+            timeSinceLastShoot = 0;
         }
     }
 }
