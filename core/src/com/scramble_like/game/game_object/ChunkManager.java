@@ -27,18 +27,18 @@ public class ChunkManager extends GameObject
     protected float xOffSet;
     protected float xLastOffset;
 
-    public ChunkManager(String name, Scene scene, int level) throws SceneIsNullException
+    public ChunkManager(String name, Scene scene, int level, float xOffset) throws SceneIsNullException
     {
         super(name, scene);
         this.level = level;
-        levelChunkCount = ChunkHelper.getLevelChunkCount(0);
+        levelChunkCount = ChunkHelper.getLevelChunkCount(level);
         chunks = new Chunk[(int) levelChunkCount.x][(int) levelChunkCount.y];
         drawnChunks = new ArrayList<>();
         //listCollision = new HashMap<>();
         isLoaded = false;
 
-        xOffSet = 0;
-        xLastOffset = 0;
+        this.xOffSet = xOffset;
+        this.xLastOffset = 0;
     }
 
     boolean isLoaded() { return isLoaded; }
@@ -68,7 +68,6 @@ public class ChunkManager extends GameObject
         if (!isLoaded) { return; }
         super.Update(DeltaTime);
 
-        xLastOffset = xOffSet;
         xOffSet += (float) (DeltaTime * 50);
 
         // On calcule la distance entre this et chaque chunk
@@ -76,6 +75,7 @@ public class ChunkManager extends GameObject
         {
             for (int j = 0; j < levelChunkCount.y; j++)
             {
+                //System.out.println(xOffSet - xLastOffset);
                 if (chunks[i][j].isSimulated()) { chunks[i][j].update(new Vector2(xOffSet - xLastOffset, 0)); }
 
                 Vector2 referencePosition = new Vector2(this.getTransform().getLocation().x + xOffSet, this.getTransform().getLocation().y);
@@ -113,6 +113,8 @@ public class ChunkManager extends GameObject
                 }
             }
         }
+        xLastOffset = xOffSet;
+
     }
 
     @Override
@@ -129,7 +131,7 @@ public class ChunkManager extends GameObject
             {
                 Vector2 chunkPositionInSceneUnits = ChunkHelper.getChunkPositionInSceneUnits(new Vector2(x, y), (int) levelChunkCount.y);
                 chunkPositionInSceneUnits.x -= xOffSet;
-                chunks[x][y].draw(this.getShapeRenderer(), this.getBatch(), chunkPositionInSceneUnits);
+                //chunks[x][y].draw(this.getShapeRenderer(), this.getBatch(), chunkPositionInSceneUnits);
             }
         }
     }
