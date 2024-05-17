@@ -9,6 +9,7 @@ import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.ChunkManager;
+import com.scramble_like.game.game_object.Particule;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.enemy.MovingEnemy;
 
@@ -25,6 +26,8 @@ public class TestMap extends Scene
 
             Player go1 = new Player("Player", this, new Vector3(-350, 0, 0));
             AddGameObject(go1);
+            Particule p1 = new Particule("Particule",this,"Walk.png",4,0.25f);
+            AddGameObject(p1);
 
             chunkManager.setPlayer(go1);
 
