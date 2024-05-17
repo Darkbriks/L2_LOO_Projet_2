@@ -6,7 +6,6 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
-import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.essential.utils.Utils;
 import com.scramble_like.game.map.GameOver;
 
@@ -51,8 +50,7 @@ public class PlayerController extends Component
         if(!this.isAlive())
         {
             this.getOwner().getScene().getEventDispatcher().DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
-            try { this.getOwner().getScene().getGame().setScreen(new GameOver(this.getOwner().getScene().getGame())); }
-            catch (GameIsNullException e) { System.err.println(e.getMessage()); Gdx.app.exit(); }
+            this.getOwner().getScene().getGame().setScreen(new GameOver());
         }
     }
 }
