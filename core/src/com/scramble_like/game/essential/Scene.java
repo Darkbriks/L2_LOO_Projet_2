@@ -59,7 +59,6 @@ public abstract class Scene implements Screen
     {
         markedForDestructionGos.add(gameObject);
         markedForDestructionComps.addAll(gameObject.GetComponents());
-        this.gameObjects.remove(gameObject);
         gameObject.Destroy();
     }
 
@@ -71,7 +70,7 @@ public abstract class Scene implements Screen
 
     public void LateUpdate()
     {
-        for (GameObject go : markedForDestructionGos) { go.Destroying(); }
+        for (GameObject go : markedForDestructionGos) { go.Destroying(); gameObjects.remove(go); }
         for (Component c : markedForDestructionComps) { c.Destroying(); }
     }
 
@@ -83,12 +82,8 @@ public abstract class Scene implements Screen
     {
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
-        //camera.update();
-        //batch.setProjectionMatrix(camera.combined);
         game.getBatch().begin();
-
         for (int i = 0; i < gameObjects.size(); i++) { gameObjects.get(i).Update(v); gameObjects.get(i).Render(); }
-
         game.getBatch().end();
 
         LateUpdate();
