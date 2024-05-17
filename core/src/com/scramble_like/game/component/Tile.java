@@ -20,9 +20,6 @@ public class Tile extends Sprite
     public void Render()
     {
         if (!this.IsActive()) { return; }
-        this.getOwner().getBatch().draw(img,
-                this.x, this.y,
-                img.getWidth(), img.getHeight(),
-                GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE);
+        this.getOwner().getBatch().draw(img, this.x, this.y, GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE);
     }
 }

@@ -17,6 +17,7 @@ public abstract class Collider extends Component
     ////////// Attributes //////////
     protected boolean generateOverlappedEvent;
     protected boolean simulatePhysics;
+    protected boolean isHit;
     protected ArrayList<Collider> overlappedCollider;
 
     ////////// Constructor //////////
@@ -25,6 +26,7 @@ public abstract class Collider extends Component
         super();
         generateOverlappedEvent = false;
         simulatePhysics = false;
+        isHit = false;
         overlappedCollider = new ArrayList<Collider>();
     }
 
@@ -33,6 +35,7 @@ public abstract class Collider extends Component
         super();
         this.generateOverlappedEvent = generateOverlappedEvent;
         simulatePhysics = false;
+        isHit = false;
         overlappedCollider = new ArrayList<Collider>();
     }
 
@@ -41,12 +44,14 @@ public abstract class Collider extends Component
         super();
         this.generateOverlappedEvent = generateOverlappedEvent;
         this.simulatePhysics = simulatePhysics;
+        isHit = false;
         overlappedCollider = new ArrayList<Collider>();
     }
 
     ////////// Getters //////////
     public boolean IsGenerateOverlappedEvent() { return this.generateOverlappedEvent; }
     public boolean IsSimulatePhysics() { return simulatePhysics; }
+    public boolean IsHit() { return isHit; }
 
     public float getOwnerX() { return this.getOwner().getTransform().getLocation().x; }
     public float getOwnerY() { return this.getOwner().getTransform().getLocation().y; }
@@ -116,6 +121,7 @@ public abstract class Collider extends Component
 
     public void Update(double DeltaTime)
     {
+        isHit = false;
         if (!this.IsActive() || !simulatePhysics) { return; }
         ArrayList<Collider> tempOverlappedCollider = new ArrayList<>();
 
@@ -135,7 +141,7 @@ public abstract class Collider extends Component
                 overlappedCollider.add(other);
                 BeginOverlap(other);
             }
-            else if (!generateOverlappedEvent) { Hit(other); }
+            else if (!generateOverlappedEvent) { Hit(other); isHit = true; }
         }
 
         for (int i = 0; i < overlappedCollider.size(); i++)
