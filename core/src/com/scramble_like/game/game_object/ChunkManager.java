@@ -84,10 +84,10 @@ public class ChunkManager extends GameObject
                 Vector2 referencePosition = new Vector2(this.getTransform().getLocation().x + xOffSet, this.getTransform().getLocation().y);
                 float distance = ChunkHelper.getChunkDistanceWithPosition(new Vector2(i, j), referencePosition, (int) levelChunkCount.y);
 
-                float distanceToPlayer = distance;
-                if (player != null) { distanceToPlayer = ChunkHelper.getChunkDistanceWithPosition(new Vector2(i, j), new Vector2(player.getTransform().getLocation().x, player.getTransform().getLocation().y), (int) levelChunkCount.y); }
+                //float distanceToPlayer = distance;
+                //if (player != null) { distanceToPlayer = ChunkHelper.getChunkDistanceWithPosition(new Vector2(i, j), new Vector2(player.getTransform().getLocation().x, player.getTransform().getLocation().y), (int) levelChunkCount.y); }
 
-                /*if (distance < GameConstant.CHUNK_SIMULATING_DISTANCE)
+                if (distance < GameConstant.CHUNK_SIMULATING_DISTANCE)
                 {
                     if (chunks[i][j].isLoaded() && chunks[i][j].isRendered() && !chunks[i][j].isSimulated())
                     {
@@ -104,7 +104,7 @@ public class ChunkManager extends GameObject
                     }
                     else if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
                 }
-                else*/ if (distance < GameConstant.RENDERED_CHUNK_DISTANCE)
+                else if (distance < GameConstant.RENDERED_CHUNK_DISTANCE)
                 {
                     if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
                     if (chunks[i][j].isLoaded() && !chunks[i][j].isRendered())

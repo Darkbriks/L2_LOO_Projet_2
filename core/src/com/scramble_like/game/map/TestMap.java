@@ -27,7 +27,7 @@ public class TestMap extends Scene
 
         try
         {
-            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 0, 900);
+            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 0, 0);
             AddGameObject(chunkManager);
 
             Player go1 = new Player("Player", this, new Vector3(-350, 0, 0));
