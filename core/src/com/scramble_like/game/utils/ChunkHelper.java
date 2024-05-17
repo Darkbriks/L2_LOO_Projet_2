@@ -38,7 +38,7 @@ public class ChunkHelper
 
     public static Vector2 getLevelChunkCount(int level)
     {
-        return new Vector2(chunkListByLevel.get(level).length, chunkListByLevel.get(level)[0].length);
+        return new Vector2(chunkListByLevel.get(level).length, chunkListByLevel.get(level)[level].length);
     }
 
     public static Vector2 getChunkPositionInSceneUnits(Vector2 chunkPosition, int numberOfChunksVertical)

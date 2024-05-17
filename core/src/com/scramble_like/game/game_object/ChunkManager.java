@@ -29,18 +29,18 @@ public class ChunkManager extends GameObject
 
     protected Player player;
 
-    public ChunkManager(String name, Scene scene, int level) throws SceneIsNullException
-    public ChunkManager(String name, Scene scene, int level, float xOffset) throws SceneIsNullException
+    public ChunkManager(String name, Scene scene, int level, float startOffset) throws SceneIsNullException
     {
         super(name, scene);
         this.level = level;
-        levelChunkCount = ChunkHelper.getLevelChunkCount(level);
+        levelChunkCount = ChunkHelper.getLevelChunkCount(0);
         chunks = new Chunk[(int) levelChunkCount.x][(int) levelChunkCount.y];
         drawnChunks = new ArrayList<>();
         isLoaded = false;
 
-        this.xOffSet = xOffset;
-        this.xLastOffset = 0;
+        xOffSet = startOffset;
+        xLastOffset = 0;
+
         player = null;
     }
 
@@ -132,6 +132,7 @@ public class ChunkManager extends GameObject
                 }
             }
         }
+        xLastOffset = xOffSet;
     }
 
     /*@Override
@@ -148,7 +149,7 @@ public class ChunkManager extends GameObject
             {
                 Vector2 chunkPositionInSceneUnits = ChunkHelper.getChunkPositionInSceneUnits(new Vector2(x, y), (int) levelChunkCount.y);
                 chunkPositionInSceneUnits.x -= xOffSet;
-                //chunks[x][y].draw(this.getShapeRenderer(), this.getBatch(), chunkPositionInSceneUnits);
+                chunks[x][y].draw(this.getShapeRenderer(), this.getBatch(), chunkPositionInSceneUnits);
             }
         }
     }*/
