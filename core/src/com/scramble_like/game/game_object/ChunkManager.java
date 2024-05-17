@@ -33,7 +33,7 @@ public class ChunkManager extends GameObject
     {
         super(name, scene);
         this.level = level;
-        levelChunkCount = ChunkHelper.getLevelChunkCount(0);
+        levelChunkCount = ChunkHelper.getLevelChunkCount(level);
         chunks = new Chunk[(int) levelChunkCount.x][(int) levelChunkCount.y];
         drawnChunks = new ArrayList<>();
         isLoaded = false;
