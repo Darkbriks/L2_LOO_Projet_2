@@ -8,7 +8,7 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.ChunkManager;
 import com.scramble_like.game.game_object.Enemy;
 import com.scramble_like.game.game_object.Player;
-import com.scramble_like.game.game_object.Projectile;
+import com.scramble_like.game.game_object.projectiles.Projectile;
 
 public class Shoot extends Component
 {

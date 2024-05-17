@@ -29,7 +29,7 @@ public class ChunkManager extends GameObject
 
     protected Player player;
 
-    public ChunkManager(String name, Scene scene, int level) throws SceneIsNullException
+    public ChunkManager(String name, Scene scene, int level, float startOffset) throws SceneIsNullException
     {
         super(name, scene);
         this.level = level;
@@ -38,7 +38,7 @@ public class ChunkManager extends GameObject
         drawnChunks = new ArrayList<>();
         isLoaded = false;
 
-        xOffSet = 0;
+        xOffSet = startOffset;
         xLastOffset = 0;
 
         player = null;
@@ -72,7 +72,6 @@ public class ChunkManager extends GameObject
         if (!isLoaded) { return; }
         super.Update(DeltaTime);
 
-        xLastOffset = xOffSet;
         xOffSet += (float) (DeltaTime * 50);
 
         // On calcule la distance entre this et chaque chunk
@@ -133,6 +132,7 @@ public class ChunkManager extends GameObject
                 }
             }
         }
+        xLastOffset = xOffSet;
     }
 
     /*@Override
