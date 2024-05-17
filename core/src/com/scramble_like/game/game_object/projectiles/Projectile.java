@@ -1,4 +1,4 @@
-package com.scramble_like.game.game_object;
+package com.scramble_like.game.game_object.projectiles;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
