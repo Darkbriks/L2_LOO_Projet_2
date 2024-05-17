@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.scramble_like.game.component.music.SoundPlayer;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.map.MainMenu;
@@ -15,6 +16,7 @@ public class ScrambleLikeApplication extends Game
 	private SpriteBatch batch;
 	private BitmapFont font;
 	private GameCamera camera;
+	private SoundPlayer sound;
 
 	public ShapeRenderer getShapeRenderer() { return shapeRenderer; }
 	public SpriteBatch getBatch() { return batch; }
@@ -24,6 +26,7 @@ public class ScrambleLikeApplication extends Game
 	@Override
 	public void create ()
 	{
+		sound = new SoundPlayer();
 		shapeRenderer = new ShapeRenderer();
 		batch = new SpriteBatch();
 		font = new BitmapFont();
@@ -38,6 +41,7 @@ public class ScrambleLikeApplication extends Game
 	{
 		batch.setProjectionMatrix(camera.getCombined());
 		super.render();
+		sound.update();
 	}
 
 	@Override
