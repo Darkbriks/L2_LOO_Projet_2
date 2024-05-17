@@ -17,17 +17,14 @@ public class ChunkHelper
     static {
         level0 = new String[][]
                 {
-                          // Line 1                       // Line 2                       // Line 3                       // Line 4
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" }, // Column 1
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" }, // Column 2
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" }, // Column 3
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" }, // ...
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" },
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" },
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" },
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" },
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" },
-                        { "Map/Level_1/text_art (1).txt", "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt", "Map/Level_1/text_art (4).txt" },
+                          // Line 1                       // Line 2
+                        { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
+                        { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
+                        { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
+                        { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
+                        { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
+                        { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
+                        { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
                 };
 
         chunkListByLevel = new ArrayList<>();

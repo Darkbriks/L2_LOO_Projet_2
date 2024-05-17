@@ -15,7 +15,6 @@ import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.game_object.ChunkManager;
 import com.scramble_like.game.game_object.Enemy;
 import com.scramble_like.game.game_object.Player;
-import com.scramble_like.game.game_object.Projectile;
 import com.scramble_like.game.utils.Chunk;
 
 import java.util.EventObject;
@@ -28,14 +27,14 @@ public class TestMap extends Scene
 
         try
         {
-            AddGameObject(new ChunkManager("ChunkManager", this, 0));
+            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 0);
+            AddGameObject(chunkManager);
 
-            GameObject go1 = new Player("Player", this, new Vector3(-350, 0, 0));
-            //go1.AddComponent(new TestComponent("Map/Level_1/text_art (1).txt"));
-            //go1.AddComponent(new TestComponent("Map/Level_1/text_art (2).txt"));
-            //go1.AddComponent(new TestComponent("Map/Level_1/text_art (3).txt"));
-            //go1.AddComponent(new TestComponent("Map/Level_1/text_art (4).txt"));
+            Player go1 = new Player("Player", this, new Vector3(-350, 0, 0));
             AddGameObject(go1);
+
+            chunkManager.setPlayer(go1);
+
             //AddGameObject(new Projectile("Projectile", this, go1, new Vector3(500, 0, 0)));
             //AddGameObject(new Enemy("Enemy", this, 100, 100, true, go1, "badlogic.jpg", 10));
         }

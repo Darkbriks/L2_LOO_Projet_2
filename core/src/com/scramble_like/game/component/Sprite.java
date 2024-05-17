@@ -7,11 +7,11 @@ import com.scramble_like.game.essential.utils.Utils;
 
 public class Sprite extends Component{
 
-    private Texture img;
-    private final String fileName;
+    protected Texture img;
+    protected final String fileName;
 
-    private boolean flipX = false;
-    private boolean flipY = false;
+    protected boolean flipX = false;
+    protected boolean flipY = false;
 
     public Sprite() { super(); img = ImageFactory.getTexture("badlogic.jpg"); fileName = "badlogic.jpg"; }
     public Sprite(String path) { super(); img = ImageFactory.getTexture(path); fileName = path; }
