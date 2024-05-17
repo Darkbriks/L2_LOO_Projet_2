@@ -122,4 +122,6 @@ public class GameObject
         this.scene = null;
         this.components = null;
     }
+
+    public void DestroyThisInScene() { this.getScene().DestroyGameObject(this); }
 }
