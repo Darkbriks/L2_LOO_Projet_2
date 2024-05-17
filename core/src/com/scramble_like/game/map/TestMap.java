@@ -13,7 +13,7 @@ import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.game_object.ChunkManager;
-import com.scramble_like.game.game_object.Enemy;
+import com.scramble_like.game.game_object.enemy.Enemy;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.utils.Chunk;
 
@@ -27,7 +27,7 @@ public class TestMap extends Scene
 
         try
         {
-            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 0, 0);
+            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 1, 900);
             AddGameObject(chunkManager);
 
             Player go1 = new Player("Player", this, new Vector3(-350, 0, 0));

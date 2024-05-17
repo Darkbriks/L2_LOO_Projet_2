@@ -12,6 +12,7 @@ public class ChunkHelper
     private static final List<String[][]> chunkListByLevel;
 
     private static final String[][] level0;
+    private static final String[][] level1;
     // ...
 
     static {
@@ -26,9 +27,21 @@ public class ChunkHelper
                         { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
                         { "Map/Level_1/text_art (2).txt", "Map/Level_1/text_art (3).txt"},
                 };
+        level1 = new String[][]
+                {
+                        // Line 1                       // Line 2
+                        { "Map/Level_1/text_x0y0.txt", "Map/Level_1/text_x0y1.txt"},
+                        { "Map/Level_1/text_x1y0.txt", "Map/Level_1/text_x1y1.txt"},
+                        { "Map/Level_1/text_x2y0.txt", "Map/Level_1/text_x2y1.txt"},
+                        { "Map/Level_1/text_x3y0.txt", "Map/Level_1/text_x3y1.txt"},
+                        { "Map/Level_1/text_x4y0.txt", "Map/Level_1/text_x4y1.txt"},
+                        { "Map/Level_1/text_x5y0.txt", "Map/Level_1/text_x5y1.txt"},
+                        { "Map/Level_1/text_rempli.txt", "Map/Level_1/text_rempli.txt"},
+                };
 
         chunkListByLevel = new ArrayList<>();
         chunkListByLevel.add(level0);
+        chunkListByLevel.add(level1);
     }
 
     public static String getChunk(int level, Vector2 chunkPosition)
