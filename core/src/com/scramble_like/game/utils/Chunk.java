@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.collider.AABBCollider;
 import com.scramble_like.game.component.collider.Collider;
@@ -24,7 +25,8 @@ public class Chunk
 {
     private final String fileName;
     private char[][] chunk;
-    private Map<String, RectangleData> rectanglesList;
+    //private Map<String, RectangleData> rectanglesList;
+    private Map<String, Vector4> rectanglesList; // Vector4: x, y, i, j
     private List<TileCollider> colliders;
     private boolean isLoaded;
     private boolean isRendered;
@@ -91,10 +93,10 @@ public class Chunk
             {
                 if (this.chunk[j][i] != GameConstant.AIR_BLOCK)
                 {
-                    this.rectanglesList.put(i + " " + j, new RectangleData(
-                            j * GameConstant.SQUARE_SIDE - ((GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
-                            - i * GameConstant.SQUARE_SIDE + ((GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
-                            GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE, i, j));
+                    this.rectanglesList.put(i + " " + j, new Vector4(
+                            j * GameConstant.SQUARE_SIDE - ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
+                            - i * GameConstant.SQUARE_SIDE + ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
+                            i, j));
                 }
             }
         }
@@ -177,14 +179,11 @@ public class Chunk
             }
         }*/
 
-        for (RectangleData rectangleData : rectanglesList.values())
+        for (Vector4 rectangleData : rectanglesList.values())
         {
-            if (asAnyAirBlockInNeighbour(rectangleData.i, rectangleData.j))
-            {
-                TileCollider collider = new TileCollider(rectangleData.x + (int) position.x, rectangleData.y + (int) position.y);
-                colliders.add(collider);
-                this.chunkManager.AddComponent(collider);
-            }
+            TileCollider collider = new TileCollider(rectangleData.x + (int) position.x, rectangleData.y + (int) position.y);
+            colliders.add(collider);
+            this.chunkManager.AddComponent(collider);
         }
 
         this.isSimulated = true;
@@ -221,9 +220,9 @@ public class Chunk
         int centerY = GameConstant.HEIGHT / 2;
         if (this.isRendered)
         {
-            for (RectangleData rectangle : this.rectanglesList.values())
+            for (Vector4 rectangle : this.rectanglesList.values())
             {
-                shapeRenderer.rect(rectangle.x + centerX + (int) position.x, rectangle.y + centerY + (int) position.y, rectangle.width, rectangle.height);
+                shapeRenderer.rect(rectangle.x + centerX + (int) position.x, rectangle.y + centerY + (int) position.y, GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE);
             }
         }
 

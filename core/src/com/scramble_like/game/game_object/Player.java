@@ -5,9 +5,15 @@ import com.badlogic.gdx.math.Vector3;
 import com.scramble_like.game.component.PlayerController;
 import com.scramble_like.game.component.ReachTarget;
 import com.scramble_like.game.component.Sprite;
+import com.scramble_like.game.component.collider.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.event_dispatcher.EventIndex;
+import com.scramble_like.game.essential.event_dispatcher.EventListener;
+import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+
+import java.util.EventObject;
 
 public class Player extends GameObject
 {
@@ -17,6 +23,15 @@ public class Player extends GameObject
         this.getTransform().setScale(new Vector2(0.3f, 0.3f));
         this.AddComponent(new PlayerController(500));
         this.AddComponent(new Sprite());
+        this.AddComponent(new AABBCollider(500, 500, false, true));
+
+        this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
+            @Override
+            public void handleEvent(EventObject event) {
+                EventHit e = (EventHit) event;
+                System.out.println("Hit with " + e.sourceGameObject.getName());
+            }
+        });
     }
 
     public Player(String name, Scene scene, Vector3 location) throws SceneIsNullException

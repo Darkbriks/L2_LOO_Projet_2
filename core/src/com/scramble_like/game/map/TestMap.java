@@ -37,7 +37,7 @@ public class TestMap extends Scene
             //go1.AddComponent(new TestComponent("Map/Level_1/text_art (4).txt"));
             AddGameObject(go1);
             //AddGameObject(new Projectile("Projectile", this, go1, new Vector3(500, 0, 0)));
-            AddGameObject(new Enemy("Enemy", this, 100, 100, true, go1, "badlogic.jpg", 10));
+            //AddGameObject(new Enemy("Enemy", this, 100, 100, true, go1, "badlogic.jpg", 10));
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 

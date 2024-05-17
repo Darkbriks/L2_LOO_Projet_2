@@ -24,6 +24,8 @@ public class PlayerController extends Component
 
     public boolean isAlive() { return life > 0; }
 
+    public void takeDamage(int damage) { life -= damage; }
+
     @Override
     public void Update(double DeltaTime)
     {

@@ -11,11 +11,9 @@ public class TileCollider extends AABBCollider
 
     public TileCollider(float x, float y)
     {
-        super();
+        super(GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE, false, false);
         this.x = x;
         this.y = y;
-        this.setWidth(GameConstant.SQUARE_SIDE);
-        this.setHeight(GameConstant.SQUARE_SIDE);
     }
 
     @Override

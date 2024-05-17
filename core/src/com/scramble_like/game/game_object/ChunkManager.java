@@ -128,7 +128,7 @@ public class ChunkManager extends GameObject
             if (chunks[x][y].isRendered())
             {
                 Vector2 chunkPositionInSceneUnits = ChunkHelper.getChunkPositionInSceneUnits(new Vector2(x, y), (int) levelChunkCount.y);
-                chunkPositionInSceneUnits.x -= (float) xOffSet;
+                chunkPositionInSceneUnits.x -= xOffSet;
                 chunks[x][y].draw(this.getShapeRenderer(), this.getBatch(), chunkPositionInSceneUnits);
             }
         }
