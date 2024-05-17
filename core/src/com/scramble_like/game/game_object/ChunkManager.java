@@ -27,10 +27,10 @@ public class ChunkManager extends GameObject
     protected float xOffSet;
     protected float xLastOffset;
 
-    public ChunkManager(String name, Scene scene) throws SceneIsNullException
+    public ChunkManager(String name, Scene scene, int level) throws SceneIsNullException
     {
         super(name, scene);
-        level = 0;
+        this.level = level;
         levelChunkCount = ChunkHelper.getLevelChunkCount(0);
         chunks = new Chunk[(int) levelChunkCount.x][(int) levelChunkCount.y];
         drawnChunks = new ArrayList<>();

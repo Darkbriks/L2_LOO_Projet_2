@@ -28,7 +28,7 @@ public class TestMap extends Scene
 
         try
         {
-            AddGameObject(new ChunkManager("ChunkManager", this));
+            AddGameObject(new ChunkManager("ChunkManager", this, 0));
 
             GameObject go1 = new Player("Player", this, new Vector3(-350, 0, 0));
             //go1.AddComponent(new TestComponent("Map/Level_1/text_art (1).txt"));
