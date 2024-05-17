@@ -1,20 +1,15 @@
 package com.scramble_like.game.game_object;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+
 import com.scramble_like.game.GameConstant;
-import com.scramble_like.game.component.collider.AABBCollider;
-import com.scramble_like.game.component.collider.Collider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.utils.Chunk;
 import com.scramble_like.game.utils.ChunkHelper;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ChunkManager extends GameObject
 {
@@ -72,7 +67,7 @@ public class ChunkManager extends GameObject
         if (!isLoaded) { return; }
         super.Update(DeltaTime);
 
-        xOffSet += (float) (DeltaTime * 50);
+        xOffSet += (float) (DeltaTime * GameConstant.BACKGROUD_SPEED);
 
         // On calcule la distance entre this et chaque chunk
         for (int i = 0; i < levelChunkCount.x; i++)
