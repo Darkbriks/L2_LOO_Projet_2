@@ -21,17 +21,6 @@ public class Player extends GameObject
     {
         super(name, scene);
         this.getTransform().setScale(new Vector2(0.3f, 0.3f));
-        this.AddComponent(new PlayerController(500));
-        this.AddComponent(new Sprite());
-        this.AddComponent(new AABBCollider(500, 500, false, true));
-
-        this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
-            @Override
-            public void handleEvent(EventObject event) {
-                EventHit e = (EventHit) event;
-                System.out.println("Hit with " + e.sourceGameObject.getName());
-            }
-        });
     }
 
     public Player(String name, Scene scene, Vector3 location) throws SceneIsNullException
@@ -39,7 +28,24 @@ public class Player extends GameObject
         super(name, scene);
         this.getTransform().setLocation(location);
         this.getTransform().setScale(new Vector2(0.3f, 0.3f));
-        this.AddComponent(new PlayerController(500));
+
+    }
+
+    @Override
+    public void BeginPlay()
+    {
+        super.BeginPlay();
+        PlayerController playerController = new PlayerController();
+        this.AddComponent(playerController);
         this.AddComponent(new Sprite());
+        this.AddComponent(new AABBCollider(100, 100, false, true));
+
+        this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
+            @Override
+            public void handleEvent(EventObject event) {
+                EventHit e = (EventHit) event;
+                if (e.otherGameObject instanceof ChunkManager) { playerController.takeDamage(10000); }
+            }
+        });
     }
 }
