@@ -8,6 +8,7 @@ import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.Background;
 import com.scramble_like.game.game_object.ChunkManager;
 import com.scramble_like.game.game_object.Particule;
 import com.scramble_like.game.game_object.Player;
@@ -28,6 +29,10 @@ public class TestMap extends Scene
             AddGameObject(go1);
             Particule p1 = new Particule("Particule",this,"Walk.png",4,2f, new Vector3(-350, 0, 0));
             AddGameObject(p1);
+
+            Background background =  new Background("Background", this, "backG.png");
+            AddGameObject(background);
+
 
             chunkManager.setPlayer(go1);
 
