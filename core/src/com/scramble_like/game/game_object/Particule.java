@@ -2,6 +2,7 @@ package com.scramble_like.game.game_object;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.scramble_like.game.component.Animation;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -11,10 +12,11 @@ public class Particule extends GameObject {
 
     private float timer;
     private float tmpAnimation;
-    public Particule(String name, Scene scene,String path,int nbdecoupage, float dureeAnimation) throws SceneIsNullException
+    public Particule(String name, Scene scene, String path, int nbdecoupage, float dureeAnimation, Vector3 location) throws SceneIsNullException
     {
         super(name, scene);
         Animation animation = new Animation(path, nbdecoupage, dureeAnimation);
+        this.getTransform().setLocation(location);
         this.AddComponent(animation);
         this.tmpAnimation = dureeAnimation*nbdecoupage;
         this.timer = 0;

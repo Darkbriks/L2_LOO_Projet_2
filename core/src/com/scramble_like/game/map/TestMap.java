@@ -26,7 +26,7 @@ public class TestMap extends Scene
 
             Player go1 = new Player("Player", this, new Vector3(-350, 0, 0));
             AddGameObject(go1);
-            Particule p1 = new Particule("Particule",this,"Walk.png",4,0.25f);
+            Particule p1 = new Particule("Particule",this,"Walk.png",4,2f, new Vector3(-350, 0, 0));
             AddGameObject(p1);
 
             chunkManager.setPlayer(go1);
