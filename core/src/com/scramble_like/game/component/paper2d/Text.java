@@ -1,4 +1,4 @@
-package com.scramble_like.game.component;
+package com.scramble_like.game.component.paper2d;
 
 import com.badlogic.gdx.graphics.Color;
 import com.scramble_like.game.essential.Component;

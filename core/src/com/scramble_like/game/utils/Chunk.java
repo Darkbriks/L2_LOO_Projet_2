@@ -2,20 +2,16 @@ package com.scramble_like.game.utils;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.GameConstant;
-import com.scramble_like.game.component.Tile;
-import com.scramble_like.game.component.collider.AABBCollider;
+import com.scramble_like.game.component.paper2d.Tile;
 import com.scramble_like.game.component.collider.Collider;
 import com.scramble_like.game.component.collider.TileCollider;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.chunk.ChunkLoadedEvent;
-import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.ChunkManager;
-import org.w3c.dom.css.Rect;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -129,7 +125,7 @@ public class Chunk
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNRENDERED, new ChunkLoadedEvent(this));
     }
 
-    private int[][] obtenirVoisins(int[][] tableau, int x, int y) {
+    /*private int[][] obtenirVoisins(int[][] tableau, int x, int y) {
         List<int[]> voisinsList = new ArrayList<>();
 
         // Les déplacements possibles pour atteindre les voisins (haut, bas, gauche, droite, et diagonales)
@@ -167,7 +163,7 @@ public class Chunk
             }
         }
         return false;
-    }
+    }*/
 
     private void simulate(Vector2 position)
     {

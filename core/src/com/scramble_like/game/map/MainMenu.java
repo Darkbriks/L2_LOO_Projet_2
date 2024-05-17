@@ -1,11 +1,10 @@
 package com.scramble_like.game.map;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.ScrambleLikeApplication;
-import com.scramble_like.game.component.Text;
+import com.scramble_like.game.component.paper2d.Text;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.GameIsNullException;
