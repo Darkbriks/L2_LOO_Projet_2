@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.Tile;
 import com.scramble_like.game.component.collider.AABBCollider;
 import com.scramble_like.game.component.collider.Collider;
 import com.scramble_like.game.component.collider.TileCollider;
@@ -25,8 +26,8 @@ public class Chunk
 {
     private final String fileName;
     private char[][] chunk;
-    //private Map<String, RectangleData> rectanglesList;
-    private Map<String, Vector4> rectanglesList; // Vector4: x, y, i, j
+    private Map<String, Vector4> tileList; // Vector4: x, y, i, j
+    private List<Tile> tiles;
     private List<TileCollider> colliders;
     private boolean isLoaded;
     private boolean isRendered;
@@ -39,7 +40,8 @@ public class Chunk
         this.chunkManager = chunkManager;
         this.fileName = fileName;
         this.chunk = null;
-        this.rectanglesList = null;
+        this.tiles = null;
+        this.tileList = null;
         colliders = null;
         isLoaded = false;
         isRendered = false;
@@ -83,9 +85,10 @@ public class Chunk
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNLOADED, new ChunkLoadedEvent(this));
     }
 
-    private void render()
+    private void render(Vector2 position)
     {
-        this.rectanglesList = new HashMap<>();
+        this.tileList = new HashMap<>();
+        this.tiles = new ArrayList<>();
 
         for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
         {
@@ -93,10 +96,15 @@ public class Chunk
             {
                 if (this.chunk[j][i] != GameConstant.AIR_BLOCK)
                 {
-                    this.rectanglesList.put(i + " " + j, new Vector4(
+                    Vector4 tileData = new Vector4(
                             j * GameConstant.SQUARE_SIDE - ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
                             - i * GameConstant.SQUARE_SIDE + ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
-                            i, j));
+                            i, j);
+
+                    this.tileList.put(i + " " + j, tileData);
+                    Tile tile = new Tile("badlogic.jpg", tileData.x + (int) position.x, tileData.y + (int) position.y);
+                    this.tiles.add(tile);
+                    this.chunkManager.AddComponent(tile);
                 }
             }
         }
@@ -105,15 +113,18 @@ public class Chunk
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_RENDERED, new ChunkLoadedEvent(this));
     }
 
-    public void renderAsynchronously()
+    public void renderAsynchronously(Vector2 position)
     {
         if (!this.isLoaded) return;
-        new Thread(this::render).start();
+        //new Thread(() -> {this.render(position); }).start();
+        this.render(position);
     }
 
     public void unRender()
     {
-        this.rectanglesList = null;
+        if (tiles != null) { for (Tile tile : tiles) { chunkManager.RemoveComponent(tile); } }
+        this.tileList = null;
+        this.tiles = null;
         this.isRendered = false;
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNRENDERED, new ChunkLoadedEvent(this));
     }
@@ -160,30 +171,16 @@ public class Chunk
 
     private void simulate(Vector2 position)
     {
-        //state = 5;
         colliders = new ArrayList<>();
 
-        /*for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
+        for (Vector4 tileData : tileList.values())
         {
-            for (int j = 0; j < GameConstant.CHUNK_SIDE; j++)
-            {
-                if (this.chunk[i][j] == GameConstant.AIR_BLOCK && asAnyAirBlockInNeighbour(i, j))
-                {
-                    RectangleData rectangleData = rectanglesList.get(i + " " + j);
-                    if (rectangleData == null) { System.out.println("Error: rectangleData is null"); continue; }
-
-                    TileCollider collider = new TileCollider(rectangleData.x + (int) position.x, rectangleData.y + (int) position.y);
-                    colliders.add(collider);
-                    this.chunkManager.AddComponent(collider);
-                }
-            }
-        }*/
-
-        for (Vector4 rectangleData : rectanglesList.values())
-        {
-            TileCollider collider = new TileCollider(rectangleData.x + (int) position.x, rectangleData.y + (int) position.y);
-            colliders.add(collider);
-            this.chunkManager.AddComponent(collider);
+            //if (asAnyAirBlockInNeighbour((int) tileData.z, (int) tileData.w))
+            //{
+                TileCollider collider = new TileCollider(tileData.x + (int) position.x, tileData.y + (int) position.y);
+                colliders.add(collider);
+                this.chunkManager.AddComponent(collider);
+            //}
         }
 
         this.isSimulated = true;
@@ -192,7 +189,8 @@ public class Chunk
     public void simulateAsynchronously(Vector2 position)
     {
         if (!this.isLoaded || !this.isRendered) return;
-        new Thread(() -> {this.simulate(position); }).start();
+        //new Thread(() -> {this.simulate(position); }).start();
+        this.simulate(position);
     }
 
     public void unSimulate()
@@ -204,10 +202,10 @@ public class Chunk
 
     public void update(Vector2 frameOffsetValue)
     {
-        for (TileCollider tileCollider : colliders)
-        {
-            tileCollider.addOffset(frameOffsetValue);
-        }
+        if (tiles == null) { return; }
+        for (Tile tile : tiles) { tile.addOffset(frameOffsetValue); }
+        if (colliders == null) { return; }
+        for (TileCollider tileCollider : colliders) { tileCollider.addOffset(frameOffsetValue); }
     }
 
     public void draw(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch, Vector2 position)
@@ -220,7 +218,7 @@ public class Chunk
         int centerY = GameConstant.HEIGHT / 2;
         if (this.isRendered)
         {
-            for (Vector4 rectangle : this.rectanglesList.values())
+            for (Vector4 rectangle : this.tileList.values())
             {
                 shapeRenderer.rect(rectangle.x + centerX + (int) position.x, rectangle.y + centerY + (int) position.y, GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE);
             }
