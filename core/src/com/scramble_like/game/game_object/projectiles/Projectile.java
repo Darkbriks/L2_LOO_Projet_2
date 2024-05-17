@@ -10,6 +10,8 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 
 public class Projectile extends GameObject
 {
+    private GameObject target;
+    private int damage = 10;
     public Projectile(String name, Scene scene, GameObject target) throws SceneIsNullException
     {
         super(name, scene);
@@ -25,5 +27,8 @@ public class Projectile extends GameObject
         this.getTransform().setScale(new Vector2(0.2f, 0.2f));
         this.AddComponent(new ReachTarget(target));
         this.AddComponent(new Sprite());
+    }
+    public void damage(){
+
     }
 }
