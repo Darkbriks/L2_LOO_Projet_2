@@ -82,37 +82,34 @@ public class ChunkManager extends GameObject
                 float distance = ChunkHelper.getChunkDistanceWithPosition(new Vector2(i, j), referencePosition, (int) levelChunkCount.y);
                 if (distance < GameConstant.CHUNK_SIMULATING_DISTANCE)
                 {
-                    if (chunks[i][j].isLoaded() && !chunks[i][j].isSimulated())
+                    if (chunks[i][j].isLoaded() && chunks[i][j].isRendered() && !chunks[i][j].isSimulated())
                     {
                         Vector2 chunkPositionInSceneUnits = ChunkHelper.getChunkPositionInSceneUnits(new Vector2(i, j), (int) levelChunkCount.y);
-                        chunkPositionInSceneUnits.x -= xOffSet + GameConstant.SQUARE_SIDE * i;
+                        chunkPositionInSceneUnits.x -= xOffSet;
                         chunks[i][j].simulateAsynchronously(chunkPositionInSceneUnits);
                     }
+                    else if (chunks[i][j].isLoaded() && !chunks[i][j].isRendered()) { chunks[i][j].renderAsynchronously(); drawnChunks.add(i + " " + j); }
                     else if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
                 }
                 else if (distance < GameConstant.RENDERED_CHUNK_DISTANCE)
                 {
                     if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
-                    if (chunks[i][j].isLoaded() && !chunks[i][j].isRendered())
-                    {
-                        chunks[i][j].renderAsynchronously();
-                        drawnChunks.add(i + " " + j);
-                    }
+                    if (chunks[i][j].isLoaded() && !chunks[i][j].isRendered()) { chunks[i][j].renderAsynchronously(); drawnChunks.add(i + " " + j); }
                     else if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
                 }
                 else if (distance < GameConstant.LOADED_CHUNK_DISTANCE)
                 {
                     if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
+                    if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
                     int index = indexOfRenderedChunk(i, j);
-                    if (chunks[i][j].isRendered() && index != -1)
-                    {
-                        drawnChunks.remove(index);
-                        chunks[i][j].unRender();
-                    }
+                    if (!chunks[i][j].isSimulated() && chunks[i][j].isRendered() && index != -1) { drawnChunks.remove(index); chunks[i][j].unRender(); }
                 }
-                else if (chunks[i][j].isLoaded())
+                else
                 {
-                    chunks[i][j].unload();
+                    if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
+                    int index = indexOfRenderedChunk(i, j);
+                    if (!chunks[i][j].isSimulated() && chunks[i][j].isRendered() && index != -1) { chunks[i][j].unRender(); drawnChunks.remove(index); }
+                    if (!chunks[i][j].isRendered() && chunks[i][j].isLoaded()) { chunks[i][j].unload(); }
                 }
             }
         }

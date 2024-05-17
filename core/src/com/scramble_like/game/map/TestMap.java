@@ -28,6 +28,8 @@ public class TestMap extends Scene
 
         try
         {
+            AddGameObject(new ChunkManager("ChunkManager", this));
+
             GameObject go1 = new Player("Player", this, new Vector3(-350, 0, 0));
             //go1.AddComponent(new TestComponent("Map/Level_1/text_art (1).txt"));
             //go1.AddComponent(new TestComponent("Map/Level_1/text_art (2).txt"));
@@ -35,7 +37,6 @@ public class TestMap extends Scene
             //go1.AddComponent(new TestComponent("Map/Level_1/text_art (4).txt"));
             AddGameObject(go1);
             //AddGameObject(new Projectile("Projectile", this, go1, new Vector3(500, 0, 0)));
-            AddGameObject(new ChunkManager("ChunkManager", this));
             AddGameObject(new Enemy("Enemy", this, 100, 100, true, go1, "badlogic.jpg", 10));
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }

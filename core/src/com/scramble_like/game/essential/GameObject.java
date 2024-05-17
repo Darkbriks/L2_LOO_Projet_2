@@ -70,9 +70,10 @@ public class GameObject
         ArrayList<T> allComponents = new ArrayList<>();
         for (int i = 0; i < components.size(); i++)
         {
-            if (componentClass.isAssignableFrom(components.get(i).getClass()))
+            Component c = components.get(i);
+            if (c != null && componentClass.isAssignableFrom(c.getClass()))
             {
-                try { allComponents.add(componentClass.cast(components.get(i))); }
+                try { allComponents.add(componentClass.cast(c)); }
                 catch (ClassCastException e) { System.err.println("Error: " + e.getMessage()); }
             }
         }
@@ -97,13 +98,13 @@ public class GameObject
     public void Update(double dt)
     {
         if (!this.isActive) { return; }
-        for (int i = 0; i < components.size(); i++) { components.get(i).Update(dt); }
+        for (int i = 0; i < components.size(); i++) { Component c = components.get(i); if (c != null) { c.Update(dt); } }
     }
 
     public void Render()
     {
         if (!this.isActive) { return; }
-        for (int i = 0; i < components.size(); i++) { components.get(i).Render(); }
+        for (int i = 0; i < components.size(); i++) { Component c = components.get(i); if (c != null) { c.Render(); } }
 
         for (int i = 0; i < componentsToRemove.size(); i++) { components.remove(componentsToRemove.get(i)); }
     }

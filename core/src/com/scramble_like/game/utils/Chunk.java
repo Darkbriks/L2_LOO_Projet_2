@@ -94,7 +94,7 @@ public class Chunk
                     this.rectanglesList.put(i + " " + j, new RectangleData(
                             j * GameConstant.SQUARE_SIDE - ((GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
                             - i * GameConstant.SQUARE_SIDE + ((GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
-                            GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE));
+                            GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE, i, j));
                 }
             }
         }
@@ -179,8 +179,7 @@ public class Chunk
 
         for (RectangleData rectangleData : rectanglesList.values())
         {
-            Vector2 chunkIndex = ChunkHelper.getChunkIndex(new Vector2(rectangleData.x, rectangleData.y), GameConstant.CHUNK_SIDE);
-            if (this.chunk[(int) chunkIndex.x][(int) chunkIndex.y] != GameConstant.AIR_BLOCK && asAnyAirBlockInNeighbour((int) chunkIndex.x, (int) chunkIndex.y))
+            if (asAnyAirBlockInNeighbour(rectangleData.i, rectangleData.j))
             {
                 TileCollider collider = new TileCollider(rectangleData.x + (int) position.x, rectangleData.y + (int) position.y);
                 colliders.add(collider);
