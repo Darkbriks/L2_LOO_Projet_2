@@ -14,4 +14,7 @@ public class GameConstant
     public static int RENDERED_CHUNK_DISTANCE = 1100; // In scene units
     public static int CHUNK_SIMULATING_DISTANCE = 1000; // In scene units
     public static int AIR_BLOCK = 32;
+
+    // Background
+    public static int BACKGROUD_SPEED = 400;
 }
