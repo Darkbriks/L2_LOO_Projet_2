@@ -1,13 +1,8 @@
 package com.scramble_like.game.component;
 
-import com.badlogic.gdx.math.Vector3;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
-import com.scramble_like.game.essential.exception.OwnerIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.game_object.ChunkManager;
-import com.scramble_like.game.game_object.Enemy;
-import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.projectiles.Projectile;
 
 public class Shoot extends Component

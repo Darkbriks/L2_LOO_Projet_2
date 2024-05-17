@@ -102,7 +102,7 @@ public class Chunk
                             i, j);
 
                     this.tileList.put(i + " " + j, tileData);
-                    Tile tile = new Tile("badlogic.jpg", tileData.x + (int) position.x, tileData.y + (int) position.y);
+                    Tile tile = new Tile("Tileset/MedievalTileset/Tiles/tile34.png", tileData.x + (int) position.x, tileData.y + (int) position.y);
                     this.tiles.add(tile);
                     this.chunkManager.AddComponent(tile);
                 }
