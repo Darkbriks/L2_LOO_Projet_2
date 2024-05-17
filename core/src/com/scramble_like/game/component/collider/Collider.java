@@ -130,12 +130,12 @@ public abstract class Collider extends Component
 
         for (Collider other : tempOverlappedCollider)
         {
-            if (!overlappedCollider.contains(other))
+            if (generateOverlappedEvent && !overlappedCollider.contains(other))
             {
                 overlappedCollider.add(other);
-                if (generateOverlappedEvent) { BeginOverlap(other); }
-                else { Hit(other); }
+                BeginOverlap(other);
             }
+            else if (!generateOverlappedEvent) { Hit(other); }
         }
 
         for (int i = 0; i < overlappedCollider.size(); i++)

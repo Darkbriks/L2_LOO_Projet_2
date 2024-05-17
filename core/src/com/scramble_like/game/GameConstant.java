@@ -16,5 +16,5 @@ public class GameConstant
     public static int AIR_BLOCK = 32;
 
     // Background
-    public static int BACKGROUD_SPEED = 400;
+    public static int BACKGROUD_SPEED = 150;
 }

@@ -12,6 +12,7 @@ import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.enemy.Enemy;
 
 import java.util.EventObject;
 
@@ -44,7 +45,8 @@ public class Player extends GameObject
             @Override
             public void handleEvent(EventObject event) {
                 EventHit e = (EventHit) event;
-                if (e.otherGameObject instanceof ChunkManager) { playerController.takeDamage(10000); }
+                if (e.otherGameObject instanceof ChunkManager) { playerController.takeDamage(10000, 0.0f); }
+                if (e.otherGameObject instanceof Enemy) { playerController.takeDamage(10, 0.5f); }
             }
         });
     }

@@ -13,8 +13,8 @@ import com.scramble_like.game.map.GameOver;
 public class PlayerController extends Component
 {
     private final float speed;
-    private final float hitCooldown = 0.1f;
-    private float hitCooldownTimer = 0;
+    private float hitCooldown;
+    private float hitCooldownTimer;
     private int life;
 
     public PlayerController() { super(); this.speed = 500; life = 50;}
@@ -26,7 +26,7 @@ public class PlayerController extends Component
 
     public boolean isAlive() { return life > 0; }
 
-    public void takeDamage(int damage) { if(hitCooldownTimer >= hitCooldown) { life -= damage; hitCooldownTimer = 0; } }
+    public void takeDamage(int damage, float hitCooldown) { if(hitCooldownTimer >= this.hitCooldown) { life -= damage; hitCooldownTimer = 0; this.hitCooldown = hitCooldown; } }
 
     @Override
     public void Update(double DeltaTime)

@@ -24,6 +24,7 @@ public class Transform
     public Vector2 getAlignment() { return this.Alignment; }
 
     public void setLocation(Vector3 Location) { this.Location = Location; }
+    public void setLocation(Vector2 Location) { this.Location = new Vector3(Location.x, Location.y, 0); }
     public void setRotation(Vector2 Rotation) { this.Rotation = Rotation; }
     public void setScale(Vector2 Scale) { this.Scale = Scale; }
     public void setAlignment(Vector2 Alignment) { this.Alignment = Alignment; }
@@ -35,6 +36,7 @@ public class Transform
     }
 
     public void Translate(Vector3 Translation) { this.Location.add(Translation); }
+    public void Translate(Vector2 Translation) { this.Location.add(new Vector3(Translation.x, Translation.y, 0)); }
     public void Rotate(Vector2 Rotation) { this.Rotation.add(Rotation); }
     public void Scale(Vector2 Scale) { this.Scale.add(Scale); }
 
