@@ -6,12 +6,12 @@ import com.scramble_like.game.essential.utils.Utils;
 
 public class Animation extends Sprite {
 
-    Texture animation = this.img;
-    private TextureRegion[] frames;
-    private int currentFrameIndex = 0;
-    private float time;
-    private final int nbdecoupage;
-    private final float dureeAnimation;
+    protected  Texture animation = this.img;
+    protected TextureRegion[] frames;
+    protected int currentFrameIndex = 0;
+    protected float time;
+    protected final int nbdecoupage;
+    protected final float dureeAnimation;
     public Animation(String path, int nbdecoupage,float dureeAnimation){
         super(path);
         this.nbdecoupage = nbdecoupage;
