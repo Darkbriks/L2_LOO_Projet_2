@@ -1,6 +1,6 @@
 package com.scramble_like.game.game_object;
 
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.component.PlayerController;
@@ -22,7 +22,7 @@ public class Player extends GameObject
         super(name, scene);
     }
 
-    public Player(String name, Scene scene, Vector3 location) throws SceneIsNullException
+    public Player(String name, Scene scene, Vector2 location) throws SceneIsNullException
     {
         super(name, scene);
         this.getTransform().setLocation(location);

@@ -1,7 +1,6 @@
 package com.scramble_like.game.game_object.projectiles;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.scramble_like.game.component.ReachTarget;
 import com.scramble_like.game.component.paper2d.Sprite;
 import com.scramble_like.game.component.collider.AABBCollider;
@@ -25,7 +24,7 @@ public class Projectile extends GameObject
         this.getTransform().setScale(new Vector2(0.2f, 0.2f));
     }
 
-    public Projectile(String name, Scene scene, GameObject target, Vector3 location) throws SceneIsNullException
+    public Projectile(String name, Scene scene, GameObject target, Vector2 location) throws SceneIsNullException
     {
         super(name, scene);
         this.getTransform().setLocation(location);

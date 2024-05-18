@@ -42,8 +42,8 @@ public class PlayerController extends Component
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) { life -= 10; }
 
-        this.getOwner().getTransform().getLocation().x = (float) Utils.Clamp(newX, (double) -GameConstant.WIDTH / 2, (double) GameConstant.WIDTH / 2);
-        this.getOwner().getTransform().getLocation().y = (float) Utils.Clamp(newY, (double) -GameConstant.HEIGHT / 2, (double) GameConstant.HEIGHT / 2);
+        this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(newX, (double) -GameConstant.WIDTH / 2, (double) GameConstant.WIDTH / 2);
+        this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(newY, (double) -GameConstant.HEIGHT / 2, (double) GameConstant.HEIGHT / 2);
 
         if(!this.isAlive())
         {

@@ -6,6 +6,10 @@ public class GameConstant
     public static int WIDTH = 1600;
     public static int HEIGHT = 900;
 
+    // Rendering
+    public static int MIN_Z_INDEX = 0;
+    public static int MAX_Z_INDEX = 10;
+
     // Chunk
     public static int CHUNK_SIDE = 50;
     public static int SQUARE_SIDE = 25;

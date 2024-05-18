@@ -38,7 +38,13 @@ public class Utils
         return s1 * s2 > 0;
     }
 
-    public static double Clamp(double value, double min, double max)
+    public static int clamp(int value, int min, int max)
+    {
+        if (value < min) { return min; }
+        return Math.min(value, max);
+    }
+
+    public static double clamp(double value, double min, double max)
     {
         if (value < min) { return min; }
         return Math.min(value, max);

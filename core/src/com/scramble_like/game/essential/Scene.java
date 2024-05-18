@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 
@@ -16,19 +17,23 @@ public abstract class Scene implements Screen
     private final ScrambleLikeApplication game;
 
     protected Vector4 backgroundColor = new Vector4(0, 0, 0.2f, 1);
-    protected ArrayList<GameObject> gameObjects;
+    protected ArrayList<GameObject> gameObjectsToAdd;
+    protected ArrayList<ArrayList<GameObject>> gameObjects;
     protected ArrayList<GameObject> markedForDestructionGos;
     protected ArrayList<Component> markedForDestructionComps;
     protected EventDispatcher eventDispatcher = new EventDispatcher();
 
     public Scene(String name)
     {
-        this.game = ScrambleLikeApplication.getInstance();;
+        this.game = ScrambleLikeApplication.getInstance();
         this.name = name;
 
+        this.gameObjectsToAdd = new ArrayList<>();
         this.gameObjects = new ArrayList<>();
         this.markedForDestructionGos = new ArrayList<>();
         this.markedForDestructionComps = new ArrayList<>();
+
+        for (int i = GameConstant.MIN_Z_INDEX; i <= GameConstant.MAX_Z_INDEX; i++) { this.gameObjects.add(new ArrayList<>()); }
     }
 
     public String getName() { return this.name; }
@@ -37,9 +42,10 @@ public abstract class Scene implements Screen
     public SpriteBatch getBatch() { return this.game.getBatch(); }
     public BitmapFont getFont() { return this.game.getFont(); }
     public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
-    public ArrayList<GameObject> getGameObjects() { return this.gameObjects; }
+    public ArrayList<GameObject> getGameObjects() { ArrayList<GameObject> gos = new ArrayList<>(); for (ArrayList<GameObject> go : gameObjects) { gos.addAll(go); } return gos; }
 
-    public void AddGameObject(GameObject gameObject) { this.gameObjects.add(gameObject); gameObject.BeginPlay(); }
+    //public void AddGameObject(GameObject gameObject) { this.gameObjects.get(gameObject.getTransform().getZIndex()).add(gameObject); gameObject.BeginPlay(); }
+    public void AddGameObject(GameObject gameObject) { this.gameObjectsToAdd.add(gameObject); gameObject.BeginPlay(); }
     public void DestroyGameObject(GameObject gameObject)
     {
         markedForDestructionGos.add(gameObject);
@@ -55,8 +61,12 @@ public abstract class Scene implements Screen
 
     public void LateUpdate()
     {
-        for (GameObject go : markedForDestructionGos) { go.Destroying(); gameObjects.remove(go); }
-        for (Component c : markedForDestructionComps) { c.Destroying(); }
+        for (int i = 0; i < markedForDestructionGos.size(); i++) { markedForDestructionGos.get(i).Destroying(); gameObjects.get(markedForDestructionGos.get(i).getTransform().getZIndex()).remove(markedForDestructionGos.get(i)); }
+        for (int i = 0; i < markedForDestructionComps.size(); i++) { markedForDestructionComps.get(i).Destroying(); }
+        for (int i = 0; i < gameObjectsToAdd.size(); i++) { this.gameObjects.get(gameObjectsToAdd.get(i).getTransform().getZIndex()).add(gameObjectsToAdd.get(i)); }
+        markedForDestructionGos.clear();
+        markedForDestructionComps.clear();
+        gameObjectsToAdd.clear();
     }
 
     @Override
@@ -70,7 +80,17 @@ public abstract class Scene implements Screen
         this.getGame().UpdateTickableObjects(v);
 
         game.getBatch().begin();
-        for (int i = 0; i < gameObjects.size(); i++) { gameObjects.get(i).Update(v); gameObjects.get(i).Render(); }
+        //for (int i = 0; i < gameObjects.size(); i++) { gameObjects.get(i).Update(v); gameObjects.get(i).Render(); }
+
+        for (int i = GameConstant.MAX_Z_INDEX; i >= GameConstant.MIN_Z_INDEX; i--)
+        {
+            for (int j = 0; j < gameObjects.get(i).size(); j++)
+            {
+                gameObjects.get(i).get(j).Update(v);
+                gameObjects.get(i).get(j).Render();
+            }
+        }
+
         game.getBatch().end();
 
         LateUpdate();
@@ -91,7 +111,14 @@ public abstract class Scene implements Screen
     @Override
     public void dispose()
     {
-        for (GameObject go : gameObjects) { DestroyGameObject(go); }
+        //for (GameObject go : gameObjects) { DestroyGameObject(go); }
+        for (int i = GameConstant.MAX_Z_INDEX; i >= GameConstant.MIN_Z_INDEX; i--)
+        {
+            for (int j = 0; j < gameObjects.get(i).size(); j++)
+            {
+                DestroyGameObject(gameObjects.get(i).get(j));
+            }
+        }
         for (GameObject go : markedForDestructionGos) { go.Destroying(); }
         for (Component c : markedForDestructionComps) { c.Destroying(); }
     }

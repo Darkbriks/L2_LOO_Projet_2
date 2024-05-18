@@ -1,6 +1,6 @@
 package com.scramble_like.game.game_object;
 
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.essential.GameObject;
@@ -20,7 +20,7 @@ public class Particule extends GameObject
         this.elapsedTime = 0;
     }
 
-    public Particule(String name, Scene scene, String path, int frameCount, Vector3 location) throws SceneIsNullException
+    public Particule(String name, Scene scene, String path, int frameCount, Vector2 location) throws SceneIsNullException
     {
         super(name, scene);
         this.getTransform().setLocation(location);
