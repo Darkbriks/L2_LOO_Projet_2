@@ -16,6 +16,7 @@ public class ChunkHelper
 
     private static final String[][] level0;
     private static final String[][] level1;
+    private static final String[][] level2;
     // ...
 
     static {
@@ -36,23 +37,27 @@ public class ChunkHelper
         level1 = new String[][]
                 {
                         // Line 1                       // Line 2
-                        { "Map/Level_1/text_x0y0.txt", "Map/Level_1/text_x0y1.txt"},
-                        { "Map/Level_1/text_x1y0.txt", "Map/Level_1/text_x1y1.txt"},
-                        { "Map/Level_1/text_x2y0.txt", "Map/Level_1/text_x2y1.txt"},
-                        { "Map/Level_1/text_x3y0.txt", "Map/Level_1/text_x3y1.txt"},
-                        { "Map/Level_1/text_x4y0.txt", "Map/Level_1/text_x4y1.txt"},
-                        { "Map/Level_1/text_x5y0.txt", "Map/Level_1/text_x5y1.txt"},
-                        { "Map/Level_1/text_rempli.txt", "Map/Level_1/text_rempli.txt"},
+                        { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
+                        { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
+                };
+
+        level2 = new String[][]
+                {
+                        { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
+                        { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
                 };
 
         chunkListByLevel = new ArrayList<>();
         chunkListByLevel.add(level0);
         chunkListByLevel.add(level1);
+        chunkListByLevel.add(level2);
     }
 
     static {
         String tilePath = "Tileset/MedievalTileset/Tiles/";
         String propsPath = "Tileset/MedievalTileset/Objects/";
+        String propessai = "Tileset/essai/";
+        String propessai2 = "Tileset/essai2/";
         tileMap = new HashMap<>();
         tileMap.put(0, "");
         tileMap.put(1, "");
@@ -103,7 +108,7 @@ public class ChunkHelper
         tileMap.put(46, "");
         tileMap.put(47, "");
         tileMap.put(48, propsPath + "torch.png");
-        tileMap.put(49, "");
+        tileMap.put(49, propessai +"tile113.png");
         tileMap.put(50, "");
         tileMap.put(51, "");
         tileMap.put(52, "");

@@ -12,7 +12,8 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 public class Background extends GameObject {
     Tile background, samebackground;
 
-    private int speed, fix;//fix est le x pour lequel l'image se boucle
+    private final int speed;
+    private final int fix;//fix est le x pour lequel l'image se boucle
 
     public Background(String name, Scene scene, String path, int fix) throws SceneIsNullException {
         super(name, scene);

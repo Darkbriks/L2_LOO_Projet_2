@@ -29,7 +29,7 @@ public class TestMap extends Scene
             Vector2[] waypoints = {new Vector2(0, 300), new Vector2(300, 300), new Vector2(300, 0), new Vector2(0, 0)};
             AddGameObject(new MovingEnemy("Enemy", this, "badlogic.jpg", 5, false, null, waypoints, 150));
 
-            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 0, -500);
+            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 2, -500);
             AddGameObject(chunkManager);
             chunkManager.setPlayer(go1);
         }
