@@ -17,35 +17,35 @@ public class ChunkHelper
     private static final String[][] level0;
     private static final String[][] level1;
     private static final String[][] level2;
-    // ...
 
-    static {
+    static
+    {
         level0 = new String[][]
-                {
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-                };
+        {
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+        };
+
         level1 = new String[][]
-                {
-                        // Line 1                       // Line 2
-                        { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
-                        { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
-                };
+        {
+            { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
+            { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
+        };
 
         level2 = new String[][]
-                {
-                        { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
-                        { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
-                };
+        {
+            { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
+            { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
+        };
 
         chunkListByLevel = new ArrayList<>();
         chunkListByLevel.add(level0);
@@ -199,7 +199,7 @@ public class ChunkHelper
 
     public static Vector2 getLevelChunkCount(int level)
     {
-        return new Vector2(chunkListByLevel.get(level).length, chunkListByLevel.get(level)[level].length);
+        return new Vector2(chunkListByLevel.get(level).length, chunkListByLevel.get(level)[0].length);
     }
 
     public static Vector2 getChunkPositionInSceneUnits(Vector2 chunkPosition, int numberOfChunksVertical)

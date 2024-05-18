@@ -12,7 +12,6 @@ public class SoundFactory implements Disposable, TickableObject
 {
     private static SoundFactory instance;
     private final ObjectMap<String, Sound> soundMap;
-    private Music backgroundMusic;
     private float targetVolume;
     private float fadeDuration;
     private float fadeTime;
@@ -62,26 +61,25 @@ public class SoundFactory implements Disposable, TickableObject
         soundMap.clear();
     }
 
-    public void playBackgroundMusic(String filePath)
+    public Music playBackgroundMusic(String filePath, float volume)
     {
-        stopBackgroundMusic();
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(filePath));
-        backgroundMusic.setLooping(true);
-        backgroundMusic.setVolume(1);
-        backgroundMusic.play();
+        Music music = Gdx.audio.newMusic(Gdx.files.internal(filePath));
+        music.setLooping(true);
+        music.setVolume(volume);
+        music.play();
+        return music;
     }
 
-    public void stopBackgroundMusic()
+    public void stopBackgroundMusic(Music backgroundMusic)
     {
         if (backgroundMusic != null)
         {
             backgroundMusic.stop();
             backgroundMusic.dispose();
-            backgroundMusic = null;
         }
     }
 
-    public void changeBackgroundMusicWithFade(String filePath, float duration)
+    /*public void changeBackgroundMusicWithFade(String filePath, float duration)
     {
         if (backgroundMusic != null && backgroundMusic.isPlaying())
         {
@@ -92,12 +90,12 @@ public class SoundFactory implements Disposable, TickableObject
             newFilePath = filePath;
         }
         else { playBackgroundMusic(filePath); }
-    }
+    }*/
 
     @Override
     public void Tick(float deltaTime)
     {
-        if (isFadingOut && backgroundMusic != null)
+       /* if (isFadingOut && backgroundMusic != null)
         {
             fadeTime += deltaTime;
             float volume = 1 - (fadeTime / fadeDuration);
@@ -121,7 +119,7 @@ public class SoundFactory implements Disposable, TickableObject
             float volume = (fadeTime / fadeDuration) * targetVolume;
             backgroundMusic.setVolume(volume);
             if (fadeTime >= fadeDuration) { backgroundMusic.setVolume(targetVolume); targetVolume = 1; }
-        }
+        }*/
     }
 
     @Override

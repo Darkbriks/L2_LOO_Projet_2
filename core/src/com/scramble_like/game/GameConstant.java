@@ -19,7 +19,8 @@ public class GameConstant
     public static int CHUNK_SIMULATING_DISTANCE = 1250; // In scene units
 
     // Background
-    public static int BACKGROUD_SPEED = 250;
+    public static int WALLPAPER_SPEED = 100;
+    public static int BACKGROUND_SPEED = 250;
 
     // Animation
     public static float ANIMATION_FRAME_DURATION = 0.1f;
