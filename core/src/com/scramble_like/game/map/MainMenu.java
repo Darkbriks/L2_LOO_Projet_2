@@ -35,7 +35,7 @@ public class MainMenu extends Scene
     @Override
     public void render(float delta)
     {
-        if (Gdx.input.isTouched()) { getGame().setScreen(new TestMap()); }
+        if (Gdx.input.isTouched()) { getGame().setScreen(new TestMap()); dispose(); }
         super.render(delta);
     }
 }

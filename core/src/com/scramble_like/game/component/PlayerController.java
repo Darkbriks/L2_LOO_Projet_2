@@ -49,6 +49,7 @@ public class PlayerController extends Component
         {
             this.getOwner().getScene().getEventDispatcher().DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
             this.getOwner().getScene().getGame().setScreen(new GameOver());
+            this.getOwner().getScene().dispose();
         }
     }
 }
