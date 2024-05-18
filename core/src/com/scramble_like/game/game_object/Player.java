@@ -35,7 +35,7 @@ public class Player extends GameObject
         PlayerController playerController = new PlayerController();
         this.AddComponent(playerController);
         this.AddComponent(new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1") + "/Idle.png", 4));
-        this.AddComponent(new AABBCollider(50, 50, false, true));
+        this.AddComponent(new AABBCollider(25, 50, -10, 0, false, true));
 
         this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
             @Override

@@ -11,6 +11,8 @@ public class AABBCollider extends Collider
     ////////// Attributes //////////
     private float width;
     private float height;
+    private float xOffSet;
+    private float yOffSet;
 
     ////////// Constructor //////////
     public AABBCollider()
@@ -18,6 +20,8 @@ public class AABBCollider extends Collider
         super();
         this.width = 100;
         this.height = 100;
+        this.xOffSet = 0;
+        this.yOffSet = 0;
     }
 
     public AABBCollider(float width, float height)
@@ -25,6 +29,8 @@ public class AABBCollider extends Collider
         super();
         this.width = width;
         this.height = height;
+        this.xOffSet = 0;
+        this.yOffSet = 0;
     }
 
     public AABBCollider(float width, float height, boolean generateOverlappedEvent)
@@ -32,6 +38,8 @@ public class AABBCollider extends Collider
         super(generateOverlappedEvent);
         this.width = width;
         this.height = height;
+        this.xOffSet = 0;
+        this.yOffSet = 0;
     }
 
     public AABBCollider(float width, float height, boolean generateOverlappedEvent, boolean simulatePhysics)
@@ -39,16 +47,27 @@ public class AABBCollider extends Collider
         super(generateOverlappedEvent, simulatePhysics);
         this.width = width;
         this.height = height;
+        this.xOffSet = 0;
+        this.yOffSet = 0;
+    }
+
+    public AABBCollider(float width, float height, float xOffSet, float yOffSet, boolean generateOverlappedEvent, boolean simulatePhysics)
+    {
+        super(generateOverlappedEvent, simulatePhysics);
+        this.width = width;
+        this.height = height;
+        this.xOffSet = xOffSet;
+        this.yOffSet = yOffSet;
     }
 
     ////////// Getters //////////
     public float getWidth() { return this.width; }
     public float getHeight() { return this.height; }
 
-    public float getX1() { return Utils.lerp(this.getOwnerX(), getOwnerX() - width, this.getOwner().getTransform().getAlignment().x); }
-    public float getY1() { return Utils.lerp(this.getOwnerY(), getOwnerY() - height, this.getOwner().getTransform().getAlignment().y); }
-    public float getX2() { return Utils.lerp(this.getOwnerX(), getOwnerX() - width, this.getOwner().getTransform().getAlignment().x) + width; }
-    public float getY2() { return Utils.lerp(this.getOwnerY(), getOwnerY() - height, this.getOwner().getTransform().getAlignment().y) + height; }
+    public float getX1() { return Utils.lerp(this.getOwnerX(), getOwnerX() - width, this.getOwner().getTransform().getAlignment().x) + xOffSet; }
+    public float getY1() { return Utils.lerp(this.getOwnerY(), getOwnerY() - height, this.getOwner().getTransform().getAlignment().y) + yOffSet; }
+    public float getX2() { return Utils.lerp(this.getOwnerX(), getOwnerX() - width, this.getOwner().getTransform().getAlignment().x) + width + xOffSet; }
+    public float getY2() { return Utils.lerp(this.getOwnerY(), getOwnerY() - height, this.getOwner().getTransform().getAlignment().y) + height + yOffSet; }
 
     ////////// Setters //////////
     public void setWidth(float width) { this.width = width; }
