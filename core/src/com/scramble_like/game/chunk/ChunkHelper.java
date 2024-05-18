@@ -218,9 +218,8 @@ public class ChunkHelper
 
     public static boolean isNoColliderBlock(int blockIndex)
     {
-        if (blockIndex < 0 || blockIndex >= tileMap.size()) { System.out.println("false, index " + blockIndex); return false; }
-        for (int noColliderBlockIndex : noColliderBlockIndexes) { if (blockIndex == noColliderBlockIndex) { System.out.println("true, index " + blockIndex); return true; } }
-        System.out.println("false, index " + blockIndex);
+        for (int noColliderBlockIndex : noColliderBlockIndexes) { if (blockIndex == noColliderBlockIndex) { /*System.out.println("true, index " + blockIndex);*/ return true; } }
+        //System.out.println("false, index " + blockIndex);
         return false;
     }
 }

@@ -40,6 +40,7 @@ public class Player extends GameObject
         this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
             @Override
             public void handleEvent(EventObject event) {
+                if (GameConstant.GOD_MODE) { return; }
                 EventHit e = (EventHit) event;
                 if (e.otherGameObject instanceof ChunkManager) { playerController.takeDamage(10000, 0.0f); }
                 if (e.otherGameObject instanceof Enemy) { playerController.takeDamage(10, 0.5f); }

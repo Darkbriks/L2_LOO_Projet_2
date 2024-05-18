@@ -13,7 +13,6 @@ public class GameConstant
     public static int LOADED_CHUNK_DISTANCE = 2000; // In scene units
     public static int RENDERED_CHUNK_DISTANCE = 1500; // In scene units
     public static int CHUNK_SIMULATING_DISTANCE = 1250; // In scene units
-    public static int AIR_BLOCK = 32;
 
     // Background
     public static int BACKGROUD_SPEED = 250;
@@ -33,4 +32,5 @@ public class GameConstant
 
     // Debug
     public static boolean DEBUG = false;
+    public static boolean GOD_MODE = false;
 }

@@ -1,5 +1,6 @@
 package com.scramble_like.game.chunk;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -28,6 +29,9 @@ public class Chunk
     private boolean isLoaded;
     private boolean isRendered;
     protected boolean isSimulated;
+    protected boolean inLoading;
+    protected boolean inRendering;
+    protected boolean inSimulating;
     private final EventDispatcher eventDispatcher;
     private final ChunkManager chunkManager;
 
@@ -42,6 +46,9 @@ public class Chunk
         isLoaded = false;
         isRendered = false;
         isSimulated = false;
+        inLoading = false;
+        inRendering = false;
+        inSimulating = false;
         eventDispatcher = new EventDispatcher();
     }
 
@@ -52,29 +59,27 @@ public class Chunk
 
     protected void load() throws IOException
     {
+        if (this.isLoaded) return;
+        this.inLoading = true;
         List<String> lines = Files.readAllLines(Paths.get(this.fileName));
 
         this.chunk = new char[GameConstant.CHUNK_SIDE][GameConstant.CHUNK_SIDE];
-        for (int i = 0; i < lines.size(); i++)
-        {
-            String line = lines.get(i);
-            for (int j = 0; j < line.length(); j++)
-            {
-                this.chunk[j][i] = line.charAt(j);
-            }
-        }
+        for (int i = 0; i < lines.size(); i++) { String line = lines.get(i); for (int j = 0; j < line.length(); j++) { this.chunk[j][i] = line.charAt(j); } }
 
         this.isLoaded = true;
+        this.inLoading = false;
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_LOADED, new ChunkLoadedEvent(this));
     }
 
     public void loadAsynchronously()
     {
-        new Thread(() -> {try { load(); } catch (IOException e) { System.err.println("Error: " + e.getMessage()); } }).start();
+        if (this.inLoading) { return; }
+        new Thread(() -> {try { load(); } catch (IOException e) { Gdx.app.error("Chunk","Error: " + e.getMessage()); } }).start();
     }
 
     public void unload()
     {
+        this.unSimulate();
         this.unRender();
         this.chunk = null;
         this.isLoaded = false;
@@ -83,6 +88,8 @@ public class Chunk
 
     private void render(Vector2 position)
     {
+        if (!this.isLoaded || this.isRendered) return;
+        this.inRendering = true;
         this.tilesData = new HashMap<>();
         this.tiles = new ArrayList<>();
 
@@ -90,13 +97,12 @@ public class Chunk
         {
             for (int j = 0; j < GameConstant.CHUNK_SIDE; j++)
             {
-                //if (this.chunk[j][i] != GameConstant.AIR_BLOCK)
-                String tilePath = ChunkHelper.getTilePath(this.chunk[j][i]);
+                String tilePath = ChunkHelper.getTilePath(this.chunk[i][j]);
                 if (!Objects.equals(tilePath, ""))
                 {
                     Vector4 tileData = new Vector4(
-                            j * GameConstant.SQUARE_SIDE - ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
-                            - i * GameConstant.SQUARE_SIDE + ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
+                            i * GameConstant.SQUARE_SIDE - ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
+                            - j * GameConstant.SQUARE_SIDE + ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
                             i, j);
 
                     this.tilesData.put(i + " " + j, tileData);
@@ -108,18 +114,20 @@ public class Chunk
         }
 
         this.isRendered = true;
+        this.inRendering = false;
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_RENDERED, new ChunkLoadedEvent(this));
     }
 
     public void renderAsynchronously(Vector2 position)
     {
-        if (!this.isLoaded) return;
+        if (!this.isLoaded || this.inRendering) { return; }
         //new Thread(() -> {this.render(position); }).start();
         this.render(position);
     }
 
     public void unRender()
     {
+        this.unSimulate();
         if (tiles != null) { for (Tile tile : tiles) { chunkManager.RemoveComponent(tile); } }
         this.tilesData = null;
         this.tiles = null;
@@ -127,7 +135,7 @@ public class Chunk
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNRENDERED, new ChunkLoadedEvent(this));
     }
 
-    private boolean asAnyAirBlockInNeighbour(int x, int y)
+    private boolean asAnyNoCollideBlockInNeighbour(int x, int y)
     {
         for (int i = -1; i <= 1; i++)
         {
@@ -135,7 +143,7 @@ public class Chunk
             {
                 if (i == 0 && j == 0) continue;
                 if (x + i < 0 || x + i >= this.chunk.length || y + j < 0 || y + j >= this.chunk[0].length) return true;
-                if (this.chunk[y + j][x + i] == GameConstant.AIR_BLOCK || ChunkHelper.isNoColliderBlock(this.chunk[y + j][x + i])) return true;
+                if (ChunkHelper.isNoColliderBlock(this.chunk[x + i][y + j])) return true;
             }
         }
         return false;
@@ -143,12 +151,13 @@ public class Chunk
 
     private void simulate(Vector2 position)
     {
+        if (!this.isLoaded || !this.isRendered || this.isSimulated) return;
+        this.inSimulating = true;
         colliders = new ArrayList<>();
 
         for (Vector4 tileData : tilesData.values())
         {
-            //if (ChunkHelper.isNoColliderBlock(this.chunk[(int) tileData.z][(int) tileData.w])) { continue; }
-            if (asAnyAirBlockInNeighbour((int) tileData.z, (int) tileData.w))
+            if (!ChunkHelper.isNoColliderBlock(this.chunk[(int) tileData.z][(int) tileData.w]) && asAnyNoCollideBlockInNeighbour((int) tileData.z, (int) tileData.w))
             {
                 TileCollider collider = new TileCollider(tileData.x + (int) position.x, tileData.y + (int) position.y);
                 colliders.add(collider);
@@ -157,17 +166,18 @@ public class Chunk
         }
 
         this.isSimulated = true;
+        this.inSimulating = false;
     }
 
     public void simulateAsynchronously(Vector2 position)
     {
-        if (!this.isLoaded || !this.isRendered) return;
-        //new Thread(() -> {this.simulate(position); }).start();
-        this.simulate(position);
+        if (!this.isLoaded || !this.isRendered || this.inSimulating) { return; }
+        new Thread(() -> this.simulate(position)).start();
     }
 
     public void unSimulate()
     {
+        if (colliders == null) return;
         for(Collider c : colliders) { this.chunkManager.RemoveComponent(c); }
         colliders = null;
         this.isSimulated = false;
