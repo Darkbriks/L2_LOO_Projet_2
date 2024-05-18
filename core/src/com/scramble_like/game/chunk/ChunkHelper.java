@@ -1,7 +1,6 @@
-package com.scramble_like.game.utils;
+package com.scramble_like.game.chunk;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.scramble_like.game.GameConstant;
 
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.Map;
 public class ChunkHelper
 {
     private static final Map<Integer, String> tileMap;
+    private static final int[] noColliderBlockIndexes;
     private static final List<String[][]> chunkListByLevel;
 
     private static final String[][] level0;
@@ -51,7 +51,8 @@ public class ChunkHelper
     }
 
     static {
-        String path = "Tileset/MedievalTileset/Tiles";
+        String tilePath = "Tileset/MedievalTileset/Tiles/";
+        String propsPath = "Tileset/MedievalTileset/Objects/";
         tileMap = new HashMap<>();
         tileMap.put(0, "");
         tileMap.put(1, "");
@@ -101,7 +102,7 @@ public class ChunkHelper
         tileMap.put(45, "");
         tileMap.put(46, "");
         tileMap.put(47, "");
-        tileMap.put(48, "");
+        tileMap.put(48, propsPath + "torch.png");
         tileMap.put(49, "");
         tileMap.put(50, "");
         tileMap.put(51, "");
@@ -181,6 +182,8 @@ public class ChunkHelper
         tileMap.put(125, "");
         tileMap.put(126, "");
         tileMap.put(127, "");
+
+        noColliderBlockIndexes = new int[] { 32, 48 };
     }
 
 
@@ -205,5 +208,19 @@ public class ChunkHelper
     {
         Vector2 chunkPositionInSceneUnits = getChunkPositionInSceneUnits(chunkPosition, numberOfChunksVertical);
         return (float) Math.sqrt(Math.pow(position.x - chunkPositionInSceneUnits.x, 2) + Math.pow(position.y - chunkPositionInSceneUnits.y, 2));
+    }
+
+    public static String getTilePath(int tileIndex)
+    {
+        if (tileIndex < 0 || tileIndex >= tileMap.size()) return "Tileset/MedievalTileset/Tiles/tile34.png";
+        return tileMap.get(tileIndex);
+    }
+
+    public static boolean isNoColliderBlock(int blockIndex)
+    {
+        if (blockIndex < 0 || blockIndex >= tileMap.size()) { System.out.println("false, index " + blockIndex); return false; }
+        for (int noColliderBlockIndex : noColliderBlockIndexes) { if (blockIndex == noColliderBlockIndex) { System.out.println("true, index " + blockIndex); return true; } }
+        System.out.println("false, index " + blockIndex);
+        return false;
     }
 }

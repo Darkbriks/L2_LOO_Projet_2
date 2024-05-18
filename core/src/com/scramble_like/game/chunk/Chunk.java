@@ -1,4 +1,4 @@
-package com.scramble_like.game.utils;
+package com.scramble_like.game.chunk;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -90,7 +90,9 @@ public class Chunk
         {
             for (int j = 0; j < GameConstant.CHUNK_SIDE; j++)
             {
-                if (this.chunk[j][i] != GameConstant.AIR_BLOCK)
+                //if (this.chunk[j][i] != GameConstant.AIR_BLOCK)
+                String tilePath = ChunkHelper.getTilePath(this.chunk[j][i]);
+                if (!Objects.equals(tilePath, ""))
                 {
                     Vector4 tileData = new Vector4(
                             j * GameConstant.SQUARE_SIDE - ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
@@ -98,7 +100,7 @@ public class Chunk
                             i, j);
 
                     this.tilesData.put(i + " " + j, tileData);
-                    Tile tile = new Tile("Tileset/MedievalTileset/Tiles/tile34.png", tileData.x + (int) position.x, tileData.y + (int) position.y);
+                    Tile tile = new Tile(tilePath, tileData.x + (int) position.x, tileData.y + (int) position.y);
                     this.tiles.add(tile);
                     this.chunkManager.AddComponent(tile);
                 }
@@ -133,7 +135,7 @@ public class Chunk
             {
                 if (i == 0 && j == 0) continue;
                 if (x + i < 0 || x + i >= this.chunk.length || y + j < 0 || y + j >= this.chunk[0].length) return true;
-                if (!this.tilesData.containsKey((x + i) + " " + (y + j))) return true;
+                if (this.chunk[y + j][x + i] == GameConstant.AIR_BLOCK || ChunkHelper.isNoColliderBlock(this.chunk[y + j][x + i])) return true;
             }
         }
         return false;
@@ -145,6 +147,7 @@ public class Chunk
 
         for (Vector4 tileData : tilesData.values())
         {
+            //if (ChunkHelper.isNoColliderBlock(this.chunk[(int) tileData.z][(int) tileData.w])) { continue; }
             if (asAnyAirBlockInNeighbour((int) tileData.z, (int) tileData.w))
             {
                 TileCollider collider = new TileCollider(tileData.x + (int) position.x, tileData.y + (int) position.y);
