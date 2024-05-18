@@ -1,6 +1,7 @@
 package com.scramble_like.game.essential;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector4;
@@ -41,6 +42,7 @@ public abstract class Scene implements Screen
     public GameCamera getCamera() { return this.game.getCamera(); }
     public SpriteBatch getBatch() { return this.game.getBatch(); }
     public BitmapFont getFont() { return this.game.getFont(); }
+    public Controller getController() { return this.game.getController(); }
     public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
     public ArrayList<GameObject> getGameObjects() { ArrayList<GameObject> gos = new ArrayList<>(); for (ArrayList<GameObject> go : gameObjects) { gos.addAll(go); } return gos; }
 
@@ -77,16 +79,15 @@ public abstract class Scene implements Screen
     {
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
-        this.getGame().UpdateTickableObjects(v);
+        this.getGame().UpdateTickableObjects(v * GameConstant.UPDATE_MULTIPLIER);
 
         game.getBatch().begin();
-        //for (int i = 0; i < gameObjects.size(); i++) { gameObjects.get(i).Update(v); gameObjects.get(i).Render(); }
 
         for (int i = GameConstant.MAX_Z_INDEX; i >= GameConstant.MIN_Z_INDEX; i--)
         {
             for (int j = 0; j < gameObjects.get(i).size(); j++)
             {
-                gameObjects.get(i).get(j).Update(v);
+                gameObjects.get(i).get(j).Update(v * GameConstant.UPDATE_MULTIPLIER);
                 gameObjects.get(i).get(j).Render();
             }
         }

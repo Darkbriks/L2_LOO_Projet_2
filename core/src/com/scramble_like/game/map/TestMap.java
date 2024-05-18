@@ -1,7 +1,6 @@
 package com.scramble_like.game.map;
 
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.factory.SoundFactory;
@@ -9,6 +8,7 @@ import com.scramble_like.game.game_object.ChunkManager;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.enemy.MovingEnemy;
 import com.scramble_like.game.game_object.Background;
+
 public class TestMap extends Scene
 {
     public TestMap()
@@ -32,7 +32,7 @@ public class TestMap extends Scene
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 
-        SoundFactory.getInstance().playBackgroundMusicWithFade("Audio/Music/Reach for the Summit.mp3", 1, 10);
+        //SoundFactory.getInstance().playBackgroundMusicWithFade("Audio/Music/Reach for the Summit.mp3", 1, 10);
     }
 
     @Override

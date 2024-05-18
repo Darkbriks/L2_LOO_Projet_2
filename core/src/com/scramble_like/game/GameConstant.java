@@ -10,6 +10,10 @@ public class GameConstant
     public static int MIN_Z_INDEX = 0;
     public static int MAX_Z_INDEX = 10;
 
+    // Game
+    public static float UPDATE_MULTIPLIER = 1;
+    // 1 = Vitesse normale ; 2 = Vitesse x2 ; 0.5 = Vitesse / 2 ; 0 = Pause
+
     // Chunk
     public static int CHUNK_SIDE = 50;
     public static int SQUARE_SIDE = 25;
