@@ -17,10 +17,6 @@ public class TestMap extends Scene
 
         try
         {
-            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 0, -500);
-            chunkManager.getTransform().setZIndex(GameConstant.MAX_Z_INDEX);
-            AddGameObject(chunkManager);
-
             Player go1 = new Player("Player", this, new Vector2(-350, 0));
             AddGameObject(go1);
 
@@ -29,10 +25,12 @@ public class TestMap extends Scene
             /*Background background =  new Background("Background", this, "backG.png");
             AddGameObject(background);*/
 
-            chunkManager.setPlayer(go1);
-
             Vector2[] waypoints = {new Vector2(0, 300), new Vector2(300, 300), new Vector2(300, 0), new Vector2(0, 0)};
             AddGameObject(new MovingEnemy("Enemy", this, "badlogic.jpg", 5, false, null, waypoints, 150));
+
+            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 0, -500);
+            AddGameObject(chunkManager);
+            chunkManager.setPlayer(go1);
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 

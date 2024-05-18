@@ -37,6 +37,8 @@ public class ChunkManager extends GameObject
         xLastOffset = 0;
 
         player = null;
+
+        this.getTransform().setZIndex(GameConstant.MAX_Z_INDEX - 1);
     }
 
     public boolean isLoaded() { return isLoaded; }
