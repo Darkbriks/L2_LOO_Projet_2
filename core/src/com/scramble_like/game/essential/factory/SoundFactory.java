@@ -12,13 +12,17 @@ public class SoundFactory implements Disposable, TickableObject
 {
     private static SoundFactory instance;
     private final ObjectMap<String, Sound> soundMap;
+
+    private Music backgroundMusic;
     private float targetVolume;
     private float fadeDuration;
     private float fadeTime;
-    private boolean isFadingOut;
-    private String newFilePath;
+    private boolean isInFade;
 
-    private SoundFactory() { soundMap = new ObjectMap<>(); ScrambleLikeApplication.getInstance().AddTickableObject(this); }
+    private String newFilePath;
+    private float newVolume;
+
+    private SoundFactory() { soundMap = new ObjectMap<>(); ScrambleLikeApplication.getInstance().AddTickableObject(this); newFilePath = null;}
 
     public static SoundFactory getInstance()
     {
@@ -61,16 +65,22 @@ public class SoundFactory implements Disposable, TickableObject
         soundMap.clear();
     }
 
-    public Music playBackgroundMusic(String filePath, float volume)
+    public void playBackgroundMusic(String filePath, float volume)
     {
-        Music music = Gdx.audio.newMusic(Gdx.files.internal(filePath));
-        music.setLooping(true);
-        music.setVolume(volume);
-        music.play();
-        return music;
+        if (backgroundMusic != null) { this.stopBackgroundMusic(); }
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(filePath));
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(volume);
+        backgroundMusic.play();
     }
 
-    public void stopBackgroundMusic(Music backgroundMusic)
+    public void playBackgroundMusicWithFade(String filePath, float volume, float fadeDuration)
+    {
+        if (backgroundMusic != null) { this.stopBackgroundMusic(); }
+        playBackgroundMusic(filePath, 0); fade(volume, fadeDuration);
+    }
+
+    public void stopBackgroundMusic()
     {
         if (backgroundMusic != null)
         {
@@ -79,47 +89,45 @@ public class SoundFactory implements Disposable, TickableObject
         }
     }
 
-    /*public void changeBackgroundMusicWithFade(String filePath, float duration)
+    public void fade(float targetVolume, float fadeDuration)
+    {
+        this.targetVolume = targetVolume;
+        this.fadeDuration = fadeDuration;
+        fadeTime = 0;
+        isInFade = true;
+    }
+
+    public void changeBackgroundMusicWithFade(String filePath, float volume, float duration)
     {
         if (backgroundMusic != null && backgroundMusic.isPlaying())
         {
             targetVolume = 0;
-            fadeDuration = duration;
+            fadeDuration = duration / 2;
             fadeTime = 0;
-            isFadingOut = true;
+            isInFade = true;
             newFilePath = filePath;
+            newVolume = volume;
         }
-        else { playBackgroundMusic(filePath); }
-    }*/
+        else { playBackgroundMusic(filePath, 0); fade(volume, duration); }
+    }
 
     @Override
     public void Tick(float deltaTime)
     {
-       /* if (isFadingOut && backgroundMusic != null)
+        if (isInFade)
         {
             fadeTime += deltaTime;
-            float volume = 1 - (fadeTime / fadeDuration);
-            backgroundMusic.setVolume(volume);
-            if (fadeTime >= fadeDuration)
+            if (fadeTime < fadeDuration)
             {
-                backgroundMusic.stop();
-                backgroundMusic.dispose();
-                backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(newFilePath));
-                backgroundMusic.setLooping(true);
-                backgroundMusic.setVolume(0);
-                backgroundMusic.play();
-                isFadingOut = false;
-                fadeTime = 0;
-                targetVolume = 1;
+                if (targetVolume < backgroundMusic.getVolume()) { backgroundMusic.setVolume(1 - (fadeTime / fadeDuration)); }
+                else { backgroundMusic.setVolume(targetVolume * (fadeTime / fadeDuration)); }
+            }
+            else
+            {
+                backgroundMusic.setVolume(targetVolume); isInFade = false;
+                if (newFilePath != null) { playBackgroundMusic(newFilePath, 0); fade(newVolume, fadeDuration); newFilePath = null; }
             }
         }
-        else if (backgroundMusic != null && targetVolume != 1)
-        {
-            fadeTime += deltaTime;
-            float volume = (fadeTime / fadeDuration) * targetVolume;
-            backgroundMusic.setVolume(volume);
-            if (fadeTime >= fadeDuration) { backgroundMusic.setVolume(targetVolume); targetVolume = 1; }
-        }*/
     }
 
     @Override

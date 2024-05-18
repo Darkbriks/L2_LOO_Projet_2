@@ -1,6 +1,5 @@
 package com.scramble_like.game.map;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Scene;
@@ -12,8 +11,6 @@ import com.scramble_like.game.game_object.enemy.MovingEnemy;
 import com.scramble_like.game.game_object.Background;
 public class TestMap extends Scene
 {
-    Music music;
-
     public TestMap()
     {
         super("TestMap");
@@ -22,8 +19,6 @@ public class TestMap extends Scene
         {
             Player go1 = new Player("Player", this, new Vector2(-350, 0));
             AddGameObject(go1);
-
-            //AddGameObject(new Particule("Particule",this,"Walk.png",4));
 
             Background background =  new Background("Background", this, "background/backG.png",1335);
             AddGameObject(background);
@@ -37,16 +32,13 @@ public class TestMap extends Scene
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 
-        SoundFactory.getInstance().loadSound("Drop", GameConstant.SOUND_PATH("drop.wav"));
-        SoundFactory.getInstance().playSound("Drop", 1.0f);
-
-        music = SoundFactory.getInstance().playBackgroundMusic(GameConstant.MUSIC_PATH("rain.mp3"), 1);
+        SoundFactory.getInstance().playBackgroundMusicWithFade("Audio/Music/Reach for the Summit.mp3", 1, 10);
     }
 
     @Override
     public void dispose()
     {
         super.dispose();
-        SoundFactory.getInstance().stopBackgroundMusic(music);
+        SoundFactory.getInstance().stopBackgroundMusic();
     }
 }
