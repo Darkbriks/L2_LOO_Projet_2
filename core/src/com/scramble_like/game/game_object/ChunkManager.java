@@ -64,8 +64,8 @@ public class ChunkManager extends GameObject
     public void Update(double DeltaTime)
     {
         if (!this.IsActive()) { return; }
-        if (!isLoaded) { return; }
         super.Update(DeltaTime);
+        if (!isLoaded) { return; }
 
         xOffSet += (float) (DeltaTime * GameConstant.BACKGROUD_SPEED);
 
