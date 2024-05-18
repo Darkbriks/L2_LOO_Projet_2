@@ -30,7 +30,7 @@ public class Transform
     public void setRotation(Vector2 Rotation) { this.Rotation = Rotation; }
     public void setScale(Vector2 Scale) { this.Scale = Scale; }
     public void setAlignment(Vector2 Alignment) { this.Alignment = Alignment; }
-    //public void setZIndex(int ZIndex) { this.ZIndex = Utils.clamp(ZIndex, GameConstant.MIN_Z_INDEX, GameConstant.MAX_Z_INDEX); }
+    public void setZIndex(int ZIndex) { this.ZIndex = Utils.clamp(ZIndex, GameConstant.MIN_Z_INDEX, GameConstant.MAX_Z_INDEX); }
 
     public void setLocationAndRotation(Vector2 Location, Vector2 Rotation)
     {
