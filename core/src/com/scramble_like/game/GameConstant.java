@@ -20,4 +20,8 @@ public class GameConstant
 
     // Animation
     public static float ANIMATION_FRAME_DURATION = 0.1f;
+
+    // PLayer
+    public static float PLAYER_SPEED = 350;
+    public static int PLAYER_LIFE = 50;
 }

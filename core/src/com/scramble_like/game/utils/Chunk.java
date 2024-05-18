@@ -22,7 +22,7 @@ public class Chunk
 {
     private final String fileName;
     private char[][] chunk;
-    private Map<String, Vector4> tileList; // Vector4: x, y, i, j
+    private Map<String, Vector4> tilesData; // Vector4: x, y, i, j
     private List<Tile> tiles;
     private List<TileCollider> colliders;
     private boolean isLoaded;
@@ -37,7 +37,7 @@ public class Chunk
         this.fileName = fileName;
         this.chunk = null;
         this.tiles = null;
-        this.tileList = null;
+        this.tilesData = null;
         colliders = null;
         isLoaded = false;
         isRendered = false;
@@ -83,7 +83,7 @@ public class Chunk
 
     private void render(Vector2 position)
     {
-        this.tileList = new HashMap<>();
+        this.tilesData = new HashMap<>();
         this.tiles = new ArrayList<>();
 
         for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
@@ -97,7 +97,7 @@ public class Chunk
                             - i * GameConstant.SQUARE_SIDE + ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
                             i, j);
 
-                    this.tileList.put(i + " " + j, tileData);
+                    this.tilesData.put(i + " " + j, tileData);
                     Tile tile = new Tile("Tileset/MedievalTileset/Tiles/tile34.png", tileData.x + (int) position.x, tileData.y + (int) position.y);
                     this.tiles.add(tile);
                     this.chunkManager.AddComponent(tile);
@@ -119,36 +119,10 @@ public class Chunk
     public void unRender()
     {
         if (tiles != null) { for (Tile tile : tiles) { chunkManager.RemoveComponent(tile); } }
-        this.tileList = null;
+        this.tilesData = null;
         this.tiles = null;
         this.isRendered = false;
         this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNRENDERED, new ChunkLoadedEvent(this));
-    }
-
-    /*private int[][] obtenirVoisins(int[][] tableau, int x, int y) {
-        List<int[]> voisinsList = new ArrayList<>();
-
-        // Les déplacements possibles pour atteindre les voisins (haut, bas, gauche, droite, et diagonales)
-        int[] deplacementsX = {-1, -1, -1, 0, 0, 1, 1, 1};
-        int[] deplacementsY = {-1, 0, 1, -1, 1, -1, 0, 1};
-
-        for (int i = 0; i < deplacementsX.length; i++) {
-            int voisinX = x + deplacementsX[i];
-            int voisinY = y + deplacementsY[i];
-
-            // Vérifiez si le voisin est dans les limites du tableau
-            if (voisinX >= 0 && voisinX < tableau.length && voisinY >= 0 && voisinY < tableau[0].length) {
-                voisinsList.add(new int[]{voisinX, voisinY});
-            }
-        }
-
-        // Convertir la liste en tableau 2D
-        int[][] voisinsArray = new int[voisinsList.size()][2];
-        for (int i = 0; i < voisinsList.size(); i++) {
-            voisinsArray[i] = voisinsList.get(i);
-        }
-
-        return voisinsArray;
     }
 
     private boolean asAnyAirBlockInNeighbour(int x, int y)
@@ -159,24 +133,24 @@ public class Chunk
             {
                 if (i == 0 && j == 0) continue;
                 if (x + i < 0 || x + i >= this.chunk.length || y + j < 0 || y + j >= this.chunk[0].length) return true;
-                if (this.chunk[x + i][y + j] == GameConstant.AIR_BLOCK) return true;
+                if (!this.tilesData.containsKey((x + i) + " " + (y + j))) return true;
             }
         }
         return false;
-    }*/
+    }
 
     private void simulate(Vector2 position)
     {
         colliders = new ArrayList<>();
 
-        for (Vector4 tileData : tileList.values())
+        for (Vector4 tileData : tilesData.values())
         {
-            //if (asAnyAirBlockInNeighbour((int) tileData.z, (int) tileData.w))
-            //{
+            if (asAnyAirBlockInNeighbour((int) tileData.z, (int) tileData.w))
+            {
                 TileCollider collider = new TileCollider(tileData.x + (int) position.x, tileData.y + (int) position.y);
                 colliders.add(collider);
                 this.chunkManager.AddComponent(collider);
-            //}
+            }
         }
 
         this.isSimulated = true;
@@ -214,7 +188,7 @@ public class Chunk
         int centerY = GameConstant.HEIGHT / 2;
         if (this.isRendered)
         {
-            for (Vector4 rectangle : this.tileList.values())
+            for (Vector4 rectangle : this.tilesData.values())
             {
                 shapeRenderer.rect(rectangle.x + centerX + (int) position.x, rectangle.y + centerY + (int) position.y, GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE);
             }

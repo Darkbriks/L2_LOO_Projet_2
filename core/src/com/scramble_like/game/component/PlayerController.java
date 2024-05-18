@@ -16,9 +16,7 @@ public class PlayerController extends Component
     private float hitCooldownTimer;
     private int life;
 
-    public PlayerController() { super(); this.speed = 500; life = 50;}
-    public PlayerController(float speed) { super(); this.speed = speed; life = 50; }
-    public PlayerController(float speed, int life) { super(); this.speed = speed; this.life = life; }
+    public PlayerController() { super(); this.speed = GameConstant.PLAYER_SPEED; life = GameConstant.PLAYER_LIFE;}
 
     public float getSpeed() { return speed; }
     public int getLife() { return life; }
