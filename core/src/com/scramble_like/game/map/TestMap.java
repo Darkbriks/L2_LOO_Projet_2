@@ -8,7 +8,7 @@ import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.game_object.ChunkManager;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.enemy.MovingEnemy;
-
+import com.scramble_like.game.game_object.Background;
 public class TestMap extends Scene
 {
     public TestMap()
@@ -22,8 +22,9 @@ public class TestMap extends Scene
 
             //AddGameObject(new Particule("Particule",this,"Walk.png",4));
 
-            /*Background background =  new Background("Background", this, "backG.png");
-            AddGameObject(background);*/
+            Background background =  new Background("Background", this, "background/backG.png",1335);
+            background.getTransform().setZIndex(GameConstant.MAX_Z_INDEX);
+            AddGameObject(background);
 
             Vector2[] waypoints = {new Vector2(0, 300), new Vector2(300, 300), new Vector2(300, 0), new Vector2(0, 0)};
             AddGameObject(new MovingEnemy("Enemy", this, "badlogic.jpg", 5, false, null, waypoints, 150));

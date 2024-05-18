@@ -26,6 +26,18 @@ public class Tile extends Sprite
         this.height = height;
     }
 
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x){
+        this.x=x;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
     public void addOffset(Vector2 offset) { x -= offset.x; y -= offset.y; }
 
     @Override
