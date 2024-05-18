@@ -1,13 +1,7 @@
 package com.scramble_like.game.component;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.scramble_like.game.essential.Component;
-import com.scramble_like.game.essential.event_dispatcher.EventIndex;
-import com.scramble_like.game.essential.event_dispatcher.EventListener;
-import com.scramble_like.game.essential.event_dispatcher.event.chunk.ChunkLoadedEvent;
-import com.scramble_like.game.utils.Chunk;
-
-import java.util.EventObject;
+import com.scramble_like.game.chunk.Chunk;
 
 public class TestComponent extends Component
 {

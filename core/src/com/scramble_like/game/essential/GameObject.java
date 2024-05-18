@@ -83,7 +83,7 @@ public class GameObject
     public void AddComponent(Component component)
     {
         if (component == null) { return; }
-        try { component.Init(this); this.components.add(component); }
+        try { component.Init(this); this.components.add(component); component.BeginPlay(); }
         catch (OwnerIsNullException e) { System.err.println("Error: " + e.getMessage()); }
     }
 

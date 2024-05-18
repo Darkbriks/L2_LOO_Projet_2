@@ -1,5 +1,8 @@
 package com.scramble_like.game.component.collider;
 
+import com.badlogic.gdx.graphics.Color;
+import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.essential.utils.DebugRenderer;
 import com.scramble_like.game.essential.utils.Utils;
 
 public class SphereCollider extends Collider
@@ -26,13 +29,14 @@ public class SphereCollider extends Collider
     public float getX2() { return getX() + radius; }
     public float getY2() { return getY() + radius; }
 
-    /*@Override
+    @Override
     public void Render()
     {
         if (!this.IsActive()) { return; }
-        DebugRenderer.DrawDebugCircle(getX(), getY(), radius, !overlappedCollider.isEmpty() ? Color.RED : Color.GREEN, this.getOwner().getScene().GetCamera().combined);
-        DebugRenderer.DrawDebugCircle(this.getOwnerX(), this.getOwnerY(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().GetCamera().combined);
-        DebugRenderer.DrawDebugCircle(this.getX1(), this.getY1(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().GetCamera().combined);
-        DebugRenderer.DrawDebugCircle(this.getX2(), this.getY2(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().GetCamera().combined);
-    }*/
+        if (!GameConstant.DEBUG) { return; }
+        DebugRenderer.DrawDebugCircle(getX(), getY(), radius, !overlappedCollider.isEmpty() ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
+        DebugRenderer.DrawDebugCircle(this.getOwnerX(), this.getOwnerY(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().getCamera().getCombined());
+        DebugRenderer.DrawDebugCircle(this.getX1(), this.getY1(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().getCamera().getCombined());
+        DebugRenderer.DrawDebugCircle(this.getX2(), this.getY2(), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().getCamera().getCombined());
+    }
 }

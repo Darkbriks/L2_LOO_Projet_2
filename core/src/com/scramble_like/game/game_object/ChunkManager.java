@@ -6,8 +6,8 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.utils.Chunk;
-import com.scramble_like.game.utils.ChunkHelper;
+import com.scramble_like.game.chunk.Chunk;
+import com.scramble_like.game.chunk.ChunkHelper;
 import java.util.ArrayList;
 import java.util.List;
 

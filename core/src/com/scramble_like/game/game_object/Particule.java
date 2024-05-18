@@ -1,33 +1,40 @@
 package com.scramble_like.game.game_object;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.component.Animation;
+import com.badlogic.gdx.math.Vector3;
+import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 
-public class Particule extends GameObject {
+public class Particule extends GameObject
+{
+    private float elapsedTime;
+    private final float animationDuration;
 
-    private float timer;
-    private float tmpAnimation;
-    public Particule(String name, Scene scene,String path,int nbdecoupage, float dureeAnimation) throws SceneIsNullException
+    public Particule(String name, Scene scene, String path, int frameCount) throws SceneIsNullException
     {
         super(name, scene);
-        Animation animation = new Animation(path, nbdecoupage, dureeAnimation);
-        this.AddComponent(animation);
-        this.tmpAnimation = dureeAnimation*nbdecoupage;
-        this.timer = 0;
-        //this.getTransform().setScale(new Vector2(0.3f, 0.3f));
+        this.AddComponent(new Flipbook(path, frameCount));
+        this.animationDuration = GameConstant.ANIMATION_FRAME_DURATION * frameCount;
+        this.elapsedTime = 0;
+    }
+
+    public Particule(String name, Scene scene, String path, int frameCount, Vector3 location) throws SceneIsNullException
+    {
+        super(name, scene);
+        this.getTransform().setLocation(location);
+        this.AddComponent(new Flipbook(path, frameCount));
+        this.animationDuration = GameConstant.ANIMATION_FRAME_DURATION * frameCount;
+        this.elapsedTime = 0;
     }
 
     @Override
-    public void Update(double DeltaTime){
+    public void Update(double DeltaTime)
+    {
         if (!this.IsActive()) { return; }
         super.Update(DeltaTime);
-        this.timer += (float) DeltaTime;
-        if(this.tmpAnimation<=this.timer){
-            DestroyThisInScene();
-        }
+        this.elapsedTime += (float) DeltaTime;
+        if (this.elapsedTime >= this.animationDuration) { DestroyThisInScene(); }
     }
 }

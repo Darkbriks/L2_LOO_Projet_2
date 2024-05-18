@@ -2,7 +2,7 @@ package com.scramble_like.game.game_object.enemy;
 
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.component.Shoot;
-import com.scramble_like.game.component.Sprite;
+import com.scramble_like.game.component.paper2d.Sprite;
 import com.scramble_like.game.component.collider.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;

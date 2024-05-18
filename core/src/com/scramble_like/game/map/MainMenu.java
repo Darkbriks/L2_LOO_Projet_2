@@ -1,21 +1,19 @@
 package com.scramble_like.game.map;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.ScrambleLikeApplication;
-import com.scramble_like.game.component.Text;
+import com.scramble_like.game.component.paper2d.Text;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
-import com.scramble_like.game.essential.exception.GameIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 
 public class MainMenu extends Scene
 {
-    public MainMenu(ScrambleLikeApplication game) throws GameIsNullException
+    public MainMenu()
     {
-        super(game, "MainMenu");
+        super("MainMenu");
 
         backgroundColor = new Vector4(0, 0, 0, 1);
 
@@ -37,11 +35,7 @@ public class MainMenu extends Scene
     @Override
     public void render(float delta)
     {
-        if (Gdx.input.isTouched())
-        {
-            try { getGame().setScreen(new TestMap(getGame())); }
-            catch (GameIsNullException e) { System.err.println(e.getMessage()); Gdx.app.exit(); }
-        }
+        if (Gdx.input.isTouched()) { getGame().setScreen(new TestMap()); }
         super.render(delta);
     }
 }

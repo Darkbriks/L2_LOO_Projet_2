@@ -30,14 +30,14 @@ public class TileCollider extends AABBCollider
 
     public void addOffset(Vector2 offset) { x -= offset.x; y -= offset.y; }
 
-    /*@Override
+    @Override
     public void Render()
     {
         if (!this.IsActive()) { return; }
+        if (!GameConstant.DEBUG) { return; }
         DebugRenderer.DrawDebugLine(this.getX1(), this.getY1(), this.getX2(), this.getY1(), !overlappedCollider.isEmpty() ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
         DebugRenderer.DrawDebugLine(this.getX2(), this.getY1(), this.getX2(), this.getY2(), !overlappedCollider.isEmpty() ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
         DebugRenderer.DrawDebugLine(this.getX2(), this.getY2(), this.getX1(), this.getY2(), !overlappedCollider.isEmpty() ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
         DebugRenderer.DrawDebugLine(this.getX1(), this.getY2(), this.getX1(), this.getY1(), !overlappedCollider.isEmpty() ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
-        this.getOwner().getFont().draw(this.getOwner().getBatch(), ".", this.getX1(), this.getY1());
-    }*/
+    }
 }
