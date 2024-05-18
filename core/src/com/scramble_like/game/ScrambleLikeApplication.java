@@ -3,9 +3,13 @@ package com.scramble_like.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.ControllerListener;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.scramble_like.game.essential.ControllersListener;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.TickableObject;
 import com.scramble_like.game.map.MainMenu;
@@ -22,11 +26,13 @@ public class ScrambleLikeApplication extends Game
 	private SpriteBatch batch;
 	private BitmapFont font;
 	private GameCamera camera;
+	private Controller controller;
 
 	public ShapeRenderer getShapeRenderer() { return shapeRenderer; }
 	public SpriteBatch getBatch() { return batch; }
 	public BitmapFont getFont() { return font; }
 	public GameCamera getCamera() { return camera; }
+	public Controller getController() { return controller; }
 
 	private List<TickableObject> tickableObjects;
 	public List<TickableObject> getTickableObjects() { return tickableObjects; }
@@ -43,6 +49,8 @@ public class ScrambleLikeApplication extends Game
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		camera = new GameCamera(GameConstant.WIDTH, GameConstant.HEIGHT);
+		controller = Controllers.getCurrent();
+		Controllers.addListener(new ControllersListener());
 
 		tickableObjects = new ArrayList<>();
 
@@ -56,6 +64,8 @@ public class ScrambleLikeApplication extends Game
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { Gdx.app.exit(); }
 		if (Gdx.input.isKeyJustPressed(Input.Keys.B)) { GameConstant.DEBUG = !GameConstant.DEBUG;}
 		if (Gdx.input.isKeyJustPressed(Input.Keys.G)) { GameConstant.GOD_MODE = !GameConstant.GOD_MODE; }
+
+		//if (controller != null) { System.out.println(controller.getAxis(0)); }
 
 		batch.setProjectionMatrix(camera.getCombined());
 		super.render();

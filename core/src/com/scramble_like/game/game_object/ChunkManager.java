@@ -37,6 +37,8 @@ public class ChunkManager extends GameObject
         xLastOffset = 0;
 
         player = null;
+
+        this.getTransform().setZIndex(GameConstant.MAX_Z_INDEX - 1);
     }
 
     public boolean isLoaded() { return isLoaded; }
@@ -67,7 +69,7 @@ public class ChunkManager extends GameObject
         super.Update(DeltaTime);
         if (!isLoaded) { return; }
 
-        xOffSet += (float) (DeltaTime * GameConstant.BACKGROUD_SPEED);
+        xOffSet += (float) (DeltaTime * GameConstant.BACKGROUND_SPEED);
 
         // On calcule la distance entre this et chaque chunk
         for (int i = 0; i < levelChunkCount.x; i++)

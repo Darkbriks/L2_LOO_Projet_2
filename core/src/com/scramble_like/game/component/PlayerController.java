@@ -2,6 +2,8 @@ package com.scramble_like.game.component;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
@@ -32,8 +34,12 @@ public class PlayerController extends Component
 
         hitCooldownTimer += (float) DeltaTime;
 
+        Controller controller = Controllers.getCurrent();
         float newX = this.getOwner().getTransform().getLocation().x;
         float newY = this.getOwner().getTransform().getLocation().y;
+        float newX_Controller = newX;
+        float newY_Controller = newY;
+        boolean useController = false;
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {newX += (float) (speed * DeltaTime);}
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {newX -= (float) (speed * DeltaTime);}
@@ -42,13 +48,17 @@ public class PlayerController extends Component
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) { life -= 10; }
 
-        this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(newX, (double) -GameConstant.WIDTH / 2, (double) GameConstant.WIDTH / 2);
-        this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(newY, (double) -GameConstant.HEIGHT / 2, (double) GameConstant.HEIGHT / 2);
+        if (Math.abs(controller.getAxis(controller.getMapping().axisLeftX)) > 0.1f) { newX_Controller += (float) (speed * DeltaTime * controller.getAxis(controller.getMapping().axisLeftX)); useController = true;}
+        if (Math.abs(controller.getAxis(controller.getMapping().axisLeftY)) > 0.1f) { newY_Controller -= (float) (speed * DeltaTime * controller.getAxis(controller.getMapping().axisLeftY)); useController = true;}
+
+        this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(useController ? newX_Controller : newX, (double) -GameConstant.WIDTH / 2, (double) GameConstant.WIDTH / 2);
+        this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(useController ? newY_Controller : newY, (double) -GameConstant.HEIGHT / 2, (double) GameConstant.HEIGHT / 2);
 
         if(!this.isAlive())
         {
             this.getOwner().getScene().getEventDispatcher().DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
             this.getOwner().getScene().getGame().setScreen(new GameOver());
+            this.getOwner().getScene().dispose();
         }
     }
 }
