@@ -3,6 +3,7 @@ package com.scramble_like.game.essential;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Disposable;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.essential.exception.OwnerIsNullException;
@@ -10,7 +11,7 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.utils.Transform;
 import java.util.ArrayList;
 
-public class GameObject
+public class GameObject implements Disposable
 {
     private static int globalID = 0;
     private final int ID;
@@ -117,11 +118,20 @@ public class GameObject
 
     public void Destroying()
     {
-        this.name = null;
+        /*this.name = null;
         this.transform = null;
         this.scene = null;
-        this.components = null;
+        this.components = null;*/
+        this.isActive = false;
     }
 
     public void DestroyThisInScene() { this.getScene().DestroyGameObject(this); }
+
+    @Override
+    public void dispose()
+    {
+        //for (int i = 0; i < components.size(); i++) { components.get(i).dispose(); }
+        components.clear();
+        componentsToRemove.clear();
+    }
 }

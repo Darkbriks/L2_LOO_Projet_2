@@ -1,8 +1,9 @@
 package com.scramble_like.game.essential;
 
+import com.badlogic.gdx.utils.Disposable;
 import com.scramble_like.game.essential.exception.OwnerIsNullException;
 
-public abstract class Component
+public abstract class Component implements Disposable
 {
     private static int globalID = 0;
     private final int ID;
@@ -32,5 +33,12 @@ public abstract class Component
 
     public void Destroy() { this.isMarkedForDestruction = true; }
 
-    public void Destroying() { this.Owner = null; }
+    public void Destroying() { this.Owner = null; this.isActive = false; }
+
+    @Override
+    public void dispose()
+    {
+        this.Destroy();
+        this.Destroying();
+    }
 }
