@@ -1,47 +1,49 @@
 package com.scramble_like.game.essential.utils;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.scramble_like.game.GameConstant;
 
 public class Transform
 {
-    private Vector3 Location;
+    private Vector2 Location;
     private Vector2 Rotation;
     private Vector2 Scale;
     private Vector2 Alignment;
+    private int ZIndex;
 
     public Transform()
     {
-        this.Location = new Vector3(0, 0, 0);
+        this.Location = new Vector2(0, 0);
         this.Rotation = new Vector2(0, 0);
         this.Scale = new Vector2(1, 1);
         this.Alignment = new Vector2(0.5f, 0.5f);
+        this.ZIndex = 0;
     }
 
-    public Vector3 getLocation() { return this.Location; }
+    public Vector2 getLocation() { return this.Location; }
     public Vector2 getRotation() { return this.Rotation; }
     public Vector2 getScale() { return this.Scale; }
     public Vector2 getAlignment() { return this.Alignment; }
+    public int getZIndex() { return this.ZIndex; }
 
-    public void setLocation(Vector3 Location) { this.Location = Location; }
-    public void setLocation(Vector2 Location) { this.Location = new Vector3(Location.x, Location.y, 0); }
+    public void setLocation(Vector2 Location) { this.Location = Location; }
     public void setRotation(Vector2 Rotation) { this.Rotation = Rotation; }
     public void setScale(Vector2 Scale) { this.Scale = Scale; }
     public void setAlignment(Vector2 Alignment) { this.Alignment = Alignment; }
+    //public void setZIndex(int ZIndex) { this.ZIndex = Utils.clamp(ZIndex, GameConstant.MIN_Z_INDEX, GameConstant.MAX_Z_INDEX); }
 
-    public void setLocationAndRotation(Vector3 Location, Vector2 Rotation)
+    public void setLocationAndRotation(Vector2 Location, Vector2 Rotation)
     {
         this.Location = Location;
         this.Rotation = Rotation;
     }
 
-    public void Translate(Vector3 Translation) { this.Location.add(Translation); }
-    public void Translate(Vector2 Translation) { this.Location.add(new Vector3(Translation.x, Translation.y, 0)); }
+    public void Translate(Vector2 Translation) { this.Location.add(Translation); }
     public void Rotate(Vector2 Rotation) { this.Rotation.add(Rotation); }
     public void Scale(Vector2 Scale) { this.Scale.add(Scale); }
 
 
-    public void Translate(float x, float y, float z) { this.Location.add(x, y, z); }
+    public void Translate(float x, float y) { this.Location.add(x, y); }
     public void Rotate(float x, float y) { this.Rotation.add(x, y); }
     public void Scale(float x, float y) { this.Scale.add(x, y); }
 }

@@ -20,7 +20,7 @@ public class GameOver extends Scene
         {
             GameObject gameOverText = new GameObject("GameOverText", this);
             gameOverText.AddComponent(new Text("RIP loser!!!!", 2, Color.RED));
-            gameOverText.getTransform().Translate(-190, 25, 0);
+            gameOverText.getTransform().Translate(-190, 25);
             AddGameObject(gameOverText);
         }
         catch (SceneIsNullException e) { System.err.println(e.getMessage()); }

@@ -1,9 +1,7 @@
 package com.scramble_like.game.map;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.scramble_like.game.GameConstant;
-import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.factory.SoundFactory;
@@ -20,9 +18,10 @@ public class TestMap extends Scene
         try
         {
             ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 0, -500);
+            chunkManager.getTransform().setZIndex(GameConstant.MAX_Z_INDEX);
             AddGameObject(chunkManager);
 
-            Player go1 = new Player("Player", this, new Vector3(-350, 0, 0));
+            Player go1 = new Player("Player", this, new Vector2(-350, 0));
             AddGameObject(go1);
 
             //AddGameObject(new Particule("Particule",this,"Walk.png",4));

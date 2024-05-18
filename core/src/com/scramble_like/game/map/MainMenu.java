@@ -21,12 +21,12 @@ public class MainMenu extends Scene
         {
             GameObject titleText = new GameObject("TitleText", this);
             titleText.AddComponent(new Text("Welcome to Scramble Like!!!", 2, Color.CORAL));
-            titleText.getTransform().Translate(-190, 25, 0);
+            titleText.getTransform().Translate(-190, 25);
             AddGameObject(titleText);
 
             GameObject startText = new GameObject("StartText", this);
             startText.AddComponent(new Text("Tap anywhere to begin!"));
-            startText.getTransform().Translate(-75, -25, 0);
+            startText.getTransform().Translate(-75, -25);
             AddGameObject(startText);
         }
         catch (SceneIsNullException e) { System.err.println(e.getMessage()); }

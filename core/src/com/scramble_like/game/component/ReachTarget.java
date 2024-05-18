@@ -1,6 +1,6 @@
 package com.scramble_like.game.component;
 
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.exception.OwnerIsNullException;
@@ -11,7 +11,7 @@ public class ReachTarget extends Component
     private final GameObject target;
     private final float speed;
     private final float damage;
-    private Vector3 initialLocation;
+    private Vector2 initialLocation;
     private float t = 0;
 
     public ReachTarget(GameObject target) { super(); this.target = target; this.speed = 1; this.damage = 1; }
@@ -22,7 +22,7 @@ public class ReachTarget extends Component
     public void Init(GameObject Owner) throws OwnerIsNullException
     {
         super.Init(Owner);
-        initialLocation = new Vector3(Owner.getTransform().getLocation());
+        initialLocation = new Vector2(Owner.getTransform().getLocation());
     }
 
     public GameObject getTarget() { return target; }
