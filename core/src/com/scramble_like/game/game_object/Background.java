@@ -16,13 +16,14 @@ public class Background extends GameObject {
 
     public Background(String name, Scene scene, String path, int fix) throws SceneIsNullException {
         super(name, scene);
+        this.fix = fix;
         this.background = new Tile(path, -800, -450, 2000, 900);
         //this.getTransform().setScale(new Vector2(4,5));
         this.AddComponent(background);
         speed=4;
-        this.samebackground = new Tile(path, 535, -450, 2000, 900);
+        this.samebackground = new Tile(path, this.background.getX()+this.fix, -450, 2000, 900);
         this.AddComponent(samebackground);
-        this.fix = fix;
+
     }
 
     @Override
