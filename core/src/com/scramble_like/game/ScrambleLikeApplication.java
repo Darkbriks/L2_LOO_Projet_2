@@ -2,6 +2,7 @@ package com.scramble_like.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -51,6 +52,10 @@ public class ScrambleLikeApplication extends Game
 	@Override
 	public void render ()
 	{
+		// Si on appui sur la touche echap, on quitte le jeu
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { Gdx.app.exit(); }
+		if (Gdx.input.isKeyJustPressed(Input.Keys.B)) { GameConstant.DEBUG = !GameConstant.DEBUG;}
+
 		batch.setProjectionMatrix(camera.getCombined());
 		super.render();
 	}
