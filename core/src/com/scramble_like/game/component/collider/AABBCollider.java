@@ -2,6 +2,7 @@ package com.scramble_like.game.component.collider;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.utils.DebugRenderer;
 import com.scramble_like.game.essential.utils.Utils;
 
@@ -54,14 +55,15 @@ public class AABBCollider extends Collider
     public void setHeight(float height) { this.height = height; }
 
     ////////// Override Methods //////////
-    /*@Override
+    @Override
     public void Render()
     {
         if (!this.IsActive()) { return; }
+        if (!GameConstant.DEBUG) { return; }
         DebugRenderer.DrawDebugLine(this.getX1(), this.getY1(), this.getX2(), this.getY1(), !overlappedCollider.isEmpty() || isHit ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
         DebugRenderer.DrawDebugLine(this.getX2(), this.getY1(), this.getX2(), this.getY2(), !overlappedCollider.isEmpty() || isHit ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
         DebugRenderer.DrawDebugLine(this.getX2(), this.getY2(), this.getX1(), this.getY2(), !overlappedCollider.isEmpty() || isHit ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
         DebugRenderer.DrawDebugLine(this.getX1(), this.getY2(), this.getX1(), this.getY1(), !overlappedCollider.isEmpty() || isHit ? Color.RED : Color.GREEN, this.getOwner().getScene().getCamera().getCombined());
         DebugRenderer.DrawDebugCircle(new Vector2(this.getOwnerX(), this.getOwnerY()), 1, com.badlogic.gdx.graphics.Color.RED, this.getOwner().getScene().getCamera().getCombined());
-    }*/
+    }
 }

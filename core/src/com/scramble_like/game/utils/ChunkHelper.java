@@ -21,14 +21,17 @@ public class ChunkHelper
     static {
         level0 = new String[][]
                 {
-                          // Line 1                       // Line 2
-                        { /*"Map/Level_1/text_art (2).txt",*/ "Map/Level_1/text_art (3).txt"},
-                        { /*"Map/Level_1/text_art (2).txt",*/ "Map/Level_1/text_art (3).txt"},
-                        { /*"Map/Level_1/text_art (2).txt",*/ "Map/Level_1/text_art (3).txt"},
-                        { /*"Map/Level_1/text_art (2).txt",*/ "Map/Level_1/text_art (3).txt"},
-                        { /*"Map/Level_1/text_art (2).txt",*/ "Map/Level_1/text_art (3).txt"},
-                        { /*"Map/Level_1/text_art (2).txt",*/ "Map/Level_1/text_art (3).txt"},
-                        { /*"Map/Level_1/text_art (2).txt",*/ "Map/Level_1/text_art (3).txt"},
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+                        { GameConstant.CHUNK_PATH("text_art (3)", 0) },
                 };
         level1 = new String[][]
                 {

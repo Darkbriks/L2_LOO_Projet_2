@@ -1,6 +1,7 @@
 package com.scramble_like.game.game_object;
 
 import com.badlogic.gdx.math.Vector3;
+import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.component.PlayerController;
 import com.scramble_like.game.component.collider.AABBCollider;
@@ -33,7 +34,7 @@ public class Player extends GameObject
         super.BeginPlay();
         PlayerController playerController = new PlayerController();
         this.AddComponent(playerController);
-        this.AddComponent(new Flipbook("Walk.png", 4));
+        this.AddComponent(new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1") + "/Idle.png", 4));
         this.AddComponent(new AABBCollider(50, 50, false, true));
 
         this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {

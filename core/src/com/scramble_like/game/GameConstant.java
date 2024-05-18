@@ -24,4 +24,13 @@ public class GameConstant
     // PLayer
     public static float PLAYER_SPEED = 350;
     public static int PLAYER_LIFE = 50;
+
+    // Path
+    public static String CHARACTER_PATH(String pack, String name) { return "Characters/" + pack + "/" + name; }
+    public static String SOUND_PATH(String name) { return "Audio/Sound/" + name; }
+    public static String MUSIC_PATH(String name) { return "Audio/Music/" + name; }
+    public static String CHUNK_PATH(String name, int level) { return "Map/Level_" + level + "/" + name + ".txt"; }
+
+    // Debug
+    public static boolean DEBUG = false;
 }
