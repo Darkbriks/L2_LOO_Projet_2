@@ -21,6 +21,11 @@ public class ChunkManager extends GameObject
     protected Player player;
     protected GameCamera camera;
 
+    //Variables pour diviser le traitement des chunks sur plusieurs frames
+    protected int nextI;
+    protected int nextJ;
+    protected int processedChunks;
+
     public ChunkManager(String name, Scene scene, int level) throws SceneIsNullException
     {
         super(name, scene);
@@ -29,6 +34,11 @@ public class ChunkManager extends GameObject
         chunks = new Chunk[(int) levelChunkCount.x][(int) levelChunkCount.y];
         isLoaded = false;
         player = null;
+
+        this.nextI = 0;
+        this.nextJ = 0;
+        this.processedChunks = 0;
+
         this.getTransform().setZIndex(GameConstant.MAX_Z_INDEX - 1);
     }
 
@@ -64,24 +74,23 @@ public class ChunkManager extends GameObject
         if (!isLoaded) { return; }
 
         // On calcule la distance entre le joueur et chaque chunk
-        for (int i = 0; i < levelChunkCount.x; i++)
+        for (int i = this.nextI; i < levelChunkCount.x; i++)
         {
-            for (int j = 0; j < levelChunkCount.y; j++)
+            for (int j = this.nextJ; j < levelChunkCount.y; j++)
             {
                 if (chunks[i][j] == null) { continue; }
+                this.processedChunks++;
 
-                float squaredDistance = ChunkHelper.getChunkSquaredDistanceWithPosition(new Vector2(i, j), camera.getPosition(), (int) levelChunkCount.y);
+                float squaredDistance = ChunkHelper.getChunkSquaredDistanceWithPosition(new Vector2(i, j), camera.getPosition().x, (int) levelChunkCount.y);
                 if (squaredDistance < GameConstant.SQUARED_CHUNK_SIMULATING_DISTANCE)
                 {
                     if (chunks[i][j].isLoaded() && chunks[i][j].isRendered() && !chunks[i][j].isSimulated())
                     {
-                        Vector2 chunkPositionInSceneUnits = ChunkHelper.getChunkPositionInSceneUnits(new Vector2(i, j), (int) levelChunkCount.y);
-                        chunks[i][j].simulateAsynchronously(chunkPositionInSceneUnits);
+                        chunks[i][j].simulateAsynchronously(ChunkHelper.getChunkPositionInSceneUnits(new Vector2(i, j), (int) levelChunkCount.y));
                     }
                     else if (chunks[i][j].isLoaded() && !chunks[i][j].isRendered())
                     {
-                        Vector2 chunkPositionInSceneUnits = ChunkHelper.getChunkPositionInSceneUnits(new Vector2(i, j), (int) levelChunkCount.y);
-                        chunks[i][j].renderAsynchronously(chunkPositionInSceneUnits);
+                        chunks[i][j].renderAsynchronously(ChunkHelper.getChunkPositionInSceneUnits(new Vector2(i, j), (int) levelChunkCount.y));
                     }
                     else if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
                 }
@@ -90,8 +99,7 @@ public class ChunkManager extends GameObject
                     if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
                     if (chunks[i][j].isLoaded() && !chunks[i][j].isRendered())
                     {
-                        Vector2 chunkPositionInSceneUnits = ChunkHelper.getChunkPositionInSceneUnits(new Vector2(i, j), (int) levelChunkCount.y);
-                        chunks[i][j].renderAsynchronously(chunkPositionInSceneUnits);
+                        chunks[i][j].renderAsynchronously(ChunkHelper.getChunkPositionInSceneUnits(new Vector2(i, j), (int) levelChunkCount.y));
                     }
                     else if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
                 }
@@ -104,10 +112,14 @@ public class ChunkManager extends GameObject
                 else
                 {
                     if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
-                    if (!chunks[i][j].isSimulated() && chunks[i][j].isRendered()/* && index != -1*/) { chunks[i][j].unRender(); /*drawnChunks.remove(index);*/ }
+                    if (!chunks[i][j].isSimulated() && chunks[i][j].isRendered()) { chunks[i][j].unRender(); }
                     if (!chunks[i][j].isRendered() && chunks[i][j].isLoaded()) { chunks[i][j].unload(); }
                 }
+                this.nextJ++; if (this.nextJ >= levelChunkCount.y) { this.nextJ = 0; this.nextI = (i + 1) % (int) levelChunkCount.x; }
+                if (this.processedChunks >= GameConstant.CHUNKS_PROCESSED_PER_FRAME) { this.processedChunks = 0; return; }
             }
         }
+        this.nextI = 0; this.nextJ = 0;
+        this.processedChunks = 0;
     }
 }
