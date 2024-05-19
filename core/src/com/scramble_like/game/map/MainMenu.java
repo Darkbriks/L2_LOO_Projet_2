@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.RotateController;
 import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.essential.GameObject;
