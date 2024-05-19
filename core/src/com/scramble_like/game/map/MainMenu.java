@@ -12,10 +12,6 @@ import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 
 public class MainMenu extends Scene {
-    private GameObject playButton;
-    private GameObject exitButton;
-    private GameObject levelMapButton;
-    private GameObject titleText;
     private Rectangle playButtonBounds;
     private Rectangle exitButtonBounds;
     private Rectangle levelMapButtonBounds;
@@ -26,32 +22,29 @@ public class MainMenu extends Scene {
         backgroundColor = new Vector4(0, 0, 0, 1);
 
         try {
-            // Titre du jeu
-            titleText = new GameObject("TitleText", this);
+
+            GameObject titleText = new GameObject("TitleText", this);
             titleText.AddComponent(new Text("Aqua Escape", 4, Color.CYAN));
-            titleText.getTransform().Translate(0, 150); // Centrer le texte
+            titleText.getTransform().Translate(0, 150);
             AddGameObject(titleText);
 
-            // Bouton Play
-            playButton = new GameObject("PlayButton", this);
+            GameObject playButton = new GameObject("PlayButton", this);
             playButton.AddComponent(new Text("Play", 3, Color.WHITE));
             playButton.getTransform().Translate(0, 50); // Centrer le bouton
             AddGameObject(playButton);
-            playButtonBounds = new Rectangle(-50, 25, 100, 50); // Rectangle de clic du bouton Play
+            playButtonBounds = new Rectangle(-50, 25, 100, 50);
 
-            // Bouton Level Map
-            levelMapButton = new GameObject("LevelMapButton", this);
+            GameObject levelMapButton = new GameObject("LevelMapButton", this);
             levelMapButton.AddComponent(new Text("Level Map", 3, Color.WHITE));
-            levelMapButton.getTransform().Translate(-150, -50); // Positionner à gauche
+            levelMapButton.getTransform().Translate(-150, -50);
             AddGameObject(levelMapButton);
-            levelMapButtonBounds = new Rectangle(-180, -75, 170, 50); // Rectangle de clic du bouton Level Map
+            levelMapButtonBounds = new Rectangle(-180, -75, 170, 50);
 
-            // Bouton Exit
-            exitButton = new GameObject("ExitButton", this);
+            GameObject exitButton = new GameObject("ExitButton", this);
             exitButton.AddComponent(new Text("Exit", 3, Color.WHITE));
-            exitButton.getTransform().Translate(150, -50); // Positionner à droite
+            exitButton.getTransform().Translate(150, -50);
             AddGameObject(exitButton);
-            exitButtonBounds = new Rectangle(155, -75, 90, 50); // Rectangle de clic du bouton Exit
+            exitButtonBounds = new Rectangle(150, -75, 90, 50);
         } catch (SceneIsNullException e) {
             System.err.println(e.getMessage());
         }
@@ -65,16 +58,14 @@ public class MainMenu extends Scene {
             camera.unproject(touchPos);
             System.out.println("Touch position: " + touchPos.x + ", " + touchPos.y);
 
-            // Si l'utilisateur clique sur le bouton "Exit"
-            if (exitButtonBounds.contains(touchPos.x, touchPos.y)) {
-                Gdx.app.exit();
-            }
-            // Si l'utilisateur clique sur le bouton "Play"
+
+            if (exitButtonBounds.contains(touchPos.x, touchPos.y)) {Gdx.app.exit();}
+
             else if (playButtonBounds.contains(touchPos.x, touchPos.y)) {
                 getGame().setScreen(new TestMap());
                 dispose();
             }
-            // Si l'utilisateur clique sur le bouton "Level Map"
+
             else if (levelMapButtonBounds.contains(touchPos.x, touchPos.y)) {
                 getGame().setScreen(new GameOver());
                 dispose();
