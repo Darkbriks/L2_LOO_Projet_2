@@ -1,77 +1,39 @@
 package com.scramble_like.game.map;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.Vector4;
-import com.scramble_like.game.component.paper2d.Text;
-import com.scramble_like.game.essential.GameObject;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Scene;
-import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.ui.AE_Label;
+import com.scramble_like.game.ui.AE_TitleLabel;
 
-public class MainMenu extends Scene {
-    private Rectangle playButtonBounds;
-    private Rectangle exitButtonBounds;
-    private Rectangle levelMapButtonBounds;
-
+public class MainMenu extends Scene
+{
     public MainMenu() {
         super("MainMenu");
 
         backgroundColor = new Vector4(0, 0, 0, 1);
 
-        try {
+        Label titleText = new AE_TitleLabel("Aqua Escape", this.getSkin());
+        titleText.setPosition((GameConstant.WIDTH - titleText.getWidth()) / 2 , (float) GameConstant.HEIGHT / 2 + 100);
+        this.getStage().addActor(titleText);
 
-            GameObject titleText = new GameObject("TitleText", this);
-            titleText.AddComponent(new Text("Aqua Escape", 4, Color.CYAN));
-            titleText.getTransform().Translate(0, 150);
-            AddGameObject(titleText);
+        Label playButton = new AE_Label("Play", this.getSkin());
+        playButton.setPosition((float) GameConstant.WIDTH / 2 - playButton.getWidth(), (float) GameConstant.HEIGHT / 2);
+        playButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new TestMap()); dispose(); } });
+        this.getStage().addActor(playButton);
 
-            GameObject playButton = new GameObject("PlayButton", this);
-            playButton.AddComponent(new Text("Play", 3, Color.WHITE));
-            playButton.getTransform().Translate(0, 50);
-            AddGameObject(playButton);
-            playButtonBounds = new Rectangle(-10, 25, 100, 50);
+        Label levelMapButton = new AE_Label("Level Map", this.getSkin());
+        levelMapButton.setPosition((float) GameConstant.WIDTH / 2 - levelMapButton.getWidth() / 2 - 100, (float) GameConstant.HEIGHT / 2 - 50);
+        levelMapButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new GameOver(40)); dispose(); } });
+        this.getStage().addActor(levelMapButton);
 
-            GameObject levelMapButton = new GameObject("LevelMapButton", this);
-            levelMapButton.AddComponent(new Text("Level Map", 3, Color.WHITE));
-            levelMapButton.getTransform().Translate(-150, -50);
-            AddGameObject(levelMapButton);
-            levelMapButtonBounds = new Rectangle(-155, -75, 200, 50);
-
-            GameObject exitButton = new GameObject("ExitButton", this);
-            exitButton.AddComponent(new Text("Exit", 3, Color.WHITE));
-            exitButton.getTransform().Translate(150, -50);
-            AddGameObject(exitButton);
-            exitButtonBounds = new Rectangle(145, -75, 90, 50);
-        } catch (SceneIsNullException e) {
-            System.err.println(e.getMessage());
-        }
+        Label exitButton = new AE_Label("Exit", this.getSkin());
+        exitButton.setPosition((float) GameConstant.WIDTH / 2 - exitButton.getWidth() / 2 + 100, (float) GameConstant.HEIGHT / 2 - 50);
+        exitButton.addListener(new ClickListener() {  @Override public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); } });
+        this.getStage().addActor(exitButton);
     }
-
-    @Override
-    public void render(float delta) {
-        if (Gdx.input.justTouched()) {
-            Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-            Camera camera = getCamera().getCamera();
-            camera.unproject(touchPos);
-
-            if (exitButtonBounds.contains(touchPos.x, touchPos.y)) {Gdx.app.exit();}
-
-            else if (playButtonBounds.contains(touchPos.x, touchPos.y)) {
-                getGame().setScreen(new TestMap());
-                dispose();
-            }
-
-            else if (levelMapButtonBounds.contains(touchPos.x, touchPos.y)) {
-                getGame().setScreen(new GameOver(40));
-                dispose();
-            }
-        }
-
-        super.render(delta);
-
-    }
-
 }

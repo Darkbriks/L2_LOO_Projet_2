@@ -49,9 +49,6 @@ public class Flipbook extends Sprite
     public void Render()
     {
         if (!this.IsActive()) { return; }
-
-        this.getOwner().getBatch().enableBlending();
-
         TextureRegion frame = ImageFactory.getTextureRegion(this.fileName, this.frameCount, this.currentFrame);
         this.getOwner().getBatch().draw(frame,
                 this.getOwner().getTransform().getLocation().x - Utils.lerp(0, frame.getRegionWidth() * this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getAlignment().x),
@@ -60,7 +57,5 @@ public class Flipbook extends Sprite
                 frame.getRegionWidth(), frame.getRegionHeight(),
                 this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getScale().y,
                 this.getOwner().getTransform().getRotation().x);
-
-        this.getOwner().getBatch().disableBlending();
     }
 }

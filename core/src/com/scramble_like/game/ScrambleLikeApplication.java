@@ -47,7 +47,7 @@ public class ScrambleLikeApplication extends Game
 		else { Gdx.app.log("ScrambleLikeApplication", "Il ne peut y avoir qu'une seule instance de ScrambleLikeApplication."); this.dispose(); }
 
 		shapeRenderer = new ShapeRenderer();
-		batch = new SpriteBatch(); batch.disableBlending();
+		batch = new SpriteBatch();
 		font = new BitmapFont();
 		camera = new GameCamera(GameConstant.WIDTH, GameConstant.HEIGHT);
 		controller = Controllers.getCurrent();
@@ -55,7 +55,8 @@ public class ScrambleLikeApplication extends Game
 
 		tickableObjects = new ArrayList<>();
 
-		setScreen(new SplashScreen());
+		if (GameConstant.DEBUG) { setScreen(new MainMenu()); }
+		else { setScreen(new SplashScreen()); }
 	}
 
 	@Override

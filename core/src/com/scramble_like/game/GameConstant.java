@@ -40,6 +40,6 @@ public class GameConstant
     public static String CHUNK_PATH(String name, int level) { return "Map/Level_" + level + "/" + name + ".txt"; }
 
     // Debug
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     public static boolean GOD_MODE = true;
 }

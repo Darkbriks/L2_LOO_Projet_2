@@ -1,10 +1,13 @@
 package com.scramble_like.game.essential;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector4;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
@@ -17,6 +20,8 @@ public abstract class Scene implements Screen
 {
     private final String name;
     private final ScrambleLikeApplication game;
+    private final Stage stage;
+    private final Skin skin;
 
     protected Vector4 backgroundColor = new Vector4(0, 0, 0.2f, 1);
     protected ArrayList<GameObject> gameObjectsToAdd;
@@ -30,6 +35,8 @@ public abstract class Scene implements Screen
     {
         this.game = ScrambleLikeApplication.getInstance();
         this.name = name;
+        this.stage = new Stage();
+        this.skin = new Skin(Gdx.files.internal("UI/uiskin.json"));
 
         this.gameObjectsToAdd = new ArrayList<>();
         this.gameObjects = new ArrayList<>();
@@ -39,10 +46,14 @@ public abstract class Scene implements Screen
         this.game.getCamera().setPosition(0, 0);
 
         for (int i = GameConstant.MIN_Z_INDEX; i <= GameConstant.MAX_Z_INDEX; i++) { this.gameObjects.add(new ArrayList<>()); }
+
+        Gdx.input.setInputProcessor(stage);
     }
 
     public String getName() { return this.name; }
     public ScrambleLikeApplication getGame() { return this.game; }
+    public Stage getStage() { return this.stage; }
+    public Skin getSkin() { return this.skin; }
     public GameCamera getCamera() { return this.game.getCamera(); }
     public SpriteBatch getBatch() { return this.game.getBatch(); }
     public BitmapFont getFont() { return this.game.getFont(); }
@@ -83,6 +94,9 @@ public abstract class Scene implements Screen
     public void render(float v)
     {
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
+
+        this.stage.act();
+        this.stage.draw();
 
         this.getGame().UpdateTickableObjects(v * GameConstant.UPDATE_MULTIPLIER);
 
@@ -134,5 +148,7 @@ public abstract class Scene implements Screen
         }
         for (GameObject go : markedForDestructionGos) { go.Destroying(); }
         for (Component c : markedForDestructionComps) { c.Destroying(); }
+        stage.dispose();
+        skin.dispose();
     }
 }
