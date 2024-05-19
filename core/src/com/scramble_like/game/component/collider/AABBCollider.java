@@ -11,37 +11,10 @@ public class AABBCollider extends Collider
     ////////// Attributes //////////
     private float width;
     private float height;
-    private float xOffSet;
-    private float yOffSet;
+    private final float xOffSet;
+    private final float yOffSet;
 
     ////////// Constructor //////////
-    public AABBCollider()
-    {
-        super();
-        this.width = 100;
-        this.height = 100;
-        this.xOffSet = 0;
-        this.yOffSet = 0;
-    }
-
-    public AABBCollider(float width, float height)
-    {
-        super();
-        this.width = width;
-        this.height = height;
-        this.xOffSet = 0;
-        this.yOffSet = 0;
-    }
-
-    public AABBCollider(float width, float height, boolean generateOverlappedEvent)
-    {
-        super(generateOverlappedEvent);
-        this.width = width;
-        this.height = height;
-        this.xOffSet = 0;
-        this.yOffSet = 0;
-    }
-
     public AABBCollider(float width, float height, boolean generateOverlappedEvent, boolean simulatePhysics)
     {
         super(generateOverlappedEvent, simulatePhysics);

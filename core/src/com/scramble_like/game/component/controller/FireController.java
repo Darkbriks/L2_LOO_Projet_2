@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.game_object.projectiles.Projectile;
-import com.scramble_like.game.game_object.projectiles.SimpleBullet;
 
 public class FireController extends Component
 {
@@ -12,20 +11,12 @@ public class FireController extends Component
     protected float elapsedTime;
     protected Class<? extends Projectile> projectile;
 
-    public FireController()
-    {
-        super();
-        this.timeBetweenShoots = 5;
-        this.elapsedTime = 0;
-        this.projectile = SimpleBullet.class;
-    }
-
-    public FireController(float timeBetweenShoots)
+    public FireController(float timeBetweenShoots, Class<? extends Projectile> projectile)
     {
         super();
         this.timeBetweenShoots = timeBetweenShoots;
         this.elapsedTime = 0;
-        this.projectile = SimpleBullet.class;
+        this.projectile = projectile;
     }
 
     public void spawnProjectile()

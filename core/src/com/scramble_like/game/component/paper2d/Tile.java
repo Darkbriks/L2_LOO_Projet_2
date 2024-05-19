@@ -6,7 +6,10 @@ import com.scramble_like.game.essential.factory.ImageFactory;
 
 public class Tile extends Sprite
 {
-    private float x, y, width, height;
+    private float x;
+    private float y;
+    private final float width;
+    private final float height;
 
     public Tile(String path, float x, float y)
     {

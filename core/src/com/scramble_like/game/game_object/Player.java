@@ -18,11 +18,6 @@ import java.util.EventObject;
 
 public class Player extends GameObject
 {
-    public Player(String name, Scene scene) throws SceneIsNullException
-    {
-        super(name, scene);
-    }
-
     public Player(String name, Scene scene, Vector2 location) throws SceneIsNullException
     {
         super(name, scene);

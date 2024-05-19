@@ -11,12 +11,6 @@ public class SphereCollider extends Collider
     private final float radius;
 
     ////////// Constructor //////////
-    public SphereCollider() { super(); this.radius = 50; }
-
-    public SphereCollider(float radius) { super(); this.radius = radius; }
-
-    public SphereCollider(float radius, boolean generateOverlappedEvent) { super(generateOverlappedEvent); this.radius = radius; }
-
     public SphereCollider(float radius, boolean generateOverlappedEvent, boolean simulatePhysics) { super(generateOverlappedEvent, simulatePhysics); this.radius = radius; }
 
     ////////// Getters //////////

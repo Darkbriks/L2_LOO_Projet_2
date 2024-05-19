@@ -1,13 +1,13 @@
 package com.scramble_like.game.component.collider;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.utils.DebugRenderer;
 
 public class TileCollider extends AABBCollider
 {
-    private float x, y;
+    private final float x;
+    private final float y;
 
     public TileCollider(float x, float y)
     {
@@ -27,8 +27,6 @@ public class TileCollider extends AABBCollider
 
     @Override
     public float getY2() { return y + getHeight(); }
-
-    public void addOffset(Vector2 offset) { x -= offset.x; y -= offset.y; }
 
     @Override
     public void Render()

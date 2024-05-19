@@ -1,7 +1,7 @@
 package com.scramble_like.game.game_object.enemy;
 
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.component.EnemiePatrol;
+import com.scramble_like.game.component.controller.EnemyController;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 
@@ -36,8 +36,8 @@ public class MovingEnemy extends Enemy
     {
         super.BeginPlay();
 
-        if (waypoints == null) { this.AddComponent(new EnemiePatrol(2, 100, movementSpeed)); }
-        else { this.AddComponent(new EnemiePatrol(waypoints, movementSpeed)); }
+        if (waypoints == null) { this.AddComponent(new EnemyController(2, 100, movementSpeed)); }
+        else { this.AddComponent(new EnemyController(waypoints, movementSpeed)); }
 
     }
 }

@@ -15,9 +15,9 @@ public class GameObject implements Disposable
 {
     private static int globalID = 0;
     private final int ID;
-    private String name;
-    private Transform transform;
-    private Scene scene;
+    private final String name;
+    private final Transform transform;
+    private final Scene scene;
     private boolean isActive = true;
     private boolean isMarkedForDestruction = false;
     private ArrayList<Component> components;
@@ -130,7 +130,7 @@ public class GameObject implements Disposable
     @Override
     public void dispose()
     {
-        //for (int i = 0; i < components.size(); i++) { components.get(i).dispose(); }
+        for (int i = 0; i < components.size(); i++) { components.get(i).dispose(); }
         components.clear();
         componentsToRemove.clear();
     }

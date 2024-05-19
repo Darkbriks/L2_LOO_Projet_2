@@ -1,6 +1,5 @@
 package com.scramble_like.game.component.collider;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
@@ -8,9 +7,7 @@ import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventEndOverlap;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.utils.Utils;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public abstract class Collider extends Component
 {
@@ -21,31 +18,13 @@ public abstract class Collider extends Component
     protected ArrayList<Collider> overlappedCollider;
 
     ////////// Constructor //////////
-    public Collider()
-    {
-        super();
-        generateOverlappedEvent = false;
-        simulatePhysics = false;
-        isHit = false;
-        overlappedCollider = new ArrayList<Collider>();
-    }
-
-    public Collider(boolean generateOverlappedEvent)
-    {
-        super();
-        this.generateOverlappedEvent = generateOverlappedEvent;
-        simulatePhysics = false;
-        isHit = false;
-        overlappedCollider = new ArrayList<Collider>();
-    }
-
     public Collider(boolean generateOverlappedEvent, boolean simulatePhysics)
     {
         super();
         this.generateOverlappedEvent = generateOverlappedEvent;
         this.simulatePhysics = simulatePhysics;
         isHit = false;
-        overlappedCollider = new ArrayList<Collider>();
+        overlappedCollider = new ArrayList<>();
     }
 
     ////////// Getters //////////
@@ -73,7 +52,7 @@ public abstract class Collider extends Component
 
     private static boolean Collide(SphereCollider _this, SphereCollider other)
     {
-        return Math.sqrt(Math.pow(_this.getX() - other.getX(), 2) + Math.pow(_this.getY() - other.getY(), 2)) < _this.getRadius() + other.getRadius();
+        return (_this.getX() - other.getX()) * (_this.getX() - other.getX()) + (_this.getY() - other.getY()) * _this.getY() - other.getY() < (_this.getRadius() + other.getRadius()) * (_this.getRadius() + other.getRadius());
     }
 
     private static boolean Collide(AABBCollider _this, AABBCollider other)
@@ -83,7 +62,7 @@ public abstract class Collider extends Component
 
     private static boolean Collide(float x, float y, SphereCollider sphere)
     {
-        return Math.sqrt(Math.pow(x - sphere.getX(), 2) + Math.pow(y - sphere.getY(), 2)) < sphere.getRadius();
+        return (x - sphere.getX()) * (x - sphere.getX()) + (y - sphere.getY()) * (y - sphere.getY()) < sphere.getRadius() * sphere.getRadius();
     }
 
     private static boolean Collide(float x, float y, AABBCollider box)
