@@ -9,6 +9,7 @@ public enum EventIndex
 
     // Game Events
     DIE,
+    PROJECTILE_REACHED_DESTINATION,
 
     // Chunk Events
     CHUNK_LOADED,

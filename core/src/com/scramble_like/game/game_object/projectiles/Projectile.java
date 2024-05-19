@@ -1,7 +1,8 @@
 package com.scramble_like.game.game_object.projectiles;
 
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.component.ReachTarget;
+import com.scramble_like.game.component.controller.PlayerController;
+import com.scramble_like.game.component.controller.ProjectileController;
 import com.scramble_like.game.component.paper2d.Sprite;
 import com.scramble_like.game.component.collider.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
@@ -14,39 +15,50 @@ import com.scramble_like.game.game_object.Player;
 
 import java.util.EventObject;
 
-public class Projectile extends GameObject
+public abstract class Projectile extends GameObject
 {
-    GameObject target;
+    protected int damage;
+    protected float cooldown;
+    protected ProjectileController projectileController;
 
-    public Projectile(String name, Scene scene, GameObject target) throws SceneIsNullException
+    public Projectile(String name, Scene scene, String path, Vector2 start, Vector2 direction, float range, float speed) throws SceneIsNullException
     {
         super(name, scene);
-        this.getTransform().setScale(new Vector2(0.2f, 0.2f));
+        this.damage = 50;
+        this.cooldown = 0.1f;
+        this.getTransform().setLocation(start);
+        this.AddComponent(new AABBCollider(50, 50, false, true));
+        this.projectileController = new ProjectileController(start.cpy(), direction, range, speed);
+        this.AddComponent(projectileController);
+        this.AddComponent(new Sprite(path));
     }
 
-    public Projectile(String name, Scene scene, GameObject target, Vector2 location) throws SceneIsNullException
+    public Projectile(String name, Scene scene, String path, Vector2 start, Vector2 end, float speed) throws SceneIsNullException
     {
         super(name, scene);
-        this.getTransform().setLocation(location);
-        this.target = target;
+        this.damage = 50;
+        this.cooldown = 0.1f;
+        this.getTransform().setLocation(start);
+        this.AddComponent(new AABBCollider(25, 25, false, true));
+        this.projectileController = new ProjectileController(start.cpy(), end.cpy(), speed);
+        this.AddComponent(projectileController);
+        this.AddComponent(new Sprite(path));
     }
 
     @Override
     public void BeginPlay()
     {
         super.BeginPlay();
-        this.AddComponent(new AABBCollider(10, 10, false, true));
-        this.getTransform().setScale(new Vector2(0.2f, 0.2f));
-        this.AddComponent(new ReachTarget(target));
-        this.AddComponent(new Sprite());
 
         this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
             @Override
             public void handleEvent(EventObject event) {
                 EventHit e = (EventHit) event;
                 //if (e.otherGameObject instanceof ChunkManager) { DestroyThisInScene(); }
-                if (e.otherGameObject instanceof Player) { DestroyThisInScene(); }
+                if (e.otherGameObject instanceof Player) { DestroyThisInScene(); e.otherGameObject.GetFirstComponentFromClass(PlayerController.class).takeDamage(damage, cooldown);}
             }
         });
+
+        this.getEventDispatcher().AddListener(EventIndex.PROJECTILE_REACHED_DESTINATION, new EventListener() { @Override public void handleEvent(EventObject event) { DestroyThisInScene(); } });
     }
 }

@@ -1,6 +1,5 @@
 package com.scramble_like.game.essential.event_dispatcher.event.game;
 
-import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameObject;
 
 import java.util.EventObject;

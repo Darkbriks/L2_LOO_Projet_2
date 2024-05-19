@@ -27,9 +27,13 @@ public class Transform
     public int getZIndex() { return this.ZIndex; }
 
     public void setLocation(Vector2 Location) { this.Location = Location; }
+    public void setLocation(float x, float y) { this.Location.set(x, y); }
     public void setRotation(Vector2 Rotation) { this.Rotation = Rotation; }
+    public void setRotation(float x, float y) { this.Rotation.set(x, y); }
     public void setScale(Vector2 Scale) { this.Scale = Scale; }
+    public void setScale(float x, float y) { this.Scale.set(x, y); }
     public void setAlignment(Vector2 Alignment) { this.Alignment = Alignment; }
+    public void setAlignment(float x, float y) { this.Alignment.set(x, y); }
     public void setZIndex(int ZIndex) { this.ZIndex = Utils.clamp(ZIndex, GameConstant.MIN_Z_INDEX, GameConstant.MAX_Z_INDEX); }
 
     public void setLocationAndRotation(Vector2 Location, Vector2 Rotation)
@@ -41,7 +45,6 @@ public class Transform
     public void Translate(Vector2 Translation) { this.Location.add(Translation); }
     public void Rotate(Vector2 Rotation) { this.Rotation.add(Rotation); }
     public void Scale(Vector2 Scale) { this.Scale.add(Scale); }
-
 
     public void Translate(float x, float y) { this.Location.add(x, y); }
     public void Rotate(float x, float y) { this.Rotation.add(x, y); }
