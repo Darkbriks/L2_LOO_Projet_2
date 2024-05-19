@@ -4,7 +4,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Flipbook;
-import com.scramble_like.game.component.PlayerController;
+import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.component.collider.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -37,6 +37,8 @@ public class Player extends GameObject
         this.AddComponent(playerController);
         this.AddComponent(new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1") + "/Idle.png", 4));
         this.AddComponent(new AABBCollider(25, 50, -10, 0, false, true));
+
+        this.getScene().setPlayer(this);
 
         this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
             @Override

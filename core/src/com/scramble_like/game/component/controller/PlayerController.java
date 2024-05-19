@@ -1,4 +1,4 @@
-package com.scramble_like.game.component;
+package com.scramble_like.game.component.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

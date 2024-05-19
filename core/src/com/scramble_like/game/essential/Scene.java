@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
+import com.scramble_like.game.game_object.Player;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public abstract class Scene implements Screen
     protected ArrayList<GameObject> markedForDestructionGos;
     protected ArrayList<Component> markedForDestructionComps;
     protected EventDispatcher eventDispatcher = new EventDispatcher();
+    protected Player player;
 
     public Scene(String name)
     {
@@ -44,9 +46,10 @@ public abstract class Scene implements Screen
     public BitmapFont getFont() { return this.game.getFont(); }
     public Controller getController() { return this.game.getController(); }
     public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
+    public Player getPlayer() { return this.player; }
+    public void setPlayer(Player player) { this.player = player; }
     public ArrayList<GameObject> getGameObjects() { ArrayList<GameObject> gos = new ArrayList<>(); for (ArrayList<GameObject> go : gameObjects) { gos.addAll(go); } return gos; }
 
-    //public void AddGameObject(GameObject gameObject) { this.gameObjects.get(gameObject.getTransform().getZIndex()).add(gameObject); gameObject.BeginPlay(); }
     public void AddGameObject(GameObject gameObject) { this.gameObjectsToAdd.add(gameObject); gameObject.BeginPlay(); }
     public void DestroyGameObject(GameObject gameObject)
     {
