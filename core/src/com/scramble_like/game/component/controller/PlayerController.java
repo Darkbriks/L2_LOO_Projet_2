@@ -78,8 +78,12 @@ public class PlayerController extends Component
         if (controller != null && Math.abs(controller.getAxis(controller.getMapping().axisLeftX)) > 0.1f) { newX_Controller += (speed * dt * controller.getAxis(controller.getMapping().axisLeftX)); useController = true;}
         if (controller != null && Math.abs(controller.getAxis(controller.getMapping().axisLeftY)) > 0.1f) { newY_Controller -= (speed * dt * controller.getAxis(controller.getMapping().axisLeftY)); useController = true;}
 
-        this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(useController ? newX_Controller : newX, camera.getPosition().x - (double) GameConstant.WIDTH / 2, camera.getPosition().x +(double) GameConstant.WIDTH / 2);
+        this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(useController ? newX_Controller : newX, camera.getPosition().x - (double) GameConstant.LEFT_LIMIT, camera.getPosition().x + (double) GameConstant.RIGHT_LIMIT);
         this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(useController ? newY_Controller : newY, camera.getPosition().y - (double) GameConstant.HEIGHT / 2, camera.getPosition().y + (double) GameConstant.HEIGHT / 2);
+
+        if (this.getOwner().getTransform().getLocation().y < GameConstant.BOTTOM_LIMIT) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.BOTTOM_LIMIT); }
+        else if (this.getOwner().getTransform().getLocation().y > GameConstant.TOP_LIMIT) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.TOP_LIMIT); }
+        else { camera.getPosition().y = 0; }
     }
 
     private void die()
