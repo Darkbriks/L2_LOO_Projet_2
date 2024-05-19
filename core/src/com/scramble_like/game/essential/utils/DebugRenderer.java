@@ -9,36 +9,6 @@ import com.scramble_like.game.ScrambleLikeApplication;
 
 public class DebugRenderer
 {
-    public static void DrawDebugLine(Vector2 start, Vector2 end, int lineWidth, Color color, Matrix4 projectionMatrix)
-    {
-        ScrambleLikeApplication.getInstance().getBatch().end();
-
-        Gdx.gl.glLineWidth(lineWidth);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().setProjectionMatrix(projectionMatrix);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().begin(ShapeRenderer.ShapeType.Line);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().setColor(color);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().line(start, end);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().end();
-        Gdx.gl.glLineWidth(1);
-
-        ScrambleLikeApplication.getInstance().getBatch().begin();
-    }
-
-    public static void DrawDebugLine(Vector2 start, Vector2 end, Matrix4 projectionMatrix)
-    {
-        ScrambleLikeApplication.getInstance().getBatch().end();
-
-        Gdx.gl.glLineWidth(2);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().setProjectionMatrix(projectionMatrix);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().begin(ShapeRenderer.ShapeType.Line);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().setColor(Color.WHITE);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().line(start, end);
-        ScrambleLikeApplication.getInstance().getShapeRenderer().end();
-        Gdx.gl.glLineWidth(1);
-
-        ScrambleLikeApplication.getInstance().getBatch().begin();
-    }
-
     public static void DrawDebugLine(float x1, float y1, float x2, float y2, Color color, Matrix4 projectionMatrix)
     {
         ScrambleLikeApplication.getInstance().getBatch().end();

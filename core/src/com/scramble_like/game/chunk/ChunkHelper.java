@@ -24,7 +24,7 @@ public class ChunkHelper
         {
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-            { GameConstant.CHUNK_PATH("", 0) },
+            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
@@ -54,10 +54,10 @@ public class ChunkHelper
     }
 
     static {
-        String tilePath = "Tileset/MedievalTileset/Tiles/";
+        //String tilePath = "Tileset/MedievalTileset/Tiles/";
         String propsPath = "Tileset/MedievalTileset/Objects/";
         String propessai = "Tileset/essai/";
-        String propessai2 = "Tileset/essai2/";
+        //String propessai2 = "Tileset/essai2/";
         tileMap = new HashMap<>();
         tileMap.put(0, "");
         tileMap.put(1, "");
@@ -212,10 +212,10 @@ public class ChunkHelper
         return new Vector2(x, y);
     }
 
-    public static float getChunkDistanceWithPosition(Vector2 chunkPosition, Vector2 position, int numberOfChunksVertical)
+    public static float getChunkSquaredDistanceWithPosition(Vector2 chunkPosition, Vector2 position, int numberOfChunksVertical)
     {
         Vector2 chunkPositionInSceneUnits = getChunkPositionInSceneUnits(chunkPosition, numberOfChunksVertical);
-        return (float) Math.sqrt(Math.pow(position.x - chunkPositionInSceneUnits.x, 2) + Math.pow(position.y - chunkPositionInSceneUnits.y, 2));
+        return position.x - chunkPositionInSceneUnits.x * (position.x - chunkPositionInSceneUnits.x) + (position.y - chunkPositionInSceneUnits.y) * (position.y - chunkPositionInSceneUnits.y);
     }
 
     public static String getTilePath(int tileIndex)
@@ -224,10 +224,5 @@ public class ChunkHelper
         return tileMap.get(tileIndex);
     }
 
-    public static boolean isNoColliderBlock(int blockIndex)
-    {
-        for (int noColliderBlockIndex : noColliderBlockIndexes) { if (blockIndex == noColliderBlockIndex) { /*System.out.println("true, index " + blockIndex);*/ return true; } }
-        //System.out.println("false, index " + blockIndex);
-        return false;
-    }
+    public static boolean isNoColliderBlock(int blockIndex) { for (int noColliderBlockIndex : noColliderBlockIndexes) { if (blockIndex == noColliderBlockIndex) { return true; } } return false; }
 }

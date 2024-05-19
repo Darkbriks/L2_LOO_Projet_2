@@ -1,17 +1,12 @@
 package com.scramble_like.game.chunk;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Tile;
 import com.scramble_like.game.component.collider.Collider;
 import com.scramble_like.game.component.collider.TileCollider;
-import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
-import com.scramble_like.game.essential.event_dispatcher.EventIndex;
-import com.scramble_like.game.essential.event_dispatcher.event.chunk.ChunkLoadedEvent;
 import com.scramble_like.game.game_object.ChunkManager;
 
 import java.io.IOException;
@@ -32,7 +27,6 @@ public class Chunk
     protected boolean inLoading;
     protected boolean inRendering;
     protected boolean inSimulating;
-    private final EventDispatcher eventDispatcher;
     private final ChunkManager chunkManager;
 
     public Chunk(String fileName, ChunkManager chunkManager)
@@ -49,13 +43,11 @@ public class Chunk
         inLoading = false;
         inRendering = false;
         inSimulating = false;
-        eventDispatcher = new EventDispatcher();
     }
 
     public boolean isLoaded() { return isLoaded; }
     public boolean isRendered() { return isRendered; }
     public boolean isSimulated(){ return isSimulated;}
-    public EventDispatcher getEventDispatcher() { return eventDispatcher; }
 
     protected void load() throws IOException
     {
@@ -68,7 +60,6 @@ public class Chunk
 
         this.isLoaded = true;
         this.inLoading = false;
-        this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_LOADED, new ChunkLoadedEvent(this));
     }
 
     public void loadAsynchronously()
@@ -83,7 +74,6 @@ public class Chunk
         this.unRender();
         this.chunk = null;
         this.isLoaded = false;
-        this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNLOADED, new ChunkLoadedEvent(this));
     }
 
     private void render(Vector2 position)
@@ -115,7 +105,6 @@ public class Chunk
 
         this.isRendered = true;
         this.inRendering = false;
-        this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_RENDERED, new ChunkLoadedEvent(this));
     }
 
     public void renderAsynchronously(Vector2 position)
@@ -132,7 +121,6 @@ public class Chunk
         this.tilesData = null;
         this.tiles = null;
         this.isRendered = false;
-        this.eventDispatcher.DispatchEvent(EventIndex.CHUNK_UNRENDERED, new ChunkLoadedEvent(this));
     }
 
     private boolean asAnyNoCollideBlockInNeighbour(int x, int y)
@@ -181,33 +169,5 @@ public class Chunk
         for(Collider c : colliders) { this.chunkManager.RemoveComponent(c); }
         colliders = null;
         this.isSimulated = false;
-    }
-
-    public void update(Vector2 frameOffsetValue)
-    {
-        if (tiles == null) { return; }
-        for (Tile tile : tiles) { tile.addOffset(frameOffsetValue); }
-        if (colliders == null) { return; }
-        for (TileCollider tileCollider : colliders) { tileCollider.addOffset(frameOffsetValue); }
-    }
-
-    public void draw(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch, Vector2 position)
-    {
-        spriteBatch.end();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1, 1, 1, 1);
-
-        int centerX = GameConstant.WIDTH / 2;
-        int centerY = GameConstant.HEIGHT / 2;
-        if (this.isRendered)
-        {
-            for (Vector4 rectangle : this.tilesData.values())
-            {
-                shapeRenderer.rect(rectangle.x + centerX + (int) position.x, rectangle.y + centerY + (int) position.y, GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE);
-            }
-        }
-
-        shapeRenderer.end();
-        spriteBatch.begin();
     }
 }

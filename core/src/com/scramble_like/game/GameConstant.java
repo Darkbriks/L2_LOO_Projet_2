@@ -18,18 +18,18 @@ public class GameConstant
     public static int CHUNK_SIDE = 50;
     public static int SQUARE_SIDE = 25;
     public static int CHUNK_SIZE = CHUNK_SIDE * SQUARE_SIDE;
-    public static int LOADED_CHUNK_DISTANCE = 2000; // In scene units
-    public static int RENDERED_CHUNK_DISTANCE = 1500; // In scene units
-    public static int CHUNK_SIMULATING_DISTANCE = 1250; // In scene units
+    public static int SQUARED_LOADED_CHUNK_DISTANCE = 2000 * 2000; // In scene units. Squared number is used for performance reasons
+    public static int SQUARED_RENDERED_CHUNK_DISTANCE = 1500 * 1500; // In scene units. Squared number is used for performance reasons
+    public static int SQUARED_CHUNK_SIMULATING_DISTANCE = 1250 * 1250; // In scene units. Squared number is used for performance reasons
 
     // Background
-    public static int WALLPAPER_SPEED = 100;
-    public static int BACKGROUND_SPEED = 250;
+    public static int BACKGROUND_SPEED = -150;
 
     // Animation
     public static float ANIMATION_FRAME_DURATION = 0.1f;
 
     // PLayer
+    public static float CAMERA_SPEED = 250;
     public static float PLAYER_SPEED = 350;
     public static int PLAYER_LIFE = 50;
 

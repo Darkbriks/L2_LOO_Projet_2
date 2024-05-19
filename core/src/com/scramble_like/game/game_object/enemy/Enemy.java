@@ -7,6 +7,7 @@ import com.scramble_like.game.component.collider.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.projectiles.SimpleBullet;
 
 public class Enemy extends GameObject
 {
@@ -38,7 +39,7 @@ public class Enemy extends GameObject
 
         if (shootSpeed != 0)
         {
-            FireController fireController = new FireController(shootSpeed);
+            FireController fireController = new FireController(shootSpeed, SimpleBullet.class);
             this.AddComponent(fireController);
         }
     }

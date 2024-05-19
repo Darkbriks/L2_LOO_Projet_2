@@ -16,48 +16,12 @@ public class ProjectileController extends Component
     protected Interpolation xInterpolation;
     protected Interpolation yInterpolation;
 
-    public ProjectileController()
-    {
-        super();
-        this.start = new Vector2(0, 0);
-        this.end = computeEnd(this.start, new Vector2(-1, 0), 100);
-        this.speed = 100;
-        this.elapsedTime = 0;
-        this.distance = start.dst(end);
-        xInterpolation = Interpolation.linear;
-        yInterpolation = Interpolation.linear;
-    }
-
-    public ProjectileController(Vector2 start)
-    {
-        super();
-        this.start = start;
-        this.end = computeEnd(this.start, new Vector2(-1, 0), 100);
-        this.speed = 100;
-        this.elapsedTime = 0;
-        this.distance = start.dst(end);
-        xInterpolation = Interpolation.linear;
-        yInterpolation = Interpolation.linear;
-    }
-
     public ProjectileController(Vector2 start, Vector2 direction, float range, float speed)
     {
         super();
         this.start = start;
         this.end = computeEnd(this.start, direction, range);
         this.speed = speed;
-        this.elapsedTime = 0;
-        this.distance = start.dst(end);
-        xInterpolation = Interpolation.linear;
-        yInterpolation = Interpolation.linear;
-    }
-
-    public ProjectileController(Vector2 start, Vector2 end)
-    {
-        super();
-        this.start = start;
-        this.end = end;
-        this.speed = 100;
         this.elapsedTime = 0;
         this.distance = start.dst(end);
         xInterpolation = Interpolation.linear;

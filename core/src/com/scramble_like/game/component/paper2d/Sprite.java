@@ -13,9 +13,7 @@ public class Sprite extends Component
     protected boolean flipX = false;
     protected boolean flipY = false;
 
-    public Sprite() { super(); fileName = "badlogic.jpg"; }
     public Sprite(String path) { super(); fileName = path; }
-    public Sprite(String path, boolean flipX, boolean flipY) { super(); this.flipX = flipX; this.flipY = flipY; fileName = path; }
 
     public String getFileName() { return fileName; }
     public void setFileName(String fileName)

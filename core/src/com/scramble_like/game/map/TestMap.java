@@ -7,7 +7,7 @@ import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.game_object.ChunkManager;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.enemy.MovingEnemy;
-import com.scramble_like.game.game_object.projectiles.SimpleBullet;
+import com.scramble_like.game.game_object.Background;
 
 public class TestMap extends Scene
 {
@@ -20,13 +20,13 @@ public class TestMap extends Scene
             Player go1 = new Player("Player", this, new Vector2(-350, 0));
             AddGameObject(go1);
 
-            //Background background =  new Background("Background", this, "Background/backG.png",1335);
-            //AddGameObject(background);
+            Background background =  new Background("Background", this, "Background/backG.png",768, 192);
+            AddGameObject(background);
 
-            Vector2[] waypoints = {new Vector2(0, 300), new Vector2(300, 300), new Vector2(300, 0), new Vector2(0, 0)};
-            AddGameObject(new MovingEnemy("Enemy", this, "badlogic.jpg", 5, waypoints, 150));
+            Vector2[] waypoints = {new Vector2(1000, 300), new Vector2(1000, 0)};
+            AddGameObject(new MovingEnemy("Enemy", this, "badlogic.jpg", 1, waypoints, 300));
 
-            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 2, -500);
+            ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 2);
             AddGameObject(chunkManager);
             chunkManager.setPlayer(go1);
         }

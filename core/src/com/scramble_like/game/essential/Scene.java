@@ -36,6 +36,8 @@ public abstract class Scene implements Screen
         this.markedForDestructionGos = new ArrayList<>();
         this.markedForDestructionComps = new ArrayList<>();
 
+        this.game.getCamera().setPosition(0, 0);
+
         for (int i = GameConstant.MIN_Z_INDEX; i <= GameConstant.MAX_Z_INDEX; i++) { this.gameObjects.add(new ArrayList<>()); }
     }
 
@@ -91,6 +93,13 @@ public abstract class Scene implements Screen
             for (int j = 0; j < gameObjects.get(i).size(); j++)
             {
                 gameObjects.get(i).get(j).Update(v * GameConstant.UPDATE_MULTIPLIER);
+            }
+        }
+
+        for (int i = GameConstant.MAX_Z_INDEX; i >= GameConstant.MIN_Z_INDEX; i--)
+        {
+            for (int j = 0; j < gameObjects.get(i).size(); j++)
+            {
                 gameObjects.get(i).get(j).Render();
             }
         }
