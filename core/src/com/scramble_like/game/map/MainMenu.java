@@ -30,7 +30,7 @@ public class MainMenu extends Scene {
 
             GameObject playButton = new GameObject("PlayButton", this);
             playButton.AddComponent(new Text("Play", 3, Color.WHITE));
-            playButton.getTransform().Translate(0, 50); // Centrer le bouton
+            playButton.getTransform().Translate(0, 50);
             AddGameObject(playButton);
             playButtonBounds = new Rectangle(-10, 25, 100, 50);
 
