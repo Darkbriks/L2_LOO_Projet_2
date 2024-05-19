@@ -13,6 +13,7 @@ import com.scramble_like.game.essential.ControllersListener;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.TickableObject;
 import com.scramble_like.game.map.MainMenu;
+import com.scramble_like.game.map.SplashScreen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class ScrambleLikeApplication extends Game
 
 		tickableObjects = new ArrayList<>();
 
-		setScreen(new MainMenu());
+		setScreen(new SplashScreen());
 	}
 
 	@Override
