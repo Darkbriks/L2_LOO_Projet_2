@@ -24,7 +24,7 @@ public class ChunkHelper
         {
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
-            { GameConstant.CHUNK_PATH("text_art (3)", 0) },
+            { GameConstant.CHUNK_PATH("", 0) },
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
             { GameConstant.CHUNK_PATH("text_art (3)", 0) },
@@ -194,6 +194,9 @@ public class ChunkHelper
 
     public static String getChunk(int level, Vector2 chunkPosition)
     {
+        if (level < 0 || level >= chunkListByLevel.size()) return "";
+        if ((int) chunkPosition.x < 0 || (int) chunkPosition.x >= chunkListByLevel.get(level).length) return "";
+        if ((int) chunkPosition.y < 0 || (int) chunkPosition.y >= chunkListByLevel.get(level)[0].length) return "";
         return chunkListByLevel.get(level)[(int) chunkPosition.x][(int) chunkPosition.y];
     }
 

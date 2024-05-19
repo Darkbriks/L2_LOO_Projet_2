@@ -55,7 +55,9 @@ public class ChunkManager extends GameObject
             {
                 for (int j = 0; j < levelChunkCount.y; j++)
                 {
-                    chunks[i][j] = new Chunk(ChunkHelper.getChunk(level, new Vector2(i, j)),this);
+                    String chunkPath = ChunkHelper.getChunk(level, new Vector2(i, j));
+                    if (chunkPath == null || chunkPath.isEmpty()) { continue; }
+                    chunks[i][j] = new Chunk(chunkPath,this);
                 }
             }
             isLoaded = true;
@@ -76,6 +78,7 @@ public class ChunkManager extends GameObject
         {
             for (int j = 0; j < levelChunkCount.y; j++)
             {
+                if (chunks[i][j] == null) { continue; }
                 if (chunks[i][j].isRendered()) { chunks[i][j].update(new Vector2(xOffSet - xLastOffset, 0)); }
 
                 Vector2 referencePosition = new Vector2(this.getTransform().getLocation().x + xOffSet, this.getTransform().getLocation().y);
