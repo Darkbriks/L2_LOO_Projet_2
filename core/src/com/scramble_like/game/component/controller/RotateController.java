@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.Component;
 
 public class RotateController extends Component {
+
     private int currentPoint;
     private float currentDistance;
     private final Vector2[] points;

@@ -20,7 +20,6 @@ import com.scramble_like.game.ui.AE_TitleLabel;
 public class MainMenu extends Scene
 {
 
-
     public MainMenu() throws SceneIsNullException {
         super("MainMenu");
 
