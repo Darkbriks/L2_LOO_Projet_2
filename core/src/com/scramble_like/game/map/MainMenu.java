@@ -56,8 +56,6 @@ public class MainMenu extends Scene {
             Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             Camera camera = getCamera().getCamera();
             camera.unproject(touchPos);
-            System.out.println("Touch position: " + touchPos.x + ", " + touchPos.y);
-
 
             if (exitButtonBounds.contains(touchPos.x, touchPos.y)) {Gdx.app.exit();}
 
