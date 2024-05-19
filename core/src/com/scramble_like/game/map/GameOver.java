@@ -20,6 +20,7 @@ public class GameOver extends Scene {
         super("GameOver");
         this.score = score;
 
+
         backgroundColor = new Vector4(0, 0, 0, 1);
 
         try {
