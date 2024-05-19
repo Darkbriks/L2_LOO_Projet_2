@@ -36,6 +36,7 @@ public abstract class Scene implements Screen
         this.game = ScrambleLikeApplication.getInstance();
         this.name = name;
         this.stage = new Stage();
+        this.stage.setViewport(this.game.getCamera().getViewport());
         this.skin = new Skin(Gdx.files.internal("UI/uiskin.json"));
 
         this.gameObjectsToAdd = new ArrayList<>();
@@ -88,9 +89,6 @@ public abstract class Scene implements Screen
     }
 
     @Override
-    public void show() {}
-
-    @Override
     public void render(float v)
     {
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
@@ -124,16 +122,19 @@ public abstract class Scene implements Screen
     }
 
     @Override
-    public void resize(int i, int i1) {}
+    public void show() { GameConstant.UPDATE_MULTIPLIER = 1; }
 
     @Override
-    public void pause() {}
+    public void hide() { GameConstant.UPDATE_MULTIPLIER = 0; }
 
     @Override
-    public void resume() {}
+    public void resize (int width, int height) { stage.getViewport().update(width, height, false); }
 
     @Override
-    public void hide() {}
+    public void pause() { GameConstant.UPDATE_MULTIPLIER = 0; }
+
+    @Override
+    public void resume() { GameConstant.UPDATE_MULTIPLIER = 1; }
 
     @Override
     public void dispose()

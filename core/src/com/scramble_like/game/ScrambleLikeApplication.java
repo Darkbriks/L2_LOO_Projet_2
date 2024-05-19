@@ -49,11 +49,12 @@ public class ScrambleLikeApplication extends Game
 		shapeRenderer = new ShapeRenderer();
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		camera = new GameCamera(GameConstant.WIDTH, GameConstant.HEIGHT);
+		camera = new GameCamera();
 		controller = Controllers.getCurrent();
 		Controllers.addListener(new ControllersListener());
 
 		tickableObjects = new ArrayList<>();
+		tickableObjects.add(camera);
 
 		if (GameConstant.DEBUG) { setScreen(new MainMenu()); }
 		else { setScreen(new SplashScreen()); }
