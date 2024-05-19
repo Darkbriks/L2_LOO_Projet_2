@@ -16,7 +16,8 @@ public class GameOver extends Scene {
     private Rectangle menuButtonBounds;
     private int score;
 
-    public GameOver(int score) {
+    public GameOver(int score)
+    {
         super("GameOver");
         this.score = score;
 
