@@ -51,7 +51,7 @@ public class MainMenu extends Scene {
             exitButton.AddComponent(new Text("Exit", 3, Color.WHITE));
             exitButton.getTransform().Translate(150, -50); // Positionner à droite
             AddGameObject(exitButton);
-            exitButtonBounds = new Rectangle(150, -75, 90, 50); // Rectangle de clic du bouton Exit
+            exitButtonBounds = new Rectangle(155, -75, 90, 50); // Rectangle de clic du bouton Exit
         } catch (SceneIsNullException e) {
             System.err.println(e.getMessage());
         }
