@@ -218,10 +218,10 @@ public class ChunkHelper
         return new Vector2(x, y);
     }
 
-    public static float getChunkSquaredDistanceWithPosition(Vector2 chunkPosition, Vector2 position, int numberOfChunksVertical)
+    public static float getChunkSquaredDistanceWithPosition(Vector2 chunkPosition, float cameraX, int numberOfChunksVertical)
     {
         Vector2 chunkPositionInSceneUnits = getChunkPositionInSceneUnits(chunkPosition, numberOfChunksVertical);
-        return position.x - chunkPositionInSceneUnits.x * (position.x - chunkPositionInSceneUnits.x) + (position.y - chunkPositionInSceneUnits.y) * (position.y - chunkPositionInSceneUnits.y);
+        return (cameraX - chunkPositionInSceneUnits.x) * (cameraX - chunkPositionInSceneUnits.x) + ( chunkPositionInSceneUnits.y) * (-chunkPositionInSceneUnits.y);
     }
 
     public static String getTilePath(int tileIndex)
