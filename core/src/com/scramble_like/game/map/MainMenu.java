@@ -32,19 +32,19 @@ public class MainMenu extends Scene {
             playButton.AddComponent(new Text("Play", 3, Color.WHITE));
             playButton.getTransform().Translate(0, 50); // Centrer le bouton
             AddGameObject(playButton);
-            playButtonBounds = new Rectangle(-50, 25, 100, 50);
+            playButtonBounds = new Rectangle(-10, 25, 100, 50);
 
             GameObject levelMapButton = new GameObject("LevelMapButton", this);
             levelMapButton.AddComponent(new Text("Level Map", 3, Color.WHITE));
             levelMapButton.getTransform().Translate(-150, -50);
             AddGameObject(levelMapButton);
-            levelMapButtonBounds = new Rectangle(-180, -75, 170, 50);
+            levelMapButtonBounds = new Rectangle(-155, -75, 200, 50);
 
             GameObject exitButton = new GameObject("ExitButton", this);
             exitButton.AddComponent(new Text("Exit", 3, Color.WHITE));
             exitButton.getTransform().Translate(150, -50);
             AddGameObject(exitButton);
-            exitButtonBounds = new Rectangle(150, -75, 90, 50);
+            exitButtonBounds = new Rectangle(145, -75, 90, 50);
         } catch (SceneIsNullException e) {
             System.err.println(e.getMessage());
         }
@@ -73,5 +73,7 @@ public class MainMenu extends Scene {
         }
 
         super.render(delta);
+
     }
+
 }
