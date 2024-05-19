@@ -65,7 +65,7 @@ public class MainMenu extends Scene {
             }
 
             else if (levelMapButtonBounds.contains(touchPos.x, touchPos.y)) {
-                getGame().setScreen(new GameOver());
+                getGame().setScreen(new GameOver(40));
                 dispose();
             }
         }
