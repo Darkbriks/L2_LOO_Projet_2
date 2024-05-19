@@ -48,8 +48,8 @@ public class PlayerController extends Component
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) { life -= 10; }
 
-        if (Math.abs(controller.getAxis(controller.getMapping().axisLeftX)) > 0.1f) { newX_Controller += (float) (speed * DeltaTime * controller.getAxis(controller.getMapping().axisLeftX)); useController = true;}
-        if (Math.abs(controller.getAxis(controller.getMapping().axisLeftY)) > 0.1f) { newY_Controller -= (float) (speed * DeltaTime * controller.getAxis(controller.getMapping().axisLeftY)); useController = true;}
+        if (controller != null && Math.abs(controller.getAxis(controller.getMapping().axisLeftX)) > 0.1f) { newX_Controller += (float) (speed * DeltaTime * controller.getAxis(controller.getMapping().axisLeftX)); useController = true;}
+        if (controller != null && Math.abs(controller.getAxis(controller.getMapping().axisLeftY)) > 0.1f) { newY_Controller -= (float) (speed * DeltaTime * controller.getAxis(controller.getMapping().axisLeftY)); useController = true;}
 
         this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(useController ? newX_Controller : newX, (double) -GameConstant.WIDTH / 2, (double) GameConstant.WIDTH / 2);
         this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(useController ? newY_Controller : newY, (double) -GameConstant.HEIGHT / 2, (double) GameConstant.HEIGHT / 2);
