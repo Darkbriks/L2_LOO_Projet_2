@@ -1,5 +1,6 @@
 package com.scramble_like.game.game_object;
 
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Flipbook;
@@ -39,7 +40,9 @@ public class Player extends GameObject
 
         this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
             @Override
-            public void handleEvent(EventObject event) {
+            public void handleEvent(EventObject event)
+            {
+                if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
                 if (GameConstant.GOD_MODE) { return; }
                 EventHit e = (EventHit) event;
                 if (e.otherGameObject instanceof ChunkManager) { playerController.takeDamage(10000, 0.0f); }
