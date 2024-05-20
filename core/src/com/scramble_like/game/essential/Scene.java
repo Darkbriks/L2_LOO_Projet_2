@@ -100,7 +100,6 @@ public abstract class Scene implements Screen
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
         this.stage.act();
-        this.stage.draw();
 
         this.getGame().UpdateTickableObjects(v * CoreConstant.UPDATE_MULTIPLIER);
 
@@ -116,6 +115,8 @@ public abstract class Scene implements Screen
         }
 
         game.getBatch().end();
+
+        this.stage.draw();
 
         LateUpdate();
     }
