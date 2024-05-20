@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.utils.Timer;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.exception.SceneIsNullException;
 
 public class SplashScreen extends Scene {
     private Texture logo;
