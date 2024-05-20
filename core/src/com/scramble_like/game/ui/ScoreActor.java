@@ -1,4 +1,4 @@
-package com.scramble_like.game.map;
+package com.scramble_like.game.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

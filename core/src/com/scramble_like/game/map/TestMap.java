@@ -2,16 +2,11 @@ package com.scramble_like.game.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.PlayerController;
-import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.chunk.ChunkHelper;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -21,9 +16,8 @@ import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.game_object.LevelLoader;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.enemy.MovingEnemy;
-import com.scramble_like.game.game_object.Background;
 import com.scramble_like.game.ui.AE_Label;
-import com.scramble_like.game.ui.AE_TitleLabel;
+import com.scramble_like.game.ui.LifeActor;
 
 public class TestMap extends Scene
 {
@@ -50,28 +44,6 @@ public class TestMap extends Scene
             Player go1 = new Player("Player", this, new Vector2(-350, 0));
             AddGameObject(go1);
 
-            Texture lifeTexture = new Texture(Gdx.files.internal("HUD/heart.png"));
-            TextureRegion[][] tmp = TextureRegion.split(lifeTexture,  lifeTexture.getWidth() / 5, lifeTexture.getHeight());
-            frames = new TextureRegion[5];
-            for (int i = 0; i < 1; i++) { // Une seule ligne
-                for (int j = 0; j < 5; j++) { // Cinq images
-                    frames[j] = tmp[i][j];
-                }
-            }
-            lifeActor = new LifeActor(frames);
-            lifeActor.setCurrentRegion(1);
-            lifeActor.setPosition(-450,390);
-            lifeActor.setZIndex(CoreConstant.MIN_Z_INDEX);
-            this.getStage().addActor(lifeActor);
-
-
-
-            scoreActor = new AE_Label( "Score : "+ this.getPlayer().GetFirstComponentFromClass(PlayerController.class).getScore(), this.getSkin());
-            scoreActor.setPosition(-700,390);
-            scoreActor.setFontScale(1.5f,1.5f);
-            scoreActor.setZIndex(CoreConstant.MIN_Z_INDEX);
-            this.getStage().addActor(scoreActor);
-
             //Background background =  new Background("Background", this, "Background/backG.png",768, 192);
             //AddGameObject(background);
 
@@ -88,7 +60,23 @@ public class TestMap extends Scene
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 
+        CreateUI();
         SoundFactory.getInstance().playBackgroundMusicWithFade("Audio/Music/Reach for the Summit.mp3", 1, 10);
+    }
+
+    private void CreateUI()
+    {
+        lifeActor = new LifeActor(this.getStage(), "UI/heart.png", 5);
+        lifeActor.setCurrentRegion(0);
+        lifeActor.setPosition(-450,390);
+        //lifeActor.setZIndex(CoreConstant.MIN_Z_INDEX);
+        this.getStage().addActor(lifeActor);
+
+        scoreActor = new AE_Label( "Score : "+ this.getPlayer().GetFirstComponentFromClass(PlayerController.class).getScore(), this.getSkin());
+        scoreActor.setPosition(-700,390);
+        scoreActor.setFontScale(1.5f,1.5f);
+        //scoreActor.setZIndex(CoreConstant.MIN_Z_INDEX);
+        this.getStage().addActor(scoreActor);
     }
 
     @Override
