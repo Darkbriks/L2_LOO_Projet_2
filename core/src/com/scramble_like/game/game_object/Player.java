@@ -3,6 +3,7 @@ package com.scramble_like.game.game_object;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.controller.AnimationController;
 import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.essential.CoreConstant;
@@ -20,6 +21,10 @@ import java.util.EventObject;
 
 public class Player extends GameObject
 {
+    protected PlayerController playerController;
+    protected AnimationController animationController;
+    protected Flipbook flipbook;
+
     public Player(String name, Scene scene, Vector2 location) throws SceneIsNullException
     {
         super(name, scene);
@@ -31,9 +36,16 @@ public class Player extends GameObject
     public void BeginPlay()
     {
         super.BeginPlay();
-        PlayerController playerController = new PlayerController();
+
+        this.flipbook = new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1") + "/Idle.png", 4);
+        this.AddComponent(flipbook);
+
+        this.animationController = new AnimationController(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1/"), flipbook, new int[]{ 4, 6, 2, 6, 6 });
+        this.AddComponent(animationController);
+
+        this.playerController = new PlayerController(animationController);
         this.AddComponent(playerController);
-        this.AddComponent(new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1") + "/Idle.png", 4));
+
         this.AddComponent(new AABBCollider(25, 50, -10, 0, false, true));
 
         this.getScene().setPlayer(this);
@@ -45,7 +57,7 @@ public class Player extends GameObject
                 if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
                 if (GameConstant.GOD_MODE) { return; }
                 EventHit e = (EventHit) event;
-                if (e.otherGameObject instanceof ChunkManager) { playerController.takeDamage(10000, 0.0f); }
+                if (e.otherGameObject instanceof ChunkManager) { playerController.takeDamage(10000, 0.0f); animationController.setState(AnimationController.AnimationState.DIE, 1); }
                 if (e.otherGameObject instanceof Enemy) { playerController.takeDamage(10, 0.5f); }
             }
         });

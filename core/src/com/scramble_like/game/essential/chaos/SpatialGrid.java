@@ -109,6 +109,7 @@ public class SpatialGrid
     {
         for (int i = 0; i < grid.size(); i++)
         {
+            if (grid.get(i) == null) { continue; }
             grid.get(i).clear();
         }
         grid.clear();

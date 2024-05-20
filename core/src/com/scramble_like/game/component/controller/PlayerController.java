@@ -22,8 +22,9 @@ public class PlayerController extends Component
     private float hitCooldownTimer;
     private int life, score;
     private GameCamera camera;
+    private AnimationController animationController;
 
-    public PlayerController() { super(); this.speed = GameConstant.PLAYER_SPEED; life = GameConstant.PLAYER_LIFE; }
+    public PlayerController(AnimationController animationController) { super(); this.speed = GameConstant.PLAYER_SPEED; life = GameConstant.PLAYER_LIFE; this.animationController = animationController; }
 
     @Override
     public void BeginPlay()
@@ -45,6 +46,7 @@ public class PlayerController extends Component
 
     public void takeDamage(int damage, float hitCooldown)
     {
+        animationController.setState(AnimationController.AnimationState.HURT, 1);
         if(hitCooldownTimer >= this.hitCooldown) { life -= damage; hitCooldownTimer = 0; this.hitCooldown = hitCooldown; if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); } }
     }
 
@@ -88,6 +90,10 @@ public class PlayerController extends Component
 
         if (controller != null && Math.abs(controller.getAxis(controller.getMapping().axisLeftX)) > 0.1f) { newX_Controller += (speed * dt * controller.getAxis(controller.getMapping().axisLeftX)); useController = true;}
         if (controller != null && Math.abs(controller.getAxis(controller.getMapping().axisLeftY)) > 0.1f) { newY_Controller -= (speed * dt * controller.getAxis(controller.getMapping().axisLeftY)); useController = true;}
+
+        // Si il y a un deplacement, on change l'animation
+        if (newX != this.getOwner().getTransform().getLocation().x || newY != this.getOwner().getTransform().getLocation().y) { animationController.setState(AnimationController.AnimationState.WALK, -1); }
+        else { animationController.setState(AnimationController.AnimationState.IDLE, -1); }
 
         this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(useController ? newX_Controller : newX, camera.getPosition().x - (double) GameConstant.LEFT_LIMIT, camera.getPosition().x + (double) GameConstant.RIGHT_LIMIT);
         this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(useController ? newY_Controller : newY, camera.getPosition().y - (double) GameConstant.HEIGHT / 2, camera.getPosition().y + (double) GameConstant.HEIGHT / 2);
