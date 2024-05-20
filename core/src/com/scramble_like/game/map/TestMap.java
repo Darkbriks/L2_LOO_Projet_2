@@ -19,12 +19,16 @@ import com.scramble_like.game.game_object.enemy.MovingEnemy;
 import com.scramble_like.game.ui.AE_Label;
 import com.scramble_like.game.ui.LifeActor;
 
+import static java.lang.Math.round;
+
 public class TestMap extends Scene
 {
     private Label scoreActor;
 
     private LifeActor lifeActor;
     private TextureRegion[] frames;
+
+    private int currentframe;
     public TestMap()
     {
         super("TestMap");
@@ -66,9 +70,10 @@ public class TestMap extends Scene
 
     private void CreateUI()
     {
+        this.currentframe=0;
         lifeActor = new LifeActor(this.getStage(), "UI/heart.png", 5);
-        lifeActor.setCurrentRegion(0);
-        lifeActor.setPosition(-450,390);
+        lifeActor.setCurrentRegion(currentframe);
+        lifeActor.setPosition(730,400);
         //lifeActor.setZIndex(CoreConstant.MIN_Z_INDEX);
         this.getStage().addActor(lifeActor);
 
@@ -79,6 +84,13 @@ public class TestMap extends Scene
         this.getStage().addActor(scoreActor);
     }
 
+    private void newLife(){
+        int totalFrames = 5;
+        this.currentframe = round(totalFrames - 1 - (((float) this.getPlayer().GetFirstComponentFromClass(PlayerController.class).getLife() /GameConstant.PLAYER_LIFE)*(totalFrames - 1)));
+        lifeActor.setCurrentRegion(currentframe);
+
+    }
+
     @Override
     public void render(float delta) {
         this.getStage().act(delta);
@@ -86,6 +98,7 @@ public class TestMap extends Scene
         this.scoreActor.setText("Score : "+ this.getPlayer().GetFirstComponentFromClass(PlayerController.class).getScore());
         this.scoreActor.setX(this.scoreActor.getX()+ delta*GameConstant.CAMERA_SPEED);
         this.lifeActor.setX(this.lifeActor.getX()+ delta*GameConstant.CAMERA_SPEED);
+        newLife();
 
         super.render(delta);
 
