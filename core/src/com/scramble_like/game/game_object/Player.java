@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.component.controller.PlayerController;
+import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -23,6 +24,7 @@ public class Player extends GameObject
     {
         super(name, scene);
         this.getTransform().setLocation(location);
+        this.getTransform().setZIndex(CoreConstant.MIN_Z_INDEX + 1);
     }
 
     @Override

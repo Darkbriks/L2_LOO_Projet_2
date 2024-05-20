@@ -45,26 +45,26 @@ public class ChunkHelper
 
         level2 = new String[][]
         {
-                { "Map/Level_1/0.txt"},
-                { "Map/Level_1/1.txt"},
-                { "Map/Level_1/2.txt"},
-                { "Map/Level_1/3.txt"},
-                { "Map/Level_1/4.txt"},
-                { "Map/Level_1/5.txt"},
-                { "Map/Level_1/6.txt"},
-                { "Map/Level_1/7.txt"},
+            { "Map/Level_1/0.txt"},
+            { "Map/Level_1/1.txt"},
+            { "Map/Level_1/2.txt"},
+            { "Map/Level_1/3.txt"},
+            { "Map/Level_1/4.txt"},
+            { "Map/Level_1/5.txt"},
+            { "Map/Level_1/6.txt"},
+            { "Map/Level_1/7.txt"},
         };
 
         level3 = new String[][]
-                {
-                        { "Map/Level_2/0.txt"},
-                        { "Map/Level_2/1.txt"},
-                        { "Map/Level_2/2.txt"},
-                        { "Map/Level_2/3.txt"},
-                        { "Map/Level_2/4.txt"},
-                        { "Map/Level_2/5.txt"},
-                        { "Map/Level_2/6.txt"},
-                };
+        {
+            { "Map/Level_2/0.txt"},
+            { "Map/Level_2/1.txt"},
+            { "Map/Level_2/2.txt"},
+            { "Map/Level_2/3.txt"},
+            { "Map/Level_2/4.txt"},
+            { "Map/Level_2/5.txt"},
+            { "Map/Level_2/6.txt"},
+        };
 
         chunkListByLevel = new ArrayList<>();
         chunkListByLevel.add(level0);

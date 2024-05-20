@@ -1,6 +1,7 @@
 package com.scramble_like.game.map;
 
 import com.badlogic.gdx.math.Vector2;
+import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.chunk.ChunkHelper;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -33,9 +34,6 @@ public class TestMap extends Scene
             Background background =  new Background("Background", this, "Background/backG.png",768, 192);
             AddGameObject(background);
 
-            Vector2[] waypoints = {new Vector2(1000, 300), new Vector2(1000, 0)};
-            AddGameObject(new MovingEnemy("Enemy", this, "badlogic.jpg", 1, waypoints, 300));
-
             ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 3);
             AddGameObject(chunkManager);
             chunkManager.setPlayer(go1);
@@ -46,7 +44,9 @@ public class TestMap extends Scene
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 
-        SoundFactory.getInstance().playBackgroundMusicWithFade("Audio/Music/Reach for the Summit.mp3", 1, 10);
+        DynamicObjectLoader.getInstance().loadAll(this, "Level_0_DynamicObject.txt");
+
+        SoundFactory.getInstance().playBackgroundMusicWithFade("Audio/Music/Reach for the Summit.mp3", 0, 10);
     }
 
     @Override

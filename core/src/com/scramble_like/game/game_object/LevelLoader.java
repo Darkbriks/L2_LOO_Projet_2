@@ -9,12 +9,7 @@ import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.map.LevelMap;
-import com.scramble_like.game.map.MainMenu;
-import com.scramble_like.game.map.TestMap;
-
 import java.util.EventObject;
-import java.util.Map;
 
 public class LevelLoader extends GameObject
 {

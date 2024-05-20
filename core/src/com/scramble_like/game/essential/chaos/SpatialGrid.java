@@ -2,39 +2,32 @@ package com.scramble_like.game.essential.chaos;
 
 import com.scramble_like.game.essential.CoreConstant;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SpatialGrid
 {
     ////////// Attributes //////////
-    private final HashMap<Integer, HashMap<Integer, Set<Collider>>> grid;
+    private final ConcurrentHashMap<Integer, ConcurrentHashMap<Integer, ArrayList<Collider>>> grid;
 
     ////////// Constructor //////////
     public SpatialGrid(int size)
     {
-        grid = new HashMap<>();
+        grid = new ConcurrentHashMap<>();
         for (int i = 0; i < size; i++)
         {
-            grid.put(i, new HashMap<>());
-            for (int j = 0; j < size; j++)
-            {
-                grid.get(i).put(j, null);
-            }
+            grid.put(i, new ConcurrentHashMap<>());
         }
     }
 
     public SpatialGrid(int sizeX, int sizeY)
     {
-        grid = new HashMap<>();
+        grid = new ConcurrentHashMap<>();
         for (int i = 0; i < sizeX; i++)
         {
-            grid.put(i, new HashMap<>());
-            for (int j = 0; j < sizeY; j++)
-            {
-                grid.get(i).put(j, null);
-            }
+            grid.put(i, new ConcurrentHashMap<>());
         }
     }
 
@@ -45,14 +38,14 @@ public class SpatialGrid
     {
         int xIndex = getCellIndex(collider.getOwnerX());
         int yIndex = getCellIndex(collider.getOwnerY());
-        grid.computeIfAbsent(xIndex, k -> new HashMap<>()).computeIfAbsent(yIndex, k -> new HashSet<>()).add(collider);
+        grid.computeIfAbsent(xIndex, k -> new ConcurrentHashMap<>()).computeIfAbsent(yIndex, k -> new ArrayList<>()).add(collider);
     }
 
     public void addTileCollider(TileCollider tileCollider)
     {
         int xIndex = getCellIndex(tileCollider.getX1() + tileCollider.getWidth() / 2);
         int yIndex = getCellIndex(tileCollider.getY1() + tileCollider.getHeight() / 2);
-        grid.computeIfAbsent(xIndex, k -> new HashMap<>()).computeIfAbsent(yIndex, k -> new HashSet<>()).add(tileCollider);
+        grid.computeIfAbsent(xIndex, k -> new ConcurrentHashMap<>()).computeIfAbsent(yIndex, k -> new ArrayList<>()).add(tileCollider);
     }
 
     public void removeCollider(Collider collider)
@@ -101,7 +94,11 @@ public class SpatialGrid
                 if (grid.containsKey(xIndex + i) && grid.get(xIndex + i).containsKey(yIndex + j))
                 {
                     if (grid.get(xIndex + i).get(yIndex + j) == null) { continue; }
-                    potentialColliders.addAll(grid.get(xIndex + i).get(yIndex + j));
+                    //potentialColliders.addAll(grid.get(xIndex + i).get(yIndex + j));
+                    for (int k = 0; k < grid.get(xIndex + i).get(yIndex + j).size(); k++)
+                    {
+                        potentialColliders.add(grid.get(xIndex + i).get(yIndex + j).get(k));
+                    }
                 }
             }
         }
