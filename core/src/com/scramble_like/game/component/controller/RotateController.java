@@ -56,7 +56,7 @@ public class RotateController extends Component {
     }
 
     @Override
-    public void Update(double DeltaTime) {
+    public void Update(float DeltaTime) {
         if (!this.IsActive()) {
             return;
         }

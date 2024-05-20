@@ -55,11 +55,11 @@ public class ProjectileController extends Component
     private float getAlpha() { return elapsedTime / distance; }
 
     @Override
-    public void Update(double DeltaTime)
+    public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
 
-        elapsedTime += speed * (float)DeltaTime;
+        elapsedTime += speed * DeltaTime;
         float alpha = getAlpha();
 
         float x = xInterpolation.apply(start.x, end.x, alpha);

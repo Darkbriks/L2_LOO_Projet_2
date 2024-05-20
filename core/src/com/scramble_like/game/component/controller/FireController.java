@@ -30,11 +30,11 @@ public class FireController extends Component
     }
 
     @Override
-    public void Update(double DeltaTime)
+    public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
 
-        this.elapsedTime += (float) DeltaTime;
+        this.elapsedTime += DeltaTime;
         if (this.elapsedTime >= this.timeBetweenShoots)
         {
             this.spawnProjectile();

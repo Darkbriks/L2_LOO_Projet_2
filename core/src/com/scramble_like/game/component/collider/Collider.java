@@ -98,7 +98,8 @@ public abstract class Collider extends Component
         this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.END_OVERLAP, new EventEndOverlap(this.getOwner(), this, other.getOwner(), other));
     }
 
-    public void Update(double DeltaTime)
+    @Override
+    public void Update(float DeltaTime)
     {
         isHit = false;
         if (!this.IsActive() || !simulatePhysics) { return; }

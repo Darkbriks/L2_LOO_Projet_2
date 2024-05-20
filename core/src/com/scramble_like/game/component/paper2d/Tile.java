@@ -10,6 +10,8 @@ public class Tile extends Sprite
     private float y;
     private final float width;
     private final float height;
+    //private Vector3 boundsCenter;
+    //private Vector3 boundsDimensions;
 
     public Tile(String path, float x, float y)
     {
@@ -18,6 +20,7 @@ public class Tile extends Sprite
         this.y = y;
         this.width = GameConstant.SQUARE_SIDE;
         this.height = GameConstant.SQUARE_SIDE;
+        //this.createBounds();
     }
 
     public Tile(String path, float x, float y, float width, float height)
@@ -27,26 +30,35 @@ public class Tile extends Sprite
         this.y = y;
         this.width = width;
         this.height = height;
+        //this.createBounds();
     }
 
-    public float getX() {
-        return x;
-    }
+    /*private void createBounds()
+    {
+        boundsCenter = new Vector3(x + width / 2, y + height / 2, 0);
+        boundsDimensions = new Vector3(width, height, 0);
+    }*/
 
-    public void setX(float x){
-        this.x=x;
-    }
+    public float getX() { return x; }
 
-    public float getWidth() {
-        return width;
-    }
+    public void setX(float x){ this.x = x; /*this.createBounds();*/ }
 
-    public void addOffset(Vector2 offset) { x -= offset.x; y -= offset.y; }
+    public float getWidth() { return width; }
+
+    public void addOffset(Vector2 offset) { x -= offset.x; y -= offset.y; /*this.createBounds();*/ }
+
+    /*private boolean isVisible()
+    {
+        return camera.frustum.boundsInFrustum(this.boundsCenter, this.boundsDimensions);
+        //return this.x + this.width >= 0 && this.camera.position.x - this.camera.viewportWidth / 2 <= this.x &&
+          //      this.y + this.height >= 0 && this.camera.position.y - this.camera.viewportHeight / 2 <= this.y;
+    }*/
 
     @Override
     public void Render()
     {
         if (!this.IsActive()) { return; }
+        //if (!isVisible()) { return; }
         this.getOwner().getBatch().draw(ImageFactory.getTexture(this.fileName), this.x, this.y, width, height);
     }
 }

@@ -1,8 +1,10 @@
 package com.scramble_like.game.map;
 
 import com.badlogic.gdx.math.Vector2;
+import com.scramble_like.game.chunk.ChunkHelper;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.game_object.ChunkManager;
 import com.scramble_like.game.game_object.Player;
@@ -14,6 +16,13 @@ public class TestMap extends Scene
     public TestMap()
     {
         super("TestMap");
+
+        // Load all tiles in chunkHelper
+        for (int i = 0; i < ChunkHelper.getTileMapSize(); i++)
+        {
+            String path = ChunkHelper.getTilePath(i);
+            if (path != null && !path.isEmpty()) { ImageFactory.loadTexture(ChunkHelper.getTilePath(i)); }
+        }
 
         try
         {
@@ -40,5 +49,11 @@ public class TestMap extends Scene
     {
         super.dispose();
         SoundFactory.getInstance().stopBackgroundMusic();
+
+        for (int i = 0; i < ChunkHelper.getTileMapSize(); i++)
+        {
+            String path = ChunkHelper.getTilePath(i);
+            if (path != null && !path.isEmpty()) { ImageFactory.disposeTexture(ChunkHelper.getTilePath(i)); }
+        }
     }
 }

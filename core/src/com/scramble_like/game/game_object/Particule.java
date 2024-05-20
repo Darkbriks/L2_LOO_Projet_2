@@ -30,11 +30,11 @@ public class Particule extends GameObject
     }
 
     @Override
-    public void Update(double DeltaTime)
+    public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
         super.Update(DeltaTime);
-        this.elapsedTime += (float) DeltaTime;
+        this.elapsedTime += DeltaTime;
         if (this.elapsedTime >= this.animationDuration) { DestroyThisInScene(); }
     }
 }

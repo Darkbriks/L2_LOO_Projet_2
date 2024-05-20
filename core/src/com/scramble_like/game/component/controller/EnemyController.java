@@ -65,11 +65,11 @@ public class EnemyController extends Component
     }
 
     @Override
-    public void Update(double DeltaTime)
+    public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
 
-        this.elapsedTime += (float) DeltaTime * this.speed;
+        this.elapsedTime += DeltaTime * this.speed;
         float alpha = this.elapsedTime / this.currentDistance;
 
         if (alpha >= 1) { this.elapsedTime = 0; this.updateTargetPosition(); alpha = 0; }

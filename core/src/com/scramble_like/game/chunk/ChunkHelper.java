@@ -224,6 +224,8 @@ public class ChunkHelper
         return (cameraX - chunkPositionInSceneUnits.x) * (cameraX - chunkPositionInSceneUnits.x) + ( chunkPositionInSceneUnits.y) * (-chunkPositionInSceneUnits.y);
     }
 
+    public static int getTileMapSize() { return tileMap.size(); }
+
     public static String getTilePath(int tileIndex)
     {
         if (tileIndex < 0 || tileIndex >= tileMap.size()) return "Tileset/MedievalTileset/Tiles/tile34.png";

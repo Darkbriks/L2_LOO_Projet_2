@@ -80,8 +80,8 @@ public abstract class Scene implements Screen
 
     public void LateUpdate()
     {
-        for (int i = 0; i < markedForDestructionGos.size(); i++) { markedForDestructionGos.get(i).Destroying(); gameObjects.get(markedForDestructionGos.get(i).getTransform().getZIndex()).remove(markedForDestructionGos.get(i)); }
         for (int i = 0; i < markedForDestructionComps.size(); i++) { markedForDestructionComps.get(i).Destroying(); }
+        for (int i = 0; i < markedForDestructionGos.size(); i++) { markedForDestructionGos.get(i).Destroying(); gameObjects.get(markedForDestructionGos.get(i).getTransform().getZIndex()).remove(markedForDestructionGos.get(i)); }
         for (int i = 0; i < gameObjectsToAdd.size(); i++) { this.gameObjects.get(gameObjectsToAdd.get(i).getTransform().getZIndex()).add(gameObjectsToAdd.get(i)); }
         markedForDestructionGos.clear();
         markedForDestructionComps.clear();
@@ -91,6 +91,8 @@ public abstract class Scene implements Screen
     @Override
     public void render(float v)
     {
+        Gdx.app.error("FPS", String.valueOf(Gdx.graphics.getFramesPerSecond()));
+
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
         this.stage.act();
@@ -105,13 +107,6 @@ public abstract class Scene implements Screen
             for (int j = 0; j < gameObjects.get(i).size(); j++)
             {
                 gameObjects.get(i).get(j).Update(v * GameConstant.UPDATE_MULTIPLIER);
-            }
-        }
-
-        for (int i = GameConstant.MAX_Z_INDEX; i >= GameConstant.MIN_Z_INDEX; i--)
-        {
-            for (int j = 0; j < gameObjects.get(i).size(); j++)
-            {
                 gameObjects.get(i).get(j).Render();
             }
         }

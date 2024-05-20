@@ -67,11 +67,13 @@ public class ChunkManager extends GameObject
     }
 
     @Override
-    public void Update(double DeltaTime)
+    public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
         super.Update(DeltaTime);
         if (!isLoaded) { return; }
+
+        new Thread(() -> {
 
         // On calcule la distance entre le joueur et chaque chunk
         for (int i = this.nextI; i < levelChunkCount.x; i++)
@@ -121,5 +123,6 @@ public class ChunkManager extends GameObject
         }
         this.nextI = 0; this.nextJ = 0;
         this.processedChunks = 0;
+        }).start();
     }
 }

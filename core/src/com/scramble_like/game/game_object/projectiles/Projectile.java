@@ -12,6 +12,7 @@ import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.ChunkManager;
 import com.scramble_like.game.game_object.Player;
 
 import java.util.EventObject;
@@ -55,9 +56,8 @@ public abstract class Projectile extends GameObject
             @Override
             public void handleEvent(EventObject event) {
                 EventHit e = (EventHit) event;
-                //if (e.otherGameObject instanceof ChunkManager) { DestroyThisInScene(); }
-                if (GameConstant.GOD_MODE) { DestroyThisInScene(); }
-                if (e.otherGameObject instanceof Player) { DestroyThisInScene(); e.otherGameObject.GetFirstComponentFromClass(PlayerController.class).takeDamage(damage, cooldown);}
+                if (e.otherGameObject instanceof ChunkManager) { DestroyThisInScene(); }
+                if (!GameConstant.GOD_MODE && e.otherGameObject instanceof Player) { DestroyThisInScene(); e.otherGameObject.GetFirstComponentFromClass(PlayerController.class).takeDamage(damage, cooldown);}
             }
         });
 

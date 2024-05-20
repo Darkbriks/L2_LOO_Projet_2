@@ -27,7 +27,7 @@ public abstract class Component implements Disposable
 
     public void BeginPlay() {}
 
-    public void Update(double DeltaTime) {}
+    public void Update(float DeltaTime) {}
 
     public void Render() {}
 

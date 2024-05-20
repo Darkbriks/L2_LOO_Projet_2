@@ -41,14 +41,14 @@ public class PlayerController extends Component
     }
 
     @Override
-    public void Update(double DeltaTime)
+    public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
 
-        hitCooldownTimer += (float) DeltaTime;
+        hitCooldownTimer += DeltaTime;
 
-        scroll((float) DeltaTime);
-        move((float) DeltaTime);
+        scroll(DeltaTime);
+        move(DeltaTime);
 
         if(!this.isAlive()) { this.die(); }
     }

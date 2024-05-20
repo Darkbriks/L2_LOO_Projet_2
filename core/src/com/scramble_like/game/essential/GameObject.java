@@ -96,7 +96,7 @@ public class GameObject implements Disposable
 
     public void BeginPlay() { for (Component c : this.components) { c.BeginPlay(); } }
 
-    public void Update(double dt)
+    public void Update(float dt)
     {
         if (!this.isActive) { return; }
         for (int i = 0; i < components.size(); i++) { Component c = components.get(i); if (c != null) { c.Update(dt); } }

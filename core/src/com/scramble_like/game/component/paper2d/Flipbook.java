@@ -34,10 +34,10 @@ public class Flipbook extends Sprite
     }
 
     @Override
-    public void Update(double DeltaTime)
+    public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
-        this.elapsedTime += (float) DeltaTime;
+        this.elapsedTime += DeltaTime;
         if (this.elapsedTime >= GameConstant.ANIMATION_FRAME_DURATION)
         {
             this.elapsedTime = 0;
