@@ -7,6 +7,7 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.essential.chunk.ChunkManager;
+import com.scramble_like.game.game_object.LevelLoader;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.enemy.MovingEnemy;
 import com.scramble_like.game.game_object.Background;
@@ -38,6 +39,10 @@ public class TestMap extends Scene
             ChunkManager chunkManager = new ChunkManager("ChunkManager", this, 3);
             AddGameObject(chunkManager);
             chunkManager.setPlayer(go1);
+
+            LevelLoader levelLoader = new LevelLoader("LevelLoader", this, 0);
+            levelLoader.getTransform().setLocation(new Vector2(1000, 0));
+            AddGameObject(levelLoader);
         }
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 

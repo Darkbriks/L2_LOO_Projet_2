@@ -8,7 +8,7 @@ import com.scramble_like.game.ScrambleLikeApplication;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(144);
+		config.setForegroundFPS(60);
 		config.setTitle("ScrambleLike");
 		config.setWindowedMode(GameConstant.WIDTH, GameConstant.HEIGHT);
 		config.useVsync(true);

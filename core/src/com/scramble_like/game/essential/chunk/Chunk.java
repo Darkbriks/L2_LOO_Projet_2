@@ -65,6 +65,7 @@ public class Chunk
     {
         if (this.inLoading) { return; }
         new Thread(() -> {try { load(); } catch (IOException e) { Gdx.app.error("Chunk","Error: " + e.getMessage()); } }).start();
+        //try { load(); } catch (IOException e) { Gdx.app.error("Chunk","Error: " + e.getMessage()); }
     }
 
     public void unload()
@@ -160,12 +161,13 @@ public class Chunk
     {
         if (!this.isLoaded || !this.isRendered || this.inSimulating) { return; }
         new Thread(() -> this.simulate(position)).start();
+        //simulate(position);
     }
 
     public void unSimulate()
     {
         if (colliders == null) return;
-        for(Collider c : colliders) { this.chunkManager.RemoveComponent(c); }
+        for(Collider c : colliders) { c.SetActive(false); this.chunkManager.RemoveComponent(c); }
         colliders = null;
         this.isSimulated = false;
     }

@@ -1,5 +1,12 @@
 package com.scramble_like.game;
 
+import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.map.LevelMap;
+import com.scramble_like.game.map.MainMenu;
+import com.scramble_like.game.map.TestMap;
+
+import java.util.Map;
+
 public class GameConstant
 {
     // Screen
@@ -15,7 +22,7 @@ public class GameConstant
 
     // Player
     public static float CAMERA_SPEED = 250;
-    public static float PLAYER_SPEED = 350;
+    public static float PLAYER_SPEED = 500;
     public static final int PLAYER_LIFE = 50;
     public static final int BOTTOM_LIMIT = -250;
     public static final int TOP_LIMIT = 250;
@@ -27,6 +34,12 @@ public class GameConstant
     public static String SOUND_PATH(String name) { return "Audio/Sound/" + name; }
     public static String MUSIC_PATH(String name) { return "Audio/Music/" + name; }
     public static String CHUNK_PATH(String name, int level) { return "Map/Level_" + level + "/" + name + ".txt"; }
+
+    // Level
+    public static final Map<Integer, Class<? extends Scene>> LEVEL_LIST = Map.of(
+            0, MainMenu.class,
+            1, LevelMap.class,
+            2, TestMap.class);
 
     // Debug
     public static boolean DEBUG = true;

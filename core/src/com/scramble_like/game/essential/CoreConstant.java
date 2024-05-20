@@ -20,7 +20,7 @@ public class CoreConstant
     public static final int CHUNK_SIDE = 50;
     public static final int SQUARE_SIDE = 25;
     public static final int CHUNK_SIZE = CHUNK_SIDE * SQUARE_SIDE;
-    public static final int SQUARED_LOADED_CHUNK_DISTANCE = 2000 * 2000; // In scene units. Squared number is used for performance reasons
+    public static final int SQUARED_LOADED_CHUNK_DISTANCE = 1500 * 1500; // In scene units. Squared number is used for performance reasons
     public static final int SQUARED_RENDERED_CHUNK_DISTANCE = 1425 * 1425; // In scene units. Squared number is used for performance reasons
     public static final int SQUARED_CHUNK_SIMULATING_DISTANCE = 1250 * 1250; // In scene units. Squared number is used for performance reasons
     public static final int CHUNKS_PROCESSED_PER_FRAME = 2;
