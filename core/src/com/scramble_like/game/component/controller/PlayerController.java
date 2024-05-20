@@ -69,7 +69,7 @@ public class PlayerController extends Component
         boolean useController = false;
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {newX += (speed * dt);}
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {newX -= (speed * dt);}
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {newX -= (speed * dt*1.5f);}
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {newY += (speed * dt);}
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {newY -= (speed * dt);}
 

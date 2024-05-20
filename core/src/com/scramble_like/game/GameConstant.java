@@ -20,11 +20,11 @@ public class GameConstant
     public static final int CHUNK_SIZE = CHUNK_SIDE * SQUARE_SIDE;
     public static final int SQUARED_LOADED_CHUNK_DISTANCE = 2000 * 2000; // In scene units. Squared number is used for performance reasons
     public static final int SQUARED_RENDERED_CHUNK_DISTANCE = 1425 * 1425; // In scene units. Squared number is used for performance reasons
-    public static final int SQUARED_CHUNK_SIMULATING_DISTANCE = 0;//1250 * 1250; // In scene units. Squared number is used for performance reasons
+    public static final int SQUARED_CHUNK_SIMULATING_DISTANCE = 1250 * 1250; // In scene units. Squared number is used for performance reasons
     public static final int CHUNKS_PROCESSED_PER_FRAME = 1;
 
     // Background
-    public static final int BACKGROUND_SPEED = -150;
+    public static final int BACKGROUND_SPEED = -100;
 
     // Animation
     public static final float ANIMATION_FRAME_DURATION = 0.1f;
@@ -45,6 +45,6 @@ public class GameConstant
     public static String CHUNK_PATH(String name, int level) { return "Map/Level_" + level + "/" + name + ".txt"; }
 
     // Debug
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     public static boolean GOD_MODE = true;
 }

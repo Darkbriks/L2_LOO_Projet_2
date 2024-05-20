@@ -17,6 +17,7 @@ public class ChunkHelper
     private static final String[][] level0;
     private static final String[][] level1;
     private static final String[][] level2;
+    private static final String[][] level3;
 
     static
     {
@@ -53,17 +54,30 @@ public class ChunkHelper
                 { "Map/Level_1/7.txt"},
         };
 
+        level3 = new String[][]
+                {
+                        { "Map/Level_2/0.txt"},
+                        { "Map/Level_2/1.txt"},
+                        { "Map/Level_2/2.txt"},
+                        { "Map/Level_2/3.txt"},
+                        { "Map/Level_2/4.txt"},
+                        { "Map/Level_2/5.txt"},
+                        { "Map/Level_2/6.txt"},
+                };
+
         chunkListByLevel = new ArrayList<>();
         chunkListByLevel.add(level0);
         chunkListByLevel.add(level1);
         chunkListByLevel.add(level2);
+        chunkListByLevel.add(level3);
     }
 
     static {
         //String tilePath = "Tileset/MedievalTileset/Tiles/";
         String propsPath = "Tileset/MedievalTileset/Objects/";
-        String propesTilePath1 = "Tileset/essai/";
-        String propesTilePath2 = "Tileset/essai2/";
+        String propesTilePath1 = "Tileset/level_1/";
+        String propesTilePath2 = "Tileset/utile/";
+        String propesTilePath3 = "Tileset/level_2/";
         tileMap = new HashMap<>();
         tileMap.put(0, "");
         tileMap.put(1, "");
@@ -120,9 +134,9 @@ public class ChunkHelper
         tileMap.put(52, propesTilePath1 +"tile056.png");//4
         tileMap.put(53, propesTilePath1 +"tile057.png");//5
         tileMap.put(54, propesTilePath1 +"tile058.png");//6
-        tileMap.put(55, "");
-        tileMap.put(56, "");
-        tileMap.put(57, "");
+        tileMap.put(55, propesTilePath3 +"tile113.png");//7
+        tileMap.put(56, propesTilePath3 +"tile056.png");//8
+        tileMap.put(57, propesTilePath3 +"tile058.png");//9
         tileMap.put(58, "");
         tileMap.put(59, "");
         tileMap.put(60, "");
@@ -130,31 +144,31 @@ public class ChunkHelper
         tileMap.put(62, "");
         tileMap.put(63, "");
         tileMap.put(64, "");
-        tileMap.put(65, "");
-        tileMap.put(66, "");
-        tileMap.put(67, "");
-        tileMap.put(68, "");
-        tileMap.put(69, "");
-        tileMap.put(70, "");
-        tileMap.put(71, "");
-        tileMap.put(72, "");
-        tileMap.put(73, "");
-        tileMap.put(74, "");
-        tileMap.put(75, "");
-        tileMap.put(76, "");
-        tileMap.put(77, "");
-        tileMap.put(78, "");
-        tileMap.put(79, "");
-        tileMap.put(80, "");
-        tileMap.put(81, "");
-        tileMap.put(82, "");
-        tileMap.put(83, "");
-        tileMap.put(84, "");
-        tileMap.put(85, "");
-        tileMap.put(86, "");
-        tileMap.put(87, "");
-        tileMap.put(88, "");
-        tileMap.put(89, "");
+        tileMap.put(65, "");//A
+        tileMap.put(66, "");//B
+        tileMap.put(67, "");//C
+        tileMap.put(68, "");//D
+        tileMap.put(69, "");//E
+        tileMap.put(70, "");//F
+        tileMap.put(71, "");//G
+        tileMap.put(72, "");//H
+        tileMap.put(73, "");//I
+        tileMap.put(74, propesTilePath3 +"tile048.png");//J
+        tileMap.put(75, propesTilePath3 +"tile050.png");//K
+        tileMap.put(76, propesTilePath3 +"tile032.png");//L
+        tileMap.put(77, propesTilePath3 +"tile034.png");//N
+        tileMap.put(78, "");//M
+        tileMap.put(79, "");//O
+        tileMap.put(80, "");//P
+        tileMap.put(81, "");//Q
+        tileMap.put(82, propesTilePath2 +"tile153.png");//R
+        tileMap.put(83, propesTilePath2 +"tile120.png");//S
+        tileMap.put(84, propesTilePath2 +"tile121.png");//T
+        tileMap.put(85, "");//U
+        tileMap.put(86, "");//V
+        tileMap.put(87, "");//W
+        tileMap.put(88, "");//X
+        tileMap.put(89, "");//Y
         tileMap.put(90, "");
         tileMap.put(91, "");
         tileMap.put(92, "");
@@ -194,7 +208,7 @@ public class ChunkHelper
         tileMap.put(126, "");
         tileMap.put(127, "");
 
-        noColliderBlockIndexes = new int[] { 32,97,98,99,100,101,102,103,104,105,106,107,108,109 };
+        noColliderBlockIndexes = new int[] { 32,74,75,76,77,97,98,99,100,101,102,103,104,105,106,107,108,109 };
     }
 
 
