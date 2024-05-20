@@ -28,7 +28,8 @@ public class RotateController extends Component {
     }
 
     @Override
-    public void BeginPlay() {
+    public void BeginPlay()
+    {
         super.BeginPlay();
         this.updateTargetPosition();
     }

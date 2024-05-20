@@ -5,14 +5,14 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.component.controller.ProjectileController;
 import com.scramble_like.game.component.paper2d.Sprite;
-import com.scramble_like.game.component.collider.AABBCollider;
+import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.game_object.ChunkManager;
+import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.game_object.Player;
 
 import java.util.EventObject;

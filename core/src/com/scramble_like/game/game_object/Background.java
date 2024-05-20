@@ -3,6 +3,7 @@ package com.scramble_like.game.game_object;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Tile;
+import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -26,7 +27,7 @@ public class Background extends GameObject
         this.camera = scene.getCamera();
         this.AddComponent(background_1);
         this.AddComponent(background_2);
-        getTransform().setZIndex(GameConstant.MAX_Z_INDEX);
+        getTransform().setZIndex(CoreConstant.MAX_Z_INDEX);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.scramble_like.game.essential.event_dispatcher.event.chunk;
 
-import com.scramble_like.game.chunk.Chunk;
+import com.scramble_like.game.essential.chunk.Chunk;
 import java.util.EventObject;
 
 public class ChunkLoadedEvent extends EventObject

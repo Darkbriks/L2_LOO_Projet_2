@@ -1,13 +1,15 @@
-package com.scramble_like.game.component.collider;
+package com.scramble_like.game.essential.chaos;
 
 import com.scramble_like.game.essential.Component;
-import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventEndOverlap;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.utils.Utils;
-import java.util.ArrayList;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ForkJoinPool;
 
 public abstract class Collider extends Component
 {
@@ -15,7 +17,7 @@ public abstract class Collider extends Component
     protected boolean generateOverlappedEvent;
     protected boolean simulatePhysics;
     protected boolean isHit;
-    protected ArrayList<Collider> overlappedCollider;
+    protected Set<Collider> overlappedCollider;
 
     ////////// Constructor //////////
     public Collider(boolean generateOverlappedEvent, boolean simulatePhysics)
@@ -24,8 +26,14 @@ public abstract class Collider extends Component
         this.generateOverlappedEvent = generateOverlappedEvent;
         this.simulatePhysics = simulatePhysics;
         isHit = false;
-        overlappedCollider = new ArrayList<>();
+        overlappedCollider = new HashSet<>();
     }
+
+    @Override
+    public void BeginPlay() { super.BeginPlay(); this.getOwner().getScene().getSpatialGrid().addCollider(this); }
+
+    @Override
+    public void Destroy() { super.Destroy(); this.getOwner().getScene().getSpatialGrid().removeCollider(this); }
 
     ////////// Getters //////////
     public boolean IsGenerateOverlappedEvent() { return this.generateOverlappedEvent; }
@@ -38,10 +46,10 @@ public abstract class Collider extends Component
     ////////// Setters //////////
     public void setGenerateOverlappedEvent(boolean generateOverlappedEvent) { this.generateOverlappedEvent = generateOverlappedEvent; }
     public void setSimulatePhysics(boolean simulatePhysics) { this.simulatePhysics = simulatePhysics; }
-
+    public void setPositionInGrid() { this.getOwner().getScene().getSpatialGrid().updateCollider(this); }
 
     ////////// Methods //////////
-    protected boolean Collide(Collider other)
+    boolean Collide(Collider other)
     {
         if (this instanceof SphereCollider && other instanceof SphereCollider) { return Collider.Collide((SphereCollider) this, (SphereCollider)  other); }
         if (this instanceof AABBCollider && other instanceof AABBCollider) { return Collider.Collide((AABBCollider) this, (AABBCollider)  other); }
@@ -102,34 +110,26 @@ public abstract class Collider extends Component
     public void Update(float DeltaTime)
     {
         isHit = false;
-        if (!this.IsActive() || !simulatePhysics) { return; }
-        ArrayList<Collider> tempOverlappedCollider = new ArrayList<>();
+        if (!this.IsActive() || !simulatePhysics) return;
 
-        for(GameObject go : this.getOwner().getScene().getGameObjects())
-        {
-            if (go == this.getOwner()) { continue; }
-            for(Collider other : go.GetAllComponentsFromClass(Collider.class))
-            {
-                if (Collide(other)) { tempOverlappedCollider.add(other); }
-            }
-        }
+        ForkJoinPool pool = new ForkJoinPool();
+        Set<Collider> potentialColliders = this.getOwner().getScene().getSpatialGrid().getPotentialCollisions(this);
+
+        CollisionTask task = new CollisionTask(potentialColliders, this);
+        Set<Collider> tempOverlappedCollider = pool.invoke(task);
 
         for (Collider other : tempOverlappedCollider)
         {
-            if (generateOverlappedEvent && !overlappedCollider.contains(other))
-            {
-                overlappedCollider.add(other);
-                BeginOverlap(other);
-            }
+            if (generateOverlappedEvent && !overlappedCollider.contains(other)) { overlappedCollider.add(other); BeginOverlap(other); }
             else if (!generateOverlappedEvent) { Hit(other); isHit = true; }
         }
 
-        for (int i = 0; i < overlappedCollider.size(); i++)
+        for (Collider other : new HashSet<>(overlappedCollider))
         {
-            if (!tempOverlappedCollider.contains(overlappedCollider.get(i)))
+            if (!tempOverlappedCollider.contains(other))
             {
-                if (generateOverlappedEvent) { EndOverlap(overlappedCollider.get(i)); }
-                overlappedCollider.remove(overlappedCollider.get(i));
+                if (generateOverlappedEvent) { EndOverlap(other); }
+                overlappedCollider.remove(other);
             }
         }
     }

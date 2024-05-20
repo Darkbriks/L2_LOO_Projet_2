@@ -1,7 +1,7 @@
 package com.scramble_like.game.component.paper2d;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.essential.utils.Utils;
 
@@ -38,7 +38,7 @@ public class Flipbook extends Sprite
     {
         if (!this.IsActive()) { return; }
         this.elapsedTime += DeltaTime;
-        if (this.elapsedTime >= GameConstant.ANIMATION_FRAME_DURATION)
+        if (this.elapsedTime >= CoreConstant.ANIMATION_FRAME_DURATION)
         {
             this.elapsedTime = 0;
             this.currentFrame = (this.currentFrame + 1) % this.frameCount;

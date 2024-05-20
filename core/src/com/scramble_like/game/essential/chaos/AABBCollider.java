@@ -1,4 +1,4 @@
-package com.scramble_like.game.component.collider;
+package com.scramble_like.game.essential.chaos;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;

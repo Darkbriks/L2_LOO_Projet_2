@@ -1,7 +1,8 @@
-package com.scramble_like.game.component.collider;
+package com.scramble_like.game.essential.chaos;
 
 import com.badlogic.gdx.graphics.Color;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.utils.DebugRenderer;
 
 public class TileCollider extends AABBCollider
@@ -11,10 +12,16 @@ public class TileCollider extends AABBCollider
 
     public TileCollider(float x, float y)
     {
-        super(GameConstant.SQUARE_SIDE, GameConstant.SQUARE_SIDE, false, false);
+        super(CoreConstant.SQUARE_SIDE, CoreConstant.SQUARE_SIDE, false, false);
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public void BeginPlay() { super.BeginPlay(); this.getOwner().getScene().getSpatialGrid().addTileCollider(this); }
+
+    @Override
+    public void Destroy() { super.Destroy(); this.getOwner().getScene().getSpatialGrid().removeTileCollider(this); }
 
     @Override
     public float getX1() { return x; }

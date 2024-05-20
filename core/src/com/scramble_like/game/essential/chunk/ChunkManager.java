@@ -1,15 +1,14 @@
-package com.scramble_like.game.game_object;
+package com.scramble_like.game.essential.chunk;
 
 import com.badlogic.gdx.math.Vector2;
 
-import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
+import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.chunk.Chunk;
-import com.scramble_like.game.chunk.ChunkHelper;
+import com.scramble_like.game.game_object.Player;
 
 public class ChunkManager extends GameObject
 {
@@ -39,7 +38,7 @@ public class ChunkManager extends GameObject
         this.nextJ = 0;
         this.processedChunks = 0;
 
-        this.getTransform().setZIndex(GameConstant.MAX_Z_INDEX - 1);
+        this.getTransform().setZIndex(CoreConstant.MAX_Z_INDEX - 1);
     }
 
     public boolean isLoaded() { return isLoaded; }
@@ -73,7 +72,7 @@ public class ChunkManager extends GameObject
         super.Update(DeltaTime);
         if (!isLoaded) { return; }
 
-        new Thread(() -> {
+        //new Thread(() -> {
 
         // On calcule la distance entre le joueur et chaque chunk
         for (int i = this.nextI; i < levelChunkCount.x; i++)
@@ -84,7 +83,7 @@ public class ChunkManager extends GameObject
                 this.processedChunks++;
 
                 float squaredDistance = ChunkHelper.getChunkSquaredDistanceWithPosition(new Vector2(i, j), camera.getPosition().x, (int) levelChunkCount.y);
-                if (squaredDistance < GameConstant.SQUARED_CHUNK_SIMULATING_DISTANCE)
+                if (squaredDistance < CoreConstant.SQUARED_CHUNK_SIMULATING_DISTANCE)
                 {
                     if (chunks[i][j].isLoaded() && chunks[i][j].isRendered() && !chunks[i][j].isSimulated())
                     {
@@ -96,7 +95,7 @@ public class ChunkManager extends GameObject
                     }
                     else if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
                 }
-                else if (squaredDistance < GameConstant.SQUARED_RENDERED_CHUNK_DISTANCE)
+                else if (squaredDistance < CoreConstant.SQUARED_RENDERED_CHUNK_DISTANCE)
                 {
                     if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
                     if (chunks[i][j].isLoaded() && !chunks[i][j].isRendered())
@@ -105,7 +104,7 @@ public class ChunkManager extends GameObject
                     }
                     else if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
                 }
-                else if (squaredDistance < GameConstant.SQUARED_LOADED_CHUNK_DISTANCE)
+                else if (squaredDistance < CoreConstant.SQUARED_LOADED_CHUNK_DISTANCE)
                 {
                     if (!chunks[i][j].isLoaded()) { chunks[i][j].loadAsynchronously(); }
                     if (chunks[i][j].isSimulated()) { chunks[i][j].unSimulate(); }
@@ -118,11 +117,11 @@ public class ChunkManager extends GameObject
                     if (!chunks[i][j].isRendered() && chunks[i][j].isLoaded()) { chunks[i][j].unload(); }
                 }
                 this.nextJ++; if (this.nextJ >= levelChunkCount.y) { this.nextJ = 0; this.nextI = (i + 1) % (int) levelChunkCount.x; }
-                if (this.processedChunks >= GameConstant.CHUNKS_PROCESSED_PER_FRAME) { this.processedChunks = 0; return; }
+                if (this.processedChunks >= CoreConstant.CHUNKS_PROCESSED_PER_FRAME) { this.processedChunks = 0; return; }
             }
         }
         this.nextI = 0; this.nextJ = 0;
         this.processedChunks = 0;
-        }).start();
+        //}).start();
     }
 }

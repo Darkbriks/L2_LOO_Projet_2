@@ -7,10 +7,13 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameCamera;
+import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
 import com.scramble_like.game.essential.utils.Utils;
 import com.scramble_like.game.map.GameOver;
+
+import java.util.ArrayList;
 
 public class PlayerController extends Component
 {
@@ -25,6 +28,7 @@ public class PlayerController extends Component
     @Override
     public void BeginPlay()
     {
+        super.BeginPlay();
         camera = this.getOwner().getScene().getGame().getCamera();
         hitCooldown = 0;
         hitCooldownTimer = 0;
@@ -49,6 +53,9 @@ public class PlayerController extends Component
 
         scroll(DeltaTime);
         move(DeltaTime);
+
+        ArrayList<Collider> ownersColliders = this.getOwner().GetAllComponentsFromClass(Collider.class);
+        for (int i = 0; i < ownersColliders.size(); i++) { ownersColliders.get(i).setPositionInGrid(); }
 
         if(!this.isAlive()) { this.die(); }
     }

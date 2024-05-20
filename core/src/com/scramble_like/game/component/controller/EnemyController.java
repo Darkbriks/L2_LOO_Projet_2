@@ -3,6 +3,10 @@ package com.scramble_like.game.component.controller;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.Component;
+import com.scramble_like.game.essential.chaos.Collider;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class EnemyController extends Component
 {
@@ -78,5 +82,7 @@ public class EnemyController extends Component
         float y = this.yInterpolation.apply(this.points[this.currentPoint].y, this.points[(this.currentPoint + 1) % this.points.length].y, alpha);
 
         this.getOwner().getTransform().setLocation(x, y);
+        ArrayList<Collider> ownersColliders = this.getOwner().GetAllComponentsFromClass(Collider.class);
+        for (int i = 0; i < ownersColliders.size(); i++) { ownersColliders.get(i).setPositionInGrid(); }
     }
 }

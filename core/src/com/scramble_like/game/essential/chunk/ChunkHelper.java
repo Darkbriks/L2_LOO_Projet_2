@@ -1,7 +1,8 @@
-package com.scramble_like.game.chunk;
+package com.scramble_like.game.essential.chunk;
 
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.essential.CoreConstant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -213,8 +214,8 @@ public class ChunkHelper
 
     public static Vector2 getChunkPositionInSceneUnits(Vector2 chunkPosition, int numberOfChunksVertical)
     {
-        int x = (int) chunkPosition.x * GameConstant.CHUNK_SIZE;
-        int y = GameConstant.CHUNK_SIZE / 2 + (int) chunkPosition.y * GameConstant.CHUNK_SIZE - (numberOfChunksVertical * GameConstant.CHUNK_SIZE) / 2;
+        int x = (int) chunkPosition.x * CoreConstant.CHUNK_SIZE;
+        int y = CoreConstant.CHUNK_SIZE / 2 + (int) chunkPosition.y * CoreConstant.CHUNK_SIZE - (numberOfChunksVertical * CoreConstant.CHUNK_SIZE) / 2;
         return new Vector2(x, y);
     }
 

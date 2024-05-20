@@ -1,7 +1,7 @@
 package com.scramble_like.game.essential.utils;
 
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.essential.CoreConstant;
 
 public class Transform
 {
@@ -34,7 +34,7 @@ public class Transform
     public void setScale(float x, float y) { this.Scale.set(x, y); }
     public void setAlignment(Vector2 Alignment) { this.Alignment = Alignment; }
     public void setAlignment(float x, float y) { this.Alignment.set(x, y); }
-    public void setZIndex(int ZIndex) { this.ZIndex = Utils.clamp(ZIndex, GameConstant.MIN_Z_INDEX, GameConstant.MAX_Z_INDEX); }
+    public void setZIndex(int ZIndex) { this.ZIndex = Utils.clamp(ZIndex, CoreConstant.MIN_Z_INDEX, CoreConstant.MAX_Z_INDEX); }
 
     public void setLocationAndRotation(Vector2 Location, Vector2 Rotation)
     {

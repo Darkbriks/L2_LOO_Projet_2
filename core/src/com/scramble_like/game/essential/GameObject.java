@@ -34,6 +34,7 @@ public class GameObject implements Disposable
         this.transform = new Transform();
         this.eventDispatcher = new EventDispatcher();
         if (this.scene == null) { this.Destroy(); this.Destroying(); throw new SceneIsNullException(this); }
+        this.isActive = false;
     }
 
     public int getID() { return this.ID; }
@@ -94,7 +95,7 @@ public class GameObject implements Disposable
 
     public EventDispatcher getEventDispatcher() { return this.eventDispatcher; }
 
-    public void BeginPlay() { for (Component c : this.components) { c.BeginPlay(); } }
+    public void BeginPlay() { for (Component c : this.components) { c.BeginPlay(); } this.isActive = true;}
 
     public void Update(float dt)
     {

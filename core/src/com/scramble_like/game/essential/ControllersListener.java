@@ -2,20 +2,19 @@ package com.scramble_like.game.essential;
 
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerListener;
-import com.scramble_like.game.GameConstant;
 
 public class ControllersListener implements ControllerListener
 {
     @Override
     public void connected(Controller controller) {
         System.out.println("Controller connected: " + controller.getName());
-        GameConstant.UPDATE_MULTIPLIER = 1;
+        CoreConstant.UPDATE_MULTIPLIER = 1;
     }
 
     @Override
     public void disconnected(Controller controller) {
         System.out.println("Controller disconnected: " + controller.getName());
-        GameConstant.UPDATE_MULTIPLIER = 0;
+        CoreConstant.UPDATE_MULTIPLIER = 0;
     }
 
     @Override

@@ -1,13 +1,12 @@
-package com.scramble_like.game.chunk;
+package com.scramble_like.game.essential.chunk;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector4;
-import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Tile;
-import com.scramble_like.game.component.collider.Collider;
-import com.scramble_like.game.component.collider.TileCollider;
-import com.scramble_like.game.game_object.ChunkManager;
+import com.scramble_like.game.essential.chaos.Collider;
+import com.scramble_like.game.essential.chaos.TileCollider;
+import com.scramble_like.game.essential.CoreConstant;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -55,7 +54,7 @@ public class Chunk
         this.inLoading = true;
         List<String> lines = Files.readAllLines(Paths.get(this.fileName));
 
-        this.chunk = new char[GameConstant.CHUNK_SIDE][GameConstant.CHUNK_SIDE];
+        this.chunk = new char[CoreConstant.CHUNK_SIDE][CoreConstant.CHUNK_SIDE];
         for (int i = 0; i < lines.size(); i++) { String line = lines.get(i); for (int j = 0; j < line.length(); j++) { this.chunk[j][i] = line.charAt(j); } }
 
         this.isLoaded = true;
@@ -83,16 +82,16 @@ public class Chunk
         this.tilesData = new HashMap<>();
         this.tiles = new ArrayList<>();
 
-        for (int i = 0; i < GameConstant.CHUNK_SIDE; i++)
+        for (int i = 0; i < CoreConstant.CHUNK_SIDE; i++)
         {
-            for (int j = 0; j < GameConstant.CHUNK_SIDE; j++)
+            for (int j = 0; j < CoreConstant.CHUNK_SIDE; j++)
             {
                 String tilePath = ChunkHelper.getTilePath(this.chunk[i][j]);
                 if (!Objects.equals(tilePath, ""))
                 {
                     Vector4 tileData = new Vector4(
-                            i * GameConstant.SQUARE_SIDE - ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
-                            - j * GameConstant.SQUARE_SIDE + ((float) (GameConstant.CHUNK_SIDE * GameConstant.SQUARE_SIDE) / 2),
+                            i * CoreConstant.SQUARE_SIDE - ((float) (CoreConstant.CHUNK_SIDE * CoreConstant.SQUARE_SIDE) / 2),
+                            - j * CoreConstant.SQUARE_SIDE + ((float) (CoreConstant.CHUNK_SIDE * CoreConstant.SQUARE_SIDE) / 2),
                             i, j);
 
                     this.tilesData.put(i + " " + j, tileData);

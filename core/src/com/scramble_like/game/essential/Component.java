@@ -11,7 +11,7 @@ public abstract class Component implements Disposable
     private boolean isActive = true;
     private boolean isMarkedForDestruction = false;
 
-    public Component() { this.ID = globalID++; }
+    public Component() { this.ID = globalID++; this.isActive = false; }
 
     public void Init(GameObject Owner) throws OwnerIsNullException { this.Owner = Owner; if (this.Owner == null) { this.Destroy(); this.Destroying(); throw new OwnerIsNullException(this); } }
 
@@ -25,7 +25,7 @@ public abstract class Component implements Disposable
 
     public boolean IsMarkedForDestruction() { return this.isMarkedForDestruction; }
 
-    public void BeginPlay() {}
+    public void BeginPlay() {this.isActive = true; }
 
     public void Update(float DeltaTime) {}
 

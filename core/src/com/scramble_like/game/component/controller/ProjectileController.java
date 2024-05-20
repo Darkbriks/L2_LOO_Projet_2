@@ -3,8 +3,11 @@ package com.scramble_like.game.component.controller;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.Component;
+import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.ProjectileReachDestinationEvent;
+
+import java.util.ArrayList;
 
 public class ProjectileController extends Component
 {
@@ -66,6 +69,9 @@ public class ProjectileController extends Component
         float y = yInterpolation.apply(start.y, end.y, alpha);
 
         this.getOwner().getTransform().setLocation(x, y);
+
+        ArrayList<Collider> ownersColliders = this.getOwner().GetAllComponentsFromClass(Collider.class);
+        for (int i = 0; i < ownersColliders.size(); i++) { ownersColliders.get(i).setPositionInGrid(); }
 
         if (alpha >= 1)
         {

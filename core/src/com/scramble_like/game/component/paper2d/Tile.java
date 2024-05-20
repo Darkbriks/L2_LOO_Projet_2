@@ -1,7 +1,7 @@
 package com.scramble_like.game.component.paper2d;
 
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.factory.ImageFactory;
 
 public class Tile extends Sprite
@@ -18,8 +18,8 @@ public class Tile extends Sprite
         super(path);
         this.x = x;
         this.y = y;
-        this.width = GameConstant.SQUARE_SIDE;
-        this.height = GameConstant.SQUARE_SIDE;
+        this.width = CoreConstant.SQUARE_SIDE;
+        this.height = CoreConstant.SQUARE_SIDE;
         //this.createBounds();
     }
 

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
+import com.scramble_like.game.essential.chaos.SpatialGrid;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
 import com.scramble_like.game.game_object.Player;
 
@@ -20,6 +21,7 @@ public abstract class Scene implements Screen
 {
     private final String name;
     private final ScrambleLikeApplication game;
+    private final SpatialGrid spatialGrid;
     private final Stage stage;
     private final Skin skin;
 
@@ -38,6 +40,7 @@ public abstract class Scene implements Screen
         this.stage = new Stage();
         this.stage.setViewport(this.game.getCamera().getViewport());
         this.skin = new Skin(Gdx.files.internal("UI/uiskin.json"));
+        this.spatialGrid = new SpatialGrid(GameConstant.GRID_CELL_X, GameConstant.GRID_CELL_Y);
 
         this.gameObjectsToAdd = new ArrayList<>();
         this.gameObjects = new ArrayList<>();
@@ -46,13 +49,14 @@ public abstract class Scene implements Screen
 
         this.game.getCamera().setPosition(0, 0);
 
-        for (int i = GameConstant.MIN_Z_INDEX; i <= GameConstant.MAX_Z_INDEX; i++) { this.gameObjects.add(new ArrayList<>()); }
+        for (int i = CoreConstant.MIN_Z_INDEX; i <= CoreConstant.MAX_Z_INDEX; i++) { this.gameObjects.add(new ArrayList<>()); }
 
         Gdx.input.setInputProcessor(stage);
     }
 
     public String getName() { return this.name; }
     public ScrambleLikeApplication getGame() { return this.game; }
+    public SpatialGrid getSpatialGrid() { return this.spatialGrid; }
     public Stage getStage() { return this.stage; }
     public Skin getSkin() { return this.skin; }
     public GameCamera getCamera() { return this.game.getCamera(); }
@@ -80,8 +84,8 @@ public abstract class Scene implements Screen
 
     public void LateUpdate()
     {
-        for (int i = 0; i < markedForDestructionComps.size(); i++) { markedForDestructionComps.get(i).Destroying(); }
         for (int i = 0; i < markedForDestructionGos.size(); i++) { markedForDestructionGos.get(i).Destroying(); gameObjects.get(markedForDestructionGos.get(i).getTransform().getZIndex()).remove(markedForDestructionGos.get(i)); }
+        for (int i = 0; i < markedForDestructionComps.size(); i++) { markedForDestructionComps.get(i).Destroying(); }
         for (int i = 0; i < gameObjectsToAdd.size(); i++) { this.gameObjects.get(gameObjectsToAdd.get(i).getTransform().getZIndex()).add(gameObjectsToAdd.get(i)); }
         markedForDestructionGos.clear();
         markedForDestructionComps.clear();
@@ -98,15 +102,15 @@ public abstract class Scene implements Screen
         this.stage.act();
         this.stage.draw();
 
-        this.getGame().UpdateTickableObjects(v * GameConstant.UPDATE_MULTIPLIER);
+        this.getGame().UpdateTickableObjects(v * CoreConstant.UPDATE_MULTIPLIER);
 
         game.getBatch().begin();
 
-        for (int i = GameConstant.MAX_Z_INDEX; i >= GameConstant.MIN_Z_INDEX; i--)
+        for (int i = CoreConstant.MAX_Z_INDEX; i >= CoreConstant.MIN_Z_INDEX; i--)
         {
             for (int j = 0; j < gameObjects.get(i).size(); j++)
             {
-                gameObjects.get(i).get(j).Update(v * GameConstant.UPDATE_MULTIPLIER);
+                gameObjects.get(i).get(j).Update(v * CoreConstant.UPDATE_MULTIPLIER);
                 gameObjects.get(i).get(j).Render();
             }
         }
@@ -117,25 +121,25 @@ public abstract class Scene implements Screen
     }
 
     @Override
-    public void show() { GameConstant.UPDATE_MULTIPLIER = 1; }
+    public void show() { CoreConstant.UPDATE_MULTIPLIER = 1; }
 
     @Override
-    public void hide() { GameConstant.UPDATE_MULTIPLIER = 0; }
+    public void hide() { CoreConstant.UPDATE_MULTIPLIER = 0; }
 
     @Override
     public void resize (int width, int height) { stage.getViewport().update(width, height, false); }
 
     @Override
-    public void pause() { GameConstant.UPDATE_MULTIPLIER = 0; }
+    public void pause() { CoreConstant.UPDATE_MULTIPLIER = 0; }
 
     @Override
-    public void resume() { GameConstant.UPDATE_MULTIPLIER = 1; }
+    public void resume() { CoreConstant.UPDATE_MULTIPLIER = 1; }
 
     @Override
     public void dispose()
     {
-        //for (GameObject go : gameObjects) { DestroyGameObject(go); }
-        for (int i = GameConstant.MAX_Z_INDEX; i >= GameConstant.MIN_Z_INDEX; i--)
+        spatialGrid.clear();
+        for (int i = CoreConstant.MAX_Z_INDEX; i >= CoreConstant.MIN_Z_INDEX; i--)
         {
             for (int j = 0; j < gameObjects.get(i).size(); j++)
             {

@@ -1,12 +1,12 @@
 package com.scramble_like.game.map;
 
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.chunk.ChunkHelper;
+import com.scramble_like.game.essential.chunk.ChunkHelper;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.essential.factory.SoundFactory;
-import com.scramble_like.game.game_object.ChunkManager;
+import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.enemy.MovingEnemy;
 import com.scramble_like.game.game_object.Background;

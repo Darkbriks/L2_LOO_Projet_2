@@ -33,6 +33,7 @@ public class Sprite extends Component
     @Override
     public void BeginPlay()
     {
+        super.BeginPlay();
         ImageFactory.loadTexture(fileName);
         imageSize = ImageFactory.getTextureSize(fileName);
     }
