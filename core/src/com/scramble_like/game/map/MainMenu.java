@@ -34,7 +34,7 @@ public class MainMenu extends Scene
 
         Label levelMapButton = new AE_Label("Level Map", this.getSkin());
         levelMapButton.setPosition(-levelMapButton.getWidth() / 2 - 100, -50);
-        levelMapButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new GameOver(40)); dispose(); } });
+        levelMapButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new LevelMap()); dispose(); } });
         this.getStage().addActor(levelMapButton);
 
         Label exitButton = new AE_Label("Exit", this.getSkin());
@@ -46,27 +46,27 @@ public class MainMenu extends Scene
         {
             GameObject leftMeduse = new GameObject("LeftMeduse", this);
             leftMeduse.AddComponent(new Flipbook("Characters/Fish/Jellyfish/Idle.png", 4));
-            leftMeduse.getTransform().Translate(-200, 0);
+            leftMeduse.getTransform().Translate(-180, -35);
             AddGameObject(leftMeduse);
 
             GameObject rightMeduse = new GameObject("RightMeduse", this);
             rightMeduse.AddComponent(new Flipbook("Characters/Fish/Jellyfish/Idle.png", 4));
-            rightMeduse.getTransform().Translate(300, 0);
+            rightMeduse.getTransform().Translate(135, -35);
             AddGameObject(rightMeduse);
 
             GameObject bottomMeduse = new GameObject("BottomMeduse", this);
             bottomMeduse.AddComponent(new Flipbook("Characters/Fish/Jellyfish/Idle.png", 4));
-            bottomMeduse.getTransform().Translate(0, -50);
+            bottomMeduse.getTransform().Translate(0, -100);
             AddGameObject(bottomMeduse);
 
-            GameObject shark = new GameObject("BottomMeduse", this);
+            GameObject shark = new GameObject("shark", this);
             shark.AddComponent(new Flipbook("Characters/Fish/BigSawFish/Walk.png", 4));
-            shark.getTransform().Translate(0, -100);
+            shark.getTransform().Translate(0, -150);
             AddGameObject(shark);
 
             Vector2[] sharkPatrolPoints =new  Vector2[]{
-                    new Vector2(-50,-100),
-                    new Vector2(50, -100)
+                    new Vector2(-50,-200),
+                    new Vector2(50, -200)
             };
             RotateController sharkController = new RotateController(sharkPatrolPoints,50);
             shark.AddComponent(sharkController);
