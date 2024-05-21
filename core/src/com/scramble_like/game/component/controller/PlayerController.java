@@ -4,27 +4,37 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
+import com.scramble_like.game.essential.utils.DebugRenderer;
 import com.scramble_like.game.essential.utils.Utils;
 import com.scramble_like.game.map.GameOver;
 
-import java.util.ArrayList;
-
 public class PlayerController extends Component
 {
+    private final AnimationController animationController;
+    private final Flipbook flipbook;
     private final float speed;
     private float hitCooldown;
     private float hitCooldownTimer;
     private int life, score;
     private GameCamera camera;
-    private AnimationController animationController;
 
-    public PlayerController(AnimationController animationController) { super(); this.speed = GameConstant.PLAYER_SPEED; life = GameConstant.PLAYER_LIFE; this.animationController = animationController; }
+    public PlayerController(AnimationController animationController, Flipbook flipbook)
+    {
+        super();
+        this.animationController = animationController;
+        this.flipbook = flipbook;
+        this.speed = GameConstant.PLAYER_SPEED;
+        life = GameConstant.PLAYER_LIFE;
+    }
 
     @Override
     public void BeginPlay()
@@ -36,9 +46,7 @@ public class PlayerController extends Component
         score = 0;
     }
 
-    public int getScore(){
-        return score;
-    }
+    public int getScore(){ return score; }
     public float getSpeed() { return speed; }
     public int getLife() { return life; }
 
@@ -60,8 +68,7 @@ public class PlayerController extends Component
         scroll(DeltaTime);
         move(DeltaTime);
 
-        ArrayList<Collider> ownersColliders = this.getOwner().GetAllComponentsFromClass(Collider.class);
-        for (int i = 0; i < ownersColliders.size(); i++) { ownersColliders.get(i).setPositionInGrid(); }
+        this.getOwner().GetFirstComponentFromClass(Collider.class).setPositionInGrid();
 
         if(!this.isAlive()) { this.die(); }
     }
@@ -75,32 +82,53 @@ public class PlayerController extends Component
     private void move(float dt)
     {
         Controller controller = Controllers.getCurrent();
-        float newX = this.getOwner().getTransform().getLocation().x;
-        float newY = this.getOwner().getTransform().getLocation().y;
-        float newX_Controller = newX;
-        float newY_Controller = newY;
-        boolean useController = false;
+        float dx = 0;
+        float dy = 0;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {newX += (speed * dt);}
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {newX -= (speed * dt*1.5f);}
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {newY += (speed * dt);}
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {newY -= (speed * dt);}
+        if (controller != null)
+        {
+            dx = controller.getAxis(controller.getMapping().axisLeftX);
+            dy = -controller.getAxis(controller.getMapping().axisLeftY);
+            if (Math.abs(dx) < 0.1) { dx = 0; } else { dx *= speed * dt; }
+            if (Math.abs(dy) < 0.1) { dy = 0; } else { dy *= speed * dt; }
+        }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) { life -= 10; }
+        if (dx == 0 && dy == 0)
+        {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {dx = speed * dt;}
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {dx = -speed * dt;}
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {dy = speed * dt;}
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {dy = -speed * dt;}
+        }
 
-        if (controller != null && Math.abs(controller.getAxis(controller.getMapping().axisLeftX)) > 0.1f) { newX_Controller += (speed * dt * controller.getAxis(controller.getMapping().axisLeftX)); useController = true;}
-        if (controller != null && Math.abs(controller.getAxis(controller.getMapping().axisLeftY)) > 0.1f) { newY_Controller -= (speed * dt * controller.getAxis(controller.getMapping().axisLeftY)); useController = true;}
+        if (dx != 0 || dy != 0)
+        {
+            animationController.setState(AnimationController.AnimationState.WALK, -1);
 
-        // Si il y a un deplacement, on change l'animation
-        if (newX != this.getOwner().getTransform().getLocation().x || newY != this.getOwner().getTransform().getLocation().y) { animationController.setState(AnimationController.AnimationState.WALK, -1); }
+            this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(this.getOwner().getTransform().getLocation().x + dx, camera.getPosition().x - (double) GameConstant.LEFT_LIMIT, camera.getPosition().x + (double) GameConstant.RIGHT_LIMIT);
+            this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(this.getOwner().getTransform().getLocation().y + dy, camera.getPosition().y - (double) GameConstant.HEIGHT / 2, camera.getPosition().y + (double) GameConstant.HEIGHT / 2);
+
+            if (dy != 0)
+            {
+                if (this.getOwner().getTransform().getLocation().y < GameConstant.BOTTOM_LIMIT) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.BOTTOM_LIMIT); }
+                else if (this.getOwner().getTransform().getLocation().y > GameConstant.TOP_LIMIT) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.TOP_LIMIT); }
+                else { camera.getPosition().y = 0; }
+            }
+        }
         else { animationController.setState(AnimationController.AnimationState.IDLE, -1); }
 
-        this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(useController ? newX_Controller : newX, camera.getPosition().x - (double) GameConstant.LEFT_LIMIT, camera.getPosition().x + (double) GameConstant.RIGHT_LIMIT);
-        this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(useController ? newY_Controller : newY, camera.getPosition().y - (double) GameConstant.HEIGHT / 2, camera.getPosition().y + (double) GameConstant.HEIGHT / 2);
+        //this.flipbook.setFlipX(dx < 0);
 
-        if (this.getOwner().getTransform().getLocation().y < GameConstant.BOTTOM_LIMIT) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.BOTTOM_LIMIT); }
-        else if (this.getOwner().getTransform().getLocation().y > GameConstant.TOP_LIMIT) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.TOP_LIMIT); }
-        else { camera.getPosition().y = 0; }
+        //Vector2 newRotation = new Vector2(dx, dy).nor();
+        //float angle = (float) Math.toDegrees(Math.atan2(newRotation.y, newRotation.x));
+        float angle = (float) Math.toDegrees(Math.atan2(dy, dx));
+        this.getOwner().getTransform().setRotation(angle, 0);
+    }
+
+    @Override
+    public void Render()
+    {
+        DebugRenderer.DrawDebugCircle(this.getOwner().getTransform().getLocation(), 5, Color.CORAL, this.getOwner().getScene().getGame().getCamera().getCombined());
     }
 
     private void die()

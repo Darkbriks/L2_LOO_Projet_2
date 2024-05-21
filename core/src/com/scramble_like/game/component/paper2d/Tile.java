@@ -39,12 +39,15 @@ public class Tile extends Sprite
     }
 
     public float getX() { return x; }
+    public void setX(float x){ this.x = x; }
 
-    public void setX(float x){ this.x = x; /*this.createBounds();*/ }
+    public float getY() { return y; }
+    public void setY(float y){ this.y = y; }
 
     public float getWidth() { return width; }
+    public float getHeight() { return height; }
 
-    public void addOffset(Vector2 offset) { x -= offset.x; y -= offset.y; /*this.createBounds();*/ }
+    public void addOffset(Vector2 offset) { x -= offset.x; y -= offset.y; }
 
     private boolean isVisible()
     {

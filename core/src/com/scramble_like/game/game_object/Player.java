@@ -43,7 +43,7 @@ public class Player extends GameObject
         this.animationController = new AnimationController(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1/"), flipbook, new int[]{ 4, 6, 2, 6, 6 });
         this.AddComponent(animationController);
 
-        this.playerController = new PlayerController(animationController);
+        this.playerController = new PlayerController(animationController, flipbook);
         this.AddComponent(playerController);
 
         this.AddComponent(new AABBCollider(25, 50, -10, 0, false, true));

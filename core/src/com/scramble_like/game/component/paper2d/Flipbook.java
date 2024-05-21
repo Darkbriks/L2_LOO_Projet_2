@@ -52,6 +52,7 @@ public class Flipbook extends Sprite
     {
         if (!this.IsActive()) { return; }
         TextureRegion frame = ImageFactory.getTextureRegion(this.fileName, this.frameCount, this.currentFrame);
+       if (this.flipX) { frame.flip(true, false); }
         this.getOwner().getBatch().draw(frame,
                 this.getOwner().getTransform().getLocation().x - Utils.lerp(0, frame.getRegionWidth() * this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getAlignment().x),
                 this.getOwner().getTransform().getLocation().y - Utils.lerp(0, frame.getRegionHeight() * this.getOwner().getTransform().getScale().y, this.getOwner().getTransform().getAlignment().y),

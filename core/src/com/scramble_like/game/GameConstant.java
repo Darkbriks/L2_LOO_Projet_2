@@ -22,7 +22,7 @@ public class GameConstant
 
     // Player
     public static float CAMERA_SPEED = 250;
-    public static float PLAYER_SPEED = 500;
+    public static float PLAYER_SPEED = 400;
     public static final int PLAYER_LIFE = 50;
     public static final int BOTTOM_LIMIT = -250;
     public static final int TOP_LIMIT = 250;
@@ -40,6 +40,12 @@ public class GameConstant
             0, MainMenu.class,
             1, LevelMap.class,
             2, TestMap.class);
+
+    // UI Position
+    public static final int SCORE_X = WIDTH / 2 - 70;
+    public static final int SCORE_Y = HEIGHT / 2 - 50;
+    public static final int LIFE_X = - (WIDTH / 2 - 100);
+    public static final int LIFE_Y = HEIGHT / 2 - 60;
 
     // Debug
     public static boolean DEBUG = true;

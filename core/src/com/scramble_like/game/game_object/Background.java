@@ -42,5 +42,8 @@ public class Background extends GameObject
 
         if (camera.getPosition().x - background_1.getX() > length * 1.5f) { background_1.setX(background_2.getX() + length); }
         if (camera.getPosition().x - background_2.getX() > length * 1.5f) { background_2.setX(background_1.getX() + length); }
+
+        background_1.setY(camera.getPosition().y - (float) GameConstant.HEIGHT / 2);
+        background_2.setY(camera.getPosition().y - (float) GameConstant.HEIGHT / 2);
     }
 }
