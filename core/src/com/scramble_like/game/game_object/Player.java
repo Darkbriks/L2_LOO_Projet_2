@@ -38,7 +38,7 @@ public class Player extends GameObject
     {
         super.BeginPlay();
 
-        this.collider = new AABBCollider(50, 50, false, true);
+        this.collider = new AABBCollider(GameConstant.PLAYER_IDLE_COLLIDER.x, GameConstant.PLAYER_IDLE_COLLIDER.y, GameConstant.PLAYER_IDLE_COLLIDER.z, GameConstant.PLAYER_IDLE_COLLIDER.w, false, true);
         this.AddComponent(collider);
 
         this.flipbook = new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_2") + "/Idle.png", 4);
