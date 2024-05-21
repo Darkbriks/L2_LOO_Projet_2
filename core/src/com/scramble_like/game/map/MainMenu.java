@@ -20,6 +20,8 @@ public class MainMenu extends Scene
     {
         super("MainMenu");
 
+        getCamera().setPosition(0, 0);
+
         backgroundColor = new Vector4(0, 0, 0, 1);
 
         Label titleText = new AE_TitleLabel("Aqua Escape", this.getSkin());
@@ -27,7 +29,7 @@ public class MainMenu extends Scene
         this.getStage().addActor(titleText);
 
         Label playButton = new AE_Label("Play", this.getSkin());
-        playButton.setPosition(-playButton.getWidth(), 0);
+        playButton.setPosition(-playButton.getWidth() / 2, 0);
         playButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new TestMap()); dispose(); } });
         this.getStage().addActor(playButton);
 

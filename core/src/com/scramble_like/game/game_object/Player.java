@@ -37,10 +37,10 @@ public class Player extends GameObject
     {
         super.BeginPlay();
 
-        this.flipbook = new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1") + "/Idle.png", 4);
+        this.flipbook = new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_2") + "/Idle.png", 4);
         this.AddComponent(flipbook);
 
-        this.animationController = new AnimationController(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_1/"), flipbook, new int[]{ 4, 6, 2, 6, 6 });
+        this.animationController = new AnimationController(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_2/"), flipbook, new int[]{ 4, 6, 2, 6, 6 });
         this.AddComponent(animationController);
 
         this.playerController = new PlayerController(animationController, flipbook);

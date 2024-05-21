@@ -21,8 +21,10 @@ public class SplashScreen extends Scene {
     private float elapsedTime = 0;
     private boolean showText = false;
 
-    public SplashScreen() {
+    public SplashScreen()
+    {
         super("SplashScreen");
+        getCamera().setPosition(0, 0);
         this.backgroundColor = new Vector4(0, 0, 0, 1);
     }
 

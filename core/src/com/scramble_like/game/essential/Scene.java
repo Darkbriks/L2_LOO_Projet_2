@@ -47,8 +47,6 @@ public abstract class Scene implements Screen
         this.markedForDestructionGos = new ArrayList<>();
         this.markedForDestructionComps = new ArrayList<>();
 
-        this.game.getCamera().setPosition(0, 0);
-
         for (int i = CoreConstant.MIN_Z_INDEX; i <= CoreConstant.MAX_Z_INDEX; i++) { this.gameObjects.add(new ArrayList<>()); }
 
         Gdx.input.setInputProcessor(stage);
@@ -103,13 +101,23 @@ public abstract class Scene implements Screen
 
         this.getGame().UpdateTickableObjects(v * CoreConstant.UPDATE_MULTIPLIER);
 
+        if (CoreConstant.UPDATE_MULTIPLIER != 0)
+        {
+            for (int i = CoreConstant.MAX_Z_INDEX; i >= CoreConstant.MIN_Z_INDEX; i--)
+            {
+                for (int j = 0; j < gameObjects.get(i).size(); j++)
+                {
+                    gameObjects.get(i).get(j).Update(v * CoreConstant.UPDATE_MULTIPLIER);
+                }
+            }
+        }
+
         game.getBatch().begin();
 
         for (int i = CoreConstant.MAX_Z_INDEX; i >= CoreConstant.MIN_Z_INDEX; i--)
         {
             for (int j = 0; j < gameObjects.get(i).size(); j++)
             {
-                gameObjects.get(i).get(j).Update(v * CoreConstant.UPDATE_MULTIPLIER);
                 gameObjects.get(i).get(j).Render();
             }
         }

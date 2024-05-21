@@ -14,13 +14,12 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 public class GameOver extends Scene {
     private Rectangle playAgainButtonBounds;
     private Rectangle menuButtonBounds;
-    private int score;
 
     public GameOver(int score)
     {
         super("GameOver");
-        this.score = score;
 
+        getCamera().setPosition(0, 0);
 
         backgroundColor = new Vector4(0, 0, 0, 1);
 

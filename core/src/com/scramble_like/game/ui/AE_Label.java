@@ -12,6 +12,7 @@ public class AE_Label extends Label
         this.setColor(1, 1, 1, 1);
         this.setFontScale(2f);
         this.setAlignment(1);
+        this.setWidth(500);
     }
 
     public AE_Label(CharSequence text, LabelStyle style) {
@@ -20,6 +21,7 @@ public class AE_Label extends Label
         this.setColor(1, 1, 1, 1);
         this.setFontScale(2f);
         this.setAlignment(1);
+        this.setWidth(500);
     }
 
     public AE_Label(CharSequence text, Skin skin, String styleName) {
@@ -28,6 +30,7 @@ public class AE_Label extends Label
         this.setColor(1, 1, 1, 1);
         this.setFontScale(2f);
         this.setAlignment(1);
+        this.setWidth(500);
     }
 
     public AE_Label(CharSequence text, Skin skin, String fontName, Color color) {
@@ -36,6 +39,7 @@ public class AE_Label extends Label
         this.setColor(1, 1, 1, 1);
         this.setFontScale(2f);
         this.setAlignment(1);
+        this.setWidth(500);
     }
 
     public AE_Label(CharSequence text, Skin skin, String fontName, String colorName) {
@@ -44,5 +48,6 @@ public class AE_Label extends Label
         this.setColor(1, 1, 1, 1);
         this.setFontScale(2f);
         this.setAlignment(1);
+        this.setWidth(500);
     }
 }
