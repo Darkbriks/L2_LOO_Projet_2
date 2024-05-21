@@ -6,8 +6,10 @@ import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.RotateController;
 import com.scramble_like.game.component.paper2d.Flipbook;
+import com.scramble_like.game.component.paper2d.Tile;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -45,6 +47,12 @@ public class MainMenu extends Scene
 
         try
         {
+            GameObject background = new GameObject("Background", this);
+            background.AddComponent(new Tile("Background/menu.png", -800, -450, GameConstant.WIDTH, GameConstant.HEIGHT));
+            //background.getTransform().Translate(-700, 0);
+            //background.getTransform().setScale(1,1);
+            AddGameObject(background);
+
             GameObject leftMeduse = new GameObject("LeftMeduse", this);
             leftMeduse.AddComponent(new Flipbook("Characters/Fish/Jellyfish/Idle.png", 4));
             leftMeduse.getTransform().Translate(-180, -35);

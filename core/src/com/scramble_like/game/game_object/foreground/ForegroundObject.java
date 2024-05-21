@@ -15,6 +15,6 @@ public class ForegroundObject extends GameObject
         this.getTransform().setLocation(x, y);
         this.AddComponent(new Sprite(path));
         this.getTransform().setZIndex(CoreConstant.MIN_Z_INDEX);
-        this.getTransform().setScale(5f, 5f);
+        this.getTransform().setScale(2, 2);
     }
 }

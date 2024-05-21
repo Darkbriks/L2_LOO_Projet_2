@@ -20,12 +20,13 @@ public class GameConstant
     public static final int GRID_CELL_Y = 5;
 
     // Background
-    public static final int BACKGROUND_SPEED = -150;
+    public static final int BACKGROUND_SPEED = -450;
 
     // Player
-    public static float CAMERA_SPEED = 250;
-    public static float PLAYER_SPEED = 400;
+    public static float CAMERA_SPEED = 150;
+    public static float PLAYER_SPEED = 500;
     public static final int PLAYER_LIFE = 50;
+    public static final int PLAYER_MAX_LIFE = 50;
     public static final int BOTTOM_LIMIT = -250;
     public static final int TOP_LIMIT = 250;
     public static final int LEFT_LIMIT = WIDTH / 2 - 50;

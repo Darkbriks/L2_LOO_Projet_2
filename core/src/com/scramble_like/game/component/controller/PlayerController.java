@@ -11,6 +11,7 @@ import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
+import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.essential.utils.DebugRenderer;
 import com.scramble_like.game.essential.utils.Utils;
 import com.scramble_like.game.map.GameOver;
@@ -53,7 +54,18 @@ public class PlayerController extends Component
     public void takeDamage(int damage, float hitCooldown)
     {
         animationController.setState(AnimationController.AnimationState.HURT, 1);
-        if(hitCooldownTimer >= this.hitCooldown) { life -= damage; hitCooldownTimer = 0; this.hitCooldown = hitCooldown; if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); } }
+        if(hitCooldownTimer >= this.hitCooldown) {
+            life -= damage;
+            hitCooldownTimer = 0;
+            this.hitCooldown = hitCooldown;
+            SoundFactory.getInstance().playSound("damage_taken.mp3",0.5f);
+            if(this.score-1000<=0){
+                this.score=0;
+            }
+            else{
+                this.score-=1000;
+            }
+            if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); } }
     }
 
     @Override
@@ -68,7 +80,7 @@ public class PlayerController extends Component
 
         this.getOwner().GetFirstComponentFromClass(Collider.class).setPositionInGrid();
 
-        if(!this.isAlive()) { this.die(); }
+        if(!this.isAlive()) { this.die();            SoundFactory.getInstance().playSound("dead",0.5f);}
     }
 
     private void scroll(float dt)

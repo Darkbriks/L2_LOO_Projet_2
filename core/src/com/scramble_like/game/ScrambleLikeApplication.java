@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.scramble_like.game.essential.ControllersListener;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.TickableObject;
+import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.map.MainMenu;
 import com.scramble_like.game.map.SplashScreen;
 
@@ -56,7 +57,9 @@ public class ScrambleLikeApplication extends Game
 		tickableObjects = new ArrayList<>();
 		tickableObjects.add(camera);
 
-		if (GameConstant.DEBUG) { setScreen(new MainMenu()); }
+		if (GameConstant.DEBUG) {
+			setScreen(new MainMenu());
+		}
 		else { setScreen(new SplashScreen()); }
 	}
 

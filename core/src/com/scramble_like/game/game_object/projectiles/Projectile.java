@@ -4,10 +4,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.component.controller.ProjectileController;
+import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.component.paper2d.Sprite;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.chaos.SpatialGrid;
+import com.scramble_like.game.essential.chaos.SphereCollider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
@@ -34,6 +37,19 @@ public abstract class Projectile extends GameObject
         this.AddComponent(projectileController);
         this.AddComponent(new Sprite(path));
     }
+    public Projectile(String name, Scene scene, String path, Vector2 start, Vector2 direction, float range, float speed, int count) throws SceneIsNullException
+    {
+        super(name, scene);
+        this.damage = 50;
+        this.cooldown = 0.1f;
+        this.getTransform().setLocation(start);
+        this.AddComponent(new AABBCollider(50, 50, false, true));
+        this.projectileController = new ProjectileController(start.cpy(), direction, range, speed);
+        this.AddComponent(projectileController);
+        this.AddComponent(new Flipbook(path, count));
+    }
+
+
 
     public Projectile(String name, Scene scene, String path, Vector2 start, Vector2 end, float speed) throws SceneIsNullException
     {
@@ -63,4 +79,5 @@ public abstract class Projectile extends GameObject
 
         this.getEventDispatcher().AddListener(EventIndex.PROJECTILE_REACHED_DESTINATION, new EventListener() { @Override public void handleEvent(EventObject event) { DestroyThisInScene(); } });
     }
+
 }

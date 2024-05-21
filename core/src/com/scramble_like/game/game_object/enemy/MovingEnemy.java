@@ -32,6 +32,14 @@ public class MovingEnemy extends Enemy
         this.movementSpeed = movementSpeed;
     }
 
+    public MovingEnemy(String name, Scene scene, String spritePath, float shootSpeed, Vector2[] waypoints, float movementSpeedn, int count) throws SceneIsNullException
+    {
+        super(name, scene, spritePath, shootSpeed, count);
+        System.out.println("MovingEnemy created");
+        this.waypoints = waypoints;
+        this.movementSpeed = movementSpeed;
+    }
+
     @Override
     public void BeginPlay()
     {

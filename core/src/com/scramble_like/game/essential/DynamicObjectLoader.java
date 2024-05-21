@@ -2,11 +2,13 @@ package com.scramble_like.game.essential;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.game_object.enemy.MovingEnemy;
+import com.scramble_like.game.game_object.enemy.BigSawFish;
+import com.scramble_like.game.game_object.enemy.ElectricEel;
+import com.scramble_like.game.game_object.projectiles.DeepDeaMonster;
+import com.scramble_like.game.game_object.projectiles.JellyFish;
 import com.scramble_like.game.game_object.enemy.Turtle;
 import com.scramble_like.game.game_object.foreground.ForegroundObject;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -19,15 +21,15 @@ public class DynamicObjectLoader
     static
     {
         objectMap.put(48, Turtle.class);//0
-        objectMap.put(49, ForegroundObject.class);//1
-        objectMap.put(50, null);//2
-        objectMap.put(51, null);//3
-        objectMap.put(52, null);//4
+        objectMap.put(49, JellyFish.class);//1
+        objectMap.put(50, ElectricEel.class);//2
+        objectMap.put(51, DeepDeaMonster.class);//3
+        objectMap.put(52, BigSawFish.class);//4
         objectMap.put(53, null);//5
         objectMap.put(54, null);//6
         objectMap.put(55, null);//7
         objectMap.put(56, null);//8
-        objectMap.put(57, null);//9
+        objectMap.put(57, ForegroundObject.class);//9
     }
 
     private static final DynamicObjectLoader instance = new DynamicObjectLoader();
@@ -45,12 +47,40 @@ public class DynamicObjectLoader
             for (int i = 0; i < lines.size(); i++)
             {
                 List<String> args = List.of(lines.get(i).split(" "));
-                if (args.size() == 3) { loadObjectWithPosition(scene, Integer.parseInt(args.get(0)), Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2))); }
+                if (args.size() == 3) {
+                    if (args.get(0).equals("49")) {
+                        loadJellyFish(scene, Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2)));
+                    }
+                    else if (args.get(0).equals("51")) {
+                        loadDeepDeaMonster(scene, Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2)));
+                    }
+                    else {
+                        loadObjectWithPosition(scene, Integer.parseInt(args.get(0)), Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2)));
+                    }
+                }
                 else if (args.size() == 4) { loadObjectWithPositionAndPath(scene, Integer.parseInt(args.get(0)), Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2)), args.get(3)); }
                 else { loadObjectWithWaypoints(scene, Integer.parseInt(args.get(0)), parseWaypoints(args)); }
             }
         }
         catch (Exception e) { Gdx.app.error("DynamicObjectLoader1", "Error: " + e.getMessage()); }
+    }
+
+    private void loadJellyFish(Scene scene, float x, float y) {
+        try {
+            JellyFish jellyFish = new JellyFish(scene, new Vector2(x, y));
+            scene.AddGameObject(jellyFish);
+        } catch (Exception e) {
+            Gdx.app.error("DynamicObjectLoader", "Error: " + e.getMessage());
+        }
+    }
+
+    private void loadDeepDeaMonster(Scene scene, float x, float y) {
+        try {
+            DeepDeaMonster deepDeaMonster = new DeepDeaMonster(scene, new Vector2(x, y));
+            scene.AddGameObject(deepDeaMonster);
+        } catch (Exception e) {
+            Gdx.app.error("DynamicObjectLoader", "Error: " + e.getMessage());
+        }
     }
 
     private void loadObjectWithPosition(Scene scene, int id, float x, float y)
@@ -82,7 +112,7 @@ public class DynamicObjectLoader
             Gdx.app.error("DynamicObjectLoader", "GameObject: " + go);
             scene.AddGameObject(go);
         }
-        catch (Exception e) { Gdx.app.error("DynamicObjectLoader4", "Error: " + e.getMessage()); }
+        catch (Exception e) { Gdx.app.error("DynamicObjectLoader4", "Error:  " + e.getMessage()); }
     }
 
     private Vector2[] parseWaypoints(List<String> args)

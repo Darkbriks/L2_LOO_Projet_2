@@ -34,6 +34,8 @@ public class TestMap extends Scene
     public TestMap()
     {
         super("TestMap");
+        SoundFactory.getInstance().loadSound("damage_taken.mp3","Audio/Sound/damage_taken.mp3");
+        SoundFactory.getInstance().loadSound("dead","Audio/Sound/dead.mp3");
 
         getCamera().setPosition(0, 0);
 
@@ -63,8 +65,8 @@ public class TestMap extends Scene
         catch (SceneIsNullException e) { System.out.println("Error: " + e.getMessage()); }
 
         CreateUI();
-        DynamicObjectLoader.getInstance().loadAll(this, "Level_0_DynamicObject.txt");
-        SoundFactory.getInstance().playBackgroundMusicWithFade("Audio/Music/Reach for the Summit.mp3", 0, 10);
+        DynamicObjectLoader.getInstance().loadAll(this, "Level_2_DynamicObject.txt");
+        SoundFactory.getInstance().playBackgroundMusicWithFade("Audio/Music/Reach for the Summit.mp3", 1, 10);
     }
 
     @Override

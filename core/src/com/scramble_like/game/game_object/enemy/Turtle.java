@@ -8,7 +8,7 @@ public class Turtle extends MovingEnemy
 {
     public Turtle(String name, Scene scene, Vector2[] waypoints) throws SceneIsNullException
     {
-        super(name, scene, "badlogic.jpg", 0, waypoints, 100);
+        super(name, scene, "Characters/Fish/Turtle/Walk.png", 0, waypoints, 100);
         System.out.println("Turtle created");
     }
 }

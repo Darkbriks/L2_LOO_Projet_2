@@ -1,0 +1,5 @@
+57 300 -295 Tileset/utile/statue_casse.png
+57 3000 -318 Tileset/utile/statue.png
+57 6065 -140 Tileset/utile/statue_casse.png
+57 9160 60 Tileset/utile/statue_niveau.png
+57 8950 -360 Tileset/utile/zone_secrete.png
