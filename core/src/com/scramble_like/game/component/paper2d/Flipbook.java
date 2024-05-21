@@ -1,6 +1,7 @@
 package com.scramble_like.game.component.paper2d;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.essential.utils.Utils;
@@ -51,12 +52,26 @@ public class Flipbook extends Sprite
     public void Render()
     {
         if (!this.IsActive()) { return; }
+
         TextureRegion frame = ImageFactory.getTextureRegion(this.fileName, this.frameCount, this.currentFrame);
-        //if (this.flipX) { frame.flip(true, false); }
+
+        if (this.getOwner().getTransform().getRotation().x != 0)
+        {
+            this.getOwner().getBatch().draw(frame,
+                    this.getOwner().getTransform().getLocation().x - Utils.lerp(0, frame.getRegionWidth() * this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getAlignment().x),
+                    this.getOwner().getTransform().getLocation().y - Utils.lerp(0, frame.getRegionHeight() * this.getOwner().getTransform().getScale().y, this.getOwner().getTransform().getAlignment().y),
+                    frame.getRegionWidth() * this.getOwner().getTransform().getScale().x * this.getOwner().getTransform().getAlignment().x,
+                    frame.getRegionHeight() * this.getOwner().getTransform().getScale().y * this.getOwner().getTransform().getAlignment().y,
+                    frame.getRegionWidth(), frame.getRegionHeight(),
+                    this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getScale().y,
+                    this.getOwner().getTransform().getRotation().x);
+            return;
+        }
+
         this.getOwner().getBatch().draw(frame,
                 this.getOwner().getTransform().getLocation().x - Utils.lerp(0, frame.getRegionWidth() * this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getAlignment().x),
                 this.getOwner().getTransform().getLocation().y - Utils.lerp(0, frame.getRegionHeight() * this.getOwner().getTransform().getScale().y, this.getOwner().getTransform().getAlignment().y),
-                0,0,
+                0, 0,
                 frame.getRegionWidth(), frame.getRegionHeight(),
                 this.getOwner().getTransform().getScale().x, this.getOwner().getTransform().getScale().y,
                 this.getOwner().getTransform().getRotation().x);

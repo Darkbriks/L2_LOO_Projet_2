@@ -11,8 +11,8 @@ public class AABBCollider extends Collider
     ////////// Attributes //////////
     private float width;
     private float height;
-    private final float xOffSet;
-    private final float yOffSet;
+    private float xOffSet;
+    private float yOffSet;
 
     ////////// Constructor //////////
     public AABBCollider(float width, float height, boolean generateOverlappedEvent, boolean simulatePhysics)
@@ -36,6 +36,8 @@ public class AABBCollider extends Collider
     ////////// Getters //////////
     public float getWidth() { return this.width; }
     public float getHeight() { return this.height; }
+    public float getxOffSet() { return xOffSet; }
+    public float getyOffSet() { return yOffSet; }
 
     public float getX1() { return Utils.lerp(this.getOwnerX(), getOwnerX() - width, this.getOwner().getTransform().getAlignment().x) + xOffSet; }
     public float getY1() { return Utils.lerp(this.getOwnerY(), getOwnerY() - height, this.getOwner().getTransform().getAlignment().y) + yOffSet; }
@@ -45,6 +47,8 @@ public class AABBCollider extends Collider
     ////////// Setters //////////
     public void setWidth(float width) { this.width = width; }
     public void setHeight(float height) { this.height = height; }
+    public void setxOffSet(float xOffSet) { this.xOffSet = xOffSet; }
+    public void setyOffSet(float yOffSet) { this.yOffSet = yOffSet; }
 
     ////////// Override Methods //////////
     @Override

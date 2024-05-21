@@ -1,6 +1,7 @@
 package com.scramble_like.game;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.map.LevelMap;
 import com.scramble_like.game.map.MainMenu;
@@ -29,6 +30,8 @@ public class GameConstant
     public static final int TOP_LIMIT = 250;
     public static final int LEFT_LIMIT = WIDTH / 2 - 50;
     public static final int RIGHT_LIMIT = WIDTH / 2 - 50;
+    public static final Vector4 PLAYER_IDLE_COLLIDER = new Vector4(30, 50, -7.5f, 0);
+    public static final Vector4 PLAYER_WALK_COLLIDER = new Vector4(50, 50, 0, 0);
 
     // Path
     public static String CHARACTER_PATH(String pack, String name) { return "Characters/" + pack + "/" + name; }

@@ -1,15 +1,13 @@
 package com.scramble_like.game.component.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
-import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameCamera;
+import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
@@ -20,18 +18,18 @@ import com.scramble_like.game.map.GameOver;
 public class PlayerController extends Component
 {
     private final AnimationController animationController;
-    private final Flipbook flipbook;
+    private final AABBCollider collider;
     private final float speed;
     private float hitCooldown;
     private float hitCooldownTimer;
     private int life, score;
     private GameCamera camera;
 
-    public PlayerController(AnimationController animationController, Flipbook flipbook)
+    public PlayerController(AnimationController animationController, AABBCollider collider)
     {
         super();
         this.animationController = animationController;
-        this.flipbook = flipbook;
+        this.collider = collider;
         this.speed = GameConstant.PLAYER_SPEED;
         life = GameConstant.PLAYER_LIFE;
     }
@@ -103,7 +101,14 @@ public class PlayerController extends Component
 
         if (dx != 0 || dy != 0)
         {
-            animationController.setState(AnimationController.AnimationState.WALK, -1);
+            if (animationController.getState() != AnimationController.AnimationState.WALK)
+            {
+                animationController.setState(AnimationController.AnimationState.WALK, -1);
+                collider.setWidth(GameConstant.PLAYER_WALK_COLLIDER.x);
+                collider.setHeight(GameConstant.PLAYER_WALK_COLLIDER.y);
+                collider.setxOffSet(GameConstant.PLAYER_WALK_COLLIDER.z);
+                collider.setyOffSet(GameConstant.PLAYER_WALK_COLLIDER.w);
+            }
 
             this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(this.getOwner().getTransform().getLocation().x + dx, camera.getPosition().x - (double) GameConstant.LEFT_LIMIT, camera.getPosition().x + (double) GameConstant.RIGHT_LIMIT);
             this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(this.getOwner().getTransform().getLocation().y + dy, camera.getPosition().y - (double) GameConstant.HEIGHT / 2, camera.getPosition().y + (double) GameConstant.HEIGHT / 2);
@@ -115,12 +120,15 @@ public class PlayerController extends Component
                 else { camera.getPosition().y = 0; }
             }
         }
-        else { animationController.setState(AnimationController.AnimationState.IDLE, -1); }
+        else if (animationController.getState() != AnimationController.AnimationState.IDLE)
+        {
+            animationController.setState(AnimationController.AnimationState.IDLE, -1);
+            collider.setWidth(GameConstant.PLAYER_IDLE_COLLIDER.x);
+            collider.setHeight(GameConstant.PLAYER_IDLE_COLLIDER.y);
+            collider.setxOffSet(GameConstant.PLAYER_IDLE_COLLIDER.z);
+            collider.setyOffSet(GameConstant.PLAYER_IDLE_COLLIDER.w);
+        }
 
-        //this.flipbook.setFlipX(dx < 0);
-
-        //Vector2 newRotation = new Vector2(dx, dy).nor();
-        //float angle = (float) Math.toDegrees(Math.atan2(newRotation.y, newRotation.x));
         float angle = (float) Math.toDegrees(Math.atan2(dy, dx));
         this.getOwner().getTransform().setRotation(angle, 0);
     }

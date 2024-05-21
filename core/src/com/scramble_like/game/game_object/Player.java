@@ -24,6 +24,7 @@ public class Player extends GameObject
     protected PlayerController playerController;
     protected AnimationController animationController;
     protected Flipbook flipbook;
+    protected AABBCollider collider;
 
     public Player(String name, Scene scene, Vector2 location) throws SceneIsNullException
     {
@@ -37,16 +38,17 @@ public class Player extends GameObject
     {
         super.BeginPlay();
 
+        this.collider = new AABBCollider(50, 50, false, true);
+        this.AddComponent(collider);
+
         this.flipbook = new Flipbook(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_2") + "/Idle.png", 4);
         this.AddComponent(flipbook);
 
         this.animationController = new AnimationController(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack", "MermaidGuard_2/"), flipbook, new int[]{ 4, 6, 2, 6, 6 });
         this.AddComponent(animationController);
 
-        this.playerController = new PlayerController(animationController, flipbook);
+        this.playerController = new PlayerController(animationController, collider);
         this.AddComponent(playerController);
-
-        this.AddComponent(new AABBCollider(25, 50, -10, 0, false, true));
 
         this.getScene().setPlayer(this);
 
