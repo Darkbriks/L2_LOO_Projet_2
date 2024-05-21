@@ -5,14 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.scramble_like.game.essential.factory.ImageFactory;
+import com.scramble_like.game.essential.utils.Utils;
 
 public class LifeActor extends Actor
 {
     private final Stage stage;
     private final TextureRegion[] regions;
-    private final String path;
     private  Image image;
-    private int currentRegion;
 
     public LifeActor(Stage stage, String path, int frameCount)
     {
@@ -20,17 +19,14 @@ public class LifeActor extends Actor
         this.stage = stage;
         ImageFactory.loadTextureRegion(path, frameCount);
         this.regions = ImageFactory.getTextureRegion(path, frameCount);
-        this.path = path;
-        this.currentRegion = 0;
-        this.image = new Image(this.regions[this.currentRegion]);
+        this.image = new Image(this.regions[0]);
         this.stage.addActor(this.image);
     }
 
     public void setCurrentRegion(int index)
     {
-        this.currentRegion = index;
         this.image.remove();
-        this.image = new Image(this.regions[this.currentRegion]);
+        this.image = new Image(this.regions[Utils.clamp(index, 0, regions.length - 1)]);
         this.stage.addActor(this.image);
     }
 
