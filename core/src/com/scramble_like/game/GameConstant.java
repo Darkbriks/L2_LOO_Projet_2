@@ -1,5 +1,6 @@
 package com.scramble_like.game;
 
+import com.badlogic.gdx.Input;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.map.LevelMap;
 import com.scramble_like.game.map.MainMenu;
@@ -46,6 +47,15 @@ public class GameConstant
     public static final int SCORE_Y = HEIGHT / 2 - 50;
     public static final int LIFE_X = - (WIDTH / 2 - 100);
     public static final int LIFE_Y = HEIGHT / 2 - 60;
+
+    // Input
+    public static final int TOGGLE_PAUSE = Input.Keys.ESCAPE;
+    public static final int TOGGLE_DEBUG = Input.Keys.F1;
+    public static final int TOGGLE_GOD_MODE = Input.Keys.F2;
+    public static final int[] MOVE_UP = { Input.Keys.W, Input.Keys.UP };
+    public static final int[] MOVE_DOWN = { Input.Keys.S, Input.Keys.DOWN };
+    public static final int[] MOVE_LEFT = { Input.Keys.A, Input.Keys.LEFT };
+    public static final int[] MOVE_RIGHT = { Input.Keys.D, Input.Keys.RIGHT };
 
     // Debug
     public static boolean DEBUG = true;

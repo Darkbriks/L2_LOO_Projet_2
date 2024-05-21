@@ -64,12 +64,8 @@ public class ScrambleLikeApplication extends Game
 	public void render ()
 	{
 		// Si on appui sur la touche echap, on quitte le jeu
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { Gdx.app.exit(); }
-		if (Gdx.input.isKeyJustPressed(Input.Keys.B)) { GameConstant.DEBUG = !GameConstant.DEBUG;}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.G)) { GameConstant.GOD_MODE = !GameConstant.GOD_MODE; }
-
-		//if (controller != null) { System.out.println(controller.getAxis(0)); }
-
+		if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_DEBUG)) { GameConstant.DEBUG = !GameConstant.DEBUG;}
+		if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_GOD_MODE)) { GameConstant.GOD_MODE = !GameConstant.GOD_MODE; }
 		batch.setProjectionMatrix(camera.getCombined());
 		super.render();
 	}

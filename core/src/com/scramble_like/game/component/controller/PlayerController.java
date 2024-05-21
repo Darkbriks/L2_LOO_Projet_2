@@ -95,10 +95,10 @@ public class PlayerController extends Component
 
         if (dx == 0 && dy == 0)
         {
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {dx = speed * dt;}
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {dx = -speed * dt;}
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {dy = speed * dt;}
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {dy = -speed * dt;}
+            for (int key : GameConstant.MOVE_RIGHT) { if (Gdx.input.isKeyPressed(key)) { dx = speed * dt; break; } }
+            for (int key : GameConstant.MOVE_LEFT) { if (Gdx.input.isKeyPressed(key)) { dx = -speed * dt; break; } }
+            for (int key : GameConstant.MOVE_UP) { if (Gdx.input.isKeyPressed(key)) { dy = speed * dt; break; } }
+            for (int key : GameConstant.MOVE_DOWN) { if (Gdx.input.isKeyPressed(key)) { dy = -speed * dt; break; } }
         }
 
         if (dx != 0 || dy != 0)
