@@ -51,15 +51,14 @@ public class PlayerController extends CharacterController
     public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
+
         this.score+=5;
         hitCooldownTimer += DeltaTime;
 
         scroll(DeltaTime);
         move(DeltaTime);
 
-        this.getOwner().GetFirstComponentFromClass(Collider.class).setPositionInGrid();
-
-        if(!this.isAlive()) { this.die(); SoundFactory.getInstance().playSound("dead",0.5f);}
+        super.Update(DeltaTime);
     }
 
     private void scroll(float dt)

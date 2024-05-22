@@ -16,7 +16,7 @@ public class PlayerDeclanchedProjectile extends Projectile
 {
     public PlayerDeclanchedProjectile(String name, Scene scene, Vector2 start, Vector2 direction, float range, float speed, int damage, float cooldown, float radius) throws SceneIsNullException
     {
-        super(name, scene, start, direction, range, speed);
+        super(name, scene, start, direction, range, speed, false);
         this.damage = damage;
         this.cooldown = cooldown;
         this.AddComponent(new SphereCollider(radius, true, true));

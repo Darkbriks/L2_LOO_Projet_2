@@ -9,6 +9,6 @@ public class Turtle extends Enemy
 {
     public Turtle(String name, Scene scene, Vector2[] waypoints) throws SceneIsNullException
     {
-        super(name, scene, GameConstant.CHARACTER_PATH("Fish", "Turtle"), 0, new int[]{ 4, 6, 2, 6, 6 }, waypoints, 100);
+        super(name, scene, GameConstant.CHARACTER_PATH("Fish", "Turtle"), 5, 0, new int[]{ 4, 6, 2, 6, 6 }, waypoints, 100);
     }
 }

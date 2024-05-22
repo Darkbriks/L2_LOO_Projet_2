@@ -1,14 +1,10 @@
 package com.scramble_like.game.component.controller;
 
-import com.badlogic.gdx.controllers.Controllers;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.chaos.AABBCollider;
-import com.scramble_like.game.essential.event_dispatcher.EventIndex;
-import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
+import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.factory.SoundFactory;
-import com.scramble_like.game.essential.utils.Utils;
-import com.scramble_like.game.map.GameOver;
 
 public class CharacterController extends Component
 {
@@ -50,5 +46,13 @@ public class CharacterController extends Component
     {
         SoundFactory.getInstance().playSound("dead", GameConstant.SOUND_EFFECT_VOLUME);
         animationController.setState(AnimationController.AnimationState.DIE, 1);
+    }
+
+    @Override
+    public void Update(float DeltaTime)
+    {
+        this.getOwner().GetFirstComponentFromClass(Collider.class).setPositionInGrid();
+
+        if(!this.isAlive()) { this.die(); }
     }
 }
