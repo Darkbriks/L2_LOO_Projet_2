@@ -12,6 +12,6 @@ public class Level_1 extends AbstractLevel
         super("Level_1", 1, 100, new Vector2(9160, 60));
 
         DynamicObjectLoader.getInstance().loadAll(this, "Level_1_DynamicObject.txt");
-        SoundFactory.getInstance().playBackgroundMusicWithFade(GameConstant.MUSIC_PATH("level_1.mp3"), GameConstant.SOUND_MUSIC_VOLUME, 10);
+        SoundFactory.getInstance().changeBackgroundMusicWithFade(GameConstant.MUSIC_PATH("level_1.mp3"), GameConstant.SOUND_MUSIC_VOLUME, 3);
     }
 }

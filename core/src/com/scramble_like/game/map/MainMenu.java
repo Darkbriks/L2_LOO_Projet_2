@@ -24,7 +24,7 @@ public class MainMenu extends Scene
         super("MainMenu");
 
         getCamera().setPosition(0, 0);
-        SoundFactory.getInstance().playBackgroundMusicWithFade(GameConstant.MUSIC_PATH("ecran_titre.mp3"), GameConstant.SOUND_MUSIC_VOLUME, 10);
+        SoundFactory.getInstance().changeBackgroundMusicWithFade(GameConstant.MUSIC_PATH("ecran_titre.mp3"), GameConstant.SOUND_MUSIC_VOLUME, 3);
 
         backgroundColor = new Vector4(0, 0, 0, 1);
 

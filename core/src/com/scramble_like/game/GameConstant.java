@@ -88,7 +88,7 @@ public class GameConstant
 
     //Sound
     public static float SOUND_EFFECT_VOLUME = 0.75f;
-    public static float SOUND_MUSIC_VOLUME = 0.1f;
+    public static float SOUND_MUSIC_VOLUME = 1f;
 
     // Debug
     public static boolean DEBUG = false;

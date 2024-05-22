@@ -2,6 +2,7 @@ package com.scramble_like.game.game_object.enemy.triggered_by_player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.controller.AnimationController;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -18,7 +19,6 @@ public class JellyFish extends PlayerDeclanchedEnemy
     @Override
     public void BeginPlay()
     {
-
         super.BeginPlay();
         this.enemyController.setWaypoints(new Vector2[]{ this.getTransform().getLocation(), new Vector2(this.getTransform().getLocation().x, this.getTransform().getLocation().y + 1000) });
         this.enemyController.SetActive(false);
@@ -28,5 +28,6 @@ public class JellyFish extends PlayerDeclanchedEnemy
     protected void Triggered(EventBeginOverlap e)
     {
         this.enemyController.SetActive(true);
+        this.animationController.setState(AnimationController.AnimationState.WALK, -1);
     }
 }

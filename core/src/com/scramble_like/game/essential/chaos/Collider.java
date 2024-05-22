@@ -120,15 +120,15 @@ public abstract class Collider extends Component
 
         for (Collider other : tempOverlappedCollider)
         {
-            if (generateOverlappedEvent && !overlappedCollider.contains(other)) { overlappedCollider.add(other); BeginOverlap(other); }
-            else if (!generateOverlappedEvent) { Hit(other); isHit = true; }
+            if ((generateOverlappedEvent || other.generateOverlappedEvent) && !overlappedCollider.contains(other)) { overlappedCollider.add(other); BeginOverlap(other); }
+            else if (!generateOverlappedEvent && !other.generateOverlappedEvent) { Hit(other); isHit = true; }
         }
 
         for (Collider other : new HashSet<>(overlappedCollider))
         {
             if (!tempOverlappedCollider.contains(other))
             {
-                if (generateOverlappedEvent) { EndOverlap(other); }
+                if (generateOverlappedEvent || other.generateOverlappedEvent) { EndOverlap(other); }
                 overlappedCollider.remove(other);
             }
         }

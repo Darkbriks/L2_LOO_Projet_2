@@ -40,6 +40,7 @@ public class CharacterController extends Component
         animationController.setState(AnimationController.AnimationState.HURT, 1);
         life -= damage;
         SoundFactory.getInstance().playSound("takeDamage",GameConstant.SOUND_EFFECT_VOLUME);
+        if(!this.isAlive()) { this.die(); }
     }
 
     protected void die()
@@ -51,10 +52,7 @@ public class CharacterController extends Component
     @Override
     public void Update(float DeltaTime)
     {
-        if(!this.isAlive()) { this.die(); return;}
-
         super.Update(DeltaTime);
-
         this.getOwner().GetFirstComponentFromClass(Collider.class).setPositionInGrid();
     }
 }

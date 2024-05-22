@@ -25,7 +25,7 @@ public abstract class Enemy extends GameObject
         super(name, scene);
         this.shootSpeed = shootSpeed;
 
-        collider = new AABBCollider(50, 50, true, true);
+        collider = new AABBCollider(50, 50, false, true);
         this.AddComponent(collider);
 
         this.flipbook = new Flipbook(spriteFolderPath + "/Idle.png", 4);

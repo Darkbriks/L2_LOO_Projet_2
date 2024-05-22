@@ -3,6 +3,7 @@ package com.scramble_like.game.game_object.enemy.triggered_by_player;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
+import com.scramble_like.game.component.controller.AnimationController;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -22,6 +23,7 @@ public class DeepDeaMonster extends PlayerDeclanchedEnemy
         this.enemyController.setInterpolation(Interpolation.pow2In, Interpolation.pow2In);
         this.enemyController.setWaypoints(new Vector2[]{ this.getTransform().getLocation(), new Vector2(this.getTransform().getLocation().x - 1000, this.getTransform().getLocation().y + 1000) });
         this.enemyController.SetActive(false);
+        this.animationController.setState(AnimationController.AnimationState.WALK, -1);
     }
 
     @Override
