@@ -13,6 +13,7 @@ import com.scramble_like.game.component.paper2d.Tile;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.ui.AE_Label;
 import com.scramble_like.game.ui.AE_TitleLabel;
 

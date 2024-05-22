@@ -93,8 +93,6 @@ public abstract class Scene implements Screen
     @Override
     public void render(float v)
     {
-        Gdx.app.error("FPS", String.valueOf(Gdx.graphics.getFramesPerSecond()));
-
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
         this.stage.act();

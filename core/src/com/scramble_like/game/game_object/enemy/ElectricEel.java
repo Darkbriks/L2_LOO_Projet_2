@@ -1,6 +1,6 @@
 package com.scramble_like.game.game_object.enemy;
 
-import com.badlogic.gdx.Gdx;
+/*import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.component.controller.ProjectileController;
 import com.scramble_like.game.essential.Scene;
@@ -12,7 +12,7 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.Player;
 
 import java.util.EventObject;
-/*
+
 public class ElectricEel extends MovingEnemy {
     public ElectricEel(String name, Scene scene, Vector2[] waypoints) throws SceneIsNullException {
         super(name, scene, "Characters/Fish/ElectricEel/Walk.png", 0, waypoints, 150);
@@ -47,5 +47,4 @@ public class ElectricEel extends MovingEnemy {
         });
         this.GetFirstComponentFromClass(ProjectileController.class).SetActive(false);
     }
-}
-*/
+}*/

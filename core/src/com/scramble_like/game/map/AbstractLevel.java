@@ -6,11 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.essential.Scene;
-import com.scramble_like.game.essential.chunk.ChunkHelper;
 import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.essential.factory.ImageFactory;
-import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.essential.utils.Writer;
 import com.scramble_like.game.game_object.Background;
 import com.scramble_like.game.game_object.LevelLoader;
@@ -30,16 +27,8 @@ public abstract class AbstractLevel extends Scene
     public AbstractLevel(String name, int level, Vector2 levelLoaderLocation)
     {
         super(name);
-        SoundFactory.getInstance().loadSound("damage_taken.mp3","Audio/Sound/damage_taken.mp3");
-        SoundFactory.getInstance().loadSound("dead","Audio/Sound/dead.mp3");
 
         getCamera().setPosition(0, 0);
-
-        for (int i = 0; i < ChunkHelper.getTileMapSize(); i++)
-        {
-            String path = ChunkHelper.getTilePath(i);
-            if (path != null && !path.isEmpty()) { ImageFactory.loadTexture(ChunkHelper.getTilePath(i)); }
-        }
 
         try
         {
@@ -101,13 +90,5 @@ public abstract class AbstractLevel extends Scene
     {
         super.dispose();
         new Writer(String.valueOf(getPlayer().getPlayerController().getScore()), "highscore_1","highscore.txt");
-
-        SoundFactory.getInstance().unloadAllSounds();
-
-        for (int i = 0; i < ChunkHelper.getTileMapSize(); i++)
-        {
-            String path = ChunkHelper.getTilePath(i);
-            if (path != null && !path.isEmpty()) { ImageFactory.disposeTexture(ChunkHelper.getTilePath(i)); }
-        }
     }
 }

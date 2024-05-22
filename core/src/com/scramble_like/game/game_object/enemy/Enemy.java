@@ -1,8 +1,6 @@
 package com.scramble_like.game.game_object.enemy;
 
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.EnemyController;
 import com.scramble_like.game.component.controller.FireController;
 import com.scramble_like.game.component.paper2d.Flipbook;
@@ -10,15 +8,8 @@ import com.scramble_like.game.component.controller.AnimationController;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
-import com.scramble_like.game.essential.chunk.ChunkManager;
-import com.scramble_like.game.essential.event_dispatcher.EventIndex;
-import com.scramble_like.game.essential.event_dispatcher.EventListener;
-import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.game_object.projectiles.Projectile;
 import com.scramble_like.game.game_object.projectiles.SimpleBullet;
-
-import java.util.EventObject;
 
 public class Enemy extends GameObject
 {
@@ -28,7 +19,7 @@ public class Enemy extends GameObject
     protected AnimationController animationController;
     protected EnemyController enemyController;
 
-    public Enemy(String name, Scene scene, String spriteFolderPath, int life, float shootSpeed, int[] animationFrames, Vector2[] waypoints, float movementSpeed) throws SceneIsNullException
+    public Enemy(String name, Scene scene, String spriteFolderPath, int life, float shootSpeed, int[] animationFrames, Vector2[] waypoints, float movementSpeed, float timeBetweenWaypoints) throws SceneIsNullException
     {
         super(name, scene);
         this.shootSpeed = shootSpeed;
@@ -42,7 +33,7 @@ public class Enemy extends GameObject
         this.animationController = new AnimationController(spriteFolderPath, flipbook, animationFrames);
         this.AddComponent(animationController);
 
-        this.enemyController = new EnemyController(animationController, collider, movementSpeed, life, waypoints);
+        this.enemyController = new EnemyController(animationController, collider, movementSpeed, life, waypoints, timeBetweenWaypoints);
         this.AddComponent(enemyController);
 
         if (shootSpeed != 0)

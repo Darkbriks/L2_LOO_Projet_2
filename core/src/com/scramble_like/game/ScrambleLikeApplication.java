@@ -2,9 +2,7 @@ package com.scramble_like.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,7 +10,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.scramble_like.game.essential.ControllersListener;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.TickableObject;
-import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.essential.chunk.ChunkHelper;
+import com.scramble_like.game.essential.factory.ImageFactory;
+import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.map.MainMenu;
 import com.scramble_like.game.map.SplashScreen;
 
@@ -57,6 +57,15 @@ public class ScrambleLikeApplication extends Game
 		tickableObjects = new ArrayList<>();
 		tickableObjects.add(camera);
 
+		SoundFactory.getInstance().loadSound("takeDamage",GameConstant.SOUND_PATH("damage_taken.mp3"));
+		SoundFactory.getInstance().loadSound("dead",GameConstant.SOUND_PATH("dead.mp3"));
+
+		for (int i = 0; i < ChunkHelper.getTileMapSize(); i++)
+		{
+			String path = ChunkHelper.getTilePath(i);
+			if (path != null && !path.isEmpty()) { ImageFactory.loadTexture(ChunkHelper.getTilePath(i)); }
+		}
+
 		if (GameConstant.DEBUG) { setScreen(new MainMenu()); }
 		else { setScreen(new SplashScreen()); }
 	}
@@ -81,6 +90,14 @@ public class ScrambleLikeApplication extends Game
 	@Override
 	public void dispose ()
 	{
+		for (int i = 0; i < ChunkHelper.getTileMapSize(); i++)
+		{
+			String path = ChunkHelper.getTilePath(i);
+			if (path != null && !path.isEmpty()) { ImageFactory.disposeTexture(ChunkHelper.getTilePath(i)); }
+		}
+
+		super.dispose();
+		SoundFactory.getInstance().unloadAllSounds();
 		shapeRenderer.dispose();
 		batch.dispose();
 		font.dispose();

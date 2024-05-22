@@ -39,7 +39,7 @@ public class CharacterController extends Component
     {
         animationController.setState(AnimationController.AnimationState.HURT, 1);
         life -= damage;
-        SoundFactory.getInstance().playSound("damage_taken.mp3",GameConstant.SOUND_EFFECT_VOLUME);
+        SoundFactory.getInstance().playSound("takeDamage",GameConstant.SOUND_EFFECT_VOLUME);
     }
 
     protected void die()

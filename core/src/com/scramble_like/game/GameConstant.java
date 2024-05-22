@@ -84,7 +84,7 @@ public class GameConstant
     public static boolean PAUSE_BUTTON = false;
 
     //Sound
-    public static float SOUND_EFFECT_VOLUME = 0.5f;
+    public static float SOUND_EFFECT_VOLUME = 0.75f;
     public static float SOUND_MUSIC_VOLUME = 1f;
 
     // Debug
