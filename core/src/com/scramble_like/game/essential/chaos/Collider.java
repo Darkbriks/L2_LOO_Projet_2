@@ -132,5 +132,7 @@ public abstract class Collider extends Component
                 overlappedCollider.remove(other);
             }
         }
+
+        pool.shutdown();
     }
 }

@@ -10,7 +10,7 @@ public class CoreConstant
     public static float UPDATE_MULTIPLIER = 1f;
     // 1 = Vitesse normale ; 2 = Vitesse x2 ; 0.5 = Vitesse / 2 ; 0 = Pause
 
-    public static final int SPATIAL_GRID_SIZE = 100;
+    public static final int SPATIAL_GRID_SIZE = 250;
     public static final int SPATIAL_GRID_MIN_VALUE_AXIS = -1000;
 
     // Animation

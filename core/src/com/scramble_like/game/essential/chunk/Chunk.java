@@ -64,8 +64,8 @@ public class Chunk
     public void loadAsynchronously()
     {
         if (this.inLoading) { return; }
-        new Thread(() -> {try { load(); } catch (IOException e) { Gdx.app.error("Chunk","Error: " + e.getMessage()); } }).start();
-        //try { load(); } catch (IOException e) { Gdx.app.error("Chunk","Error: " + e.getMessage()); }
+        //new Thread(() -> {try { load(); } catch (IOException e) { Gdx.app.error("Chunk","Error: " + e.getMessage()); } }).start();
+        try { load(); } catch (IOException e) { Gdx.app.error("Chunk","Error: " + e.getMessage()); }
     }
 
     public void unload()
@@ -160,8 +160,8 @@ public class Chunk
     public void simulateAsynchronously(Vector2 position)
     {
         if (!this.isLoaded || !this.isRendered || this.inSimulating) { return; }
-        new Thread(() -> this.simulate(position)).start();
-        //simulate(position);
+        //new Thread(() -> this.simulate(position)).start();
+        simulate(position);
     }
 
     public void unSimulate()
