@@ -27,6 +27,7 @@ public class GameConstant
     public static float CAMERA_SPEED = 250;
     public static float PLAYER_SPEED = 500;
     public static final int PLAYER_LIFE = 50;
+    public static final int SCORE_LOST_ON_HIT = 1000;
     public static final int BOTTOM_LIMIT = -250;
     public static final int TOP_LIMIT = 250;
     public static final int LEFT_LIMIT = WIDTH / 2 - 50;
@@ -69,6 +70,10 @@ public class GameConstant
     public static float Y_AXIS_VALUE = 0;
     public static boolean SHOOT_BUTTON = false;
     public static boolean PAUSE_BUTTON = false;
+
+    //Sound
+    public static float SOUND_EFFECT_VOLUME = 0.5f;
+    public static float SOUND_MUSIC_VOLUME = 1f;
 
     // Debug
     public static boolean DEBUG = true;

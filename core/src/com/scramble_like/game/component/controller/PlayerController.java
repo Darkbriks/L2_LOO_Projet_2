@@ -1,38 +1,26 @@
 package com.scramble_like.game.component.controller;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
-import com.badlogic.gdx.graphics.Color;
 import com.scramble_like.game.GameConstant;
-import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
 import com.scramble_like.game.essential.factory.SoundFactory;
-import com.scramble_like.game.essential.utils.DebugRenderer;
 import com.scramble_like.game.essential.utils.Utils;
 import com.scramble_like.game.map.GameOver;
 
-public class PlayerController extends Component
+public class PlayerController extends CharacterController
 {
-    private final AnimationController animationController;
-    private final AABBCollider collider;
-    private final float speed;
     private float hitCooldown;
     private float hitCooldownTimer;
-    private int life, score;
+    private int score;
     private GameCamera camera;
 
     public PlayerController(AnimationController animationController, AABBCollider collider)
     {
-        super();
-        this.animationController = animationController;
-        this.collider = collider;
-        this.speed = GameConstant.PLAYER_SPEED;
-        life = GameConstant.PLAYER_LIFE;
+        super(animationController, collider, GameConstant.PLAYER_SPEED, GameConstant.PLAYER_LIFE);
     }
 
     @Override
@@ -45,21 +33,17 @@ public class PlayerController extends Component
         score = 0;
     }
 
-    public int getScore(){ return score; }
-    public float getSpeed() { return speed; }
-    public int getLife() { return life; }
+    public int getScore() { return score; }
 
-    public boolean isAlive() { return life > 0; }
-
+    @Override
     public void takeDamage(int damage, float hitCooldown)
     {
-        animationController.setState(AnimationController.AnimationState.HURT, 1);
-        if(hitCooldownTimer >= this.hitCooldown) {
-            life -= damage;
+        if(hitCooldownTimer >= this.hitCooldown)
+        {
+            super.takeDamage(damage, hitCooldown);
             hitCooldownTimer = 0;
             this.hitCooldown = hitCooldown;
-            SoundFactory.getInstance().playSound("damage_taken.mp3",0.5f);
-            this.score = Utils.clamp(this.score - 1000, 0, Integer.MAX_VALUE); // TODO : Make it a constant
+            this.score = Utils.clamp(this.score - GameConstant.SCORE_LOST_ON_HIT, 0, Integer.MAX_VALUE);
             if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); } }
     }
 
@@ -86,9 +70,8 @@ public class PlayerController extends Component
 
     private void move(float dt)
     {
-        Controller controller = Controllers.getCurrent();
-        float dx = GameConstant.X_AXIS_VALUE;
-        float dy = GameConstant.Y_AXIS_VALUE;
+        this.dx = GameConstant.X_AXIS_VALUE;
+        this.dy = GameConstant.Y_AXIS_VALUE;
 
         if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) { dx = 0; dy = 0; }
         else { dx *= speed * dt; dy *= -speed * dt; }
@@ -135,11 +118,12 @@ public class PlayerController extends Component
         this.getOwner().getTransform().setRotation(angle, 0);
     }
 
-    private void die()
+    @Override
+    protected void die()
     {
+        super.die();
         this.getOwner().getScene().getEventDispatcher().DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
         this.getOwner().getScene().getGame().setScreen(new GameOver(score));
         this.getOwner().getScene().dispose();
     }
 }
-
