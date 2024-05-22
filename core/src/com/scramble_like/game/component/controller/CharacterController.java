@@ -51,8 +51,10 @@ public class CharacterController extends Component
     @Override
     public void Update(float DeltaTime)
     {
-        this.getOwner().GetFirstComponentFromClass(Collider.class).setPositionInGrid();
+        if(!this.isAlive()) { this.die(); return;}
 
-        if(!this.isAlive()) { this.die(); }
+        super.Update(DeltaTime);
+
+        this.getOwner().GetFirstComponentFromClass(Collider.class).setPositionInGrid();
     }
 }

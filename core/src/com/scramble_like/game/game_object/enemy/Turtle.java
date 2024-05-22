@@ -7,8 +7,8 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 
 public class Turtle extends Enemy
 {
-    public Turtle(String name, Scene scene, Vector2[] waypoints) throws SceneIsNullException
+    public Turtle(Scene scene, Vector2[] waypoints) throws SceneIsNullException
     {
-        super(name, scene, GameConstant.CHARACTER_PATH("Fish", "Turtle"), 15, 0, new int[]{ 4, 6, 2, 6, 6 }, waypoints, 75, 1);
+        super("Turtle", scene, GameConstant.CHARACTER_PATH("Fish", "Turtle"), 15, 0, new int[]{ 4, 6, 2, 6, 6 }, waypoints, 75, 1);
     }
 }

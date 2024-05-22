@@ -3,9 +3,8 @@ package com.scramble_like.game.essential;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.game_object.enemy.BigSawFish;
-//import com.scramble_like.game.game_object.enemy.ElectricEel;
-import com.scramble_like.game.game_object.projectiles.DeepDeaMonster;
-import com.scramble_like.game.game_object.projectiles.JellyFish;
+import com.scramble_like.game.game_object.enemy.triggered_by_player.DeepDeaMonster;
+import com.scramble_like.game.game_object.enemy.triggered_by_player.JellyFish;
 import com.scramble_like.game.game_object.enemy.Turtle;
 import com.scramble_like.game.game_object.foreground.ForegroundObject;
 
@@ -62,7 +61,7 @@ public class DynamicObjectLoader
 
     private void loadJellyFish(Scene scene, float x, float y) {
         try {
-            JellyFish jellyFish = new JellyFish(scene, new Vector2(x, y));
+            JellyFish jellyFish = new JellyFish(scene, x, y);
             scene.AddGameObject(jellyFish);
         } catch (Exception e) {
             Gdx.app.error("DynamicObjectLoader", "Error: " + e.getMessage());
@@ -71,7 +70,7 @@ public class DynamicObjectLoader
 
     private void loadDeepDeaMonster(Scene scene, float x, float y) {
         try {
-            DeepDeaMonster deepDeaMonster = new DeepDeaMonster(scene, new Vector2(x, y));
+            DeepDeaMonster deepDeaMonster = new DeepDeaMonster(scene, x, y);
             scene.AddGameObject(deepDeaMonster);
         } catch (Exception e) {
             Gdx.app.error("DynamicObjectLoader", "Error: " + e.getMessage());
@@ -82,7 +81,7 @@ public class DynamicObjectLoader
     {
         try
         {
-            GameObject go = objectMap.get(id).getConstructor(String.class, Scene.class, float.class, float.class).newInstance("DynamicObject", scene, x, y);
+            GameObject go = objectMap.get(id).getConstructor(Scene.class, float.class, float.class).newInstance(scene, x, y);
             scene.AddGameObject(go);
         }
         catch (Exception e) { Gdx.app.error("DynamicObjectLoader2", "Error: " + e.getMessage()); }
@@ -92,7 +91,7 @@ public class DynamicObjectLoader
     {
         try
         {
-            GameObject go = objectMap.get(id).getConstructor(String.class, Scene.class, float.class, float.class, String.class).newInstance("DynamicObject", scene, x, y, path);
+            GameObject go = objectMap.get(id).getConstructor(Scene.class, float.class, float.class, String.class).newInstance(scene, x, y, path);
             scene.AddGameObject(go);
         }
         catch (Exception e) { Gdx.app.error("DynamicObjectLoader3", "Error: " + e.getMessage()); }
@@ -102,9 +101,7 @@ public class DynamicObjectLoader
     {
         try
         {
-            Gdx.app.error("DynamicObjectLoader", "ID: " + id + " Waypoints: " + waypoints[0] + " " + waypoints[1]);
-            GameObject go = objectMap.get(id).getConstructor(String.class, Scene.class, Vector2[].class).newInstance("DynamicObject", scene, waypoints);
-            Gdx.app.error("DynamicObjectLoader", "GameObject: " + go);
+            GameObject go = objectMap.get(id).getConstructor(Scene.class, Vector2[].class).newInstance(scene, waypoints);
             scene.AddGameObject(go);
         }
         catch (Exception e) { Gdx.app.error("DynamicObjectLoader4", "Error:  " + e.getMessage()); }
@@ -112,15 +109,8 @@ public class DynamicObjectLoader
 
     private Vector2[] parseWaypoints(List<String> args)
     {
-        //Debugging
-        for (int i = 0; i < args.size(); i++) { Gdx.app.error("DynamicObjectLoader_", "Arg: " + args.get(i)); }
-
         Vector2[] waypoints = new Vector2[args.size() / 2];
         for (int i = 1; i < args.size(); i += 2) { waypoints[i / 2] = new Vector2(Float.parseFloat(args.get(i)), Float.parseFloat(args.get(i + 1))); }
-
-        //Debugging
-        for (int i = 0; i < waypoints.length; i++) { Gdx.app.error("DynamicObjectLoader__", "Waypoint: " + waypoints[i]); }
-
         return waypoints;
     }
 }

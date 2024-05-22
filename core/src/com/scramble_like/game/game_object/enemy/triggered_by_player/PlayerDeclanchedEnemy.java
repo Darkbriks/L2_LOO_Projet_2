@@ -1,28 +1,26 @@
-package com.scramble_like.game.game_object.projectiles;
+package com.scramble_like.game.game_object.enemy.triggered_by_player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.scramble_like.game.component.controller.ProjectileController;
 import com.scramble_like.game.essential.Scene;
-import com.scramble_like.game.essential.chaos.SphereCollider;
+import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.Player;
+import com.scramble_like.game.game_object.enemy.Enemy;
 
 import java.util.EventObject;
 
-public class PlayerDeclanchedProjectile extends Projectile
+public abstract class PlayerDeclanchedEnemy extends Enemy
 {
-    public PlayerDeclanchedProjectile(String name, Scene scene, Vector2 start, Vector2 direction, float range, float speed, int damage, float cooldown, float radius) throws SceneIsNullException
+    public PlayerDeclanchedEnemy(String name, Scene scene, String spriteFolderPath, int life, float shootSpeed, int[] animationFrames, Vector2[] waypoints, float movementSpeed, float timeBetweenWaypoints, Vector2 overlapSize) throws SceneIsNullException
     {
-        super(name, scene, start, direction, range, speed, false);
-        this.damage = damage;
-        this.cooldown = cooldown;
-        this.AddComponent(new SphereCollider(radius, true, true));
+        super(name, scene, spriteFolderPath, life, shootSpeed, animationFrames, waypoints, movementSpeed, timeBetweenWaypoints);
+        this.AddComponent(new AABBCollider(overlapSize.x, overlapSize.y, true, true));
     }
 
-    protected void LaunchProjectile(EventBeginOverlap e) { this.GetFirstComponentFromClass(ProjectileController.class).SetActive(true); }
+    protected abstract void Triggered(EventBeginOverlap e);
 
     @Override
     public void BeginPlay()
@@ -35,10 +33,9 @@ public class PlayerDeclanchedProjectile extends Projectile
                 EventBeginOverlap e = (EventBeginOverlap) event;
                 if (e.otherGameObject instanceof Player)
                 {
-                    LaunchProjectile(e);
+                    Triggered(e);
                 }
             }
         });
-        this.GetFirstComponentFromClass(ProjectileController.class).SetActive(false);
     }
 }

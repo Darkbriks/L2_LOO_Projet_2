@@ -11,9 +11,9 @@ public class EnemyController extends CharacterController
 {
     private int currentPoint;
     private float currentDistance;
-    private final Vector2[] points;
+    private Vector2[] points;
     private float elapsedTime;
-    private float timeBetweenWaypoints;
+    private final float timeBetweenWaypoints;
     private float elapsedWaitingTime;
     private boolean isWaiting;
     private Interpolation xInterpolation;
@@ -31,13 +31,23 @@ public class EnemyController extends CharacterController
         this.points = patrol;
         this.xInterpolation = Interpolation.linear;
         this.yInterpolation = Interpolation.linear;
-        this.updateTargetPosition();
+
+        if (this.points.length >= 2) { this.updateTargetPosition(); }
     }
 
     public void setInterpolation(Interpolation xInterpolation, Interpolation yInterpolation)
     {
         this.xInterpolation = xInterpolation;
         this.yInterpolation = yInterpolation;
+    }
+
+    public void setWaypoints(Vector2[] waypoints)
+    {
+        this.currentPoint = -1;
+        this.currentDistance = -1;
+        this.elapsedTime = 0;
+        this.points = waypoints;
+        this.updateTargetPosition();
     }
 
     @Override
@@ -64,6 +74,7 @@ public class EnemyController extends CharacterController
     public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
+        if (this.currentPoint == -1) { return; }
         super.Update(DeltaTime);
 
         this.elapsedWaitingTime += DeltaTime;

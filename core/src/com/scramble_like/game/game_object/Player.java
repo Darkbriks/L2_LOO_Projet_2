@@ -79,7 +79,8 @@ public class Player extends GameObject
                 if (e.otherGameObject instanceof Enemy)
                 {
                     if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
-                    playerController.takeDamage(10, 0.5f);
+                    Enemy enemy = (Enemy) e.otherGameObject;
+                    playerController.takeDamage(enemy.getCollisionDamage(), 0.5f);
                 }
             }
         });

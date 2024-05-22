@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.game_object.projectiles.Projectile;
 
 public class FireController extends Component
@@ -47,6 +48,7 @@ public class FireController extends Component
     {
         try
         {
+            SoundFactory.getInstance().playSound("shoot");
             Projectile projectile = this.projectile.getConstructor(Scene.class, Vector2.class).newInstance(this.getOwner().getScene(), this.getOwner().getTransform().getLocation().cpy());
             this.Owner.getScene().AddGameObject(projectile);
         }

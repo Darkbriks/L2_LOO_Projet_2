@@ -59,6 +59,7 @@ public class ScrambleLikeApplication extends Game
 
 		SoundFactory.getInstance().loadSound("takeDamage",GameConstant.SOUND_PATH("damage_taken.mp3"));
 		SoundFactory.getInstance().loadSound("dead",GameConstant.SOUND_PATH("dead.mp3"));
+		SoundFactory.getInstance().loadSound("shoot",GameConstant.SOUND_PATH("Shoot.mp3"));
 
 		for (int i = 0; i < ChunkHelper.getTileMapSize(); i++)
 		{
@@ -73,7 +74,6 @@ public class ScrambleLikeApplication extends Game
 	@Override
 	public void render ()
 	{
-		// Si on appui sur la touche echap, on quitte le jeu
 		if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_DEBUG)) { GameConstant.DEBUG = !GameConstant.DEBUG;}
 		if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_GOD_MODE)) { GameConstant.GOD_MODE = !GameConstant.GOD_MODE; }
 		batch.setProjectionMatrix(camera.getCombined());

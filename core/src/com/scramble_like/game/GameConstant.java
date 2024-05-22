@@ -32,8 +32,8 @@ public class GameConstant
     public static final int TOP_LIMIT = 250;
     public static final int LEFT_LIMIT = WIDTH / 2 - 50;
     public static final int RIGHT_LIMIT = WIDTH / 2 - 50;
-    public static final Vector4 PLAYER_IDLE_COLLIDER = new Vector4(30, 50, -7.5f, 0);
-    public static final Vector4 PLAYER_WALK_COLLIDER = new Vector4(50, 50, 0, 0);
+    public static final Vector4 PLAYER_IDLE_COLLIDER = new Vector4(20, 30, -7.5f, 0);
+    public static final Vector4 PLAYER_WALK_COLLIDER = new Vector4(30, 30, 0, 0);
 
     // Path
     public static String CHARACTER_PATH(String pack, String name) { return "Characters/" + pack + "/" + name; }
@@ -85,7 +85,7 @@ public class GameConstant
 
     //Sound
     public static float SOUND_EFFECT_VOLUME = 0.75f;
-    public static float SOUND_MUSIC_VOLUME = 1f;
+    public static float SOUND_MUSIC_VOLUME = 0.1f;
 
     // Debug
     public static boolean DEBUG = false;

@@ -11,9 +11,10 @@ import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.projectiles.SimpleBullet;
 
-public class Enemy extends GameObject
+public abstract class Enemy extends GameObject
 {
     protected float shootSpeed;
+    protected int collisionDamage;
     protected AABBCollider collider;
     protected Flipbook flipbook;
     protected AnimationController animationController;
@@ -41,5 +42,9 @@ public class Enemy extends GameObject
             FireController fireController = new FireController(shootSpeed, SimpleBullet.class);
             this.AddComponent(fireController);
         }
+
+        this.collisionDamage = 10;
     }
+
+    public int getCollisionDamage() { return collisionDamage; }
 }
