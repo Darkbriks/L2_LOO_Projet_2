@@ -81,6 +81,7 @@ public class ChunkManager extends GameObject
                 this.processedChunks++;
 
                 float squaredDistance = ChunkHelper.getChunkSquaredDistanceWithPosition(new Vector2(i, j), camera.getPosition().x, (int) levelChunkCount.y);
+
                 if (squaredDistance < CoreConstant.SQUARED_CHUNK_SIMULATING_DISTANCE)
                 {
                     if (chunks[i][j].isLoaded() && chunks[i][j].isRendered() && !chunks[i][j].isSimulated())

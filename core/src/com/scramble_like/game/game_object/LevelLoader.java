@@ -26,7 +26,7 @@ public class LevelLoader extends GameObject
     {
         super.BeginPlay();
 
-        SphereCollider sphereCollider = new SphereCollider(100, true, true);
+        SphereCollider sphereCollider = new SphereCollider(125, true, true);
         this.AddComponent(sphereCollider);
 
         this.getEventDispatcher().AddListener(EventIndex.BEGIN_OVERLAP, new EventListener() {
@@ -39,8 +39,8 @@ public class LevelLoader extends GameObject
                     try
                     {
                         Scene newScene = GameConstant.LEVEL_LIST.get(levelToLoad).getConstructor().newInstance();
-                        getScene().getGame().setScreen(newScene);
                         getScene().dispose();
+                        getScene().getGame().setScreen(newScene);
                     }
                     catch (Exception exception) { Gdx.app.error("LevelLoader", "Error: " + exception.getMessage()); }
                 }

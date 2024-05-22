@@ -63,7 +63,8 @@ public class GameOver extends Scene {
             camera.unproject(touchPos);
 
             if (playAgainButtonBounds.contains(touchPos.x, touchPos.y)) {
-                getGame().setScreen(new TestMap());
+                getGame().setScreen(new Level_1());
+                //TODO
                 dispose();
             } else if (menuButtonBounds.contains(touchPos.x, touchPos.y)) {
                 getGame().setScreen(new MainMenu());

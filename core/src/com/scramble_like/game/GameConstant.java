@@ -5,9 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.map.LevelMap;
+import com.scramble_like.game.map.Level_1;
+import com.scramble_like.game.map.Level_2;
 import com.scramble_like.game.map.MainMenu;
-import com.scramble_like.game.map.TestMap;
 
+import java.util.List;
 import java.util.Map;
 
 public class GameConstant
@@ -45,7 +47,18 @@ public class GameConstant
     public static final Map<Integer, Class<? extends Scene>> LEVEL_LIST = Map.of(
             0, MainMenu.class,
             1, LevelMap.class,
-            2, TestMap.class);
+            2, Level_1.class,
+            3, Level_2.class);
+
+    public static final Map<Integer,String> OPTION_LIST = Map.of(
+            0, "",
+            1, "",
+            2, "",
+            3, "");
+
+    public static final Map<Integer,String> HIGHSCORE_LIST = Map.of(
+            0, "highscore_1",
+            1,"highscore_2");
 
     // UI Position
     public static final int SCORE_X = WIDTH / 2 - 70;
@@ -76,6 +89,6 @@ public class GameConstant
     public static float SOUND_MUSIC_VOLUME = 1f;
 
     // Debug
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
     public static boolean GOD_MODE = true;
 }

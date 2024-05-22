@@ -32,7 +32,7 @@ public class MainMenu extends Scene
 
         Label playButton = new AE_Label("Play", this.getSkin());
         playButton.setPosition(-playButton.getWidth() / 2, 0);
-        playButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new TestMap()); dispose(); } });
+        playButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new Level_1()); dispose(); } });
         this.getStage().addActor(playButton);
 
         Label levelMapButton = new AE_Label("Level Map", this.getSkin());
