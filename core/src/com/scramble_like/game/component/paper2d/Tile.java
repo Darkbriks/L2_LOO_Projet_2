@@ -51,10 +51,10 @@ public class Tile extends Sprite
 
     private boolean isVisible()
     {
-        return this.x + this.width > this.camera.position.x - this.camera.viewportWidth / 2 +20
-                && this.x < this.camera.position.x + this.camera.viewportWidth / 2 -20
-                && this.y + this.height > this.camera.position.y - this.camera.viewportHeight / 2 +20
-                && this.y < this.camera.position.y + this.camera.viewportHeight / 2 -20;
+        return this.x + this.width > this.camera.position.x - this.camera.viewportWidth / 2
+                && this.x < this.camera.position.x + this.camera.viewportWidth / 2
+                && this.y + this.height > this.camera.position.y - this.camera.viewportHeight / 2
+                && this.y < this.camera.position.y + this.camera.viewportHeight / 2;
     }
 
     @Override
