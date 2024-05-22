@@ -1,6 +1,8 @@
 package com.scramble_like.game.essential.factory;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -8,6 +10,8 @@ import com.badlogic.gdx.utils.ObjectMap;
 public class ImageFactory
 {
     private static final ObjectMap<String, Texture> textureMap = new ObjectMap<>();
+
+    private static final ObjectMap<String, Sprite> spriteeMap = new ObjectMap<>();
     private static final ObjectMap<String, TextureRegion[]> textureRegionMap = new ObjectMap<>();
     private static final ObjectMap<String, Integer> textureCount = new ObjectMap<>();
 
@@ -20,6 +24,20 @@ public class ImageFactory
         else
         {
             textureMap.put(path, new Texture(path));
+            textureCount.put(path, 1);
+        }
+    }
+
+    public static void loadSprite(String path)
+    {
+        if(spriteeMap.containsKey(path))
+        {
+            textureCount.put(path, textureCount.get(path) + 1);
+        }
+        else
+        {
+            Texture texture = new Texture(Gdx.files.internal(path));
+            spriteeMap.put(path, new Sprite(texture));
             textureCount.put(path, 1);
         }
     }
@@ -48,6 +66,12 @@ public class ImageFactory
     {
         if(!textureMap.containsKey(path)) { loadTexture(path); }
         return textureMap.get(path);
+    }
+
+    public static Sprite getSprite(String path)
+    {
+        if(!spriteeMap.containsKey(path)) { loadSprite(path); }
+        return spriteeMap.get(path);
     }
 
     public static TextureRegion[] getTextureRegion(String path, int nbSprite)
