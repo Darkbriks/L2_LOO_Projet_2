@@ -17,6 +17,7 @@ import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.enemy.Enemy;
+import com.scramble_like.game.game_object.projectiles.PlayerBomb;
 import com.scramble_like.game.game_object.projectiles.SimpleBullet;
 
 import java.util.EventObject;
@@ -24,7 +25,8 @@ import java.util.EventObject;
 public class Player extends GameObject
 {
     protected PlayerController playerController;
-    protected FireController fireController;
+    protected FireController mainFireController;
+    protected FireController secondaryFireController;
     protected AnimationController animationController;
     protected Flipbook flipbook;
     protected AABBCollider collider;
@@ -35,6 +37,8 @@ public class Player extends GameObject
         this.getTransform().setLocation(location);
         this.getTransform().setZIndex(CoreConstant.MIN_Z_INDEX + 1);
     }
+
+    public PlayerController getPlayerController() { return playerController; }
 
     @Override
     public void BeginPlay()
@@ -53,8 +57,11 @@ public class Player extends GameObject
         this.playerController = new PlayerController(animationController, collider);
         this.AddComponent(playerController);
 
-        this.fireController = new FireController(0.75f, true, SimpleBullet.class);
-        this.AddComponent(fireController);
+        this.mainFireController = new FireController(0.5f, true, SimpleBullet.class);
+        this.AddComponent(mainFireController);
+
+        this.secondaryFireController = new FireController(3f, true, true, PlayerBomb.class);
+        this.AddComponent(secondaryFireController);
 
         this.getScene().setPlayer(this);
 
@@ -62,11 +69,18 @@ public class Player extends GameObject
             @Override
             public void handleEvent(EventObject event)
             {
-                if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
                 if (GameConstant.GOD_MODE) { return; }
                 EventHit e = (EventHit) event;
-                if (e.otherGameObject instanceof ChunkManager) { playerController.takeDamage(10000, 0.0f); animationController.setState(AnimationController.AnimationState.DIE, 1); }
-                if (e.otherGameObject instanceof Enemy) { playerController.takeDamage(10, 0.5f); }
+                if (e.otherGameObject instanceof ChunkManager)
+                {
+                    if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
+                    playerController.takeDamage(10000, 0.0f); animationController.setState(AnimationController.AnimationState.DIE, 1);
+                }
+                if (e.otherGameObject instanceof Enemy)
+                {
+                    if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
+                    playerController.takeDamage(10, 0.5f);
+                }
             }
         });
     }

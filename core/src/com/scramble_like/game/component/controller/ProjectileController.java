@@ -5,13 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.Component;
 import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
-import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.game.ProjectileReachDestinationEvent;
-import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
-import com.scramble_like.game.game_object.Player;
 
 import java.util.ArrayList;
-import java.util.EventObject;
 
 public class ProjectileController extends Component
 {
@@ -46,6 +42,11 @@ public class ProjectileController extends Component
         xInterpolation = Interpolation.linear;
         yInterpolation = Interpolation.linear;
     }
+
+    public Vector2 getStart() { return this.start; }
+    public Vector2 getEnd() { return this.end; }
+    public void setStart(Vector2 start) { this.start = start; }
+    public void setEnd(Vector2 end) { this.end = end; }
 
     public void setInterpolation(Interpolation xInterpolation, Interpolation yInterpolation)
     {

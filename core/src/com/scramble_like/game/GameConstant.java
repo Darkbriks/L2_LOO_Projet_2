@@ -4,12 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.essential.Scene;
-import com.scramble_like.game.map.LevelMap;
 import com.scramble_like.game.map.Level_1;
 import com.scramble_like.game.map.Level_2;
 import com.scramble_like.game.map.MainMenu;
 
-import java.util.List;
 import java.util.Map;
 
 public class GameConstant
@@ -46,9 +44,8 @@ public class GameConstant
     // Level
     public static final Map<Integer, Class<? extends Scene>> LEVEL_LIST = Map.of(
             0, MainMenu.class,
-            1, LevelMap.class,
-            2, Level_1.class,
-            3, Level_2.class);
+            1, Level_1.class,
+            2, Level_2.class);
 
     public static final Map<Integer,String> OPTION_LIST = Map.of(
             0, "",
@@ -75,6 +72,7 @@ public class GameConstant
     public static final int[] MOVE_LEFT = { Input.Keys.A, Input.Keys.LEFT };
     public static final int[] MOVE_RIGHT = { Input.Keys.D, Input.Keys.RIGHT };
     public static final int[] SHOOT = { Input.Keys.SPACE };
+    public static final int[] SECONDARY_SHOOT = { Input.Keys.SHIFT_LEFT, Input.Keys.SHIFT_RIGHT };
 
     public static boolean KeyIsPressed(int[] keys) { for (int key : keys) { if (Gdx.input.isKeyPressed(key)) { return true; } } return false; }
 
@@ -82,6 +80,7 @@ public class GameConstant
     public static float X_AXIS_VALUE = 0;
     public static float Y_AXIS_VALUE = 0;
     public static boolean SHOOT_BUTTON = false;
+    public static boolean SECONDARY_SHOOT_BUTTON = false;
     public static boolean PAUSE_BUTTON = false;
 
     //Sound

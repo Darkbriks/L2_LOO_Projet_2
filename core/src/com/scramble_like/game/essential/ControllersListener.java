@@ -22,6 +22,7 @@ public class ControllersListener implements ControllerListener
     public boolean buttonDown(Controller controller, int i)
     {
         if (i == controller.getMapping().buttonX) { GameConstant.SHOOT_BUTTON = true; }
+        else if (i == controller.getMapping().buttonR1) { GameConstant.SECONDARY_SHOOT_BUTTON = true; }
         else if (i == controller.getMapping().buttonStart) { GameConstant.PAUSE_BUTTON = true; }
         return false;
     }
@@ -30,6 +31,7 @@ public class ControllersListener implements ControllerListener
     public boolean buttonUp(Controller controller, int i)
     {
         if (i == controller.getMapping().buttonX) { GameConstant.SHOOT_BUTTON = false; }
+        else if (i == controller.getMapping().buttonR1) { GameConstant.SECONDARY_SHOOT_BUTTON = false; }
         else if (i == controller.getMapping().buttonStart) { GameConstant.PAUSE_BUTTON = false; }
         return false;
     }

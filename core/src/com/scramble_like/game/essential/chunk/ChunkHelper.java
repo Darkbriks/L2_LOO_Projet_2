@@ -18,7 +18,6 @@ public class ChunkHelper
     private static final String[][] level0;
     private static final String[][] level1;
     private static final String[][] level2;
-    private static final String[][] level3;
 
     static
     {
@@ -39,38 +38,31 @@ public class ChunkHelper
 
         level1 = new String[][]
         {
-            { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
-            { "Map/text_x0y0.txt", "Map/text_x0y1.txt"},
+            { GameConstant.CHUNK_PATH("0", 1) },
+            { GameConstant.CHUNK_PATH("1", 1) },
+            { GameConstant.CHUNK_PATH("2", 1) },
+            { GameConstant.CHUNK_PATH("3", 1) },
+            { GameConstant.CHUNK_PATH("4", 1) },
+            { GameConstant.CHUNK_PATH("5", 1) },
+            { GameConstant.CHUNK_PATH("6", 1) },
+            { GameConstant.CHUNK_PATH("7", 1) },
         };
 
         level2 = new String[][]
         {
-            { "Map/Level_1/0.txt"},
-            { "Map/Level_1/1.txt"},
-            { "Map/Level_1/2.txt"},
-            { "Map/Level_1/3.txt"},
-            { "Map/Level_1/4.txt"},
-            { "Map/Level_1/5.txt"},
-            { "Map/Level_1/6.txt"},
-            { "Map/Level_1/7.txt"},
-        };
-
-        level3 = new String[][]
-        {
-            { "Map/Level_2/0.txt"},
-            { "Map/Level_2/1.txt"},
-            { "Map/Level_2/2.txt"},
-            { "Map/Level_2/3.txt"},
-            { "Map/Level_2/4.txt"},
-            { "Map/Level_2/5.txt"},
-            { "Map/Level_2/6.txt"},
+            { GameConstant.CHUNK_PATH("0", 2) },
+            { GameConstant.CHUNK_PATH("1", 2) },
+            { GameConstant.CHUNK_PATH("2", 2) },
+            { GameConstant.CHUNK_PATH("3", 2) },
+            { GameConstant.CHUNK_PATH("4", 2) },
+            { GameConstant.CHUNK_PATH("5", 2) },
+            { GameConstant.CHUNK_PATH("6", 2) },
         };
 
         chunkListByLevel = new ArrayList<>();
         chunkListByLevel.add(level0);
         chunkListByLevel.add(level1);
         chunkListByLevel.add(level2);
-        chunkListByLevel.add(level3);
     }
 
     static {

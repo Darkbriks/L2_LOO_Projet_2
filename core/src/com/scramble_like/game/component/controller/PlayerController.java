@@ -4,10 +4,8 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.chaos.AABBCollider;
-import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
-import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.essential.utils.Utils;
 import com.scramble_like.game.map.GameOver;
 
@@ -122,7 +120,7 @@ public class PlayerController extends CharacterController
     {
         super.die();
         this.getOwner().getScene().getEventDispatcher().DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
-        this.getOwner().getScene().getGame().setScreen(new GameOver(score));
+        this.getOwner().getScene().getGame().setScreen(new GameOver(this.getOwner().getScene().getClass(), score));
         this.getOwner().getScene().dispose();
     }
 }

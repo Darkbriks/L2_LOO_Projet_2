@@ -3,7 +3,6 @@ package com.scramble_like.game.game_object.projectiles;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.CharacterController;
-import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.component.controller.ProjectileController;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
@@ -58,7 +57,12 @@ public abstract class Projectile extends GameObject
             public void handleEvent(EventObject event) {
                 EventHit e = (EventHit) event;
                 if (e.otherGameObject instanceof ChunkManager) { DestroyThisInScene(); }
-                if ((!GameConstant.GOD_MODE && e.otherGameObject instanceof Player) || e.otherGameObject instanceof Enemy)
+                if (!GameConstant.GOD_MODE && e.otherGameObject instanceof Player && !generatedByPlayer)
+                {
+                    DestroyThisInScene();
+                    e.otherGameObject.GetFirstComponentFromClass(CharacterController.class).takeDamage(damage, cooldown);
+                }
+                if (e.otherGameObject instanceof Enemy && generatedByPlayer)
                 {
                     DestroyThisInScene();
                     e.otherGameObject.GetFirstComponentFromClass(CharacterController.class).takeDamage(damage, cooldown);

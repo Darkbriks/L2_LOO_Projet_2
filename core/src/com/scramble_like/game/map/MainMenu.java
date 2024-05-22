@@ -27,21 +27,21 @@ public class MainMenu extends Scene
         backgroundColor = new Vector4(0, 0, 0, 1);
 
         Label titleText = new AE_TitleLabel("Aqua Escape", this.getSkin());
-        titleText.setPosition((-titleText.getWidth()) / 2 , 100);
+        titleText.setPosition((-titleText.getWidth()) / 2 , getCamera().getPosition().y + 100);
         this.getStage().addActor(titleText);
 
         Label playButton = new AE_Label("Play", this.getSkin());
-        playButton.setPosition(-playButton.getWidth() / 2, 0);
+        playButton.setPosition(-playButton.getWidth() / 2, getCamera().getPosition().y);
         playButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new Level_1()); dispose(); } });
         this.getStage().addActor(playButton);
 
         Label levelMapButton = new AE_Label("Level Map", this.getSkin());
-        levelMapButton.setPosition(-levelMapButton.getWidth() / 2 - 100, -50);
+        levelMapButton.setPosition(-levelMapButton.getWidth() / 2 - 100, getCamera().getPosition().y - 50);
         levelMapButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new LevelMap()); dispose(); } });
         this.getStage().addActor(levelMapButton);
 
         Label exitButton = new AE_Label("Exit", this.getSkin());
-        exitButton.setPosition(-exitButton.getWidth() / 2 + 100, -50);
+        exitButton.setPosition(-exitButton.getWidth() / 2 + 100, getCamera().getPosition().y - 50);
         exitButton.addListener(new ClickListener() {  @Override public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); } });
         this.getStage().addActor(exitButton);
 

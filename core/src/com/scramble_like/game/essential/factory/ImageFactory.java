@@ -10,8 +10,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 public class ImageFactory
 {
     private static final ObjectMap<String, Texture> textureMap = new ObjectMap<>();
-
-    private static final ObjectMap<String, Sprite> spriteeMap = new ObjectMap<>();
+    private static final ObjectMap<String, Sprite> spriteMap = new ObjectMap<>();
     private static final ObjectMap<String, TextureRegion[]> textureRegionMap = new ObjectMap<>();
     private static final ObjectMap<String, Integer> textureCount = new ObjectMap<>();
 
@@ -30,14 +29,14 @@ public class ImageFactory
 
     public static void loadSprite(String path)
     {
-        if(spriteeMap.containsKey(path))
+        if(spriteMap.containsKey(path))
         {
             textureCount.put(path, textureCount.get(path) + 1);
         }
         else
         {
             Texture texture = new Texture(Gdx.files.internal(path));
-            spriteeMap.put(path, new Sprite(texture));
+            spriteMap.put(path, new Sprite(texture));
             textureCount.put(path, 1);
         }
     }
@@ -70,8 +69,8 @@ public class ImageFactory
 
     public static Sprite getSprite(String path)
     {
-        if(!spriteeMap.containsKey(path)) { loadSprite(path); }
-        return spriteeMap.get(path);
+        if(!spriteMap.containsKey(path)) { loadSprite(path); }
+        return spriteMap.get(path);
     }
 
     public static TextureRegion[] getTextureRegion(String path, int nbSprite)

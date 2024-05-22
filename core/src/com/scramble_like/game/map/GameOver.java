@@ -11,16 +11,19 @@ import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 
-public class GameOver extends Scene {
+public class GameOver extends Scene
+{
     private Rectangle playAgainButtonBounds;
     private Rectangle menuButtonBounds;
+    private Class<? extends Scene> previous;
 
-    public GameOver(int score)
+    public GameOver(Class<? extends Scene> previous, int score)
     {
         super("GameOver");
 
-        getCamera().setPosition(0, 0);
+        this.previous = previous;
 
+        getCamera().setPosition(0, 0);
         backgroundColor = new Vector4(0, 0, 0, 1);
 
         try {
@@ -62,14 +65,17 @@ public class GameOver extends Scene {
             Camera camera = getCamera().getCamera();
             camera.unproject(touchPos);
 
-            if (playAgainButtonBounds.contains(touchPos.x, touchPos.y)) {
-                getGame().setScreen(new Level_1());
-                //TODO
-                dispose();
-            } else if (menuButtonBounds.contains(touchPos.x, touchPos.y)) {
-                getGame().setScreen(new MainMenu());
-                dispose();
+            if (playAgainButtonBounds.contains(touchPos.x, touchPos.y))
+            {
+                try
+                {
+                    Scene newScene = previous.getConstructor().newInstance();
+                    getGame().setScreen(newScene);
+                    dispose();
+                }
+                catch (Exception e) { Gdx.app.error("GameOver", e.getMessage()); }
             }
+            else if (menuButtonBounds.contains(touchPos.x, touchPos.y)) { getGame().setScreen(new MainMenu()); dispose(); }
         }
 
         super.render(delta);

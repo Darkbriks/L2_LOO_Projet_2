@@ -1,7 +1,6 @@
 package com.scramble_like.game.map;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -38,12 +37,12 @@ public class PauseMenu extends Scene
         this.getStage().addActor(pauseLabel);
 
         resumeButton = new AE_Label("Resume", this.getSkin());
-        resumeButton.setPosition(cameraX - resumeButton.getWidth() / 2, (float) GameConstant.HEIGHT / 2 -320);
+        resumeButton.setPosition(cameraX - resumeButton.getWidth() / 2, cameraY + 50);
         resumeButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(previousScene); dispose(); } });
         this.getStage().addActor(resumeButton);
 
         reloadButton = new AE_Label("Try Again", this.getSkin());
-        reloadButton.setPosition(cameraX - reloadButton.getWidth() / 2, (float) GameConstant.HEIGHT / 2 - 360);
+        reloadButton.setPosition(cameraX - reloadButton.getWidth() / 2, cameraY);
         reloadButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y)
         {
             try
@@ -57,12 +56,12 @@ public class PauseMenu extends Scene
         this.getStage().addActor(reloadButton);
 
         mainMenuButton = new AE_Label("Main Menu", this.getSkin());
-        mainMenuButton.setPosition(cameraX - mainMenuButton.getWidth() / 2, (float) GameConstant.HEIGHT / 2 - 400);
+        mainMenuButton.setPosition(cameraX - mainMenuButton.getWidth() / 2, cameraY - 50);
         mainMenuButton.addListener(new ClickListener() { @Override  public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new MainMenu()); dispose(); } });
         this.getStage().addActor(mainMenuButton);
 
         exitButton = new AE_Label("Exit", this.getSkin());
-        exitButton.setPosition(cameraX - exitButton.getWidth() / 2, (float) GameConstant.HEIGHT / 2 - 460);
+        exitButton.setPosition(cameraX - exitButton.getWidth() / 2, cameraY - 100);
         exitButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); } });
         this.getStage().addActor(exitButton);
     }
