@@ -1,6 +1,7 @@
 package com.scramble_like.game.game_object.enemy;
 
 import com.badlogic.gdx.math.Vector2;
+import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.ProjectileController;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chaos.SphereCollider;
@@ -12,13 +13,11 @@ import com.scramble_like.game.game_object.Player;
 
 import java.util.EventObject;
 
-public class BigSawFish extends MovingEnemy{
-    public BigSawFish(String name, Scene scene, Vector2[] waypoints) throws SceneIsNullException {
-        super(name, scene, "Characters/Fish/BigSawFish/Walk.png", 0, waypoints, 250);
-        //this.AddComponent(new SphereCollider(75,false,true));
-        System.out.println("BigSawFish created");
+public class BigSawFish extends Enemy
+{
+    public BigSawFish(String name, Scene scene, Vector2[] waypoints) throws SceneIsNullException
+    {
+        super(name, scene, GameConstant.CHARACTER_PATH("Fish", "BigSawFish"), 0, new int[]{ 4, 4, 2, 6, 6 }, waypoints, 250);
     }
-
-
 }
 

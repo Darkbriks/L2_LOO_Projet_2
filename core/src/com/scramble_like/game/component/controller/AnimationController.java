@@ -51,11 +51,11 @@ public class AnimationController extends Component
         this.elapsedTime = 0;
         this.flipbook = flipbook;
 
-        this.ANIMATION_IDLE = "Idle.png"; this.ANIMATION_IDLE_FRAME = animationFrames[0];
-        this.ANIMATION_WALK = "Walk.png"; this.ANIMATION_WALK_FRAME = animationFrames[1];
-        this.ANIMATION_HURT = "Hurt.png"; this.ANIMATION_HURT_FRAME = animationFrames[2];
-        this.ANIMATION_ATTACK = "Attack.png"; this.ANIMATION_ATTACK_FRAME = animationFrames[3];
-        this.ANIMATION_DIE = "Death.png"; this.ANIMATION_DIE_FRAME = animationFrames[4];
+        this.ANIMATION_IDLE = "/Idle.png"; this.ANIMATION_IDLE_FRAME = animationFrames[0];
+        this.ANIMATION_WALK = "/Walk.png"; this.ANIMATION_WALK_FRAME = animationFrames[1];
+        this.ANIMATION_HURT = "/Hurt.png"; this.ANIMATION_HURT_FRAME = animationFrames[2];
+        this.ANIMATION_ATTACK = "/Attack.png"; this.ANIMATION_ATTACK_FRAME = animationFrames[3];
+        this.ANIMATION_DIE = "/Death.png"; this.ANIMATION_DIE_FRAME = animationFrames[4];
     }
 
     public AnimationController(String animationFolder, Flipbook flipbook, String[] animationNames, int[] animationFrames)

@@ -59,12 +59,7 @@ public class PlayerController extends Component
             hitCooldownTimer = 0;
             this.hitCooldown = hitCooldown;
             SoundFactory.getInstance().playSound("damage_taken.mp3",0.5f);
-            if(this.score-1000<=0){
-                this.score=0;
-            }
-            else{
-                this.score-=1000;
-            }
+            this.score = Utils.clamp(this.score - 1000, 0, Integer.MAX_VALUE); // TODO : Make it a constant
             if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); } }
     }
 
@@ -80,7 +75,7 @@ public class PlayerController extends Component
 
         this.getOwner().GetFirstComponentFromClass(Collider.class).setPositionInGrid();
 
-        if(!this.isAlive()) { this.die();            SoundFactory.getInstance().playSound("dead",0.5f);}
+        if(!this.isAlive()) { this.die(); SoundFactory.getInstance().playSound("dead",0.5f);}
     }
 
     private void scroll(float dt)

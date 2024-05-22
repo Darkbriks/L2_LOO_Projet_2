@@ -22,7 +22,6 @@ public class ProjectileController extends Component
     protected float distance;
     protected Interpolation xInterpolation;
     protected Interpolation yInterpolation;
-    private int tirer =0;
 
     public ProjectileController(Vector2 start, Vector2 direction, float range, float speed)
     {
@@ -48,19 +47,6 @@ public class ProjectileController extends Component
         yInterpolation = Interpolation.linear;
     }
 
-    public ProjectileController(Vector2 start, Vector2 direction, float range, float speed, boolean tirer)
-    {
-        super();
-        this.tirer=-1;
-        this.start = start;
-        this.end = computeEnd(this.start, direction, range);
-        this.speed = speed;
-        this.elapsedTime = 0;
-        this.distance = start.dst(end);
-        xInterpolation = Interpolation.linear;
-        yInterpolation = Interpolation.linear;
-    }
-
     public void setInterpolation(Interpolation xInterpolation, Interpolation yInterpolation)
     {
         this.xInterpolation = xInterpolation;
@@ -75,31 +61,26 @@ public class ProjectileController extends Component
 
     private float getAlpha() { return elapsedTime / distance; }
 
-
-
     @Override
     public void Update(float DeltaTime)
     {
         if (!this.IsActive()) { return; }
 
+        elapsedTime += speed * DeltaTime;
+        float alpha = getAlpha();
 
-            elapsedTime += speed * DeltaTime;
-            float alpha = getAlpha();
+        float x = xInterpolation.apply(start.x, end.x, alpha);
+        float y = yInterpolation.apply(start.y, end.y, alpha);
 
-            float x = xInterpolation.apply(start.x, end.x, alpha);
-            float y = yInterpolation.apply(start.y, end.y, alpha);
+        this.getOwner().getTransform().setLocation(x, y);
 
-            this.getOwner().getTransform().setLocation(x, y);
+        ArrayList<Collider> ownersColliders = this.getOwner().GetAllComponentsFromClass(Collider.class);
+        for (int i = 0; i < ownersColliders.size(); i++) { ownersColliders.get(i).setPositionInGrid(); }
 
-            ArrayList<Collider> ownersColliders = this.getOwner().GetAllComponentsFromClass(Collider.class);
-            for (int i = 0; i < ownersColliders.size(); i++) { ownersColliders.get(i).setPositionInGrid(); }
-
-            if (alpha >= 1)
-            {
-                this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.PROJECTILE_REACHED_DESTINATION, new ProjectileReachDestinationEvent(this));
-                this.SetActive(false);
-            }
-
-
+        if (alpha >= 1)
+        {
+            this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.PROJECTILE_REACHED_DESTINATION, new ProjectileReachDestinationEvent(this));
+            this.SetActive(false);
+        }
     }
 }

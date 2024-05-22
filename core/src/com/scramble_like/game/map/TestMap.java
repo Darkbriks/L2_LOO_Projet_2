@@ -87,6 +87,7 @@ public class TestMap extends Scene
     {
         super.dispose();
         SoundFactory.getInstance().stopBackgroundMusic();
+        SoundFactory.getInstance().unloadAllSounds();
 
         for (int i = 0; i < ChunkHelper.getTileMapSize(); i++)
         {

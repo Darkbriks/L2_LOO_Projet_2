@@ -57,9 +57,7 @@ public class ScrambleLikeApplication extends Game
 		tickableObjects = new ArrayList<>();
 		tickableObjects.add(camera);
 
-		if (GameConstant.DEBUG) {
-			setScreen(new MainMenu());
-		}
+		if (GameConstant.DEBUG) { setScreen(new MainMenu()); }
 		else { setScreen(new SplashScreen()); }
 	}
 

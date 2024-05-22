@@ -49,8 +49,6 @@ public class MainMenu extends Scene
         {
             GameObject background = new GameObject("Background", this);
             background.AddComponent(new Tile("Background/menu.png", -800, -450, GameConstant.WIDTH, GameConstant.HEIGHT));
-            //background.getTransform().Translate(-700, 0);
-            //background.getTransform().setScale(1,1);
             AddGameObject(background);
 
             GameObject leftMeduse = new GameObject("LeftMeduse", this);

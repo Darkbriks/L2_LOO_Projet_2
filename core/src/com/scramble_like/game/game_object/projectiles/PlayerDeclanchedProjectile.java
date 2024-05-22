@@ -1,6 +1,5 @@
-package com.scramble_like.game.game_object.enemy;
+package com.scramble_like.game.game_object.projectiles;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.component.controller.ProjectileController;
 import com.scramble_like.game.essential.Scene;
@@ -12,27 +11,22 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.Player;
 
 import java.util.EventObject;
-/*
-public class ElectricEel extends MovingEnemy {
-    public ElectricEel(String name, Scene scene, Vector2[] waypoints) throws SceneIsNullException {
-        super(name, scene, "Characters/Fish/ElectricEel/Walk.png", 0, waypoints, 150);
-        this.AddComponent(new SphereCollider(75,true,false));
-        System.out.println("ElectricEel created");
+
+public class PlayerDeclanchedProjectile extends Projectile
+{
+    public PlayerDeclanchedProjectile(String name, Scene scene, Vector2 start, Vector2 direction, float range, float speed, int damage, float cooldown, float radius) throws SceneIsNullException
+    {
+        super(name, scene, start, direction, range, speed);
+        this.damage = damage;
+        this.cooldown = cooldown;
+        this.AddComponent(new SphereCollider(radius, true, true));
     }
 
-    private void aoe() {
-        try {
-            this.GetFirstComponentFromClass(SphereCollider.class).setSimulatePhysics(true);
-            wait(50);
-        } catch (Exception e) { Gdx.app.error("ElectricEel", "Error: " + e.getMessage()); }
-        this.GetFirstComponentFromClass(SphereCollider.class).setSimulatePhysics(false);
-        try {
-            wait(5000);
-        } catch (Exception e) { Gdx.app.error("ElectricEel", "Error: " + e.getMessage()); }
-    }
+    protected void LaunchProjectile(EventBeginOverlap e) { this.GetFirstComponentFromClass(ProjectileController.class).SetActive(true); }
+
     @Override
-    public void BeginPlay(){
-
+    public void BeginPlay()
+    {
         super.BeginPlay();
         this.getEventDispatcher().AddListener(EventIndex.BEGIN_OVERLAP, new EventListener() {
             @Override
@@ -41,11 +35,10 @@ public class ElectricEel extends MovingEnemy {
                 EventBeginOverlap e = (EventBeginOverlap) event;
                 if (e.otherGameObject instanceof Player)
                 {
-                    aoe();
+                    LaunchProjectile(e);
                 }
             }
         });
         this.GetFirstComponentFromClass(ProjectileController.class).SetActive(false);
     }
 }
-*/
