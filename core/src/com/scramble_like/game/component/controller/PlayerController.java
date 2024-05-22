@@ -87,23 +87,18 @@ public class PlayerController extends Component
     private void move(float dt)
     {
         Controller controller = Controllers.getCurrent();
-        float dx = 0;
-        float dy = 0;
+        float dx = GameConstant.X_AXIS_VALUE;
+        float dy = GameConstant.Y_AXIS_VALUE;
 
-        if (controller != null)
-        {
-            dx = controller.getAxis(controller.getMapping().axisLeftX);
-            dy = -controller.getAxis(controller.getMapping().axisLeftY);
-            if (Math.abs(dx) < 0.1) { dx = 0; } else { dx *= speed * dt; }
-            if (Math.abs(dy) < 0.1) { dy = 0; } else { dy *= speed * dt; }
-        }
+        if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) { dx = 0; dy = 0; }
+        else { dx *= speed * dt; dy *= -speed * dt; }
 
         if (dx == 0 && dy == 0)
         {
-            for (int key : GameConstant.MOVE_RIGHT) { if (Gdx.input.isKeyPressed(key)) { dx = speed * dt; break; } }
-            for (int key : GameConstant.MOVE_LEFT) { if (Gdx.input.isKeyPressed(key)) { dx = -speed * dt; break; } }
-            for (int key : GameConstant.MOVE_UP) { if (Gdx.input.isKeyPressed(key)) { dy = speed * dt; break; } }
-            for (int key : GameConstant.MOVE_DOWN) { if (Gdx.input.isKeyPressed(key)) { dy = -speed * dt; break; } }
+            if (GameConstant.KeyIsPressed(GameConstant.MOVE_RIGHT)) { dx = speed * dt; }
+            else if (GameConstant.KeyIsPressed(GameConstant.MOVE_LEFT)) { dx = -speed * dt; }
+            if (GameConstant.KeyIsPressed(GameConstant.MOVE_UP)) { dy = speed * dt; }
+            else if (GameConstant.KeyIsPressed(GameConstant.MOVE_DOWN)) { dy = -speed * dt; }
         }
 
         if (dx != 0 || dy != 0)
@@ -138,12 +133,6 @@ public class PlayerController extends Component
 
         float angle = (float) Math.toDegrees(Math.atan2(dy, dx));
         this.getOwner().getTransform().setRotation(angle, 0);
-    }
-
-    @Override
-    public void Render()
-    {
-        DebugRenderer.DrawDebugCircle(this.getOwner().getTransform().getLocation(), 5, Color.CORAL, this.getOwner().getScene().getGame().getCamera().getCombined());
     }
 
     private void die()

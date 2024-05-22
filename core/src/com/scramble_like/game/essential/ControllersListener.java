@@ -2,6 +2,7 @@ package com.scramble_like.game.essential;
 
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerListener;
+import com.scramble_like.game.GameConstant;
 
 public class ControllersListener implements ControllerListener
 {
@@ -18,20 +19,25 @@ public class ControllersListener implements ControllerListener
     }
 
     @Override
-    public boolean buttonDown(Controller controller, int i) {
-        if (i == controller.getMapping().buttonA) { System.out.println("Button A pressed"); }
-        if (!controller.isVibrating()) { controller.startVibration(200, 1); }
+    public boolean buttonDown(Controller controller, int i)
+    {
+        if (i == controller.getMapping().buttonX) { GameConstant.SHOOT_BUTTON = true; }
+        else if (i == controller.getMapping().buttonStart) { GameConstant.PAUSE_BUTTON = true; }
         return false;
     }
 
     @Override
-    public boolean buttonUp(Controller controller, int i) {
+    public boolean buttonUp(Controller controller, int i)
+    {
+        if (i == controller.getMapping().buttonX) { GameConstant.SHOOT_BUTTON = false; }
+        else if (i == controller.getMapping().buttonStart) { GameConstant.PAUSE_BUTTON = false; }
         return false;
     }
 
     @Override
     public boolean axisMoved(Controller controller, int i, float v) {
-        //if (i == controller.getMapping().axisLeftX) { System.out.println("Axis Left X moved: " + v); }
+        if (i == controller.getMapping().axisLeftX) { GameConstant.X_AXIS_VALUE = v; }
+        else if (i == controller.getMapping().axisLeftY) { GameConstant.Y_AXIS_VALUE = v; }
         return false;
     }
 }

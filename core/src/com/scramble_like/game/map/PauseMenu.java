@@ -70,7 +70,11 @@ public class PauseMenu extends Scene
     @Override
     public void render(float delta)
     {
-        if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_PAUSE)) { getGame().setScreen(previousScene); dispose(); }
+        if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_PAUSE) || GameConstant.PAUSE_BUTTON)
+        {
+            GameConstant.PAUSE_BUTTON = false;
+            getGame().setScreen(previousScene); dispose();
+        }
         super.render(delta);
     }
 

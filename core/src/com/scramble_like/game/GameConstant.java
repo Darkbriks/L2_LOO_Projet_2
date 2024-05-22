@@ -1,5 +1,6 @@
 package com.scramble_like.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.essential.Scene;
@@ -59,6 +60,15 @@ public class GameConstant
     public static final int[] MOVE_DOWN = { Input.Keys.S, Input.Keys.DOWN };
     public static final int[] MOVE_LEFT = { Input.Keys.A, Input.Keys.LEFT };
     public static final int[] MOVE_RIGHT = { Input.Keys.D, Input.Keys.RIGHT };
+    public static final int[] SHOOT = { Input.Keys.SPACE };
+
+    public static boolean KeyIsPressed(int[] keys) { for (int key : keys) { if (Gdx.input.isKeyPressed(key)) { return true; } } return false; }
+
+    // Gamepad Input
+    public static float X_AXIS_VALUE = 0;
+    public static float Y_AXIS_VALUE = 0;
+    public static boolean SHOOT_BUTTON = false;
+    public static boolean PAUSE_BUTTON = false;
 
     // Debug
     public static boolean DEBUG = true;

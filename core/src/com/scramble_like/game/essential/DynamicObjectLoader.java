@@ -47,16 +47,11 @@ public class DynamicObjectLoader
             for (int i = 0; i < lines.size(); i++)
             {
                 List<String> args = List.of(lines.get(i).split(" "));
-                if (args.size() == 3) {
-                    if (args.get(0).equals("49")) {
-                        loadJellyFish(scene, Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2)));
-                    }
-                    else if (args.get(0).equals("51")) {
-                        loadDeepDeaMonster(scene, Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2)));
-                    }
-                    else {
-                        loadObjectWithPosition(scene, Integer.parseInt(args.get(0)), Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2)));
-                    }
+                if (args.size() == 3)
+                {
+                    if (args.get(0).equals("49")) { loadJellyFish(scene, Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2))); }
+                    else if (args.get(0).equals("51")) { loadDeepDeaMonster(scene, Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2))); }
+                    else { loadObjectWithPosition(scene, Integer.parseInt(args.get(0)), Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2))); }
                 }
                 else if (args.size() == 4) { loadObjectWithPositionAndPath(scene, Integer.parseInt(args.get(0)), Float.parseFloat(args.get(1)), Float.parseFloat(args.get(2)), args.get(3)); }
                 else { loadObjectWithWaypoints(scene, Integer.parseInt(args.get(0)), parseWaypoints(args)); }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.AnimationController;
+import com.scramble_like.game.component.controller.FireController;
 import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.essential.CoreConstant;
@@ -16,12 +17,14 @@ import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.enemy.Enemy;
+import com.scramble_like.game.game_object.projectiles.SimpleBullet;
 
 import java.util.EventObject;
 
 public class Player extends GameObject
 {
     protected PlayerController playerController;
+    protected FireController fireController;
     protected AnimationController animationController;
     protected Flipbook flipbook;
     protected AABBCollider collider;
@@ -49,6 +52,9 @@ public class Player extends GameObject
 
         this.playerController = new PlayerController(animationController, collider);
         this.AddComponent(playerController);
+
+        this.fireController = new FireController(0.75f, true, SimpleBullet.class);
+        this.AddComponent(fireController);
 
         this.getScene().setPlayer(this);
 

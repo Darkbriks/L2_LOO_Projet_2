@@ -77,7 +77,11 @@ public class TestMap extends Scene
         this.lifeActor.setPosition(getCamera().getPosition().x - GameConstant.LIFE_X, getCamera().getPosition().y + GameConstant.LIFE_Y);
         newLife();
 
-        if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_PAUSE)) { getGame().setScreen(new PauseMenu(this)); }
+        if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_PAUSE) || GameConstant.PAUSE_BUTTON)
+        {
+            GameConstant.PAUSE_BUTTON = false;
+            getGame().setScreen(new PauseMenu(this));
+        }
 
         super.render(delta);
     }
