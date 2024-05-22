@@ -50,4 +50,11 @@ public class AE_Label extends Label
         this.setAlignment(1);
         this.setWidth(500);
     }
+    public AE_Label(CharSequence text, Skin skin, Color color) {
+        super(text, skin);
+        this.setColor(color);
+        this.setFontScale(2f);
+        this.setAlignment(1);
+        this.setWidth(500);
+    }
 }
