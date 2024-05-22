@@ -15,7 +15,11 @@ import java.util.Objects;
 
 
 public class Writer {
-    public Writer(String valeur, String option, String fileName, Map<Integer, String> list) {
+    private Writer() {
+
+    }
+
+    public static void writeSetting(String valeur, String option, String fileName, Map<Integer, String> list){
         String currentDir = System.getProperty("user.dir");
         File file = new File(currentDir, fileName);
         System.out.println(file.getAbsolutePath());
@@ -33,7 +37,7 @@ public class Writer {
             //System.out.println("File already exists! Updating content.");
         }*/
 
-        int oldHighscore= Writer.getSetting(valeur, option, fileName, list);
+        int oldHighscore= Writer.getSetting(option, fileName);
         if(oldHighscore!=-1){
             if(oldHighscore>Integer.parseInt(valeur)){
                 return;
@@ -73,7 +77,7 @@ public class Writer {
         }
     }
 
-    public static int getSetting(String valeur, String option, String fileName, Map<Integer, String> list) {
+    public static int getSetting( String option, String fileName) {
         String currentDir = System.getProperty("user.dir");
         File file = new File(currentDir, fileName);
         //System.out.println(file.getAbsolutePath());

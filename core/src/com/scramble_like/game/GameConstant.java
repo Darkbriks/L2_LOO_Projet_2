@@ -60,6 +60,9 @@ public class GameConstant
     // UI Position
     public static final int SCORE_X = WIDTH / 2 - 70;
     public static final int SCORE_Y = HEIGHT / 2 - 50;
+
+    public static final int HIGHSCORE_X = WIDTH / 2 - 70;
+    public static final int HIGHSCORE_Y = HEIGHT / 2 - 100;
     public static final int LIFE_X = - (WIDTH / 2 - 100);
     public static final int LIFE_Y = HEIGHT / 2 - 60;
 
