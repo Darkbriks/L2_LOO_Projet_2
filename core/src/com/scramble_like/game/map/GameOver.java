@@ -14,14 +14,19 @@ import com.scramble_like.game.essential.exception.SceneIsNullException;
 public class GameOver extends Scene
 {
     private Rectangle playAgainButtonBounds;
+    private Rectangle retryFromLastCheckpointBounds;
     private Rectangle menuButtonBounds;
-    private Class<? extends Scene> previous;
+    private final Class<? extends AbstractLevel> previous;
+    private final float checkpointX;
+    private final float checkpointY;
 
-    public GameOver(Class<? extends Scene> previous, int score)
+    public GameOver(Class<? extends AbstractLevel> previous, int score, boolean retryFromLastCheckpoint, float x, float y)
     {
         super("GameOver");
 
         this.previous = previous;
+        this.checkpointX = x;
+        this.checkpointY = y;
 
         getCamera().setPosition(0, 0);
         backgroundColor = new Vector4(0, 0, 0, 1);
@@ -48,6 +53,15 @@ public class GameOver extends Scene
             AddGameObject(playAgainButton);
             playAgainButtonBounds = new Rectangle(0, -125, 205, 50);
 
+            if (retryFromLastCheckpoint)
+            {
+                GameObject retryFromLastCheckpointButton = new GameObject("RetryFromLastCheckpointButton", this);
+                retryFromLastCheckpointButton.AddComponent(new Text("Retry From Last Checkpoint", 3, Color.WHITE));
+                retryFromLastCheckpointButton.getTransform().Translate(0, -150);
+                AddGameObject(retryFromLastCheckpointButton);
+                retryFromLastCheckpointBounds = new Rectangle(0, -175, 500, 50);
+            }
+
             GameObject menuButton = new GameObject("MenuButton", this);
             menuButton.AddComponent(new Text("Menu", 2, Color.WHITE));
             menuButton.getTransform().Translate(350, 200);
@@ -69,13 +83,25 @@ public class GameOver extends Scene
             {
                 try
                 {
-                    Scene newScene = previous.getConstructor().newInstance();
+                    AbstractLevel newScene = previous.getConstructor().newInstance();
                     getGame().setScreen(newScene);
                     dispose();
                 }
                 catch (Exception e) { Gdx.app.error("GameOver", e.getMessage()); }
             }
             else if (menuButtonBounds.contains(touchPos.x, touchPos.y)) { getGame().setScreen(new MainMenu()); dispose(); }
+            else if (retryFromLastCheckpointBounds != null && retryFromLastCheckpointBounds.contains(touchPos.x, touchPos.y))
+            {
+                System.out.println("Retry from last checkpoint");
+                try
+                {
+                    AbstractLevel newScene = previous.getConstructor().newInstance();
+                    newScene.RealoadFromACheckpoint(checkpointX, checkpointY);
+                    getGame().setScreen(newScene);
+                    dispose();
+                }
+                catch (Exception e) { Gdx.app.error("GameOver", e.getMessage()); }
+            }
         }
 
         super.render(delta);

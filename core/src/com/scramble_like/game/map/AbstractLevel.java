@@ -6,13 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.essential.Scene;
-import com.scramble_like.game.essential.chunk.ChunkHelper;
 import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.essential.factory.ImageFactory;
-import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.essential.utils.Writer;
 import com.scramble_like.game.game_object.Background;
+import com.scramble_like.game.game_object.Checkpoint;
 import com.scramble_like.game.game_object.LevelLoader;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.ui.AE_Label;
@@ -24,10 +22,9 @@ public abstract class AbstractLevel extends Scene
 {
     private Label scoreActor,highscoreActor;
     private LifeActor lifeActor;
-
     private int currentframe;
-
     private final int level;
+    protected Checkpoint lastCheckpoint;
 
     public AbstractLevel(String name, int level, float cameraSpeed, Vector2 levelLoaderLocation)
     {
@@ -35,6 +32,8 @@ public abstract class AbstractLevel extends Scene
         this.level=level;
 
         getCamera().setPosition(0, 0);
+        this.lastCheckpoint = null;
+        GameConstant.CAMERA_SPEED = cameraSpeed;
 
         try
         {
@@ -52,10 +51,33 @@ public abstract class AbstractLevel extends Scene
             levelLoader.getTransform().setLocation(levelLoaderLocation.x,levelLoaderLocation.y);
             AddGameObject(levelLoader);
 
+            Checkpoint checkpoint = new Checkpoint("Checkpoint", this, 600, 150);
+            AddGameObject(checkpoint);
+
         }
         catch (SceneIsNullException e) { Gdx.app.error("Abstract", "Error: " + e.getMessage()); }
 
         CreateUI();
+    }
+
+    public void setLastCheckpoint(Checkpoint lastCheckpoint) { this.lastCheckpoint = lastCheckpoint; }
+
+    public void GameOver(int score)
+    {
+        int x = 0, y = 0;
+        if (lastCheckpoint != null)
+        {
+            x = (int) lastCheckpoint.getTransform().getLocation().x;
+            y = (int) lastCheckpoint.getTransform().getLocation().y;
+        }
+        getGame().setScreen(new GameOver(getClass(), score, lastCheckpoint != null, x, y));
+        dispose();
+    }
+
+    public void RealoadFromACheckpoint(float x, float y)
+    {
+        getCamera().setPosition(x, y);
+        getPlayer().getTransform().setLocation(x, y);
     }
 
     private void CreateUI()

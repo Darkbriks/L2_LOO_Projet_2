@@ -93,6 +93,7 @@ public abstract class Collider extends Component
 
     protected void Hit(Collider other)
     {
+        if (this.getOwner() == null || other.getOwner() == null) return;
         this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.HIT, new EventHit(this.getOwner(), this, other.getOwner(), other));
     }
 

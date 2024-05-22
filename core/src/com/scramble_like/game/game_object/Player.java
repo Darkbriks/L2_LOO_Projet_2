@@ -11,7 +11,6 @@ import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
-import com.scramble_like.game.essential.chaos.Collider;
 import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
@@ -72,9 +71,6 @@ public class Player extends GameObject
             {
                 if (GameConstant.GOD_MODE) { return; }
                 EventHit e = (EventHit) event;
-
-                Collider c = (Collider) e.otherComponent;
-                if (c == null || c.IsGenerateOverlappedEvent()) { return; }
 
                 if (e.otherGameObject instanceof ChunkManager)
                 {

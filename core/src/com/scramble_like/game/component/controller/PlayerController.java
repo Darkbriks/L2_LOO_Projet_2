@@ -7,7 +7,7 @@ import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.event.game.PlayerDieEvent;
 import com.scramble_like.game.essential.utils.Utils;
-import com.scramble_like.game.map.GameOver;
+import com.scramble_like.game.map.AbstractLevel;
 
 public class PlayerController extends CharacterController
 {
@@ -120,7 +120,6 @@ public class PlayerController extends CharacterController
     {
         super.die();
         this.getOwner().getScene().getEventDispatcher().DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
-        this.getOwner().getScene().getGame().setScreen(new GameOver(this.getOwner().getScene().getClass(), score));
-        this.getOwner().getScene().dispose();
+        AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.GameOver(score);
     }
 }
