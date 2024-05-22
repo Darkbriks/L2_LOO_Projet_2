@@ -80,7 +80,7 @@ public class Writer {
 
         // Crée le fichier s'il n'existe pas
         if (!file.exists()) {
-            return -1;
+            return 0;
         } else {
             try {
                 List<String> lines = Files.readAllLines(Paths.get(file.getAbsolutePath()));
@@ -97,7 +97,7 @@ public class Writer {
                 e.printStackTrace();
             }
         }
-        return -1;
+        return 0;
     }
 
     public static String findLastWord(String line) {
