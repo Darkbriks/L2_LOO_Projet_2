@@ -49,7 +49,6 @@ public class FireController extends Component
         this.elapsedTime += DeltaTime;
         if (this.elapsedTime >= this.timeBetweenShoots)
         {
-            System.out.println("Shoot");
             if (inputIsRequiered && !(GameConstant.KeyIsPressed(GameConstant.SHOOT) || GameConstant.SHOOT_BUTTON)) { return; }
             this.spawnProjectile();
             this.elapsedTime = 0;
