@@ -62,6 +62,6 @@ public class Tile extends Sprite
     {
         if (!this.IsActive()) { return; }
         if (!isVisible()) { return; }
-        this.getOwner().getBatch().draw(ImageFactory.getTexture(this.fileName), this.x, this.y, width, height);
+        this.getOwner().getBatch().draw(ImageFactory.getSprite(this.fileName), this.x, this.y, width, height);
     }
 }
