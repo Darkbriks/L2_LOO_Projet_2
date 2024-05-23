@@ -18,6 +18,7 @@ public class ChunkHelper
     private static final String[][] level0;
     private static final String[][] level1;
     private static final String[][] level2;
+    private static final String[][] level3;
 
     static
     {
@@ -59,10 +60,17 @@ public class ChunkHelper
             { GameConstant.CHUNK_PATH("6", 2) },
         };
 
+        level3 = new String[][]
+                {
+                        { GameConstant.CHUNK_PATH("0", 2),GameConstant.CHUNK_PATH("0", 2) },
+                        { GameConstant.CHUNK_PATH("1", 2),"" },
+                };
+
         chunkListByLevel = new ArrayList<>();
         chunkListByLevel.add(level0);
         chunkListByLevel.add(level1);
         chunkListByLevel.add(level2);
+        chunkListByLevel.add(level3);
     }
 
     static {
