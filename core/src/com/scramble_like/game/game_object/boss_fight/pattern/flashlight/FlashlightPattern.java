@@ -12,7 +12,8 @@ import com.scramble_like.game.map.AbstractLevel;
 public abstract class FlashlightPattern implements Pattern, TickableObject
 {
     protected float angle = 0;
-    protected int numberOfTurns = 1;
+    protected boolean reverse;
+    protected float numberOfTurns = 1;
     protected float timeBetweenFires = 0.25f;
     protected float duration = 3;
     protected float speed = 350;
@@ -23,8 +24,21 @@ public abstract class FlashlightPattern implements Pattern, TickableObject
     private AbstractLevel level;
     private Boss boss;
 
-    public FlashlightPattern(int numberOfTurns, float timeBetweenFires, float duration, float speed, float range)
+    public FlashlightPattern(float numberOfTurns, float timeBetweenFires, float duration, float speed, float range)
     {
+        this.reverse = false;
+        this.numberOfTurns = numberOfTurns;
+        this.timeBetweenFires = timeBetweenFires;
+        this.duration = duration;
+        this.speed = speed;
+        this.range = range;
+        this.isRunning = false;
+        ScrambleLikeApplication.getInstance().AddTickableObject(this);
+    }
+
+    public FlashlightPattern(float numberOfTurns, float timeBetweenFires, float duration, float speed, float range, boolean reverse)
+    {
+        this.reverse = reverse;
         this.numberOfTurns = numberOfTurns;
         this.timeBetweenFires = timeBetweenFires;
         this.duration = duration;
@@ -68,6 +82,7 @@ public abstract class FlashlightPattern implements Pattern, TickableObject
                     catch (Exception e) { Gdx.app.error("FlashlightPattern", "Error while creating rockets: " + e.getMessage()); }
                 }
                 float alpha = elapsedTime / duration;
+                if (reverse) { alpha *= -1; }
                 angle = 360 * alpha * numberOfTurns;
             }
         }
