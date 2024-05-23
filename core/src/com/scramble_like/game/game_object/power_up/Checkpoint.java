@@ -11,8 +11,8 @@ public class Checkpoint extends PowerUp
 
     public Checkpoint(String name, Scene scene, float x, float y) throws SceneIsNullException
     {
-        super(name, scene, x, y, 250);
-        this.AddComponent(new Sprite("badlogic.jpg"));
+        super(name, scene, x, y, 100);
+        /*this.AddComponent(new Sprite("badlogic.jpg"));*/
     }
 
     @Override

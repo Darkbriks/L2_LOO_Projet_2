@@ -19,7 +19,7 @@ public class Writer {
 
     }
 
-    public static void writeSetting(String valeur, String option, String fileName, Map<Integer, String> list, boolean highscore){
+    public static void writeSetting(String valeur, String option, String fileName, List<String> list, boolean highscore){
         String currentDir = System.getProperty("user.dir");
         File file = new File(currentDir, fileName);
         System.out.println(file.getAbsolutePath());

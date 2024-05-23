@@ -10,6 +10,8 @@ import com.scramble_like.game.map.Level_2;
 import com.scramble_like.game.map.Level_3;
 import com.scramble_like.game.map.MainMenu;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class GameConstant
@@ -59,15 +61,16 @@ public class GameConstant
     public static final String SOUND_EFFECTS_OPTION = "SoundVolume";
     public static final String PLAYER_SPEED_OPTION = "Speed";
 
-    public static final Map<Integer,String> OPTION_LIST = Map.of(
-            0, "Volume",
-            1, "SoundVolume",
-            2, "Speed");
+    public static final List<String> OPTION_LIST = Arrays.asList(
+            "Volume",
+            "SoundVolume",
+            "Speed"
+    );
 
-    public static final Map<Integer,String> HIGHSCORE_LIST = Map.of(
-            0, "highscore_1",
-            1,"highscore_2");
-
+    public static final List<String> HIGHSCORE_LIST = Arrays.asList(
+            "highscore_1",
+            "highscore_2"
+    );
     // UI Position
     public static final int SCORE_X = WIDTH / 2 - 70;
     public static final int SCORE_Y = HEIGHT / 2 - 50;

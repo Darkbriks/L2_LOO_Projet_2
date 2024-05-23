@@ -52,8 +52,7 @@ public abstract class AbstractLevel extends Scene
             levelLoader.getTransform().setLocation(levelLoaderLocation.x,levelLoaderLocation.y);
             AddGameObject(levelLoader);
 
-            Checkpoint checkpoint = new Checkpoint("Checkpoint", this, 600, 150);
-            AddGameObject(checkpoint);
+
 
         }
         catch (SceneIsNullException e) { Gdx.app.error("Abstract", "Error: " + e.getMessage()); }
