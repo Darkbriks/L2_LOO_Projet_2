@@ -30,8 +30,12 @@ public class GameConstant
     public static float PLAYER_SPEED = Writer.getSetting(GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE);;
     public static final int PLAYER_LIFE = 50;
     public static final int SCORE_LOST_ON_HIT = 1000;
-    public static final int BOTTOM_LIMIT = -250;
-    public static final int TOP_LIMIT = 250;
+    public static final int BOTTOM_SCROLL_LIMIT = -250;
+    public static final int TOP_SCROLL_LIMIT = 250;
+    public static final int LEFT_SCROLL_LIMIT = -400;
+    public static final int RIGHT_SCROLL_LIMIT = 400;
+    public static final int BOTTOM_LIMIT = HEIGHT / 2 - 50;
+    public static final int TOP_LIMIT = HEIGHT / 2 - 50;
     public static final int LEFT_LIMIT = WIDTH / 2 - 50;
     public static final int RIGHT_LIMIT = WIDTH / 2 - 50;
     public static final Vector4 PLAYER_IDLE_COLLIDER = new Vector4(20, 30, -7.5f, 0);
