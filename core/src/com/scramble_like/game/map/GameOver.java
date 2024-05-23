@@ -66,9 +66,9 @@ public class GameOver extends Scene
         });
         this.getStage().addActor(mainMenuButton);
 
-
-        AE_Label retryFromLastCheckpointButton = new AE_Label("Retry From Last Position", this.getSkin());
-        retryFromLastCheckpointButton.setPosition(-retryFromLastCheckpointButton.getWidth() / 2, -150);
+        if(retryFromLastCheckpoint) {
+            AE_Label retryFromLastCheckpointButton = new AE_Label("Retry From Last Position", this.getSkin());
+            retryFromLastCheckpointButton.setPosition(-retryFromLastCheckpointButton.getWidth() / 2, -150);
             retryFromLastCheckpointButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -82,8 +82,8 @@ public class GameOver extends Scene
                     }
                 }
             });
-        this.getStage().addActor(retryFromLastCheckpointButton);
-
+            this.getStage().addActor(retryFromLastCheckpointButton);
+        }
         AE_Label exitButton = new AE_Label("Exit", this.getSkin());
         exitButton.setPosition(- exitButton.getWidth() / 2, - 200);
         exitButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); } });
