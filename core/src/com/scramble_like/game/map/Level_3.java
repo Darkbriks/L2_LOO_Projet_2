@@ -21,7 +21,7 @@ public class Level_3 extends AbstractLevel
         try
         {
             AddGameObject(new InverseScrolling("InverseScrolling", this, 1112.5f, 5037.5f));
-            AddGameObject(new SpawBoss("SpawnBoss", this, 1212.5f, 5037.5f, new Vector2(1162.5f, 5037.5f)));
+            AddGameObject(new SpawBoss("SpawnBoss", this, 1712.5f, 5037.5f, new Vector2(1162.5f, 5037.5f)));
         }
         catch (Exception e) { Gdx.app.error("Level_3", "Error while adding InverseScrolling"); }
     }

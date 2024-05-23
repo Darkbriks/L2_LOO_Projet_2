@@ -13,7 +13,7 @@ public class SpawBoss extends PowerUp
 
     public SpawBoss(String name, Scene scene, float x, float y, Vector2 bossLocation) throws SceneIsNullException
     {
-        super(name, scene, x, y, 100);
+        super(name, scene, x, y, 500);
         this.bossLocation = bossLocation;
     }
 
