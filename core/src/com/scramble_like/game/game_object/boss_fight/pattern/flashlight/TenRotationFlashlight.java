@@ -4,6 +4,6 @@ public class TenRotationFlashlight extends  FlashlightPattern
 {
     public TenRotationFlashlight()
     {
-        super(10, 0.1f, 10, 400, 1000);
+        super(10, 0.025f, 7.5f, 400, 1000);
     }
 }
