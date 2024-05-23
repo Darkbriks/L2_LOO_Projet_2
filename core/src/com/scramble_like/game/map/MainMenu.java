@@ -44,11 +44,16 @@ public class MainMenu extends Scene
         levelMapButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new LevelMap()); dispose(); } });
         this.getStage().addActor(levelMapButton);
 
+        Label optionButton = new AE_Label("Options", this.getSkin());
+        optionButton.setSize(200,50);
+        optionButton.setPosition(-optionButton.getWidth() / 2 , getCamera().getPosition().y - 90);
+        optionButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new OptionMenu()); dispose(); } });
+        this.getStage().addActor(optionButton);
+
         Label exitButton = new AE_Label("Exit", this.getSkin());
         exitButton.setSize(200,50);
         exitButton.setPosition(-exitButton.getWidth() / 2 + 100, getCamera().getPosition().y - 50);
-        exitButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new OptionMenu()); dispose(); } });
-        //exitButton.addListener(new ClickListener() {  @Override public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); } });
+        exitButton.addListener(new ClickListener() {  @Override public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); } });
         this.getStage().addActor(exitButton);
 
         try
