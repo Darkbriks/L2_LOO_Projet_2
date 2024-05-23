@@ -50,9 +50,9 @@ public class GameConstant
             3, Level_3.class);
 
     public static final Map<Integer,String> OPTION_LIST = Map.of(
-            0, "",
-            1, "",
-            2, "",
+            0, "Volume",
+            1, "Sound Volume",
+            2, "Speed",
             3, "");
 
     public static final Map<Integer,String> HIGHSCORE_LIST = Map.of(
@@ -69,7 +69,7 @@ public class GameConstant
     public static final int LIFE_Y = HEIGHT / 2 - 60;
 
     // Input
-    public static final int TOGGLE_PAUSE = Input.Keys.ESCAPE;
+    public static int TOGGLE_PAUSE = Input.Keys.ESCAPE;
     public static final int TOGGLE_DEBUG = Input.Keys.F1;
     public static final int TOGGLE_GOD_MODE = Input.Keys.F2;
     public static final int[] MOVE_UP = { Input.Keys.W, Input.Keys.UP };
