@@ -20,7 +20,8 @@ public class ControlConfig extends Scene {
     private TextButton currentButton;
     private String currentAction;
 
-    public ControlConfig() {
+    public ControlConfig()
+    {
         super("ControlConfigScreen");
         getCamera().setPosition(0, 0);
         controlList = new HashMap<>();
@@ -28,7 +29,8 @@ public class ControlConfig extends Scene {
         createUI();
     }
 
-    private void loadControlSettings() {
+    private void loadControlSettings()
+    {
         controlList.put("Move Up", Writer.getSetting("Move Up", CONTROLS_FILE));
         controlList.put("Move Down", Writer.getSetting("Move Down", CONTROLS_FILE));
         controlList.put("Move Left", Writer.getSetting("Move Left", CONTROLS_FILE));
@@ -38,15 +40,17 @@ public class ControlConfig extends Scene {
         controlList.put("Pause", Writer.getSetting("Pause", CONTROLS_FILE));
     }
 
-    private void createUI() {
+    private void createUI()
+    {
         Table table = new Table();
         table.setFillParent(true);
         table.center();
+        table.setPosition((float) -GameConstant.WIDTH / 2, (float) -GameConstant.HEIGHT / 2);
 
         // Create title label
         Label titleLabel = new Label("Control Configuration", getSkin(), "default");
         titleLabel.setFontScale(2);
-        table.add(titleLabel).colspan(2).padTop(400).padRight(1200);
+        table.add(titleLabel).colspan(2).padBottom(50);
         table.row();
 
         // Create control configuration entries
@@ -68,7 +72,7 @@ public class ControlConfig extends Scene {
                 dispose();
             }
         });
-        table.add(backButton).colspan(2).padTop(20).padRight(1200);
+        table.add(backButton).colspan(2).padTop(10);
 
         getStage().addActor(table);
 
@@ -128,7 +132,7 @@ public class ControlConfig extends Scene {
             }
         });
         table.add(actionLabel).padBottom(10);
-        table.add(keyButton).padBottom(10).padRight(1200);
+        table.add(keyButton).padBottom(10);
         table.row();
     }
 
