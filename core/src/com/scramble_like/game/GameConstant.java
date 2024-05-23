@@ -27,11 +27,16 @@ public class GameConstant
     // Background
     public static int BACKGROUND_SPEED = -50;
 
+    // Golden Strawberry
+    public static final boolean LEVEL_1_GOLDEN_STRAWBERRY = Writer.getGoldenStrawberry(1);
+    public static final boolean LEVEL_2_GOLDEN_STRAWBERRY = Writer.getGoldenStrawberry(2);
+    public static final boolean LEVEL_3_GOLDEN_STRAWBERRY = Writer.getGoldenStrawberry(3);
+
     // Player
     public static float CAMERA_SPEED = 250;
     public static float PLAYER_SPEED = 500;
     public static float CAMERA_SPEED_MULTIPLIER = (Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE)/100.0f)+0.5f;
-    public static final int PLAYER_LIFE = 100;
+    public static final int PLAYER_LIFE = 100 + (LEVEL_1_GOLDEN_STRAWBERRY ? 25 : 0) + (LEVEL_2_GOLDEN_STRAWBERRY ? 50 : 0) + (LEVEL_3_GOLDEN_STRAWBERRY ? 125 : 0);
     public static final int SCORE_LOST_ON_HIT = 100;
     public static final int BOTTOM_SCROLL_LIMIT = -250;
     public static final int TOP_SCROLL_LIMIT = 250;

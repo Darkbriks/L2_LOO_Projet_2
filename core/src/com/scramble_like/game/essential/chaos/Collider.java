@@ -99,6 +99,7 @@ public abstract class Collider extends Component
 
     protected void BeginOverlap(Collider other)
     {
+        if (this.getOwner() == null || other.getOwner() == null) return;
         this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.BEGIN_OVERLAP, new EventBeginOverlap(this.getOwner(), this, other.getOwner(), other));
     }
 

@@ -50,7 +50,7 @@ public abstract class AbstractLevel extends Scene
             AddGameObject(chunkManager);
             chunkManager.setPlayer(player);
 
-            LevelLoader levelLoader = new LevelLoader("LevelLoader", this, (level + 1) % GameConstant.LEVEL_LIST.size());
+            LevelLoader levelLoader = new LevelLoader("LevelLoader", this, (level + 1) % GameConstant.LEVEL_LIST.size(), level);
             levelLoader.getTransform().setLocation(levelLoaderLocation.x,levelLoaderLocation.y);
             AddGameObject(levelLoader);
         }

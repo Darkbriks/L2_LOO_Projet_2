@@ -7,12 +7,13 @@ import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.game_object.effect.Checkpoint;
+import com.scramble_like.game.game_object.effect.GoldenStrawberry;
 
 public class Level_1 extends AbstractLevel
 {
     public Level_1()
     {
-        super("Level_1", 1, 200, -50, new Vector2(9160, 60));
+        super("Level_1", 1, 150, -50, new Vector2(9160, 60));
 
         DynamicObjectLoader.getInstance().loadAll(this, "Level_1_DynamicObject.txt");
         SoundFactory.getInstance().changeBackgroundMusicWithFade(GameConstant.MUSIC_PATH("level_1.mp3"), GameConstant.SOUND_MUSIC_VOLUME, 3);
@@ -25,6 +26,8 @@ public class Level_1 extends AbstractLevel
             AddGameObject(checkpoint1);
             AddGameObject(checkpoint2);
             AddGameObject(checkpoint3);
+
+            AddGameObject(new GoldenStrawberry("GoldenStrawberry", this, 500, 10));
         }
         catch (SceneIsNullException e) { throw new RuntimeException(e); }
     }

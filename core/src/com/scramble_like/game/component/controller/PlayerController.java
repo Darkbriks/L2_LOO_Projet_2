@@ -17,6 +17,7 @@ public class PlayerController extends CharacterController
     private GameCamera camera;
     private boolean inverseScroll; // false, scroll is horizontal, true, scroll is vertical
     private Vector2 origin;
+    protected boolean hasGoldenStrawberry = false;
 
     public PlayerController(AnimationController animationController, AABBCollider collider)
     {
@@ -31,6 +32,9 @@ public class PlayerController extends CharacterController
     public Vector2 getOrigin() { return origin; }
     public void setOrigin(Vector2 origin) { this.origin = origin; }
 
+    public boolean hasGoldenStrawberry() { return hasGoldenStrawberry; }
+    public void setGoldenStrawberry(boolean hasGoldenStrawberry) { this.hasGoldenStrawberry = hasGoldenStrawberry; }
+
     @Override
     public void BeginPlay()
     {
@@ -43,13 +47,15 @@ public class PlayerController extends CharacterController
     @Override
     public void takeDamage(int damage, float hitCooldown)
     {
+        hasGoldenStrawberry = false;
         if(hitCooldownTimer >= this.hitCooldown)
         {
             super.takeDamage(damage, hitCooldown);
             hitCooldownTimer = 0;
             this.hitCooldown = hitCooldown;
             AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.addScore(-GameConstant.SCORE_LOST_ON_HIT);
-            if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); } }
+            if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
+        }
     }
 
     @Override

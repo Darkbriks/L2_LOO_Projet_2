@@ -7,6 +7,7 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.game_object.effect.Checkpoint;
+import com.scramble_like.game.game_object.effect.GoldenStrawberry;
 import com.scramble_like.game.game_object.effect.InverseScrolling;
 import com.scramble_like.game.game_object.effect.SpawBoss;
 
@@ -31,6 +32,8 @@ public class Level_3 extends AbstractLevel
             AddGameObject(checkpoint2);
             AddGameObject(checkpoint3);
             AddGameObject(checkpoint4);
+
+            AddGameObject(new GoldenStrawberry("GoldenStrawberry", this, 300, -4000));
         }
         catch (Exception e) { Gdx.app.error("Level_3", "Error while adding InverseScrolling"); }
     }
