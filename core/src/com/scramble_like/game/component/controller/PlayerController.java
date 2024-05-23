@@ -28,6 +28,7 @@ public class PlayerController extends CharacterController
     public void reset(){
         this.life = (int) (getLife()*GameConstant.PLAYER_HP_MULTIPLIER);
         this.speed = getSpeed()*GameConstant.PLAYER_SPEED_MULTIPLIER;
+        System.out.println("life : "+life+" speed : "+speed);
     }
     public boolean isInverseScroll() { return inverseScroll; }
     public void setInverseScroll(boolean inverseScroll) { this.inverseScroll = inverseScroll; }
