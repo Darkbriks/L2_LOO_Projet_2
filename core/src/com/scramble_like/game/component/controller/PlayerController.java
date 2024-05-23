@@ -59,7 +59,9 @@ public class PlayerController extends CharacterController
             super.takeDamage(damage, hitCooldown);
             hitCooldownTimer = 0;
             this.hitCooldown = hitCooldown;
-            AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.addScore(-GameConstant.SCORE_LOST_ON_HIT);
+            if (this.getOwner() == null) { return; }
+            AbstractLevel level = (AbstractLevel) this.getOwner().getScene();
+            level.addScore(-GameConstant.SCORE_LOST_ON_HIT);
             if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
         }
     }
