@@ -7,7 +7,7 @@ import com.scramble_like.game.game_object.boss_fight.pattern.Pattern;
 import com.scramble_like.game.game_object.projectiles.Rocket;
 import com.scramble_like.game.map.AbstractLevel;
 
-public abstract class Rockets implements Pattern
+public abstract class RocketPattern implements Pattern
 {
     protected Vector2[] rocketsOffset;
     protected Vector2[] rocketsDirection;
@@ -15,7 +15,7 @@ public abstract class Rockets implements Pattern
     protected float speed = 350;
     protected float range = 500;
 
-    public Rockets(Vector2[] rocketsOffset, Vector2[] rocketsDirection, float duration, float speed, float range)
+    public RocketPattern(Vector2[] rocketsOffset, Vector2[] rocketsDirection, float duration, float speed, float range)
     {
         this.rocketsOffset = rocketsOffset;
         this.rocketsDirection = rocketsDirection;

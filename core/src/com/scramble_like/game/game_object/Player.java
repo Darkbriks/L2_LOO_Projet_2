@@ -36,7 +36,7 @@ public class Player extends GameObject
     {
         super(name, scene);
         this.getTransform().setLocation(location);
-        this.getTransform().setZIndex(CoreConstant.MIN_Z_INDEX + 1);
+        this.getTransform().setZIndex(CoreConstant.MIN_Z_INDEX + 2);
     }
 
     public PlayerController getPlayerController() { return playerController; }

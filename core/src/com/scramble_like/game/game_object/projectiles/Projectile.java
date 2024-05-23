@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.CharacterController;
 import com.scramble_like.game.component.controller.ProjectileController;
+import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -35,6 +36,7 @@ public abstract class Projectile extends GameObject
         this.AddComponent(new AABBCollider(50, 50, false, true));
         this.projectileController = new ProjectileController(start.cpy(), direction, range, speed);
         this.AddComponent(projectileController);
+        this.getTransform().setZIndex(CoreConstant.MIN_Z_INDEX + 1);
     }
 
     /*public Projectile(String name, Scene scene, Vector2 start, Vector2 end, float speed) throws SceneIsNullException

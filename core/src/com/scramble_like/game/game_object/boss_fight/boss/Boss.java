@@ -4,12 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.paper2d.Sprite;
+import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.boss_fight.pattern.Pattern;
-import com.scramble_like.game.game_object.boss_fight.pattern.rockets.BossTransitionRockets;
+import com.scramble_like.game.game_object.boss_fight.pattern.rockets.BossTransitionRocketPattern;
 import com.scramble_like.game.map.AbstractLevel;
 
 public abstract class Boss extends GameObject
@@ -56,6 +57,7 @@ public abstract class Boss extends GameObject
         this.inOutDuration = 5f;
 
         this.getTransform().setScale(3, 3);
+        this.getTransform().setZIndex(CoreConstant.MIN_Z_INDEX);
         this.Enter();
     }
 
@@ -143,7 +145,7 @@ public abstract class Boss extends GameObject
                 {
                     try { Boss newBoss = bossToSpawnOnDeath.getConstructor(Scene.class).newInstance(getScene()); getScene().AddGameObject(newBoss); }
                     catch (Exception e) {  Gdx.app.error("Boss", "Failed to spawn new boss on death"); }
-                    BossTransitionRockets rockets = new BossTransitionRockets();
+                    BossTransitionRocketPattern rockets = new BossTransitionRocketPattern();
                     rockets.Start((AbstractLevel) getScene(), this);
                 }
                 isExiting = false;

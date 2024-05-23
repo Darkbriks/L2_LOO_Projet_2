@@ -2,9 +2,9 @@ package com.scramble_like.game.game_object.boss_fight.pattern.rockets;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class BottomToTopRockets extends Rockets
+public class BottomToTopRocketPattern extends RocketPattern
 {
-    public BottomToTopRockets()
+    public BottomToTopRocketPattern()
     {
         super(new Vector2[] {
                         new Vector2(-1100, -500),
