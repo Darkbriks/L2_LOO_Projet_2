@@ -62,8 +62,8 @@ public class ChunkHelper
 
         level3 = new String[][]
                 {
-                        { GameConstant.CHUNK_PATH("0", 2),GameConstant.CHUNK_PATH("0", 2) },
-                        { GameConstant.CHUNK_PATH("1", 2),"" },
+                        { GameConstant.CHUNK_PATH("0", 3),GameConstant.CHUNK_PATH("1", 3) },
+                        { GameConstant.CHUNK_PATH("0_0", 3),GameConstant.CHUNK_PATH("1_1", 3)},
                 };
 
         chunkListByLevel = new ArrayList<>();
