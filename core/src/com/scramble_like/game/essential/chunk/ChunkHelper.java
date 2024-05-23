@@ -166,17 +166,17 @@ public class ChunkHelper
         tileMap.put(77, propesTilePath3 +"tile034.png");//N
         tileMap.put(78, "");//M
         tileMap.put(79, "");//O
-        tileMap.put(80, "");//P
-        tileMap.put(81, "");//Q
+        tileMap.put(80, propesTilePath2 +"tile136.png");//P
+        tileMap.put(81, propesTilePath2 +"tile138.png");//Q
         tileMap.put(82, propesTilePath2 +"tile153.png");//R
         tileMap.put(83, propesTilePath2 +"tile120.png");//S
         tileMap.put(84, propesTilePath2 +"tile121.png");//T
-        tileMap.put(85, "");//U
-        tileMap.put(86, "");//V
-        tileMap.put(87, "");//W
-        tileMap.put(88, "");//X
-        tileMap.put(89, "");//Y
-        tileMap.put(90, "");
+        tileMap.put(85, propesTilePath2 +"tile152.png");//U
+        tileMap.put(86, propesTilePath2 +"tile154.png");//V
+        tileMap.put(87, propesTilePath2 +"tile169.png");//W
+        tileMap.put(88, propesTilePath2 +"tile168.png");//X
+        tileMap.put(89, propesTilePath2 +"tile170.png");//Y
+        tileMap.put(90, propesTilePath2 +"tile137.png");//Z
         tileMap.put(91, "");
         tileMap.put(92, "");
         tileMap.put(93, "");
