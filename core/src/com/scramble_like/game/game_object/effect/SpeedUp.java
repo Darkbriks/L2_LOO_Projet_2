@@ -3,6 +3,7 @@ package com.scramble_like.game.game_object.effect;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.map.AbstractLevel;
 
@@ -20,6 +21,8 @@ public class SpeedUp extends PowerUp{
         if (getScene() instanceof AbstractLevel)
         {
             GameConstant.PLAYER_SPEED_MULTIPLIER+=0.2f;
+            SoundFactory.getInstance().playSound("PowerUp",GameConstant.SOUND_EFFECT_VOLUME);
+
             getScene().getPlayer().getPlayerController().reset();
             System.out.println(GameConstant.PLAYER_SPEED_MULTIPLIER);
             Destroy();
