@@ -2,9 +2,7 @@ package com.scramble_like.game.map;
 
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
-import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.factory.SoundFactory;
-import com.scramble_like.game.map.AbstractLevel;
 
 public class Level_3 extends AbstractLevel
 {
