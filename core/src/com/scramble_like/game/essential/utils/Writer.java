@@ -85,13 +85,13 @@ public class Writer {
         // Crée le fichier s'il n'existe pas
         if (!file.exists()) {
             if(Objects.equals(option, "Volume")){
-                return 750;
+                return 75;
             }
             if(Objects.equals(option, "SoundVolume")){
-                return 750;
+                return 75;
             }
             if(Objects.equals(option, "ScrollSpeedMultiplier")){
-                return 400;
+                return 100;
             }
             return 0;
         } else {
@@ -109,6 +109,15 @@ public class Writer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        if(Objects.equals(option, "Volume")){
+            return 75;
+        }
+        if(Objects.equals(option, "SoundVolume")){
+            return 75;
+        }
+        if(Objects.equals(option, "ScrollSpeedMultiplier")){
+            return 100;
         }
         return 0;
     }

@@ -3,5 +3,8 @@
 57 0 -4100 Tileset/utile/perle.png
 57 875 -1325 Tileset/utile/statue_casse.png
 57 925 -1600 Tileset/utile/perle.png
-57 -200 1670 Tileset/utile/statue.png
-57 875 4400 Tileset/utile/statue_casse.png
+57 -200 1680 Tileset/utile/statue.png
+57 875 3500 Tileset/utile/statue_casse.png
+48 -500 -4300 -200 -4800
+48 -500 -4400 -200 -4900
+48 -500 -4500 -200 -5000
