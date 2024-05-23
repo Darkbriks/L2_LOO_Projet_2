@@ -57,7 +57,7 @@ public class PlayerController extends CharacterController
     {
         if (!this.IsActive()) { return; }
 
-        AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.addScore(10 * DeltaTime);
+        AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.addScore(10 * DeltaTime * GameConstant.CAMERA_SPEED_MULTIPLIER * GameConstant.CAMERA_SPEED_MULTIPLIER);
         hitCooldownTimer += DeltaTime;
 
         scroll(DeltaTime);
