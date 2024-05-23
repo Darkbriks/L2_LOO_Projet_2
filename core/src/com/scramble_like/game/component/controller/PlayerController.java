@@ -26,6 +26,10 @@ public class PlayerController extends CharacterController
         this.origin = new Vector2(0, 0);
     }
 
+    public void reset(){
+        this.life = (int) (getLife()*GameConstant.PLAYER_HP_MULTIPLIER);
+        this.speed = getSpeed()*GameConstant.PLAYER_SPEED_MULTIPLIER;
+    }
     public boolean isInverseScroll() { return inverseScroll; }
     public void setInverseScroll(boolean inverseScroll) { this.inverseScroll = inverseScroll; }
 

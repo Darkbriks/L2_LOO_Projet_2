@@ -10,7 +10,7 @@ public class CharacterController extends Component
 {
     protected final AnimationController animationController;
     protected final AABBCollider collider;
-    protected final float speed;
+    protected float speed;
     protected int life;
     protected float dx, dy;
 
