@@ -1,4 +1,4 @@
-package com.scramble_like.game.game_object.power_up;
+package com.scramble_like.game.game_object.effect;
 
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;

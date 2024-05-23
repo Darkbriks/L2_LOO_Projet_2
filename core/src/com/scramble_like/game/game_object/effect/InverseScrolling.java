@@ -1,4 +1,4 @@
-package com.scramble_like.game.game_object.power_up;
+package com.scramble_like.game.game_object.effect;
 
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -16,5 +16,6 @@ public class InverseScrolling extends PowerUp
     {
         player.getPlayerController().setInverseScroll(!player.getPlayerController().isInverseScroll());
         player.getPlayerController().setOrigin(getCamera().getPosition());
+        DestroyThisInScene();
     }
 }

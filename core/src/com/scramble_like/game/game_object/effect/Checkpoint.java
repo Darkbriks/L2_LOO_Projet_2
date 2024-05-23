@@ -1,6 +1,5 @@
-package com.scramble_like.game.game_object.power_up;
+package com.scramble_like.game.game_object.effect;
 
-import com.scramble_like.game.component.paper2d.Sprite;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.Player;

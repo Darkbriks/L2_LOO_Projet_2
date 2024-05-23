@@ -6,7 +6,7 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.factory.SoundFactory;
-import com.scramble_like.game.game_object.power_up.Checkpoint;
+import com.scramble_like.game.game_object.effect.Checkpoint;
 
 public class Level_2 extends AbstractLevel
 {

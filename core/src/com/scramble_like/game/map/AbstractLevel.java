@@ -11,7 +11,7 @@ import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.utils.Writer;
 import com.scramble_like.game.game_object.Background;
-import com.scramble_like.game.game_object.power_up.Checkpoint;
+import com.scramble_like.game.game_object.effect.Checkpoint;
 import com.scramble_like.game.game_object.LevelLoader;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.ui.AE_Label;
