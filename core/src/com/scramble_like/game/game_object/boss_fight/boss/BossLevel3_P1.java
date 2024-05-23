@@ -5,22 +5,20 @@ import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.boss_fight.pattern.Pattern;
-import com.scramble_like.game.game_object.boss_fight.pattern.flashlight.*;
-import com.scramble_like.game.game_object.boss_fight.pattern.rockets.BottomToTopRocketPattern;
 import com.scramble_like.game.game_object.boss_fight.pattern.rockets.FiveAlignedRocketPattern;
 import com.scramble_like.game.game_object.boss_fight.pattern.rockets.FiveCenteredRocketPattern;
 
-public class Boss_1 extends Boss
+public class BossLevel3_P1 extends Boss
 {
-    public Boss_1(Scene scene) throws SceneIsNullException
+    public BossLevel3_P1(Scene scene) throws SceneIsNullException
     {
-        super("Boss_1",
+        super("P1",
                 scene,
-                500,
-                new Pattern[] { new FiveAlignedRocketPattern(), new FiveCenteredRocketPattern(), new BottomToTopRocketPattern(), new ThreeHundredAndSixtyFlashlight(), new RandomFlashlight(), new NovaFlashlight(), new TenRotationFlashlight(), new DoubleFlashlightPattern()},
-                2,
+                100,
+                new Pattern[] { new FiveAlignedRocketPattern(), new FiveCenteredRocketPattern()},
+                0,
                 new Sprite("Characters/Boss/Ship6/Ship6.png"),
                 new AABBCollider(350, 175, false, true),
-                null);
+                BossLevel3_P2.class);
     }
 }

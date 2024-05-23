@@ -157,7 +157,12 @@ public abstract class Boss extends GameObject
             {
                 if (bossToSpawnOnDeath != null)
                 {
-                    try { Boss newBoss = bossToSpawnOnDeath.getConstructor(Scene.class).newInstance(getScene()); getScene().AddGameObject(newBoss); }
+                    try
+                    {
+                        Boss newBoss = bossToSpawnOnDeath.getConstructor(Scene.class).newInstance(getScene());
+                        newBoss.getTransform().setLocation(this.getTransform().getLocation());
+                        getScene().AddGameObject(newBoss);
+                    }
                     catch (Exception e) {  Gdx.app.error("Boss", "Failed to spawn new boss on death"); }
                     BossTransitionRocketPattern rockets = new BossTransitionRocketPattern();
                     rockets.Start((AbstractLevel) getScene(), this);
