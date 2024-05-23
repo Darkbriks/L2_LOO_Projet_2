@@ -10,7 +10,7 @@ public class Level_3 extends AbstractLevel
 {
     public Level_3()
     {
-        super("Level_3", 3,200, new Vector2(9160, 60));
+        super("Level_3", 3,200, 100, new Vector2(9160, 60));
         //DynamicObjectLoader.getInstance().loadAll(this, "Level_2_DynamicObject.txt");
         SoundFactory.getInstance().playBackgroundMusicWithFade(GameConstant.MUSIC_PATH("level_3.mp3"), GameConstant.SOUND_MUSIC_VOLUME, 10);
     }
