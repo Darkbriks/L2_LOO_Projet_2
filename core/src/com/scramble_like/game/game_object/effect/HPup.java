@@ -21,6 +21,7 @@ public class HPup extends PowerUp{
             GameConstant.PLAYER_HP_MULTIPLIER+=0.5f;
             getScene().getPlayer().getPlayerController().reset();
             System.out.println(GameConstant.PLAYER_HP_MULTIPLIER);
+            Destroy();
         }
     }
 }

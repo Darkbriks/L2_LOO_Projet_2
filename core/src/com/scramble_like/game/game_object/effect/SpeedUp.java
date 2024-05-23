@@ -22,7 +22,7 @@ public class SpeedUp extends PowerUp{
             GameConstant.PLAYER_SPEED_MULTIPLIER+=0.2f;
             getScene().getPlayer().getPlayerController().reset();
             System.out.println(GameConstant.PLAYER_SPEED_MULTIPLIER);
-
+            Destroy();
         }
     }
 }

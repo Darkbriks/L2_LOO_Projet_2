@@ -20,6 +20,7 @@ public class DmgUp extends PowerUp {
         {
             GameConstant.PLAYER_ATTACK_MULTIPLIER+=0.2f;
             System.out.println(GameConstant.PLAYER_ATTACK_MULTIPLIER);
+            Destroy();
         }
     }
 }
