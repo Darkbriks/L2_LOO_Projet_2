@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.scramble_like.game.GameConstant;
-import com.scramble_like.game.component.controller.PlayerController;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -26,6 +25,7 @@ public abstract class AbstractLevel extends Scene
     private int currentframe;
     private final int level;
     protected Checkpoint lastCheckpoint;
+    protected float score;
 
     public AbstractLevel(String name, int level, float cameraSpeed, int backgroundSpeed, Vector2 levelLoaderLocation)
     {
@@ -62,6 +62,9 @@ public abstract class AbstractLevel extends Scene
     protected abstract Vector4 getInitPlayerAndCameraLocation();
     public void setLastCheckpoint(Checkpoint lastCheckpoint) { this.lastCheckpoint = lastCheckpoint; }
 
+    public int getScore() { return (int) score; }
+    public void addScore(float score) { this.score += score; }
+
     public void GameOver(int score)
     {
         int x = 0, y = 0;
@@ -87,7 +90,7 @@ public abstract class AbstractLevel extends Scene
         lifeActor.setCurrentRegion(currentframe);
         this.getStage().addActor(lifeActor);
 
-        scoreActor = new AE_Label( "Score : "+ this.getPlayer().GetFirstComponentFromClass(PlayerController.class).getScore(), this.getSkin());
+        scoreActor = new AE_Label( "Score : "+ getScore(), this.getSkin());
         scoreActor.setPosition(-700,390);
         scoreActor.setFontScale(1.5f,1.5f);
         this.getStage().addActor(scoreActor);
@@ -108,7 +111,7 @@ public abstract class AbstractLevel extends Scene
     @Override
     public void render(float delta)
     {
-        this.scoreActor.setText("Score : " + this.getPlayer().GetFirstComponentFromClass(PlayerController.class).getScore() + "  FPS : " + Gdx.graphics.getFramesPerSecond());
+        this.scoreActor.setText("Score : " + getScore());
         this.scoreActor.setPosition(getCamera().getPosition().x - GameConstant.SCORE_X, getCamera().getPosition().y + GameConstant.SCORE_Y);
         this.highscoreActor.setPosition(getCamera().getPosition().x - GameConstant.HIGHSCORE_X, getCamera().getPosition().y + GameConstant.HIGHSCORE_Y);
         this.lifeActor.setPosition(getCamera().getPosition().x - GameConstant.LIFE_X, getCamera().getPosition().y + GameConstant.LIFE_Y);
@@ -123,7 +126,7 @@ public abstract class AbstractLevel extends Scene
     public void dispose()
     {
         super.dispose();
-        Writer.writeSetting(String.valueOf(getPlayer().getPlayerController().getScore()), "highscore_"+level,"highscore.txt",GameConstant.HIGHSCORE_LIST,true);
+        Writer.writeSetting(String.valueOf(getScore()), "highscore_"+level,"highscore.txt",GameConstant.HIGHSCORE_LIST,true);
         System.out.println(Writer.getSetting( "highscore_"+level,"highscore.txt"));
     }
 }

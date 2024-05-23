@@ -14,7 +14,6 @@ public class PlayerController extends CharacterController
 {
     private float hitCooldown;
     private float hitCooldownTimer;
-    private int score;
     private GameCamera camera;
     private boolean inverseScroll; // false, scroll is horizontal, true, scroll is vertical
     private Vector2 origin;
@@ -43,10 +42,7 @@ public class PlayerController extends CharacterController
         camera = this.getOwner().getScene().getGame().getCamera();
         hitCooldown = 0;
         hitCooldownTimer = 0;
-        score = 0;
     }
-
-    public int getScore() { return score; }
 
     @Override
     public void takeDamage(int damage, float hitCooldown)
@@ -56,7 +52,7 @@ public class PlayerController extends CharacterController
             super.takeDamage(damage, hitCooldown);
             hitCooldownTimer = 0;
             this.hitCooldown = hitCooldown;
-            this.score = Utils.clamp(this.score - GameConstant.SCORE_LOST_ON_HIT, 0, Integer.MAX_VALUE);
+            AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.addScore(-GameConstant.SCORE_LOST_ON_HIT);
             if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); } }
     }
 
@@ -65,7 +61,7 @@ public class PlayerController extends CharacterController
     {
         if (!this.IsActive()) { return; }
 
-        this.score+= (int) (5*GameConstant.CAMERA_SPEED_MULTIPLIER);
+        AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.addScore(10 * DeltaTime * GameConstant.CAMERA_SPEED_MULTIPLIER * GameConstant.CAMERA_SPEED_MULTIPLIER);
         hitCooldownTimer += DeltaTime;
 
         scroll(DeltaTime);
@@ -149,6 +145,6 @@ public class PlayerController extends CharacterController
     {
         super.die();
         this.getOwner().getScene().getEventDispatcher().DispatchEvent(EventIndex.DIE,new PlayerDieEvent(this.getOwner()));
-        AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.GameOver(score);
+        AbstractLevel level = (AbstractLevel) this.getOwner().getScene(); level.GameOver(level.getScore());
     }
 }

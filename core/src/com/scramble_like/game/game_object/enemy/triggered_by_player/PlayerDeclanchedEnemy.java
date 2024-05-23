@@ -14,9 +14,9 @@ import java.util.EventObject;
 
 public abstract class PlayerDeclanchedEnemy extends Enemy
 {
-    public PlayerDeclanchedEnemy(String name, Scene scene, String spriteFolderPath, int life, float shootSpeed, int[] animationFrames, Vector2[] waypoints, float movementSpeed, float timeBetweenWaypoints, Vector2 overlapSize) throws SceneIsNullException
+    public PlayerDeclanchedEnemy(String name, Scene scene, String spriteFolderPath, int life, int score, float shootSpeed, int[] animationFrames, Vector2[] waypoints, float movementSpeed, float timeBetweenWaypoints, Vector2 overlapSize) throws SceneIsNullException
     {
-        super(name, scene, spriteFolderPath, life, shootSpeed, animationFrames, waypoints, movementSpeed, timeBetweenWaypoints);
+        super(name, scene, spriteFolderPath, life, score, shootSpeed, animationFrames, waypoints, movementSpeed, timeBetweenWaypoints);
         this.AddComponent(new AABBCollider(overlapSize.x, overlapSize.y, true, true));
     }
 

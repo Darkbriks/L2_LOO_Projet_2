@@ -4,11 +4,13 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.chaos.Collider;
+import com.scramble_like.game.map.AbstractLevel;
 
 import java.util.ArrayList;
 
 public class EnemyController extends CharacterController
 {
+    private final int score;
     private int currentPoint;
     private float currentDistance;
     private Vector2[] points;
@@ -19,7 +21,7 @@ public class EnemyController extends CharacterController
     private Interpolation xInterpolation;
     private Interpolation yInterpolation;
 
-    public EnemyController(AnimationController animationController, AABBCollider collider, float speed, int life, Vector2[] patrol, float timeBetweenWaypoints)
+    public EnemyController(AnimationController animationController, AABBCollider collider, float speed, int life, Vector2[] patrol, float timeBetweenWaypoints, int score)
     {
         super(animationController, collider, speed, life);
         this.currentPoint = -1;
@@ -31,6 +33,7 @@ public class EnemyController extends CharacterController
         this.points = patrol;
         this.xInterpolation = Interpolation.linear;
         this.yInterpolation = Interpolation.linear;
+        this.score = score;
 
         if (this.points.length >= 2) { this.updateTargetPosition(); }
     }
@@ -107,6 +110,8 @@ public class EnemyController extends CharacterController
     protected void die()
     {
         super.die();
+        AbstractLevel level = (AbstractLevel) this.getOwner().getScene();
+        level.addScore(this.score);
         this.getOwner().DestroyThisInScene();
     }
 }

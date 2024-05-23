@@ -1,6 +1,5 @@
 package com.scramble_like.game.map;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -25,7 +24,6 @@ public class OptionMenu extends Scene {
     {
         Table table = new Table();
         table.setPosition((float) -GameConstant.WIDTH / 2, (float) -GameConstant.HEIGHT / 2);
-        //table.setDebug(true, true);
         table.setFillParent(true);
         table.center();
 
@@ -40,10 +38,9 @@ public class OptionMenu extends Scene {
         volumeSlider.setValue(initialVolume);
         volumeSlider.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor)
+            {
                 float volume = volumeSlider.getValue();
-                Gdx.app.log("OptionMenu", "Volume adjusted to: " + volume);
-
                 Writer.writeSetting(String.valueOf((int) (volume * 100)), GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
                 GameConstant.SOUND_MUSIC_VOLUME = volume;
             }
@@ -58,9 +55,9 @@ public class OptionMenu extends Scene {
         soundEffectsSlider.setValue(initialSoundEffect);
         soundEffectsSlider.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor)
+            {
                 float soundEffect = soundEffectsSlider.getValue();
-                Gdx.app.log("OptionMenu", "Player speed adjusted to: " + soundEffect);
                 Writer.writeSetting(String.valueOf((int) soundEffect*100), GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
                 GameConstant.SOUND_EFFECT_VOLUME = soundEffect;
             }
@@ -73,7 +70,8 @@ public class OptionMenu extends Scene {
         speedSlider = new Slider(0,100,1,false,getSkin());
         float initialPlayerSpeed = Writer.getSetting(String.valueOf(GameConstant.CAMERA_SPEED_MULTIPLIER), GameConstant.SETTINGS_FILE);
         speedSlider.setValue(initialPlayerSpeed);
-        speedSlider.addListener(new ChangeListener() {
+        speedSlider.addListener(new ChangeListener()
+        {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float playerSpeed = speedSlider.getValue();
@@ -88,7 +86,8 @@ public class OptionMenu extends Scene {
 
         Label controlsLabel = new Label("Controls", getSkin(), "default");
         TextButton controlsButton = new TextButton("Configure", getSkin());
-        controlsButton.addListener(new ChangeListener() {
+        controlsButton.addListener(new ChangeListener()
+        {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 getGame().setScreen(new ControlConfig());
@@ -100,7 +99,8 @@ public class OptionMenu extends Scene {
         table.row();
 
         TextButton backButton = new TextButton("Back", getSkin());
-        backButton.addListener(new ChangeListener() {
+        backButton.addListener(new ChangeListener()
+        {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 getGame().setScreen(new MainMenu());
