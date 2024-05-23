@@ -1,0 +1,7 @@
+57 400 -5250 Tileset/utile/perle.png
+57 -50 -3420 Tileset/utile/statue.png
+57 0 -4100 Tileset/utile/perle.png
+57 875 -1325 Tileset/utile/statue_casse.png
+57 925 -1600 Tileset/utile/perle.png
+57 -200 1670 Tileset/utile/statue.png
+57 875 4400 Tileset/utile/statue_casse.png
