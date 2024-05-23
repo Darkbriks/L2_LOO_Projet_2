@@ -15,7 +15,7 @@ public class OptionMenu extends Scene {
 
     private static final String SETTINGS_FILE = "settings.txt";
     private static final String VOLUME_OPTION = "Volume";
-    private static final String SOUND_EFFECTS_OPTION = "Volume";
+    private static final String SOUND_EFFECTS_OPTION = "Sound Volume";
     private static final String PLAYER_SPEED_OPTION = "speed";
     private Map<Integer, String> optionList;
     private Slider volumeSlider;
@@ -24,7 +24,7 @@ public class OptionMenu extends Scene {
 
     public OptionMenu() {
         super("OptionMenu");
-        optionList = new HashMap<>();
+        optionList = new HashMap<>(GameConstant.OPTION_LIST);
         createUI();
     }
 
@@ -38,7 +38,6 @@ public class OptionMenu extends Scene {
         table.add(titleLabel).colspan(2).padTop(400).padRight(1200);
         table.row();
 
-        // Create volume control slider
         Label volumeLabel = new Label("Volume", getSkin(), "default");
         volumeSlider = new Slider(0, 1, 0.01f, false, getSkin());
         float initialVolume = Writer.getSetting(VOLUME_OPTION, SETTINGS_FILE) / 100.0f;
@@ -57,9 +56,9 @@ public class OptionMenu extends Scene {
         table.add(volumeSlider).padBottom(10).padRight(1200);
         table.row();
 
-        Label soundEffectsLabel = new Label("Player Speed",getSkin(),"default");
-        soundEffectsSlider = new Slider(100,1000,1,false,getSkin());
-        float initialSoundEffect = Writer.getSetting(PLAYER_SPEED_OPTION, SETTINGS_FILE);
+        Label soundEffectsLabel = new Label("Sounds Effects",getSkin(),"default");
+        soundEffectsSlider = new Slider(0,1,0.01f,false,getSkin());
+        float initialSoundEffect = Writer.getSetting(SOUND_EFFECTS_OPTION, SETTINGS_FILE);
         soundEffectsSlider.setValue(initialSoundEffect);
         soundEffectsSlider.addListener(new ChangeListener() {
             @Override

@@ -50,9 +50,9 @@ public class GameConstant
             3, Level_3.class);
 
     public static final Map<Integer,String> OPTION_LIST = Map.of(
-            0, "",
-            1, "",
-            2, "",
+            0, "Volume",
+            1, "Sound Volume",
+            2, "Speed",
             3, "");
 
     public static final Map<Integer,String> HIGHSCORE_LIST = Map.of(
