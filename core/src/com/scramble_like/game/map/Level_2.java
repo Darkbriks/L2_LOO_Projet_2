@@ -7,6 +7,7 @@ import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.game_object.effect.Checkpoint;
+import com.scramble_like.game.game_object.effect.SpeedUp;
 
 public class Level_2 extends AbstractLevel
 {
@@ -20,6 +21,7 @@ public class Level_2 extends AbstractLevel
         {
             Checkpoint checkpoint1 = new Checkpoint("Checkpoint", this, 1250, -340);
             Checkpoint checkpoint2 = new Checkpoint("Checkpoint", this, 3950, -365);
+            AddGameObject(new SpeedUp("SpeedUp", this, 650, -400));
             AddGameObject(checkpoint1);
             AddGameObject(checkpoint2);
         }
