@@ -8,7 +8,7 @@ public class InverseScrolling extends PowerUp
 {
     public InverseScrolling(String name, Scene scene, float x, float y) throws SceneIsNullException
     {
-        super(name, scene, x, y, 250);
+        super(name, scene, x, y, 100);
     }
 
     @Override
