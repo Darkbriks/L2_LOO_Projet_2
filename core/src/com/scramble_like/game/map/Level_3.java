@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.factory.SoundFactory;
+import com.scramble_like.game.game_object.effect.*;
 import com.scramble_like.game.game_object.effect.Checkpoint;
 import com.scramble_like.game.game_object.effect.GoldenStrawberry;
 import com.scramble_like.game.game_object.effect.InverseScrolling;
@@ -24,6 +25,11 @@ public class Level_3 extends AbstractLevel
         {
             AddGameObject(new InverseScrolling("InverseScrolling", this, 1112.5f, 5037.5f));
             AddGameObject(new SpawBoss("SpawnBoss", this, 1712.5f, 5037.5f, new Vector2(0, 5037.5f)));
+            AddGameObject(new SpeedUp("SpeedUp", this, 400, -5250));
+            AddGameObject(new HPup("HpUp", this, 0, -4100));
+            AddGameObject(new DmgUp("DmgUp", this, 925, -1600));
+
+
             Checkpoint checkpoint1 = new Checkpoint("Checkpoint", this, -50, -3420);
             Checkpoint checkpoint2 = new Checkpoint("Checkpoint", this, 875, -1325);
             Checkpoint checkpoint3 = new Checkpoint("Checkpoint", this, -200, 1670);

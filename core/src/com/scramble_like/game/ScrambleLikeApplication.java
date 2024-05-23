@@ -58,6 +58,7 @@ public class ScrambleLikeApplication extends Game
 		tickableObjects.add(camera);
 
 		SoundFactory.getInstance().loadSound("takeDamage",GameConstant.SOUND_PATH("damage_taken.mp3"));
+		SoundFactory.getInstance().loadSound("PowerUp",GameConstant.SOUND_PATH("PowerUp.mp3"));
 		SoundFactory.getInstance().loadSound("dead",GameConstant.SOUND_PATH("dead.mp3"));
 		SoundFactory.getInstance().loadSound("shoot",GameConstant.SOUND_PATH("Shoot.mp3"));
 

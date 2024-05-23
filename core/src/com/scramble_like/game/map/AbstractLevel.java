@@ -31,6 +31,9 @@ public abstract class AbstractLevel extends Scene
     {
         super(name);
         this.level=level;
+        GameConstant.PLAYER_HP_MULTIPLIER = 1;
+        GameConstant.PLAYER_SPEED_MULTIPLIER = 1;
+        GameConstant.PLAYER_ATTACK_MULTIPLIER = 1;
 
         getCamera().setPosition(getInitPlayerAndCameraLocation().x + getInitPlayerAndCameraLocation().z, getInitPlayerAndCameraLocation().y + getInitPlayerAndCameraLocation().w);
         this.lastCheckpoint = null;
