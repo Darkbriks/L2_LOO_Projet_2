@@ -46,13 +46,13 @@ public class MainMenu extends Scene
 
         Label optionButton = new AE_Label("Options", this.getSkin());
         optionButton.setSize(200,50);
-        optionButton.setPosition(-optionButton.getWidth() / 2 , getCamera().getPosition().y - 90);
+        optionButton.setPosition(-optionButton.getWidth() / 2+ 100 , getCamera().getPosition().y - 50);
         optionButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new OptionMenu()); dispose(); } });
         this.getStage().addActor(optionButton);
 
         Label exitButton = new AE_Label("Exit", this.getSkin());
         exitButton.setSize(200,50);
-        exitButton.setPosition(-exitButton.getWidth() / 2 + 100, getCamera().getPosition().y - 50);
+        exitButton.setPosition(-exitButton.getWidth() / 2 , getCamera().getPosition().y - 90);
         exitButton.addListener(new ClickListener() {  @Override public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); } });
         this.getStage().addActor(exitButton);
 
@@ -69,7 +69,7 @@ public class MainMenu extends Scene
 
             GameObject rightMeduse = new GameObject("RightMeduse", this);
             rightMeduse.AddComponent(new Flipbook("Characters/Fish/Jellyfish/Idle.png", 4));
-            rightMeduse.getTransform().Translate(135, -35);
+            rightMeduse.getTransform().Translate(165, -35);
             AddGameObject(rightMeduse);
 
             GameObject bottomMeduse = new GameObject("BottomMeduse", this);
