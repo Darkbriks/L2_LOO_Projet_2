@@ -14,6 +14,7 @@ import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.factory.SoundFactory;
+import com.scramble_like.game.essential.utils.Writer;
 import com.scramble_like.game.ui.AE_Label;
 import com.scramble_like.game.ui.AE_TitleLabel;
 
@@ -35,7 +36,7 @@ public class MainMenu extends Scene
         Label playButton = new AE_Label("Play", this.getSkin());
         playButton.setSize(200,50);
         playButton.setPosition(-playButton.getWidth() / 2, getCamera().getPosition().y);
-        playButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new Level_1()); dispose(); } });
+        playButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new Level_3()); dispose(); } });
         this.getStage().addActor(playButton);
 
         Label levelMapButton = new AE_Label("Level Map", this.getSkin());

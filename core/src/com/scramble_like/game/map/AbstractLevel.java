@@ -124,7 +124,7 @@ public abstract class AbstractLevel extends Scene
     public void dispose()
     {
         super.dispose();
-        Writer.writeSetting(String.valueOf(getPlayer().getPlayerController().getScore()), "highscore_"+level,"highscore.txt",GameConstant.HIGHSCORE_LIST);
+        Writer.writeSetting(String.valueOf(getPlayer().getPlayerController().getScore()), "highscore_"+level,"highscore.txt",GameConstant.HIGHSCORE_LIST,true);
         System.out.println(Writer.getSetting( "highscore_"+level,"highscore.txt"));
     }
 }

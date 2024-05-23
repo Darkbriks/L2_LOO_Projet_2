@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.utils.Writer;
 import com.scramble_like.game.map.Level_1;
 import com.scramble_like.game.map.Level_2;
 import com.scramble_like.game.map.Level_3;
@@ -26,11 +27,15 @@ public class GameConstant
 
     // Player
     public static float CAMERA_SPEED = 250;
-    public static float PLAYER_SPEED = 500;
+    public static float PLAYER_SPEED = Writer.getSetting(GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE);;
     public static final int PLAYER_LIFE = 50;
     public static final int SCORE_LOST_ON_HIT = 1000;
-    public static final int BOTTOM_LIMIT = -250;
-    public static final int TOP_LIMIT = 250;
+    public static final int BOTTOM_SCROLL_LIMIT = -250;
+    public static final int TOP_SCROLL_LIMIT = 250;
+    public static final int LEFT_SCROLL_LIMIT = -400;
+    public static final int RIGHT_SCROLL_LIMIT = 400;
+    public static final int BOTTOM_LIMIT = HEIGHT / 2 - 50;
+    public static final int TOP_LIMIT = HEIGHT / 2 - 50;
     public static final int LEFT_LIMIT = WIDTH / 2 - 50;
     public static final int RIGHT_LIMIT = WIDTH / 2 - 50;
     public static final Vector4 PLAYER_IDLE_COLLIDER = new Vector4(20, 30, -7.5f, 0);
@@ -49,11 +54,15 @@ public class GameConstant
             2, Level_2.class,
             3, Level_3.class);
 
+    public static final String SETTINGS_FILE = "settings.txt";
+    public static final String VOLUME_OPTION = "Volume";
+    public static final String SOUND_EFFECTS_OPTION = "SoundVolume";
+    public static final String PLAYER_SPEED_OPTION = "Speed";
+
     public static final Map<Integer,String> OPTION_LIST = Map.of(
             0, "Volume",
-            1, "Sound Volume",
-            2, "Speed",
-            3, "");
+            1, "SoundVolume",
+            2, "Speed");
 
     public static final Map<Integer,String> HIGHSCORE_LIST = Map.of(
             0, "highscore_1",
@@ -89,8 +98,8 @@ public class GameConstant
     public static boolean PAUSE_BUTTON = false;
 
     //Sound
-    public static float SOUND_EFFECT_VOLUME = 0.75f;
-    public static float SOUND_MUSIC_VOLUME = 0f;
+    public static float SOUND_EFFECT_VOLUME = Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE);
+    public static float SOUND_MUSIC_VOLUME = Writer.getSetting(GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE) / 100.0f;;
 
     // Debug
     public static boolean DEBUG = false;

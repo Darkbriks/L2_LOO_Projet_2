@@ -104,6 +104,7 @@ public abstract class Collider extends Component
 
     protected void EndOverlap(Collider other)
     {
+        if (this.getOwner() == null || other.getOwner() == null) return;
         this.getOwner().getEventDispatcher().DispatchEvent(EventIndex.END_OVERLAP, new EventEndOverlap(this.getOwner(), this, other.getOwner(), other));
     }
 

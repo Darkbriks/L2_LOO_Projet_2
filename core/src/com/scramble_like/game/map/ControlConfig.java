@@ -77,7 +77,7 @@ public class ControlConfig extends Scene {
                 if (currentButton != null && currentAction != null) {
                     controlList.put(currentAction, keycode);
                     currentButton.setText(Input.Keys.toString(keycode));
-                    Writer.writeSetting(String.valueOf(keycode), currentAction, CONTROLS_FILE, null);
+                    Writer.writeSetting(String.valueOf(keycode), currentAction, CONTROLS_FILE, null, false);
                     updateGameConstant(currentAction, keycode);
                     currentButton = null;
                     currentAction = null;

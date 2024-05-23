@@ -19,7 +19,7 @@ public class Writer {
 
     }
 
-    public static void writeSetting(String valeur, String option, String fileName, Map<Integer, String> list){
+    public static void writeSetting(String valeur, String option, String fileName, Map<Integer, String> list, boolean highscore){
         String currentDir = System.getProperty("user.dir");
         File file = new File(currentDir, fileName);
         System.out.println(file.getAbsolutePath());
@@ -38,7 +38,7 @@ public class Writer {
         }*/
 
         int oldHighscore= Writer.getSetting(option, fileName);
-        if(oldHighscore!=-1){
+        if(highscore && oldHighscore!=-1){
             if(oldHighscore>Integer.parseInt(valeur)){
                 return;
             }

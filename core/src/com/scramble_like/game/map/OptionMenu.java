@@ -13,18 +13,12 @@ import java.util.HashMap;
 
 public class OptionMenu extends Scene {
 
-    private static final String SETTINGS_FILE = "settings.txt";
-    private static final String VOLUME_OPTION = "Volume";
-    private static final String SOUND_EFFECTS_OPTION = "Sound Volume";
-    private static final String PLAYER_SPEED_OPTION = "speed";
-    private Map<Integer, String> optionList;
     private Slider volumeSlider;
     private Slider soundEffectsSlider;
     private Slider speedSlider;
 
     public OptionMenu() {
         super("OptionMenu");
-        optionList = new HashMap<>(GameConstant.OPTION_LIST);
         createUI();
     }
 
@@ -40,7 +34,7 @@ public class OptionMenu extends Scene {
 
         Label volumeLabel = new Label("Volume", getSkin(), "default");
         volumeSlider = new Slider(0, 1, 0.01f, false, getSkin());
-        float initialVolume = Writer.getSetting(VOLUME_OPTION, SETTINGS_FILE) / 100.0f;
+        float initialVolume = Writer.getSetting(GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE) / 100.0f;
         volumeSlider.setValue(initialVolume);
         volumeSlider.addListener(new ChangeListener() {
             @Override
@@ -48,7 +42,7 @@ public class OptionMenu extends Scene {
                 float volume = volumeSlider.getValue();
                 Gdx.app.log("OptionMenu", "Volume adjusted to: " + volume);
 
-                Writer.writeSetting(String.valueOf((int) (volume * 100)), VOLUME_OPTION, SETTINGS_FILE, optionList);
+                Writer.writeSetting(String.valueOf((int) (volume * 100)), GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
                 GameConstant.SOUND_MUSIC_VOLUME = volume;
             }
         });
@@ -56,16 +50,16 @@ public class OptionMenu extends Scene {
         table.add(volumeSlider).padBottom(10).padRight(1200);
         table.row();
 
-        Label soundEffectsLabel = new Label("Sounds Effects",getSkin(),"default");
+        Label soundEffectsLabel = new Label("SoundsEffects",getSkin(),"default");
         soundEffectsSlider = new Slider(0,1,0.01f,false,getSkin());
-        float initialSoundEffect = Writer.getSetting(SOUND_EFFECTS_OPTION, SETTINGS_FILE);
+        float initialSoundEffect = Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE);
         soundEffectsSlider.setValue(initialSoundEffect);
         soundEffectsSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float soundEffect = soundEffectsSlider.getValue();
                 Gdx.app.log("OptionMenu", "Player speed adjusted to: " + soundEffect);
-                Writer.writeSetting(String.valueOf((int) soundEffect), SOUND_EFFECTS_OPTION, SETTINGS_FILE, optionList);
+                Writer.writeSetting(String.valueOf((int) soundEffect*100), GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
                 GameConstant.SOUND_EFFECT_VOLUME = soundEffect;
             }
         });
@@ -74,16 +68,16 @@ public class OptionMenu extends Scene {
         table.add(soundEffectsSlider).padBottom(10).padRight(1200);
         table.row();
 
-        Label playerSpeedLabel = new Label("Player Speed",getSkin(),"default");
+        Label playerSpeedLabel = new Label("PlayerSpeed",getSkin(),"default");
         speedSlider = new Slider(100,1000,1,false,getSkin());
-        float initialPlayerSpeed = Writer.getSetting(PLAYER_SPEED_OPTION, SETTINGS_FILE);
+        float initialPlayerSpeed = Writer.getSetting(GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE);
         speedSlider.setValue(initialPlayerSpeed);
         speedSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float playerSpeed = speedSlider.getValue();
                 Gdx.app.log("OptionMenu", "Player speed adjusted to: " + playerSpeed);
-                Writer.writeSetting(String.valueOf((int) playerSpeed), PLAYER_SPEED_OPTION, SETTINGS_FILE, optionList);
+                Writer.writeSetting(String.valueOf((int) playerSpeed), GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
                 GameConstant.PLAYER_SPEED = playerSpeed;
             }
         });

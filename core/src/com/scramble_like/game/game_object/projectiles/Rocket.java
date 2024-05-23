@@ -3,11 +3,12 @@ package com.scramble_like.game.game_object.projectiles;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.CharacterController;
-import com.scramble_like.game.component.paper2d.Sprite;
+import com.scramble_like.game.component.paper2d.Flipbook;
 import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.chaos.SphereCollider;
+import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
@@ -19,13 +20,13 @@ import java.util.EventObject;
 
 public class Rocket extends Projectile
 {
-    protected Sprite sprite;
-    protected String[] explosionAnimationFrames;
-    protected float[] explosionRadius;
     protected SphereCollider explosionCollider;
+    protected float explosionRadius = 50;
+    protected Flipbook flipbook;
+    protected int mainFrameCount = 2;
+    protected int explosionFrameCount = 10;
     protected boolean exploded;
     protected float elapsedTime;
-    protected int currentFrame;
 
     public Rocket(Scene scene, Vector2 start, Vector2 direction, float range, float speed) throws SceneIsNullException
     {
@@ -34,26 +35,15 @@ public class Rocket extends Projectile
         AABBCollider collider = this.GetFirstComponentFromClass(AABBCollider.class);
         collider.setHeight(25);
         collider.setWidth(25);
-        this.sprite = new Sprite(GameConstant.CHARACTER_PATH("Boss/Shots/Shot6", "shot6_1.png"));
-        this.sprite.setFlipX(true);
-        this.AddComponent(sprite);
 
-        this.explosionAnimationFrames = new String[]{
-                "shot6_exp1.png",
-                "shot6_exp2.png",
-                "shot6_exp3.png",
-                "shot6_exp4.png",
-                "shot6_exp5.png",
-                "shot6_exp6.png",
-                "shot6_exp7.png",
-                "shot6_exp8.png",
-                "shot6_exp9.png",
-                "shot6_exp10.png",};
-
-        this.explosionRadius = new float[]{ 25, 30, 35, 40, 45, 50, 50, 50, 50, 50 };
+        flipbook = new Flipbook(GameConstant.CHARACTER_PATH("Boss/Shots/Shot6_Animated", "main.png"), mainFrameCount);
+        this.AddComponent(flipbook);
 
         this.exploded = false;
-        this.getTransform().setScale(2, 2);
+        this.getTransform().setScale(1, 1);
+
+        float angle = (float) Math.toDegrees(Math.atan2(direction.y, direction.x));
+        this.getTransform().setRotation(angle, 0);
     }
 
     @Override
@@ -69,7 +59,7 @@ public class Rocket extends Projectile
                 {
                     e.otherGameObject.GetFirstComponentFromClass(CharacterController.class).takeDamage(damage, cooldown);
                 }
-                if (!(e.otherGameObject instanceof Boss) && !(e.otherGameObject instanceof Rocket)) { if (!exploded) { Explode(); } }
+                if (!(e.otherGameObject instanceof Boss) && !(e.otherGameObject instanceof Rocket) && !(e.otherGameObject instanceof ChunkManager)) { if (!exploded) { Explode(); } }
             }
         });
 
@@ -80,9 +70,9 @@ public class Rocket extends Projectile
     {
         exploded = true;
         elapsedTime = 0;
-        currentFrame = 0;
-        explosionCollider = new SphereCollider(explosionRadius[0], false, true);
+        explosionCollider = new SphereCollider(explosionRadius, false, true);
         this.AddComponent(explosionCollider);
+        this.flipbook.setFileName(GameConstant.CHARACTER_PATH("Boss/Shots/Shot6_Animated", "exploding.png"), explosionFrameCount);
         this.GetFirstComponentFromClass(AABBCollider.class).SetActive(false);
     }
 
@@ -93,15 +83,9 @@ public class Rocket extends Projectile
         if (exploded)
         {
             elapsedTime += DeltaTime;
-            if (elapsedTime >= CoreConstant.ANIMATION_FRAME_DURATION)
+            if (elapsedTime >= CoreConstant.ANIMATION_FRAME_DURATION * explosionFrameCount)
             {
-                if (currentFrame < explosionAnimationFrames.length)
-                {
-                    sprite.setFileName(GameConstant.CHARACTER_PATH("Boss/Shots/Shot6", explosionAnimationFrames[currentFrame]));
-                    explosionCollider.setRadius(explosionRadius[currentFrame]);
-                    currentFrame++;
-                }
-                else { DestroyThisInScene(); }
+                DestroyThisInScene();
             }
         }
     }

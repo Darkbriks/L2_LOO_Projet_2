@@ -1,7 +1,6 @@
 package com.scramble_like.game.component.paper2d;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.essential.utils.Utils;
@@ -11,6 +10,7 @@ public class Flipbook extends Sprite
     private float elapsedTime;
     private int currentFrame;
     private int frameCount;
+    TextureRegion frame;
 
     public Flipbook(String path, int frameCount)
     {
@@ -53,7 +53,7 @@ public class Flipbook extends Sprite
     {
         if (!this.IsActive()) { return; }
 
-        TextureRegion frame = ImageFactory.getTextureRegion(this.fileName, this.frameCount, this.currentFrame);
+        frame = ImageFactory.getTextureRegion(this.fileName, this.frameCount, this.currentFrame);
 
         if (this.getOwner().getTransform().getRotation().x != 0)
         {
