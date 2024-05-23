@@ -31,7 +31,7 @@ public class PlayerBomb extends Projectile
     public void Update(float DeltaTime)
     {
         super.Update(DeltaTime);
-        this.projectileController.setStart(this.projectileController.getStart().add(GameConstant.CAMERA_SPEED * DeltaTime, 0).cpy());
-        this.projectileController.setEnd(this.projectileController.getEnd().add(GameConstant.CAMERA_SPEED * DeltaTime, 0).cpy());
+        this.projectileController.setStart(this.projectileController.getStart().add(GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER * DeltaTime, 0).cpy());
+        this.projectileController.setEnd(this.projectileController.getEnd().add(GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER * DeltaTime, 0).cpy());
     }
 }

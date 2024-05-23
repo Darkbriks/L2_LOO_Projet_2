@@ -29,7 +29,8 @@ public class GameConstant
 
     // Player
     public static float CAMERA_SPEED = 250;
-    public static float PLAYER_SPEED = Writer.getSetting(GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE);;
+    public static float PLAYER_SPEED = 500;
+    public static float CAMERA_SPEED_MULTIPLIER = 1;
     public static final int PLAYER_LIFE = 50;
     public static final int SCORE_LOST_ON_HIT = 1000;
     public static final int BOTTOM_SCROLL_LIMIT = -250;

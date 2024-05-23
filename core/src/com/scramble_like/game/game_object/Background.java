@@ -35,7 +35,7 @@ public class Background extends GameObject
     {
         if (!this.IsActive()) { return; }
 
-        this.getTransform().Translate(DeltaTime * GameConstant.CAMERA_SPEED, 0);
+        this.getTransform().Translate(DeltaTime * GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER, 0);
 
         background_1.addOffset(new Vector2(DeltaTime * GameConstant.BACKGROUND_SPEED, 0));
         background_2.addOffset(new Vector2(DeltaTime * GameConstant.BACKGROUND_SPEED, 0));

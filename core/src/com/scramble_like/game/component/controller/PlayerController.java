@@ -74,13 +74,13 @@ public class PlayerController extends CharacterController
     {
         if (inverseScroll)
         {
-            camera.addPosition(0, dt * GameConstant.CAMERA_SPEED);
-            this.getOwner().getTransform().Translate(0, dt * GameConstant.CAMERA_SPEED);
+            camera.addPosition(0, dt * GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER);
+            this.getOwner().getTransform().Translate(0, dt * GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER);
         }
         else
         {
-            camera.addPosition(dt * GameConstant.CAMERA_SPEED, 0);
-            this.getOwner().getTransform().Translate(dt * GameConstant.CAMERA_SPEED, 0);
+            camera.addPosition(dt * GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER, 0);
+            this.getOwner().getTransform().Translate(dt * GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER, 0);
         }
     }
 

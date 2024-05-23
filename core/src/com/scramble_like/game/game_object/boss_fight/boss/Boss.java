@@ -9,6 +9,7 @@ import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.Particule;
 import com.scramble_like.game.game_object.boss_fight.pattern.Pattern;
 import com.scramble_like.game.game_object.boss_fight.pattern.rockets.BossTransitionRocketPattern;
 import com.scramble_like.game.map.AbstractLevel;
@@ -68,8 +69,21 @@ public abstract class Boss extends GameObject
         health -= damage;
         if (health <= 0)
         {
-            this.Exit();
-            //else { this.DestroyThisInScene(); }
+            if (bossToSpawnOnDeath == null)
+            {
+                try
+                {
+                    Particule explosion = new Particule("Explosion", getScene(), "Characters/Boss/Explosions/explosion.png", 11);
+                    explosion.getTransform().setLocation(this.getTransform().getLocation());
+                    getScene().AddGameObject(explosion);
+                }
+                catch (SceneIsNullException e) { Gdx.app.error("Boss", "Failed to spawn explosion on death"); }
+                this.DestroyThisInScene();
+            }
+            else
+            {
+                this.Exit();
+            }
         }
     }
 

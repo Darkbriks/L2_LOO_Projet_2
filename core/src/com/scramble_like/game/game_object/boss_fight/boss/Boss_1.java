@@ -21,6 +21,6 @@ public class Boss_1 extends Boss
                 2,
                 new Sprite("Characters/Boss/Ship6/Ship6.png"),
                 new AABBCollider(350, 175, false, true),
-                Boss_1.class);
+                null);
     }
 }
