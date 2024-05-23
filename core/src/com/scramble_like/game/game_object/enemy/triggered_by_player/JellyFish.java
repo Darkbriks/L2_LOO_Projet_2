@@ -11,8 +11,8 @@ public class JellyFish extends PlayerDeclanchedEnemy
 {
     public JellyFish(Scene scene, float x, float y) throws SceneIsNullException
     {
-        super("JellyFish", scene, GameConstant.CHARACTER_PATH("Fish", "Jellyfish"), 10, 0, new int[]{ 4, 4, 2, 4, 6 }, new Vector2[]{}, 100, 0, new Vector2(75, 750));
-        this.collisionDamage = 25;
+        super("JellyFish", scene, GameConstant.CHARACTER_PATH("Fish", "Jellyfish"), 5, 0, new int[]{ 4, 4, 2, 4, 6 }, new Vector2[]{}, 100, 0, new Vector2(75, 750));
+        this.collisionDamage = 15;
         this.getTransform().setLocation(x, y);
     }
 

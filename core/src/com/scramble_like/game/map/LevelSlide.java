@@ -11,8 +11,10 @@ public class LevelSlide extends Scene {
     private Scene currentScene;
     private Scene nextScene;
 
-    public LevelSlide(Scene currentScene, Scene nextScene) {
+    public LevelSlide(Scene currentScene, Scene nextScene)
+    {
         super("LevelSlide");
+        getCamera().setPosition(0, 0);
         this.currentScene = currentScene;
         this.nextScene = nextScene;
         createUI();
@@ -72,12 +74,5 @@ public class LevelSlide extends Scene {
         table.add(menuButton).padBottom(20).colspan(2).padRight(1200);
 
         getStage().addActor(table);
-    }
-
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-        getStage().act(delta);
-        getStage().draw();
     }
 }

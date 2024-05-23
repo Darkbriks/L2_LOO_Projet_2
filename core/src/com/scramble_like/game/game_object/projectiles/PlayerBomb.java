@@ -14,7 +14,7 @@ public class PlayerBomb extends Projectile
     public PlayerBomb(Scene scene, Vector2 location) throws SceneIsNullException
     {
         super("Player Bomb", scene, location, new Vector2(0.5f, -2.5f), 750, 300, true);
-        this.damage = 1000;
+        this.damage = 20;
         this.AddComponent(new Sprite("Tileset/utile/étoile.png"));
     }
 

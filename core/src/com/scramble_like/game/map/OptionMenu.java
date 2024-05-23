@@ -8,28 +8,30 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.utils.Writer;
 
-import java.util.Map;
-import java.util.HashMap;
-
 public class OptionMenu extends Scene {
 
     private Slider volumeSlider;
     private Slider soundEffectsSlider;
     private Slider speedSlider;
 
-    public OptionMenu() {
+    public OptionMenu()
+    {
         super("OptionMenu");
+        getCamera().setPosition(0, 0);
         createUI();
     }
 
-    private void createUI() {
+    private void createUI()
+    {
         Table table = new Table();
+        table.setPosition((float) -GameConstant.WIDTH / 2, (float) -GameConstant.HEIGHT / 2);
+        //table.setDebug(true, true);
         table.setFillParent(true);
         table.center();
 
         Label titleLabel = new Label("Options", getSkin(), "default");
         titleLabel.setFontScale(2);
-        table.add(titleLabel).colspan(2).padTop(400).padRight(1200);
+        table.add(titleLabel).colspan(2).padBottom(50);
         table.row();
 
         Label volumeLabel = new Label("Volume", getSkin(), "default");
@@ -47,7 +49,7 @@ public class OptionMenu extends Scene {
             }
         });
         table.add(volumeLabel).padBottom(10);
-        table.add(volumeSlider).padBottom(10).padRight(1200);
+        table.add(volumeSlider).padBottom(10);
         table.row();
 
         Label soundEffectsLabel = new Label("SoundsEffects",getSkin(),"default");
@@ -63,9 +65,8 @@ public class OptionMenu extends Scene {
                 GameConstant.SOUND_EFFECT_VOLUME = soundEffect;
             }
         });
-
         table.add(soundEffectsLabel).padBottom(10);
-        table.add(soundEffectsSlider).padBottom(10).padRight(1200);
+        table.add(soundEffectsSlider).padBottom(10);
         table.row();
 
         Label playerSpeedLabel = new Label("ScrollSpeedMultiplier",getSkin(),"default");
@@ -76,14 +77,12 @@ public class OptionMenu extends Scene {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float playerSpeed = speedSlider.getValue();
-                Gdx.app.log("OptionMenu", "ScrollSpeedMultiplier adjusted to: " + playerSpeed + "("+(playerSpeed/100.0f)+0.5f+")");
                 Writer.writeSetting(String.valueOf((int) playerSpeed), String.valueOf(GameConstant.CAMERA_SPEED_MULTIPLIER), GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
                 GameConstant.CAMERA_SPEED_MULTIPLIER = (playerSpeed/100.0f)+0.5f;
             }
         });
-
         table.add(playerSpeedLabel).padBottom(10);
-        table.add(speedSlider).padBottom(10).padRight(1200);
+        table.add(speedSlider).padBottom(10);
         table.row();
 
 
@@ -92,33 +91,24 @@ public class OptionMenu extends Scene {
         controlsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("OptionMenu", "Opening control configuration...");
                 getGame().setScreen(new ControlConfig());
                 dispose();
             }
         });
-        table.add(controlsLabel).padBottom(10);
-        table.add(controlsButton).padBottom(10).padRight(1200);
+        table.add(controlsLabel).padBottom(25);
+        table.add(controlsButton).padBottom(25);
         table.row();
 
         TextButton backButton = new TextButton("Back", getSkin());
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("OptionMenu", "Returning to main menu...");
                 getGame().setScreen(new MainMenu());
                 dispose();
             }
         });
-        table.add(backButton).colspan(2).padTop(20).padRight(1200);
+        table.add(backButton).colspan(2);
 
         getStage().addActor(table);
-    }
-
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-        getStage().act(delta);
-        getStage().draw();
     }
 }

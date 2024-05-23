@@ -12,7 +12,7 @@ public class DeepDeaMonster extends PlayerDeclanchedEnemy
 {
     public DeepDeaMonster(Scene scene, float x, float y) throws SceneIsNullException
     {
-        super("DeepDeaMonster", scene, GameConstant.CHARACTER_PATH("Fish", "DeepDeaMonster"), 25, 0, new int[]{4, 4, 2, 6, 6}, new Vector2[]{}, 50, 0, new Vector2(150, 750));
+        super("DeepDeaMonster", scene, GameConstant.CHARACTER_PATH("Fish", "DeepDeaMonster"), 15, 0, new int[]{4, 4, 2, 6, 6}, new Vector2[]{}, 50, 0, new Vector2(150, 750));
         this.collisionDamage = 100;
     }
 

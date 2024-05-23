@@ -33,7 +33,7 @@ public class Flashlight extends Projectile
     public Flashlight(Scene scene, Vector2 start, Vector2 direction, float range, float speed) throws SceneIsNullException
     {
         super("Flashlight", scene, start, direction, range, speed, false);
-        this.damage = 25;
+        this.damage = 20;
         AABBCollider collider = this.GetFirstComponentFromClass(AABBCollider.class);
         collider.setHeight(30);
         collider.setWidth(30);

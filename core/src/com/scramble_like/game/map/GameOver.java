@@ -2,25 +2,21 @@ package com.scramble_like.game.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.ui.AE_Label;
-;
 
 public class GameOver extends Scene
 {
-    private Rectangle playAgainButtonBounds;
-    private Rectangle retryFromLastCheckpointBounds;
-    private Rectangle menuButtonBounds;
     private final Class<? extends AbstractLevel> previous;
     private final float checkpointX;
     private final float checkpointY;
 
-    public GameOver(Class<? extends AbstractLevel> previous, int score, boolean retryFromLastCheckpoint, float x, float y) {
+    public GameOver(Class<? extends AbstractLevel> previous, int score, boolean retryFromLastCheckpoint, float x, float y)
+    {
         super("GameOver");
 
         this.previous = previous;

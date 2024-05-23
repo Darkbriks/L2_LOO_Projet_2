@@ -10,7 +10,7 @@ public class BigSawFish extends Enemy
 {
     public BigSawFish(Scene scene, Vector2[] waypoints) throws SceneIsNullException
     {
-        super("BigSawFish", scene, GameConstant.CHARACTER_PATH("Fish", "BigSawFish"), 20, 0, new int[]{ 4, 4, 2, 6, 6 }, waypoints, 150, 2);
+        super("BigSawFish", scene, GameConstant.CHARACTER_PATH("Fish", "BigSawFish"), 15, 0, new int[]{ 4, 4, 2, 6, 6 }, waypoints, 150, 2);
         this.enemyController.setInterpolation(Interpolation.exp5, Interpolation.exp5);
     }
 }

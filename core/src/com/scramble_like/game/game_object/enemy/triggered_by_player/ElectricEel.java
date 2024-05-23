@@ -17,7 +17,7 @@ public class ElectricEel extends PlayerDeclanchedEnemy
 
     public ElectricEel(Scene scene, Vector2[] waiponts) throws SceneIsNullException
     {
-        super("ElectricEel", scene, GameConstant.CHARACTER_PATH("Fish", "ElectricEel"), 20, 0, new int[]{4, 6, 2, 6, 6}, waiponts, 100, 0, new Vector2(500, 500));
+        super("ElectricEel", scene, GameConstant.CHARACTER_PATH("Fish", "ElectricEel"), 50, 0, new int[]{4, 6, 2, 6, 6}, waiponts, 100, 0, new Vector2(500, 500));
         this.collisionDamage = 10;
         this.collider.setHeight(25);
         this.collider.setWidth(50);
@@ -26,7 +26,7 @@ public class ElectricEel extends PlayerDeclanchedEnemy
     protected void startAttack()
     {
         this.animationController.setState(AnimationController.AnimationState.ATTACK, 2);
-        this.collisionDamage = 30;
+        this.collisionDamage = 50;
         this.collider.setHeight(this.collider.getHeight() * 6);
         this.collider.setWidth(this.collider.getWidth() * 6);
     }

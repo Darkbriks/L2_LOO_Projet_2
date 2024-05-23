@@ -16,12 +16,13 @@ import java.util.Map;
 public class ControlConfig extends Scene {
 
     private static final String CONTROLS_FILE = "controls.txt";
-    private Map<String, Integer> controlList;
+    private final Map<String, Integer> controlList;
     private TextButton currentButton;
     private String currentAction;
 
     public ControlConfig() {
         super("ControlConfigScreen");
+        getCamera().setPosition(0, 0);
         controlList = new HashMap<>();
         loadControlSettings();
         createUI();

@@ -69,7 +69,6 @@ public class ChunkHelper
                         { "","","","","","","","",GameConstant.CHUNK_PATH("B3", 3)},
                         { "","","","","","","","",GameConstant.CHUNK_PATH("B4", 3)},
                         { "","","","","","","","",GameConstant.CHUNK_PATH("B5", 3)},
-
                 };
 
         chunkListByLevel = new ArrayList<>();

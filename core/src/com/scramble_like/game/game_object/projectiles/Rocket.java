@@ -31,7 +31,7 @@ public class Rocket extends Projectile
     public Rocket(Scene scene, Vector2 start, Vector2 direction, float range, float speed) throws SceneIsNullException
     {
         super("Rocket", scene, start, direction, range, speed, false);
-        this.damage = 25;
+        this.damage = 10;
         AABBCollider collider = this.GetFirstComponentFromClass(AABBCollider.class);
         collider.setHeight(25);
         collider.setWidth(25);
