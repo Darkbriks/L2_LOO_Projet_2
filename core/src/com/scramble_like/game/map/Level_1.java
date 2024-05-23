@@ -27,12 +27,6 @@ public class Level_1 extends AbstractLevel
             AddGameObject(checkpoint3);
         }
         catch (SceneIsNullException e) { throw new RuntimeException(e); }
-        /*try
-        {
-            Boss_1 boss = new Boss_1(this);
-            AddGameObject(boss);
-        }
-        catch (Exception e) { Gdx.app.error("Level_1", "Error while creating boss: " + e.getMessage());}*/
     }
     @Override
     protected Vector4 getInitPlayerAndCameraLocation() { return new Vector4(-350,0,500,0); }

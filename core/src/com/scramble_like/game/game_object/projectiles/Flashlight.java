@@ -62,7 +62,7 @@ public class Flashlight extends Projectile
                 {
                     e.otherGameObject.GetFirstComponentFromClass(CharacterController.class).takeDamage(damage, cooldown);
                 }
-                if (!(e.otherGameObject instanceof Boss) && !(e.otherGameObject instanceof Flashlight) && !(e.otherGameObject instanceof ChunkManager)) { if (!exploded) { Explode(); } }
+                if (!(e.otherGameObject instanceof Boss) && !(e.otherGameObject instanceof Projectile) && !(e.otherGameObject instanceof ChunkManager)) { if (!exploded) { Explode(); } }
             }
         });
 

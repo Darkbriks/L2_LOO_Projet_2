@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.Player;
-import com.scramble_like.game.game_object.boss_fight.boss.Boss_1;
+import com.scramble_like.game.game_object.boss_fight.boss.BossLevel3_P1;
 
 public class SpawBoss extends PowerUp
 {
@@ -22,7 +22,7 @@ public class SpawBoss extends PowerUp
     {
         try
         {
-            Boss_1 boss = new Boss_1(getScene());
+            BossLevel3_P1 boss = new BossLevel3_P1(getScene());
             boss.getTransform().setLocation(bossLocation);
             getScene().AddGameObject(boss);
         }
