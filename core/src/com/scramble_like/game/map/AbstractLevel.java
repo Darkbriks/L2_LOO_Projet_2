@@ -2,6 +2,7 @@ package com.scramble_like.game.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.component.controller.PlayerController;
@@ -31,14 +32,14 @@ public abstract class AbstractLevel extends Scene
         super(name);
         this.level=level;
 
-        getCamera().setPosition(0, 0);
+        getCamera().setPosition(getPosition().x+getPosition().z, getPosition().y+getPosition().w);
         this.lastCheckpoint = null;
         GameConstant.CAMERA_SPEED = cameraSpeed;
         GameConstant.BACKGROUND_SPEED = backgroundSpeed;
 
         try
         {
-            Player go1 = new Player("Player", this, new Vector2(-350, 0));
+            Player go1 = new Player("Player", this, new Vector2(this.getPosition().x,this.getPosition().y));
             AddGameObject(go1);
 
             Background background =  new Background("Background", this, "Background/backG.png",768, 192);
@@ -60,6 +61,7 @@ public abstract class AbstractLevel extends Scene
         CreateUI();
     }
 
+    protected abstract Vector4 getPosition();
     public void setLastCheckpoint(Checkpoint lastCheckpoint) { this.lastCheckpoint = lastCheckpoint; }
 
     public void GameOver(int score)

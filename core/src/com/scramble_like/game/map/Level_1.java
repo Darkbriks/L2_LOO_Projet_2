@@ -2,6 +2,7 @@ package com.scramble_like.game.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -34,5 +35,9 @@ public class Level_1 extends AbstractLevel
             AddGameObject(boss);
         }
         catch (Exception e) { Gdx.app.error("Level_1", "Error while creating boss: " + e.getMessage());}*/
+    }
+    @Override
+    protected Vector4 getPosition(){
+        return new Vector4(-350,0,500,0);
     }
 }

@@ -1,6 +1,7 @@
 package com.scramble_like.game.map;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.DynamicObjectLoader;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
@@ -23,6 +24,11 @@ public class Level_2 extends AbstractLevel
         } catch (SceneIsNullException e) {
             throw new RuntimeException(e);
         }
-
     }
+
+    @Override
+    protected Vector4 getPosition(){
+        return new Vector4(-350,0,500,0);
+    }
+
 }
