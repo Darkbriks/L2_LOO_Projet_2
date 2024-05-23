@@ -9,6 +9,7 @@ import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.boss_fight.pattern.Pattern;
+import com.scramble_like.game.game_object.boss_fight.pattern.rockets.BossTransitionRockets;
 import com.scramble_like.game.map.AbstractLevel;
 
 public abstract class Boss extends GameObject
@@ -52,7 +53,7 @@ public abstract class Boss extends GameObject
         this.AddComponent(sprite);
         this.AddComponent(collider);
 
-        this.inOutDuration = 8f;
+        this.inOutDuration = 5f;
 
         this.getTransform().setScale(3, 3);
         this.Enter();
@@ -65,16 +66,6 @@ public abstract class Boss extends GameObject
         health -= damage;
         if (health <= 0)
         {
-            if (bossToSpawnOnDeath != null)
-            {
-                try
-                {
-                    Boss newBoss = bossToSpawnOnDeath.getConstructor(Scene.class).newInstance(getScene());
-                    getScene().AddGameObject(newBoss);
-                    //this.Exit();
-                }
-                catch (Exception e) {  Gdx.app.error("Boss", "Failed to spawn new boss on death"); }
-            }
             this.Exit();
             //else { this.DestroyThisInScene(); }
         }
@@ -111,7 +102,7 @@ public abstract class Boss extends GameObject
     protected void Enter()
     {
         isEntering = true;
-        startingX = getScene().getCamera().getPosition().x + 1250;
+        startingX = getScene().getCamera().getPosition().x + 1000;
         endingX = getScene().getCamera().getPosition().x + xOffsetWithCamera;
         elapsedTime = 0;
         interpolation = Interpolation.swingOut;
@@ -125,7 +116,7 @@ public abstract class Boss extends GameObject
     {
         isExiting = true;
         startingX = this.getTransform().getLocation().x;
-        endingX = getScene().getCamera().getPosition().x + 1250;
+        endingX = getScene().getCamera().getPosition().x + 1000;
         elapsedTime = 0;
         interpolation = Interpolation.swingIn;
         cameraSpeed = GameConstant.CAMERA_SPEED;
@@ -146,7 +137,18 @@ public abstract class Boss extends GameObject
             GameConstant.CAMERA_SPEED = cameraSpeed;
             GameConstant.BACKGROUND_SPEED = backgroundSpeed;
             if (isEntering) { isEntering = false; }
-            if (isExiting) { isExiting = false; this.DestroyThisInScene(); }
+            if (isExiting)
+            {
+                if (bossToSpawnOnDeath != null)
+                {
+                    try { Boss newBoss = bossToSpawnOnDeath.getConstructor(Scene.class).newInstance(getScene()); getScene().AddGameObject(newBoss); }
+                    catch (Exception e) {  Gdx.app.error("Boss", "Failed to spawn new boss on death"); }
+                    BossTransitionRockets rockets = new BossTransitionRockets();
+                    rockets.Start((AbstractLevel) getScene(), this);
+                }
+                isExiting = false;
+                this.DestroyThisInScene();
+            }
         }
     }
 }

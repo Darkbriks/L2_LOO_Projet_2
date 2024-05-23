@@ -12,12 +12,16 @@ public abstract class Rockets implements Pattern
     protected Vector2[] rocketsOffset;
     protected Vector2[] rocketsDirection;
     protected float duration = 3;
+    protected float speed = 350;
+    protected float range = 500;
 
-    public Rockets(Vector2[] rocketsOffset, Vector2[] rocketsDirection, float duration)
+    public Rockets(Vector2[] rocketsOffset, Vector2[] rocketsDirection, float duration, float speed, float range)
     {
         this.rocketsOffset = rocketsOffset;
         this.rocketsDirection = rocketsDirection;
         this.duration = duration;
+        this.speed = speed;
+        this.range = range;
     }
 
     @Override
@@ -27,7 +31,7 @@ public abstract class Rockets implements Pattern
         {
             for (int i = 0; i < rocketsOffset.length; i++)
             {
-                Rocket rocket = new Rocket(level, boss.getTransform().getLocation().cpy().add(rocketsOffset[i]), rocketsDirection[i], 500, 250);
+                Rocket rocket = new Rocket(level, boss.getTransform().getLocation().cpy().add(rocketsOffset[i]), rocketsDirection[i], range, speed);
                 level.AddGameObject(rocket);
             }
         }

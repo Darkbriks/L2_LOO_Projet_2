@@ -19,6 +19,6 @@ public class FiveAlignedRockets extends Rockets
         new Vector2(-1, 0),
         new Vector2(-1, 0),
         new Vector2(-1, 0)
-        }, 1);
+        }, 1, 400, 750);
     }
 }

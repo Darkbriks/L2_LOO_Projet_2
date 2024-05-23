@@ -8,6 +8,7 @@ import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chaos.AABBCollider;
 import com.scramble_like.game.essential.chaos.SphereCollider;
+import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
@@ -69,7 +70,7 @@ public class Rocket extends Projectile
                 {
                     e.otherGameObject.GetFirstComponentFromClass(CharacterController.class).takeDamage(damage, cooldown);
                 }
-                if (!(e.otherGameObject instanceof Boss) && !(e.otherGameObject instanceof Rocket)) { if (!exploded) { Explode(); } }
+                if (!(e.otherGameObject instanceof Boss) && !(e.otherGameObject instanceof Rocket) && !(e.otherGameObject instanceof ChunkManager)) { if (!exploded) { Explode(); } }
             }
         });
 
