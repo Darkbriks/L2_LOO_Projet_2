@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.game_object.enemy.BigSawFish;
 import com.scramble_like.game.game_object.enemy.triggered_by_player.DeepDeaMonster;
+import com.scramble_like.game.game_object.enemy.triggered_by_player.ElectricEel;
 import com.scramble_like.game.game_object.enemy.triggered_by_player.JellyFish;
 import com.scramble_like.game.game_object.enemy.Turtle;
 import com.scramble_like.game.game_object.foreground.ForegroundObject;
@@ -21,7 +22,7 @@ public class DynamicObjectLoader
     {
         objectMap.put(48, Turtle.class);//0
         objectMap.put(49, JellyFish.class);//1
-        //objectMap.put(50, ElectricEel.class);//2
+        objectMap.put(50, ElectricEel.class);//2
         objectMap.put(51, DeepDeaMonster.class);//3
         objectMap.put(52, BigSawFish.class);//4
         objectMap.put(53, null);//5
