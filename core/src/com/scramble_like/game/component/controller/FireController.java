@@ -48,7 +48,7 @@ public class FireController extends Component
     {
         try
         {
-            SoundFactory.getInstance().playSound("shoot");
+            SoundFactory.getInstance().playSound("shoot", GameConstant.SOUND_EFFECT_VOLUME);
             Projectile projectile = this.projectile.getConstructor(Scene.class, Vector2.class).newInstance(this.getOwner().getScene(), this.getOwner().getTransform().getLocation().cpy());
             this.Owner.getScene().AddGameObject(projectile);
         }
