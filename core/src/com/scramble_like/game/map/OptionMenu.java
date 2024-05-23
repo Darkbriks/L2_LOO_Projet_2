@@ -68,17 +68,17 @@ public class OptionMenu extends Scene {
         table.add(soundEffectsSlider).padBottom(10).padRight(1200);
         table.row();
 
-        Label playerSpeedLabel = new Label("PlayerSpeed",getSkin(),"default");
-        speedSlider = new Slider(100,1000,1,false,getSkin());
-        float initialPlayerSpeed = Writer.getSetting(GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE);
+        Label playerSpeedLabel = new Label("ScrollSpeedMultiplier",getSkin(),"default");
+        speedSlider = new Slider(0,100,1,false,getSkin());
+        float initialPlayerSpeed = Writer.getSetting(String.valueOf(GameConstant.CAMERA_SPEED_MULTIPLIER), GameConstant.SETTINGS_FILE);
         speedSlider.setValue(initialPlayerSpeed);
         speedSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float playerSpeed = speedSlider.getValue();
-                Gdx.app.log("OptionMenu", "Player speed adjusted to: " + playerSpeed);
-                Writer.writeSetting(String.valueOf((int) playerSpeed), GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
-                GameConstant.PLAYER_SPEED = playerSpeed;
+                Gdx.app.log("OptionMenu", "ScrollSpeedMultiplier adjusted to: " + playerSpeed + "("+(playerSpeed/100.0f)+0.5f+")");
+                Writer.writeSetting(String.valueOf((int) playerSpeed), String.valueOf(GameConstant.CAMERA_SPEED_MULTIPLIER), GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
+                GameConstant.CAMERA_SPEED_MULTIPLIER = (playerSpeed/100.0f)+0.5f;
             }
         });
 

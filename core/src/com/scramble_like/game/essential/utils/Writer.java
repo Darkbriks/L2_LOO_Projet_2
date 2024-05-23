@@ -90,8 +90,8 @@ public class Writer {
             if(Objects.equals(option, "SoundVolume")){
                 return 750;
             }
-            if(Objects.equals(option, "Speed")){
-                return 400;
+            if(Objects.equals(option, "ScrollSpeedMultiplier")){
+                return 100;
             }
             return 0;
         } else {

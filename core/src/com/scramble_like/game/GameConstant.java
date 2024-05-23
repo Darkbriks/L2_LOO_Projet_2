@@ -30,7 +30,7 @@ public class GameConstant
     // Player
     public static float CAMERA_SPEED = 250;
     public static float PLAYER_SPEED = 500;
-    public static float CAMERA_SPEED_MULTIPLIER = 1;
+    public static float CAMERA_SPEED_MULTIPLIER = (Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE)/100.0f)+0.5f;
     public static final int PLAYER_LIFE = 50;
     public static final int SCORE_LOST_ON_HIT = 1000;
     public static final int BOTTOM_SCROLL_LIMIT = -250;
@@ -60,16 +60,17 @@ public class GameConstant
     public static final String SETTINGS_FILE = "settings.txt";
     public static final String VOLUME_OPTION = "Volume";
     public static final String SOUND_EFFECTS_OPTION = "SoundVolume";
-    public static final String PLAYER_SPEED_OPTION = "Speed";
+    public static final String PLAYER_SPEED_OPTION = "ScrollSpeedMultiplier";
 
     public static final List<String> OPTION_LIST = Arrays.asList(
             "Volume",
             "SoundVolume",
-            "Speed"
+            "ScrollSpeedMultiplier"
     );
 
     public static final List<String> HIGHSCORE_LIST = Arrays.asList(
             "highscore_1",
+            "highscore_2",
             "highscore_2"
     );
     // UI Position
