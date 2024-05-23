@@ -91,7 +91,7 @@ public class Writer {
                 return 750;
             }
             if(Objects.equals(option, "ScrollSpeedMultiplier")){
-                return 100;
+                return 400;
             }
             return 0;
         } else {

@@ -103,7 +103,7 @@ public class GameConstant
     public static boolean PAUSE_BUTTON = false;
 
     //Sound
-    public static float SOUND_EFFECT_VOLUME = Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE);
+    public static float SOUND_EFFECT_VOLUME = Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE)/100.0f;
     public static float SOUND_MUSIC_VOLUME = Writer.getSetting(GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE) / 100.0f;;
 
     // Debug

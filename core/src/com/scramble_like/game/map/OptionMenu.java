@@ -34,7 +34,7 @@ public class OptionMenu extends Scene {
 
         Label volumeLabel = new Label("Volume", getSkin(), "default");
         volumeSlider = new Slider(0, 1, 0.01f, false, getSkin());
-        float initialVolume = Writer.getSetting(GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE) / 100.0f;
+        float initialVolume = Writer.getSetting(GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE)/100f;
         volumeSlider.setValue(initialVolume);
         volumeSlider.addListener(new ChangeListener() {
             @Override
@@ -42,7 +42,7 @@ public class OptionMenu extends Scene {
                 float volume = volumeSlider.getValue();
                 Gdx.app.log("OptionMenu", "Volume adjusted to: " + volume);
 
-                Writer.writeSetting(String.valueOf((int) (volume * 100)), GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
+                Writer.writeSetting(String.valueOf((int) (volume*100)), GameConstant.VOLUME_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
                 GameConstant.SOUND_MUSIC_VOLUME = volume;
             }
         });
@@ -52,7 +52,7 @@ public class OptionMenu extends Scene {
 
         Label soundEffectsLabel = new Label("SoundsEffects",getSkin(),"default");
         soundEffectsSlider = new Slider(0,1,0.01f,false,getSkin());
-        float initialSoundEffect = Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE);
+        float initialSoundEffect = Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE)/100f;
         soundEffectsSlider.setValue(initialSoundEffect);
         soundEffectsSlider.addListener(new ChangeListener() {
             @Override
@@ -70,14 +70,14 @@ public class OptionMenu extends Scene {
 
         Label playerSpeedLabel = new Label("ScrollSpeedMultiplier",getSkin(),"default");
         speedSlider = new Slider(0,100,1,false,getSkin());
-        float initialPlayerSpeed = Writer.getSetting(String.valueOf(GameConstant.CAMERA_SPEED_MULTIPLIER), GameConstant.SETTINGS_FILE);
+        float initialPlayerSpeed = Writer.getSetting(GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE);
         speedSlider.setValue(initialPlayerSpeed);
         speedSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float playerSpeed = speedSlider.getValue();
                 Gdx.app.log("OptionMenu", "ScrollSpeedMultiplier adjusted to: " + playerSpeed + "("+(playerSpeed/100.0f)+0.5f+")");
-                Writer.writeSetting(String.valueOf((int) playerSpeed), String.valueOf(GameConstant.CAMERA_SPEED_MULTIPLIER), GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
+                Writer.writeSetting(String.valueOf((int) playerSpeed), GameConstant.PLAYER_SPEED_OPTION, GameConstant.SETTINGS_FILE, GameConstant.OPTION_LIST,false);
                 GameConstant.CAMERA_SPEED_MULTIPLIER = (playerSpeed/100.0f)+0.5f;
             }
         });
