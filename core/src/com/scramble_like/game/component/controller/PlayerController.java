@@ -61,7 +61,7 @@ public class PlayerController extends CharacterController
     {
         if (!this.IsActive()) { return; }
 
-        this.score+=5;
+        this.score+= (int) (5*GameConstant.CAMERA_SPEED_MULTIPLIER);
         hitCooldownTimer += DeltaTime;
 
         scroll(DeltaTime);
