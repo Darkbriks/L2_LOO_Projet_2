@@ -32,36 +32,34 @@ public abstract class AbstractLevel extends Scene
         super(name);
         this.level=level;
 
-        getCamera().setPosition(getPosition().x+getPosition().z, getPosition().y+getPosition().w);
+        getCamera().setPosition(getInitPlayerAndCameraLocation().x + getInitPlayerAndCameraLocation().z, getInitPlayerAndCameraLocation().y + getInitPlayerAndCameraLocation().w);
         this.lastCheckpoint = null;
         GameConstant.CAMERA_SPEED = cameraSpeed;
         GameConstant.BACKGROUND_SPEED = backgroundSpeed;
 
         try
         {
-            Player go1 = new Player("Player", this, new Vector2(this.getPosition().x,this.getPosition().y));
-            AddGameObject(go1);
+            Player player = new Player("Player", this, new Vector2(this.getInitPlayerAndCameraLocation().x, this.getInitPlayerAndCameraLocation().y));
+            player.getPlayerController().setOrigin(new Vector2(getInitPlayerAndCameraLocation().x + getInitPlayerAndCameraLocation().z, getInitPlayerAndCameraLocation().y + getInitPlayerAndCameraLocation().w));
+            AddGameObject(player);
 
             Background background =  new Background("Background", this, "Background/backG.png",768, 192);
             AddGameObject(background);
 
             ChunkManager chunkManager = new ChunkManager("ChunkManager", this, level);
             AddGameObject(chunkManager);
-            chunkManager.setPlayer(go1);
+            chunkManager.setPlayer(player);
 
             LevelLoader levelLoader = new LevelLoader("LevelLoader", this, (level + 1) % GameConstant.LEVEL_LIST.size());
             levelLoader.getTransform().setLocation(levelLoaderLocation.x,levelLoaderLocation.y);
             AddGameObject(levelLoader);
-
-
-
         }
         catch (SceneIsNullException e) { Gdx.app.error("Abstract", "Error: " + e.getMessage()); }
 
         CreateUI();
     }
 
-    protected abstract Vector4 getPosition();
+    protected abstract Vector4 getInitPlayerAndCameraLocation();
     public void setLastCheckpoint(Checkpoint lastCheckpoint) { this.lastCheckpoint = lastCheckpoint; }
 
     public void GameOver(int score)

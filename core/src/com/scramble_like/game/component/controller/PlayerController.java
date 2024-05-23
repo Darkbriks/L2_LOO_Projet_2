@@ -1,6 +1,7 @@
 package com.scramble_like.game.component.controller;
 
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.GameCamera;
 import com.scramble_like.game.essential.chaos.AABBCollider;
@@ -16,15 +17,20 @@ public class PlayerController extends CharacterController
     private int score;
     private GameCamera camera;
     private boolean inverseScroll; // false, scroll is horizontal, true, scroll is vertical
+    private Vector2 origin;
 
     public PlayerController(AnimationController animationController, AABBCollider collider)
     {
         super(animationController, collider, GameConstant.PLAYER_SPEED, GameConstant.PLAYER_LIFE);
         this.inverseScroll = false;
+        this.origin = new Vector2(0, 0);
     }
 
     public boolean isInverseScroll() { return inverseScroll; }
     public void setInverseScroll(boolean inverseScroll) { this.inverseScroll = inverseScroll; }
+
+    public Vector2 getOrigin() { return origin; }
+    public void setOrigin(Vector2 origin) { this.origin = origin; }
 
     @Override
     public void BeginPlay()
@@ -110,15 +116,15 @@ public class PlayerController extends CharacterController
 
             if (!inverseScroll && dy != 0)
             {
-                if (this.getOwner().getTransform().getLocation().y < GameConstant.BOTTOM_SCROLL_LIMIT) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.BOTTOM_SCROLL_LIMIT); }
-                else if (this.getOwner().getTransform().getLocation().y > GameConstant.TOP_SCROLL_LIMIT) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.TOP_SCROLL_LIMIT); }
-                else { camera.getPosition().y = 0; }
+                if (this.getOwner().getTransform().getLocation().y < GameConstant.BOTTOM_SCROLL_LIMIT + origin.y) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.BOTTOM_SCROLL_LIMIT); }
+                else if (this.getOwner().getTransform().getLocation().y > GameConstant.TOP_SCROLL_LIMIT + origin.y) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.TOP_SCROLL_LIMIT); }
+                else { camera.getPosition().y = origin.y; }
             }
             else if (inverseScroll && dx != 0)
             {
-                if (this.getOwner().getTransform().getLocation().x < GameConstant.LEFT_SCROLL_LIMIT) { camera.setX(this.getOwner().getTransform().getLocation().x - GameConstant.LEFT_SCROLL_LIMIT); }
-                else if (this.getOwner().getTransform().getLocation().x > GameConstant.RIGHT_SCROLL_LIMIT) { camera.setX(this.getOwner().getTransform().getLocation().x - GameConstant.RIGHT_SCROLL_LIMIT); }
-                else { camera.getPosition().x = 0; }
+                if (this.getOwner().getTransform().getLocation().x < GameConstant.LEFT_SCROLL_LIMIT + origin.x) { camera.setX(this.getOwner().getTransform().getLocation().x - GameConstant.LEFT_SCROLL_LIMIT); }
+                else if (this.getOwner().getTransform().getLocation().x > GameConstant.RIGHT_SCROLL_LIMIT + origin.x) { camera.setX(this.getOwner().getTransform().getLocation().x - GameConstant.RIGHT_SCROLL_LIMIT); }
+                else { camera.getPosition().x = origin.x; }
             }
         }
         else if (animationController.getState() != AnimationController.AnimationState.IDLE)

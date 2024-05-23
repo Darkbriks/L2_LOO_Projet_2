@@ -37,14 +37,6 @@ public class Player extends GameObject
         super(name, scene);
         this.getTransform().setLocation(location);
         this.getTransform().setZIndex(CoreConstant.MIN_Z_INDEX + 2);
-    }
-
-    public PlayerController getPlayerController() { return playerController; }
-
-    @Override
-    public void BeginPlay()
-    {
-        super.BeginPlay();
 
         this.collider = new AABBCollider(GameConstant.PLAYER_IDLE_COLLIDER.x, GameConstant.PLAYER_IDLE_COLLIDER.y, GameConstant.PLAYER_IDLE_COLLIDER.z, GameConstant.PLAYER_IDLE_COLLIDER.w, false, true);
         this.AddComponent(collider);
@@ -65,6 +57,14 @@ public class Player extends GameObject
         this.AddComponent(secondaryFireController);
 
         this.getScene().setPlayer(this);
+    }
+
+    public PlayerController getPlayerController() { return playerController; }
+
+    @Override
+    public void BeginPlay()
+    {
+        super.BeginPlay();
 
         this.getEventDispatcher().AddListener(EventIndex.HIT, new EventListener() {
             @Override

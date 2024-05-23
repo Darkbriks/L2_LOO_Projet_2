@@ -15,5 +15,6 @@ public class InverseScrolling extends PowerUp
     protected void Triggered(Player player)
     {
         player.getPlayerController().setInverseScroll(!player.getPlayerController().isInverseScroll());
+        player.getPlayerController().setOrigin(getCamera().getPosition());
     }
 }

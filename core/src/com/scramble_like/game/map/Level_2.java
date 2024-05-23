@@ -16,19 +16,17 @@ public class Level_2 extends AbstractLevel
         DynamicObjectLoader.getInstance().loadAll(this, "Level_2_DynamicObject.txt");
         SoundFactory.getInstance().changeBackgroundMusicWithFade(GameConstant.MUSIC_PATH("level_2.mp3"), GameConstant.SOUND_MUSIC_VOLUME, 3);
 
-        try {
+        try
+        {
             Checkpoint checkpoint1 = new Checkpoint("Checkpoint", this, 1250, -340);
             Checkpoint checkpoint2 = new Checkpoint("Checkpoint", this, 3950, -365);
             AddGameObject(checkpoint1);
             AddGameObject(checkpoint2);
-        } catch (SceneIsNullException e) {
-            throw new RuntimeException(e);
         }
+        catch (SceneIsNullException e) { throw new RuntimeException(e); }
     }
 
     @Override
-    protected Vector4 getPosition(){
-        return new Vector4(-350,0,500,0);
-    }
+    protected Vector4 getInitPlayerAndCameraLocation() { return new Vector4(-350,0,500,0); }
 
 }

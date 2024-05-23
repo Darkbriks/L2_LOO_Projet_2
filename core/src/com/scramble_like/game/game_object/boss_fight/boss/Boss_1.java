@@ -17,7 +17,7 @@ public class Boss_1 extends Boss
         super("Boss_1",
                 scene,
                 500,
-                new Pattern[] { /*new FiveAlignedRocketPattern(), new FiveCenteredRocketPattern(), new BottomToTopRocketPattern(), new ThreeHundredAndSixtyFlashlight(), new RandomFlashlight(), new NovaFlashlight(), new TenRotationFlashlight(),*/ new DoubleFlashlightPattern()},
+                new Pattern[] { new FiveAlignedRocketPattern(), new FiveCenteredRocketPattern(), new BottomToTopRocketPattern(), new ThreeHundredAndSixtyFlashlight(), new RandomFlashlight(), new NovaFlashlight(), new TenRotationFlashlight(), new DoubleFlashlightPattern()},
                 2,
                 new Sprite("Characters/Boss/Ship6/Ship6.png"),
                 new AABBCollider(350, 175, false, true),
