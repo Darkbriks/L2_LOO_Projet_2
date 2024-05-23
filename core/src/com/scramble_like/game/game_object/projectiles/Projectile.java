@@ -13,6 +13,7 @@ import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.game_object.Player;
+import com.scramble_like.game.game_object.boss_fight.boss.Boss;
 import com.scramble_like.game.game_object.enemy.Enemy;
 
 import java.util.EventObject;
@@ -66,6 +67,12 @@ public abstract class Projectile extends GameObject
                 {
                     DestroyThisInScene();
                     e.otherGameObject.GetFirstComponentFromClass(CharacterController.class).takeDamage(damage, cooldown);
+                }
+                if (e.otherGameObject instanceof Boss && generatedByPlayer)
+                {
+                    DestroyThisInScene();
+                    Boss boss = (Boss) e.otherGameObject;
+                    boss.TakeDamage(damage);
                 }
             }
         });

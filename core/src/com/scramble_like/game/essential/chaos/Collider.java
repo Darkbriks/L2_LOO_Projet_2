@@ -46,7 +46,7 @@ public abstract class Collider extends Component
     ////////// Setters //////////
     public void setGenerateOverlappedEvent(boolean generateOverlappedEvent) { this.generateOverlappedEvent = generateOverlappedEvent; }
     public void setSimulatePhysics(boolean simulatePhysics) { this.simulatePhysics = simulatePhysics; }
-    public void setPositionInGrid() { this.getOwner().getScene().getSpatialGrid().updateCollider(this); }
+    public void setPositionInGrid() { if (this.getOwner() != null) { this.getOwner().getScene().getSpatialGrid().updateCollider(this); } }
 
     ////////// Methods //////////
     boolean Collide(Collider other)

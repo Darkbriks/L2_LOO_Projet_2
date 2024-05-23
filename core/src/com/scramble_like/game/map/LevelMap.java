@@ -2,27 +2,28 @@ package com.scramble_like.game.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.ui.AE_Label;
 
-public class LevelMap extends Scene {
+public class LevelMap extends Scene
+{
+    private final Texture backgroundTexture;
 
-    private OrthographicCamera camera;
-    private Texture backgroundTexture;
-
-    public LevelMap() {
+    public LevelMap()
+    {
         super("LevelMap");
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, GameConstant.WIDTH, GameConstant.HEIGHT);
+        System.out.println("LevelMap");
 
-        backgroundTexture = new Texture(Gdx.files.internal("LevelMap/LMAP.png"));
+        getCamera().setPosition(0, 0);
+
+        //backgroundTexture = new Texture(Gdx.files.internal("LevelMap/LMAP.png"));
+        backgroundTexture = ImageFactory.getTexture("LevelMap/LMAP.png");
 
         Label backButton = new AE_Label("Back", this.getSkin(),new Color(0,0,0,1));
         backButton.setPosition(-800, Gdx.graphics.getHeight() - 400);
@@ -74,26 +75,18 @@ public class LevelMap extends Scene {
     }
 
     @Override
-    public void render(float delta) {
+    public void render(float delta)
+    {
+        this.getBatch().begin();
+        this.getBatch().draw(backgroundTexture, -640, -346, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.getBatch().end();
+
         super.render(delta);
-
-        camera.update();
-
-        this.getStage().getBatch().begin();
-        this.getStage().getBatch().draw(backgroundTexture, -640, -346, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.getStage().getBatch().end();
-
-        this.getStage().getBatch().setProjectionMatrix(camera.combined);
-        this.getStage().draw();
     }
 
     @Override
-    public void resize(int width, int height) {
-        camera.setToOrtho(false, width, height);
-    }
-
-    @Override
-    public void dispose() {
+    public void dispose()
+    {
         super.dispose();
         backgroundTexture.dispose();
     }

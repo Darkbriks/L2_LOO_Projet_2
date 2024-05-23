@@ -8,13 +8,14 @@ import com.scramble_like.game.essential.utils.Utils;
 public class SphereCollider extends Collider
 {
     ////////// Attributes //////////
-    private final float radius;
+    private float radius;
 
     ////////// Constructor //////////
     public SphereCollider(float radius, boolean generateOverlappedEvent, boolean simulatePhysics) { super(generateOverlappedEvent, simulatePhysics); this.radius = radius; }
 
     ////////// Getters //////////
     public float getRadius() { return this.radius; }
+    public void setRadius(float radius) { this.radius = radius; }
     public float getX() { return Utils.lerp(this.getOwnerX() + radius / 2, getOwnerX() - radius / 2, this.getOwner().getTransform().getAlignment().x); }
     public float getY() { return Utils.lerp(this.getOwnerY() + radius / 2, getOwnerY() - radius / 2, this.getOwner().getTransform().getAlignment().y); }
 

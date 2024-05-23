@@ -16,6 +16,7 @@ import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventHit;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.game_object.boss_fight.boss.Boss;
 import com.scramble_like.game.game_object.enemy.Enemy;
 import com.scramble_like.game.game_object.projectiles.PlayerBomb;
 import com.scramble_like.game.game_object.projectiles.SimpleBullet;
@@ -72,7 +73,7 @@ public class Player extends GameObject
                 if (GameConstant.GOD_MODE) { return; }
                 EventHit e = (EventHit) event;
 
-                if (e.otherGameObject instanceof ChunkManager)
+                if (e.otherGameObject instanceof ChunkManager || e.otherGameObject instanceof Boss)
                 {
                     if (Controllers.getCurrent() != null) { Controllers.getCurrent().startVibration(100, 1); }
                     playerController.takeDamage(10000, 0.0f); animationController.setState(AnimationController.AnimationState.DIE, 1);
