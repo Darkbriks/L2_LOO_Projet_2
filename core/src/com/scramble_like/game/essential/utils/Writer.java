@@ -84,6 +84,15 @@ public class Writer {
 
         // Crée le fichier s'il n'existe pas
         if (!file.exists()) {
+            if(Objects.equals(option, "Volume")){
+                return 750;
+            }
+            if(Objects.equals(option, "SoundVolume")){
+                return 750;
+            }
+            if(Objects.equals(option, "Speed")){
+                return 400;
+            }
             return 0;
         } else {
             try {
