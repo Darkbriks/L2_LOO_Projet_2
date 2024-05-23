@@ -20,7 +20,7 @@ public abstract class Enemy extends GameObject
     protected AnimationController animationController;
     protected EnemyController enemyController;
 
-    public Enemy(String name, Scene scene, String spriteFolderPath, int life, float shootSpeed, int[] animationFrames, Vector2[] waypoints, float movementSpeed, float timeBetweenWaypoints) throws SceneIsNullException
+    public Enemy(String name, Scene scene, String spriteFolderPath, int life, int score, float shootSpeed, int[] animationFrames, Vector2[] waypoints, float movementSpeed, float timeBetweenWaypoints) throws SceneIsNullException
     {
         super(name, scene);
         this.shootSpeed = shootSpeed;
@@ -34,7 +34,7 @@ public abstract class Enemy extends GameObject
         this.animationController = new AnimationController(spriteFolderPath, flipbook, animationFrames);
         this.AddComponent(animationController);
 
-        this.enemyController = new EnemyController(animationController, collider, movementSpeed, life, waypoints, timeBetweenWaypoints);
+        this.enemyController = new EnemyController(animationController, collider, movementSpeed, life, waypoints, timeBetweenWaypoints, score);
         this.AddComponent(enemyController);
 
         if (shootSpeed != 0)
