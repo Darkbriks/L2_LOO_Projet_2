@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector4;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.map.Level_1;
 import com.scramble_like.game.map.Level_2;
+import com.scramble_like.game.map.Level_3;
 import com.scramble_like.game.map.MainMenu;
 
 import java.util.Map;
@@ -45,7 +46,8 @@ public class GameConstant
     public static final Map<Integer, Class<? extends Scene>> LEVEL_LIST = Map.of(
             0, MainMenu.class,
             1, Level_1.class,
-            2, Level_2.class);
+            2, Level_2.class,
+            3, Level_3.class);
 
     public static final Map<Integer,String> OPTION_LIST = Map.of(
             0, "",
@@ -88,7 +90,7 @@ public class GameConstant
 
     //Sound
     public static float SOUND_EFFECT_VOLUME = 0.75f;
-    public static float SOUND_MUSIC_VOLUME = 0f;
+    public static float SOUND_MUSIC_VOLUME = 1f;
 
     // Debug
     public static boolean DEBUG = false;
