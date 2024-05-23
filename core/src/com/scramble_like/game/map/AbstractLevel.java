@@ -10,7 +10,7 @@ import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.utils.Writer;
 import com.scramble_like.game.game_object.Background;
-import com.scramble_like.game.game_object.Checkpoint;
+import com.scramble_like.game.game_object.power_up.Checkpoint;
 import com.scramble_like.game.game_object.LevelLoader;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.ui.AE_Label;
@@ -26,7 +26,7 @@ public abstract class AbstractLevel extends Scene
     private final int level;
     protected Checkpoint lastCheckpoint;
 
-    public AbstractLevel(String name, int level, float cameraSpeed, Vector2 levelLoaderLocation)
+    public AbstractLevel(String name, int level, float cameraSpeed, int backgroundSpeed, Vector2 levelLoaderLocation)
     {
         super(name);
         this.level=level;
@@ -34,6 +34,7 @@ public abstract class AbstractLevel extends Scene
         getCamera().setPosition(0, 0);
         this.lastCheckpoint = null;
         GameConstant.CAMERA_SPEED = cameraSpeed;
+        GameConstant.BACKGROUND_SPEED = backgroundSpeed;
 
         try
         {
@@ -101,7 +102,7 @@ public abstract class AbstractLevel extends Scene
     private void newLife()
     {
         int totalFrames = 5;
-        this.currentframe = round(totalFrames - 1 - (((float) this.getPlayer().GetFirstComponentFromClass(PlayerController.class).getLife() /GameConstant.PLAYER_LIFE)*(totalFrames - 1)));
+        this.currentframe = round(totalFrames - 1 - (((float) this.getPlayer().getPlayerController().getLife() /GameConstant.PLAYER_LIFE)*(totalFrames - 1)));
         lifeActor.setCurrentRegion(currentframe);
     }
 

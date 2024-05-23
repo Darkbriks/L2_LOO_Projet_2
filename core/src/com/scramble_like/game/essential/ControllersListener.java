@@ -7,13 +7,15 @@ import com.scramble_like.game.GameConstant;
 public class ControllersListener implements ControllerListener
 {
     @Override
-    public void connected(Controller controller) {
+    public void connected(Controller controller)
+    {
         System.out.println("Controller connected: " + controller.getName());
         CoreConstant.UPDATE_MULTIPLIER = 1;
     }
 
     @Override
-    public void disconnected(Controller controller) {
+    public void disconnected(Controller controller)
+    {
         System.out.println("Controller disconnected: " + controller.getName());
         CoreConstant.UPDATE_MULTIPLIER = 0;
     }
@@ -24,6 +26,7 @@ public class ControllersListener implements ControllerListener
         if (i == controller.getMapping().buttonX) { GameConstant.SHOOT_BUTTON = true; }
         else if (i == controller.getMapping().buttonR1) { GameConstant.SECONDARY_SHOOT_BUTTON = true; }
         else if (i == controller.getMapping().buttonStart) { GameConstant.PAUSE_BUTTON = true; }
+        else if (i == controller.getMapping().buttonL1) { GameConstant.CAMERA_SPEED *= 5; }
         return false;
     }
 
@@ -33,6 +36,7 @@ public class ControllersListener implements ControllerListener
         if (i == controller.getMapping().buttonX) { GameConstant.SHOOT_BUTTON = false; }
         else if (i == controller.getMapping().buttonR1) { GameConstant.SECONDARY_SHOOT_BUTTON = false; }
         else if (i == controller.getMapping().buttonStart) { GameConstant.PAUSE_BUTTON = false; }
+        else if (i == controller.getMapping().buttonL1) { GameConstant.CAMERA_SPEED /= 5; }
         return false;
     }
 

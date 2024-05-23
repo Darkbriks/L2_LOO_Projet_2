@@ -1,4 +1,4 @@
-package com.scramble_like.game.game_object;
+package com.scramble_like.game.game_object.power_up;
 
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -7,24 +7,25 @@ import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
-import com.scramble_like.game.map.AbstractLevel;
+import com.scramble_like.game.game_object.Player;
 
 import java.util.EventObject;
 
-public class Checkpoint extends GameObject
+public abstract class PowerUp extends GameObject
 {
-
-    public Checkpoint(String name, Scene scene, float x, float y) throws SceneIsNullException
+    public PowerUp(String name, Scene scene, float x, float y, float radius) throws SceneIsNullException
     {
         super(name, scene);
+        this.AddComponent(new SphereCollider(radius, true, true));
         this.getTransform().setLocation(x, y);
     }
+
+    protected abstract void Triggered(Player player);
 
     @Override
     public void BeginPlay()
     {
         super.BeginPlay();
-        this.AddComponent(new SphereCollider(250, true, true));
 
         this.getEventDispatcher().AddListener(EventIndex.BEGIN_OVERLAP, new EventListener() {
             @Override
@@ -33,10 +34,7 @@ public class Checkpoint extends GameObject
                 EventBeginOverlap e = (EventBeginOverlap) event;
                 if (e.otherGameObject instanceof Player)
                 {
-                    if (getScene() instanceof AbstractLevel)
-                    {
-                        ((AbstractLevel) getScene()).setLastCheckpoint(Checkpoint.this);
-                    }
+                    Triggered((Player) e.otherGameObject);
                 }
             }
         });

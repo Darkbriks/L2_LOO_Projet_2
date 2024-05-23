@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class CollisionTask extends RecursiveTask<Set<Collider>>
 {
-    private static final int THRESHOLD = 50;
+    private static final int THRESHOLD = 10;
     private final Set<Collider> colliders;
     private final Collider currentCollider;
 

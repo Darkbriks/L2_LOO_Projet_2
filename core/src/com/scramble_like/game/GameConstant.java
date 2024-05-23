@@ -21,7 +21,7 @@ public class GameConstant
     public static final int GRID_CELL_Y = 5;
 
     // Background
-    public static final int BACKGROUND_SPEED = -150;
+    public static int BACKGROUND_SPEED = -50;
 
     // Player
     public static float CAMERA_SPEED = 250;
@@ -88,7 +88,7 @@ public class GameConstant
 
     //Sound
     public static float SOUND_EFFECT_VOLUME = 0.75f;
-    public static float SOUND_MUSIC_VOLUME = 1f;
+    public static float SOUND_MUSIC_VOLUME = 0f;
 
     // Debug
     public static boolean DEBUG = false;

@@ -76,6 +76,7 @@ public class ScrambleLikeApplication extends Game
 	{
 		if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_DEBUG)) { GameConstant.DEBUG = !GameConstant.DEBUG;}
 		if (Gdx.input.isKeyJustPressed(GameConstant.TOGGLE_GOD_MODE)) { GameConstant.GOD_MODE = !GameConstant.GOD_MODE; }
+
 		batch.setProjectionMatrix(camera.getCombined());
 		super.render();
 	}
