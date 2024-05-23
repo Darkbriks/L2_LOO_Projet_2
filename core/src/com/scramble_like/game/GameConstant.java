@@ -21,8 +21,8 @@ public class GameConstant
     public static int HEIGHT = 900;
 
     // Grid ; Determines la taille du monde. En aucun cas, un GameObject possèdant une collision ne doit sortir de cette grille.
-    public static final int GRID_CELL_X = 1000;
-    public static final int GRID_CELL_Y = 5;
+    public static final int GRID_CELL_X = 50;
+    public static final int GRID_CELL_Y = 50;
 
     // Background
     public static int BACKGROUND_SPEED = -50;

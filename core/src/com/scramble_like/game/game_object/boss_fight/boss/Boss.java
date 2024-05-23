@@ -50,7 +50,7 @@ public abstract class Boss extends GameObject
         this.sleeping = false;
         this.xOffsetWithCamera = 500;
         this.sprite = sprite; this.sprite.setFlipX(true);
-        this.collider = collider;
+        this.collider = collider; this.collider.SetActive(false);
         this.bossToSpawnOnDeath = bossToSpawnOnDeath;
         this.AddComponent(sprite);
         this.AddComponent(collider);
@@ -152,7 +152,7 @@ public abstract class Boss extends GameObject
         {
             GameConstant.CAMERA_SPEED = cameraSpeed;
             GameConstant.BACKGROUND_SPEED = backgroundSpeed;
-            if (isEntering) { isEntering = false; }
+            if (isEntering) { isEntering = false; collider.SetActive(true); }
             if (isExiting)
             {
                 if (bossToSpawnOnDeath != null)
