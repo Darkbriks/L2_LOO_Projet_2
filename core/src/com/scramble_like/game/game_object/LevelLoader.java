@@ -1,6 +1,7 @@
 package com.scramble_like.game.game_object;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
@@ -9,6 +10,8 @@ import com.scramble_like.game.essential.event_dispatcher.EventIndex;
 import com.scramble_like.game.essential.event_dispatcher.EventListener;
 import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.map.LevelSlide;
+
 import java.util.EventObject;
 
 public class LevelLoader extends GameObject
@@ -40,7 +43,7 @@ public class LevelLoader extends GameObject
                     {
                         Scene newScene = GameConstant.LEVEL_LIST.get(levelToLoad).getConstructor().newInstance();
                         getScene().dispose();
-                        getScene().getGame().setScreen(newScene);
+                        getScene().getGame().setScreen(new LevelSlide(LevelLoader.this.getScene(),newScene));
                     }
                     catch (Exception exception) { Gdx.app.error("LevelLoader", "Error: " + exception.getMessage()); }
                 }

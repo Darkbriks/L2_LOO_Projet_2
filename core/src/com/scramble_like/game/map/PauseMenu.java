@@ -43,8 +43,7 @@ public class PauseMenu extends Scene
 
         reloadButton = new AE_Label("Try Again", this.getSkin());
         reloadButton.setPosition(cameraX - reloadButton.getWidth() / 2, cameraY);
-        reloadButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y)
-        {
+        reloadButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y){
             try
             {
                 Scene newScene = previousScene.getClass().getConstructor().newInstance();
