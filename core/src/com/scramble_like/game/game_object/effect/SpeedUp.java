@@ -25,7 +25,7 @@ public class SpeedUp extends PowerUp{
 
             getScene().getPlayer().getPlayerController().reset_speed();
             System.out.println(GameConstant.PLAYER_SPEED_MULTIPLIER);
-            Destroy();
+            DestroyThisInScene();
         }
     }
 }

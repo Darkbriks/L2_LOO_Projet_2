@@ -22,7 +22,7 @@ public class DmgUp extends PowerUp {
             GameConstant.PLAYER_ATTACK_MULTIPLIER+=0.2f;
             SoundFactory.getInstance().playSound("PowerUp",GameConstant.SOUND_EFFECT_VOLUME);
             System.out.println(GameConstant.PLAYER_ATTACK_MULTIPLIER);
-            Destroy();
+            DestroyThisInScene();
         }
     }
 }
