@@ -12,7 +12,7 @@ public class SimpleBullet extends Projectile
     public SimpleBullet(Scene scene, Vector2 location) throws SceneIsNullException
     {
         super("Simple Bullet", scene, location, new Vector2(1, 0), 1000, 1000, true);
-        this.damage = 100;//(int) (5*GameConstant.PLAYER_ATTACK_MULTIPLIER);
+        this.damage = (int) (5*GameConstant.PLAYER_ATTACK_MULTIPLIER);
         this.AddComponent(new Sprite(GameConstant.CHARACTER_PATH("UnderwaterCharacterPack/MermaidGuard_2", "Projectile.png")));
         AABBCollider collider = this.GetFirstComponentFromClass(AABBCollider.class);
         collider.setHeight(10);
