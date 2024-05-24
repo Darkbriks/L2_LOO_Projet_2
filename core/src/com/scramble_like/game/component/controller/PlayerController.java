@@ -21,7 +21,7 @@ public class PlayerController extends CharacterController
 
     public PlayerController(AnimationController animationController, AABBCollider collider)
     {
-        super(animationController, collider, GameConstant.PLAYER_SPEED, GameConstant.PLAYER_LIFE);
+        super(animationController, collider, GameConstant.PLAYER_SPEED, GameConstant.PLAYER_LIFE());
         this.inverseScroll = false;
         this.origin = new Vector2(0, 0);
     }

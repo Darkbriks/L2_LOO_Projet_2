@@ -107,7 +107,7 @@ public abstract class AbstractLevel extends Scene
     private void newLife()
     {
         int totalFrames = 5;
-        this.currentframe = round(totalFrames - 1 - (((float) this.getPlayer().getPlayerController().getLife() /GameConstant.PLAYER_LIFE)*(totalFrames - 1)));
+        this.currentframe = round(totalFrames - 1 - (((float) this.getPlayer().getPlayerController().getLife() /GameConstant.PLAYER_LIFE())*(totalFrames - 1)));
         lifeActor.setCurrentRegion(currentframe);
     }
 
