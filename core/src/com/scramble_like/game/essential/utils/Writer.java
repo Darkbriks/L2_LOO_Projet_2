@@ -97,13 +97,13 @@ public class Writer
     }
 
     // Golden Strawberry
-    public static boolean getGoldenStrawberry(int level)
+    public static boolean getLevelInfo(int level, String fileName)
     {
         // Check if the file exists
         String currentDir = System.getProperty("user.dir");
-        File file = new File(currentDir, "golden_strawberry.txt");
+        File file = new File(currentDir, fileName);
 
-        if (!file.exists()) { CreateFileStrawberry(); }
+        if (!file.exists()) { CreateLevelInfoFile(fileName); }
 
         try
         {
@@ -118,12 +118,12 @@ public class Writer
         return false;
     }
 
-    public static void writeGoldenStrawberry(int level, boolean value)
+    public static void writeLevelInfo(int level, boolean value, String fileName)
     {
         String currentDir = System.getProperty("user.dir");
-        File file = new File(currentDir, "golden_strawberry.txt");
+        File file = new File(currentDir, fileName);
 
-        if (!file.exists()) { CreateFileStrawberry(); }
+        if (!file.exists()) { CreateLevelInfoFile(fileName); }
 
         boolean isFind = false;
         StringBuilder contentBuilder = new StringBuilder();
@@ -147,16 +147,15 @@ public class Writer
 
             // Write all the updated content to the file
             try (FileWriter writer = new FileWriter(file)) { writer.write(contentBuilder.toString()); }
-
         }
         catch (IOException e) { Gdx.app.error("Writer", "Error writing to file: " + e.getMessage()); }
     }
 
 
-    private static boolean CreateFileStrawberry()
+    private static boolean CreateLevelInfoFile(String filname)
     {
         String currentDir = System.getProperty("user.dir");
-        File file = new File(currentDir, "golden_strawberry.txt");
+        File file = new File(currentDir, filname);
 
         if (!file.exists())
         {

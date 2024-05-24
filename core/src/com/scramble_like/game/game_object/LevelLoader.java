@@ -44,7 +44,9 @@ public class LevelLoader extends GameObject
                 {
                     Player player = (Player) e.otherGameObject;
                     boolean hasGoldenStrawberry = player.getPlayerController().hasGoldenStrawberry();
-                    Writer.writeGoldenStrawberry(currentLevel, hasGoldenStrawberry);
+                    Writer.writeLevelInfo(currentLevel, hasGoldenStrawberry, "golden_strawberry.txt");
+
+                    Writer.writeLevelInfo(currentLevel, true, "unlock.txt");
 
                     try
                     {

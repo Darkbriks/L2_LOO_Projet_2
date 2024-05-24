@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.utils.Writer;
 
 public class LevelSlide extends Scene
 {

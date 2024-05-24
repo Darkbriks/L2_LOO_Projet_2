@@ -28,9 +28,13 @@ public class GameConstant
     public static int BACKGROUND_SPEED = -50;
 
     // Golden Strawberry
-    public static final boolean LEVEL_1_GOLDEN_STRAWBERRY = Writer.getGoldenStrawberry(1);
-    public static final boolean LEVEL_2_GOLDEN_STRAWBERRY = Writer.getGoldenStrawberry(2);
-    public static final boolean LEVEL_3_GOLDEN_STRAWBERRY = Writer.getGoldenStrawberry(3);
+    public static final boolean LEVEL_1_GOLDEN_STRAWBERRY = Writer.getLevelInfo(1, "golden_strawberry.txt");
+    public static final boolean LEVEL_2_GOLDEN_STRAWBERRY = Writer.getLevelInfo(2, "golden_strawberry.txt");
+    public static final boolean LEVEL_3_GOLDEN_STRAWBERRY = Writer.getLevelInfo(3, "golden_strawberry.txt");
+
+    // Unlocks levels
+    public static final boolean LEVEL_2_UNLOCKED = Writer.getLevelInfo(1, "unlock.txt");
+    public static final boolean LEVEL_3_UNLOCKED = Writer.getLevelInfo(2, "unlock.txt");
 
     // Player
     public static float PLAYER_HP_MULTIPLIER = 1;
