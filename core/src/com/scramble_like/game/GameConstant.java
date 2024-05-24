@@ -33,8 +33,8 @@ public class GameConstant
     public static final boolean LEVEL_3_GOLDEN_STRAWBERRY = Writer.getLevelInfo(3, "golden_strawberry.txt");
 
     // Unlocks levels
-    public static final boolean LEVEL_2_UNLOCKED = Writer.getLevelInfo(1, "unlock.txt");
-    public static final boolean LEVEL_3_UNLOCKED = Writer.getLevelInfo(2, "unlock.txt");
+    public static boolean LEVEL_2_UNLOCKED() { return Writer.getLevelInfo(1, "unlock.txt"); }
+    public static boolean LEVEL_3_UNLOCKED() { return Writer.getLevelInfo(2, "unlock.txt"); }
 
     // Player
     public static float PLAYER_HP_MULTIPLIER = 1;

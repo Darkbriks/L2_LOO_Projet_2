@@ -38,7 +38,7 @@ public class LevelMap extends Scene
         level1.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new Level_1()); dispose(); } });
         this.getStage().addActor(level1);
 
-        if (GameConstant.LEVEL_2_UNLOCKED)
+        if (GameConstant.LEVEL_2_UNLOCKED())
         {
             Label level2 =new AE_Label("2", this.getSkin(),new Color(0.8f, 0.2f, 0.0f, 1));
             level2.setPosition((float) -GameConstant.WIDTH / 2 + 535, (float) -GameConstant.HEIGHT / 2 + 280);
@@ -47,7 +47,7 @@ public class LevelMap extends Scene
             this.getStage().addActor(level2);
         }
 
-        if (GameConstant.LEVEL_3_UNLOCKED)
+        if (GameConstant.LEVEL_3_UNLOCKED())
         {
             Label level3 =new AE_Label("3", this.getSkin(),new Color(0.8f, 0.2f, 0.0f, 1));
             level3.setPosition((float) -GameConstant.WIDTH / 2 + 85, -15);
@@ -55,8 +55,5 @@ public class LevelMap extends Scene
             level3.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { getGame().setScreen(new Level_3()); dispose(); } });
             this.getStage().addActor(level3);
         }
-
-        System.out.println("Level 2: " + GameConstant.LEVEL_2_UNLOCKED);
-        System.out.println("Level 3: " + GameConstant.LEVEL_3_UNLOCKED);
     }
 }
