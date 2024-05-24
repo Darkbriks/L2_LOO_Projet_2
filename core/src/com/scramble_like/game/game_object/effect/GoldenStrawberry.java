@@ -11,8 +11,8 @@ public class GoldenStrawberry extends PowerUp
     public GoldenStrawberry(String name, Scene scene, float x, float y) throws SceneIsNullException
     {
         super(name, scene, x, y, 100);
-        this.AddComponent(new Sprite("badlogic.jpg"));
-        this.getTransform().setScale(0.1f, 0.1f);
+        this.AddComponent(new Sprite("Tileset/utile/tile176.png"));
+        this.getTransform().setScale(1.5f, 1.5f);
         this.GetFirstComponentFromClass(SphereCollider.class).setRadius(25);
     }
 
