@@ -120,5 +120,5 @@ public class GameConstant
 
     // Debug
     public static boolean DEBUG = false;
-    public static boolean GOD_MODE = true;
+    public static boolean GOD_MODE = false;
 }

@@ -14,8 +14,8 @@ import java.util.concurrent.ForkJoinPool;
 public abstract class Collider extends Component
 {
     ////////// Attributes //////////
-    protected boolean generateOverlappedEvent;
-    protected boolean simulatePhysics;
+    protected boolean generateOverlappedEvent; // Is used to differentiate a collision from an overlap
+    protected boolean simulatePhysics; // If false, the collider no check for collision
     protected boolean isHit;
     protected Set<Collider> overlappedCollider;
 
