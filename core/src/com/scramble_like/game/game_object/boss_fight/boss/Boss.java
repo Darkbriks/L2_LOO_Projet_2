@@ -13,6 +13,7 @@ import com.scramble_like.game.game_object.Particule;
 import com.scramble_like.game.game_object.boss_fight.pattern.Pattern;
 import com.scramble_like.game.game_object.boss_fight.pattern.rockets.BossTransitionRocketPattern;
 import com.scramble_like.game.map.AbstractLevel;
+import com.scramble_like.game.map.EndGame;
 
 public abstract class Boss extends GameObject
 {
@@ -69,6 +70,7 @@ public abstract class Boss extends GameObject
         health -= damage;
         if (health <= 0)
         {
+            getScene().getGame().setScreen(new EndGame());
             if (bossToSpawnOnDeath == null)
             {
                 try
