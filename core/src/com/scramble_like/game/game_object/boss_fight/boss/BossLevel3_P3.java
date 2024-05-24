@@ -16,7 +16,7 @@ public class BossLevel3_P3 extends Boss
     {
         super("P3",
                 scene,
-                500,
+                300,
                 new Pattern[] {new ThreeHundredAndSixtyFlashlight(), new RandomFlashlight(), new NovaFlashlight(), new TenRotationFlashlight(), new DoubleFlashlightPattern()},
                 -0.5f,
                 new Sprite("Characters/Boss/Ship6/Ship6.png"),

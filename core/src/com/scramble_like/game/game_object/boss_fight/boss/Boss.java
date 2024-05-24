@@ -70,7 +70,6 @@ public abstract class Boss extends GameObject
         health -= damage;
         if (health <= 0)
         {
-            getScene().getGame().setScreen(new EndGame());
             if (bossToSpawnOnDeath == null)
             {
                 try
@@ -78,6 +77,7 @@ public abstract class Boss extends GameObject
                     Particule explosion = new Particule("Explosion", getScene(), "Characters/Boss/Explosions/explosion.png", 11);
                     explosion.getTransform().setLocation(this.getTransform().getLocation());
                     getScene().AddGameObject(explosion);
+                    getScene().getGame().setScreen(new EndGame());
                 }
                 catch (SceneIsNullException e) { Gdx.app.error("Boss", "Failed to spawn explosion on death"); }
                 this.DestroyThisInScene();
