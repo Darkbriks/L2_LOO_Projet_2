@@ -4,6 +4,7 @@ import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.map.AbstractLevel;
+import com.scramble_like.game.ui.AE_Label;
 
 public class Checkpoint extends PowerUp
 {
@@ -19,6 +20,7 @@ public class Checkpoint extends PowerUp
     {
         if (getScene() instanceof AbstractLevel)
         {
+            getScene().getStage().addActor(new AE_Label("Checkpoint activated !", getScene().getSkin(), 2, getScene().getEventDispatcher(), true));
             ((AbstractLevel) getScene()).setLastCheckpoint(Checkpoint.this);
         }
     }
