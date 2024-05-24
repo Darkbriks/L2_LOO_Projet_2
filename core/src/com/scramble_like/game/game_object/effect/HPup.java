@@ -12,7 +12,7 @@ public class HPup extends PowerUp
 {
     public HPup(String name, Scene scene, float x, float y) throws SceneIsNullException
     {
-        super(name, scene, x, y, 100);
+        super(name, scene, x, y, 150);
     }
 
     @Override
