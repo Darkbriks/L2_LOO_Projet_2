@@ -1,3 +1,0 @@
-highscore_1 : 5575
-highscore_2 : 2925
-highscore_3 : 284
