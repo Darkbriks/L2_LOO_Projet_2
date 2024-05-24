@@ -64,11 +64,11 @@ public class ChunkHelper
                 {
                         { GameConstant.CHUNK_PATH("0", 3),GameConstant.CHUNK_PATH("1", 3),GameConstant.CHUNK_PATH("2", 3),GameConstant.CHUNK_PATH("3", 3),GameConstant.CHUNK_PATH("4", 3),GameConstant.CHUNK_PATH("5", 3),GameConstant.CHUNK_PATH("6", 3),GameConstant.CHUNK_PATH("7", 3),GameConstant.CHUNK_PATH("8", 3) },
                         { GameConstant.CHUNK_PATH("0_0", 3),GameConstant.CHUNK_PATH("1_1", 3),GameConstant.CHUNK_PATH("2_2", 3),GameConstant.CHUNK_PATH("3_3", 3),GameConstant.CHUNK_PATH("4_4", 3),GameConstant.CHUNK_PATH("5_5", 3),GameConstant.CHUNK_PATH("6_6", 3),GameConstant.CHUNK_PATH("7_7", 3),GameConstant.CHUNK_PATH("8_8", 3)},
-                        /*{ "","","","","","","","",GameConstant.CHUNK_PATH("B1", 3)},
+                        { "","","","","","","","",GameConstant.CHUNK_PATH("B1", 3)},
                         { "","","","","","","","",GameConstant.CHUNK_PATH("B2", 3)},
                         { "","","","","","","","",GameConstant.CHUNK_PATH("B3", 3)},
                         { "","","","","","","","",GameConstant.CHUNK_PATH("B4", 3)},
-                        { "","","","","","","","",GameConstant.CHUNK_PATH("B5", 3)},*/
+                        { "","","","","","","","",GameConstant.CHUNK_PATH("B5", 3)},
                 };
 
         chunkListByLevel = new ArrayList<>();

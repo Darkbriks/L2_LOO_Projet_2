@@ -1,0 +1,2 @@
+highscore_1 : 635
+highscore_2 : 625
