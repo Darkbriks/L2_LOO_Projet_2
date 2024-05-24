@@ -53,7 +53,7 @@ public class Player extends GameObject
         this.mainFireController = new FireController(0.5f, true, SimpleBullet.class);
         this.AddComponent(mainFireController);
 
-        this.secondaryFireController = new FireController(3f, true, true, PlayerBomb.class);
+        this.secondaryFireController = new FireController(1.5f, true, true, PlayerBomb.class);
         this.AddComponent(secondaryFireController);
 
         this.getScene().setPlayer(this);

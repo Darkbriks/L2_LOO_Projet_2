@@ -8,6 +8,7 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chunk.ChunkManager;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
+import com.scramble_like.game.essential.utils.Utils;
 import com.scramble_like.game.essential.utils.Writer;
 import com.scramble_like.game.game_object.Background;
 import com.scramble_like.game.game_object.effect.Checkpoint;
@@ -66,7 +67,7 @@ public abstract class AbstractLevel extends Scene
     public void setLastCheckpoint(Checkpoint lastCheckpoint) { this.lastCheckpoint = lastCheckpoint; }
 
     public int getScore() { return (int) score; }
-    public void addScore(float score) { this.score += score; }
+    public void addScore(float score) { this.score = (float) Utils.clamp(this.score + score, 0, 999999999); }
 
     public void GameOver(int score)
     {

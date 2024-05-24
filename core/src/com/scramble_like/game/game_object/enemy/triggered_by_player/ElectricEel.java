@@ -27,16 +27,16 @@ public class ElectricEel extends PlayerDeclanchedEnemy
     {
         this.animationController.setState(AnimationController.AnimationState.ATTACK, 2);
         this.collisionDamage = 50;
-        this.collider.setHeight(this.collider.getHeight() * 6);
-        this.collider.setWidth(this.collider.getWidth() * 6);
+        this.collider.setHeight(this.collider.getHeight() * 4.5f);
+        this.collider.setWidth(this.collider.getWidth() * 4.5f);
     }
 
     protected void stopAttack()
     {
         this.animationController.setState(AnimationController.AnimationState.IDLE, -1);
         this.collisionDamage = 10;
-        this.collider.setHeight(this.collider.getHeight() / 6);
-        this.collider.setWidth(this.collider.getWidth() / 6);
+        this.collider.setHeight(this.collider.getHeight() / 4.5f);
+        this.collider.setWidth(this.collider.getWidth() / 4.5f);
         this.enemyController.SetActive(true);
     }
 
