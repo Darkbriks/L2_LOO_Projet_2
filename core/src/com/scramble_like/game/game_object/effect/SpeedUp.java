@@ -26,7 +26,7 @@ public class SpeedUp extends PowerUp{
             getScene().getPlayer().getPlayerController().reset();
             getScene().getStage().addActor(new AE_Label("Speed Increased to " + Math.round(GameConstant.PLAYER_SPEED_MULTIPLIER * 100) + "% !"
                     , getScene().getSkin(), 2, getScene().getEventDispatcher(), true));
-            Destroy();
+            DestroyThisInScene();
         }
     }
 }

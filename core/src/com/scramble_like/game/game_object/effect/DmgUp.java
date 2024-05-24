@@ -24,7 +24,7 @@ public class DmgUp extends PowerUp
             SoundFactory.getInstance().playSound("PowerUp",GameConstant.SOUND_EFFECT_VOLUME);
             getScene().getStage().addActor(new AE_Label("Damage Increased to " + Math.round(GameConstant.PLAYER_ATTACK_MULTIPLIER * 100) + "% !"
                     , getScene().getSkin(), 2, getScene().getEventDispatcher(), true));
-            Destroy();
+            DestroyThisInScene();
         }
     }
 }

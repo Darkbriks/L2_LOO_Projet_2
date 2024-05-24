@@ -25,7 +25,7 @@ public class HPup extends PowerUp
             getScene().getPlayer().getPlayerController().reset();
             getScene().getStage().addActor(new AE_Label("Life Increased to " + GameConstant.PLAYER_LIFE() * 100 + "% !"
                     , getScene().getSkin(), 2, getScene().getEventDispatcher(), true));
-            Destroy();
+            DestroyThisInScene();
         }
     }
 }
