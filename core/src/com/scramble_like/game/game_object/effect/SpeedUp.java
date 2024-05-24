@@ -23,7 +23,7 @@ public class SpeedUp extends PowerUp{
         {
             GameConstant.PLAYER_SPEED_MULTIPLIER+=0.2f;
             SoundFactory.getInstance().playSound("PowerUp",GameConstant.SOUND_EFFECT_VOLUME);
-            getScene().getPlayer().getPlayerController().reset();
+            getScene().getPlayer().getPlayerController().reset_speed();
             getScene().getStage().addActor(new AE_Label("Speed Increased to " + Math.round(GameConstant.PLAYER_SPEED_MULTIPLIER * 100) + "% !"
                     , getScene().getSkin(), 2, getScene().getEventDispatcher(), true));
             DestroyThisInScene();

@@ -22,7 +22,7 @@ public class HPup extends PowerUp
         {
             GameConstant.PLAYER_HP_MULTIPLIER+=0.5f;
             SoundFactory.getInstance().playSound("PowerUp",GameConstant.SOUND_EFFECT_VOLUME);
-            getScene().getPlayer().getPlayerController().reset();
+            getScene().getPlayer().getPlayerController().reset_life();
             getScene().getStage().addActor(new AE_Label("Life Increased to " + GameConstant.PLAYER_LIFE() * 100 + "% !"
                     , getScene().getSkin(), 2, getScene().getEventDispatcher(), true));
             DestroyThisInScene();
