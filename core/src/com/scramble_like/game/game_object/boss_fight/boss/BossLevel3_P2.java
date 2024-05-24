@@ -19,7 +19,7 @@ public class BossLevel3_P2 extends Boss
                 200,
                 new Pattern[] { new FiveAlignedRocketPattern(), new FiveCenteredRocketPattern(), new BottomToTopRocketPattern(), new ThreeHundredAndSixtyFlashlight()},
                 0,
-                new Sprite("Characters/Boss/Ship6/Ship6.png"),
+                new Sprite("Characters/Boss/Ship5/Ship5.png"),
                 new AABBCollider(350, 175, false, true),
                 BossLevel3_P3.class);
     }

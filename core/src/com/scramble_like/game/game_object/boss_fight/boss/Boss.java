@@ -8,12 +8,19 @@ import com.scramble_like.game.essential.CoreConstant;
 import com.scramble_like.game.essential.GameObject;
 import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.chaos.AABBCollider;
+import com.scramble_like.game.essential.event_dispatcher.EventIndex;
+import com.scramble_like.game.essential.event_dispatcher.EventListener;
+import com.scramble_like.game.essential.event_dispatcher.event.physics.EventBeginOverlap;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.game_object.Particule;
+import com.scramble_like.game.game_object.Player;
 import com.scramble_like.game.game_object.boss_fight.pattern.Pattern;
 import com.scramble_like.game.game_object.boss_fight.pattern.rockets.BossTransitionRocketPattern;
 import com.scramble_like.game.map.AbstractLevel;
 import com.scramble_like.game.map.EndGame;
+import com.scramble_like.game.ui.AE_Label;
+
+import java.util.EventObject;
 
 public abstract class Boss extends GameObject
 {
@@ -74,10 +81,19 @@ public abstract class Boss extends GameObject
             {
                 try
                 {
+                    getScene().getStage().addActor(new AE_Label("You killed the boss !", getScene().getSkin(), 2, getEventDispatcher(), true));
                     Particule explosion = new Particule("Explosion", getScene(), "Characters/Boss/Explosions/explosion.png", 11);
                     explosion.getTransform().setLocation(this.getTransform().getLocation());
                     getScene().AddGameObject(explosion);
-                    getScene().getGame().setScreen(new EndGame());
+
+                    this.getEventDispatcher().AddListener(EventIndex.TEXT_INFO_FINISHED, new EventListener() {
+                        @Override
+                        public void handleEvent(EventObject event)
+                        {
+                            System.out.println("EndGame");
+                            getScene().getGame().setScreen(new EndGame());
+                        }
+                    });
                 }
                 catch (SceneIsNullException e) { Gdx.app.error("Boss", "Failed to spawn explosion on death"); }
                 this.DestroyThisInScene();
