@@ -21,7 +21,7 @@ public class HPup extends PowerUp{
         {
             GameConstant.PLAYER_HP_MULTIPLIER+=0.5f;
             SoundFactory.getInstance().playSound("PowerUp",GameConstant.SOUND_EFFECT_VOLUME);
-            getScene().getPlayer().getPlayerController().reset();
+            getScene().getPlayer().getPlayerController().reset_life();
             System.out.println(GameConstant.PLAYER_HP_MULTIPLIER);
             Destroy();
         }

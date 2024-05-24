@@ -26,11 +26,15 @@ public class PlayerController extends CharacterController
         this.origin = new Vector2(0, 0);
     }
 
-    public void reset(){
-        System.out.println("Before : life : "+life+" speed : "+speed);
-        this.life = (int) (getLife()*GameConstant.PLAYER_HP_MULTIPLIER);
+    public void reset_speed(){
+        //System.out.println("Before : speed : "+speed);
         this.speed = getSpeed()*GameConstant.PLAYER_SPEED_MULTIPLIER;
-        System.out.println("After : life : "+life+" speed : "+speed);
+        //System.out.println("After : speed : "+speed);
+    }
+    public void reset_life(){
+        System.out.println("Before : hp : "+life);
+        this.speed = getSpeed()*GameConstant.PLAYER_HP_MULTIPLIER;
+        System.out.println("After : hp : "+life);
     }
     public boolean isInverseScroll() { return inverseScroll; }
     public void setInverseScroll(boolean inverseScroll) { this.inverseScroll = inverseScroll; }

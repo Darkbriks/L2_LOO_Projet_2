@@ -23,7 +23,7 @@ public class SpeedUp extends PowerUp{
             GameConstant.PLAYER_SPEED_MULTIPLIER+=0.2f;
             SoundFactory.getInstance().playSound("PowerUp",GameConstant.SOUND_EFFECT_VOLUME);
 
-            getScene().getPlayer().getPlayerController().reset();
+            getScene().getPlayer().getPlayerController().reset_speed();
             System.out.println(GameConstant.PLAYER_SPEED_MULTIPLIER);
             Destroy();
         }
