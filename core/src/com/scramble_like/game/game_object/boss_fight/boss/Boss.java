@@ -81,7 +81,7 @@ public abstract class Boss extends GameObject
             {
                 try
                 {
-                    getScene().getStage().addActor(new AE_Label("You killed the boss !", getScene().getSkin(), 3, getEventDispatcher(), true));
+                    getScene().getStage().addActor(new AE_Label("You killed the boss !", getScene().getSkin(), 2, getEventDispatcher(), true));
                     Particule explosion = new Particule("Explosion", getScene(), "Characters/Boss/Explosions/explosion.png", 11);
                     explosion.getTransform().setLocation(this.getTransform().getLocation());
                     getScene().AddGameObject(explosion);
