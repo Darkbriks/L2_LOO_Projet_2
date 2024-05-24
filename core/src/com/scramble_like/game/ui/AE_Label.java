@@ -97,6 +97,7 @@ public class AE_Label extends Label
             {
                 if (this.eventDispatcherToHandle != null)
                 {
+                    System.out.println("Dispatching event");
                     this.eventDispatcherToHandle.DispatchEvent(EventIndex.TEXT_INFO_FINISHED, new TextInfoFinishedEvent(this));
                 }
                 this.remove();

@@ -13,7 +13,6 @@ public class SpeedUp extends PowerUp{
     public SpeedUp(String name, Scene scene, float x, float y) throws SceneIsNullException
     {
         super(name, scene, x, y, 100);
-        /*this.AddComponent(new Sprite("badlogic.jpg"));*/
     }
 
     @Override
