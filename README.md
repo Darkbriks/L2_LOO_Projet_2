@@ -193,3 +193,14 @@ Le coeur du jeu est basé sur une architecture similaire à celle du moteur de j
 Le coeur est situé dans le package `core/src/com/scramble_like/game/essential`.
 
 *En cours de rédaction*
+
+## Crédits
+
+### Musiques
+
+- [Vigil - Mass Effect - Jack Wall](https://www.youtube.com/watch?v=Ea1eWarxdxQ) (Menu)
+- [Horizon Beach - Monster Sanctuary - Steven Melin](https://www.youtube.com/watch?v=Kuwjxgo7fQU) (Niveau 1)
+- [The Vents - Ecco the Dolphin - Spencer Nilsen](https://youtu.be/DaoshZkavwY?si=TAF3B0NCwG1W4rvc) (Niveau 2)
+- [Confronting Myself - Celeste - Lena Raine](https://www.youtube.com/watch?v=b_oEDGONSc4) (Niveau 3)
+
+*En cours de rédaction*
