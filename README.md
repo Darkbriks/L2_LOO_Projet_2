@@ -192,6 +192,39 @@ Cela va multiplier la vitesse de la caméra par 5 pendant toute la durée de l'a
 Le coeur du jeu est basé sur une architecture similaire à celle du moteur de jeu Unity, avec des objets de jeu qui héritent de la classe `GameObject`, et qui peuvent être composés de plusieurs `Component` qui gèrent les différents aspects de l'objet.
 Le coeur est situé dans le package `core/src/com/scramble_like/game/essential`.
 
+### ScrambleLikeApplication
+
+La classe `ScrambleLikeApplication` est la classe principale du jeu. C'est un singleton pour qu'elle puisse être accédée de n'importe où dans le code.
+C'est elle qui contient le `ShapeRenderer`, le `SpriteBatch`, la `BitmapFont` et la `GameCamera`, qui sont utilisés pour le rendu du jeu.
+Elle contient également la liste de tous les objets qui implémentent l'interface `TickableObject`.
+
+### Scene
+
+La classe `Scene` est une classe abstraite qui représente une scène du jeu. Elle contient une liste d'objets de jeu, et gère leur mise à jour et leur rendu.
+C'est elle qui est responsable de la boucle de jeux, et qui appelle les differantes méthode des `GameObject` (comme `Begin`, `Update`, `Render`, `Destroy`).
+Elle dispose également d'une méthode `LateUpdate` qui est appelée après la mise à jour de tous les objets, et qui est utilisée pour supprimer et ajouter des objet dans la scéne.
+
+### GameObject
+
+La classe `GameObject` est une classe abstraite qui représente un objet de jeu. Elle contient une liste de `Component` qui gèrent les différents aspects de l'objet.
+
+### Component
+
+La classe `Component` est une classe abstraite qui représente un composant d'un objet de jeu. Elle contient une référence vers l'objet auquel elle est attachée, et peut surcharger plusieurs méthodes pour gérer les différents aspects de l'objet.
+
+### Packages
+
+#### Essential
+
+##### Chaos
+
+Chaos est le package qui contient les éléments relatifs aux collisions.
+La classe abstaite `Collider` contient toutes les méthodes pour vérifier si deux objets sont en collision. Elle hérite de `Component`.
+La classe `CircleCollider` représante un collider en forme de cercle, et hérite de `Collider`
+La classe `AABBCollider` (Axis Aligned Bounding Box) représante un collider en forme de rectangle sans rotation, et hérite de `Collider`
+La classe `TileCollider` représante un collider qui as une position donnée, qui n'est pas relatives a celle du `GameObject` parent.
+La classe `CollisionTask`
+
 *En cours de rédaction*
 
 ## Crédits
