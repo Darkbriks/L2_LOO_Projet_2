@@ -68,7 +68,18 @@ public class ScrambleLikeApplication extends Game
 			if (path != null && !path.isEmpty()) { ImageFactory.loadTexture(ChunkHelper.getTilePath(i)); }
 		}
 
-		if (GameConstant.DEBUG) { setScreen(new MainMenu()); }
+		// Mode autoplay (profiling) : -Dae.level=N lance directement le niveau N, sans son,
+		// en god mode sauf si -Dae.god=false
+		String autoLevel = System.getProperty("ae.level");
+		if (autoLevel != null)
+		{
+			GameConstant.GOD_MODE = !"false".equals(System.getProperty("ae.god"));
+			GameConstant.SOUND_MUSIC_VOLUME = 0;
+			GameConstant.SOUND_EFFECT_VOLUME = 0;
+			try { setScreen(GameConstant.LEVEL_LIST.get(Integer.parseInt(autoLevel)).getConstructor().newInstance()); }
+			catch (Exception e) { throw new RuntimeException("Impossible de lancer le niveau " + autoLevel, e); }
+		}
+		else if (GameConstant.DEBUG) { setScreen(new MainMenu()); }
 		else { setScreen(new SplashScreen()); }
 	}
 

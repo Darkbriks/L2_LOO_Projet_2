@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.setTitle("ScrambleLike");
 		config.setWindowedMode(GameConstant.WIDTH, GameConstant.HEIGHT);
 		config.useVsync(true);
+		if (System.getProperty("ae.profile") != null) { config.setForegroundFPS(0); config.useVsync(false); }
 		new Lwjgl3Application(new ScrambleLikeApplication(), config);
 	}
 }

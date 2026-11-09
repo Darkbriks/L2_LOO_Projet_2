@@ -105,6 +105,16 @@ public class SpatialGrid
         return potentialColliders;
     }
 
+    public int countEntries()
+    {
+        int count = 0;
+        for (ConcurrentHashMap<Integer, ArrayList<Collider>> column : grid.values())
+        {
+            for (ArrayList<Collider> cell : column.values()) { count += cell.size(); }
+        }
+        return count;
+    }
+
     public void clear()
     {
         for (int i = 0; i < grid.size(); i++)

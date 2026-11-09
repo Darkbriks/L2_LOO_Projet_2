@@ -10,6 +10,7 @@ import com.scramble_like.game.essential.exception.OwnerIsNullException;
 import com.scramble_like.game.essential.exception.SceneIsNullException;
 import com.scramble_like.game.essential.utils.Transform;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class GameObject implements Disposable
 {
@@ -53,6 +54,7 @@ public class GameObject implements Disposable
     public void setActive(boolean isActive) { this.isActive = isActive; }
 
     public ArrayList<Component> GetComponents() { return this.components; }
+    public int getPendingRemovalCount() { return this.componentsToRemove.size(); }
 
     public <T extends Component> T GetFirstComponentFromClass(Class<T> componentClass)
     {
@@ -108,7 +110,11 @@ public class GameObject implements Disposable
         if (!this.isActive) { return; }
         for (int i = 0; i < components.size(); i++) { Component c = components.get(i); if (c != null) { c.Render(); } }
 
-        for (int i = 0; i < componentsToRemove.size(); i++) { components.remove(componentsToRemove.get(i)); }
+        if (!componentsToRemove.isEmpty())
+        {
+            components.removeAll(new HashSet<>(componentsToRemove));
+            componentsToRemove.clear();
+        }
     }
 
     public void Destroy()

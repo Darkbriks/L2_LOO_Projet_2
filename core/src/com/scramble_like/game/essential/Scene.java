@@ -13,6 +13,7 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.chaos.SpatialGrid;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
+import com.scramble_like.game.essential.utils.Profiler;
 import com.scramble_like.game.game_object.Player;
 
 import java.util.ArrayList;
@@ -93,11 +94,14 @@ public abstract class Scene implements Screen
     @Override
     public void render(float v)
     {
+        Profiler.beginFrame();
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
         this.stage.act();
+        Profiler.mark(0);
 
         this.getGame().UpdateTickableObjects(v * CoreConstant.UPDATE_MULTIPLIER);
+        Profiler.mark(1);
 
         if (CoreConstant.UPDATE_MULTIPLIER != 0)
         {
@@ -105,10 +109,13 @@ public abstract class Scene implements Screen
             {
                 for (int j = 0; j < gameObjects.get(i).size(); j++)
                 {
+                    long t0 = Profiler.now();
                     gameObjects.get(i).get(j).Update(v * CoreConstant.UPDATE_MULTIPLIER);
+                    Profiler.objectUpdated(gameObjects.get(i).get(j), t0);
                 }
             }
         }
+        Profiler.mark(2);
 
         game.getBatch().begin();
 
@@ -116,15 +123,21 @@ public abstract class Scene implements Screen
         {
             for (int j = 0; j < gameObjects.get(i).size(); j++)
             {
+                long t0 = Profiler.now();
                 gameObjects.get(i).get(j).Render();
+                Profiler.objectRendered(gameObjects.get(i).get(j), t0);
             }
         }
 
         game.getBatch().end();
+        Profiler.mark(3);
 
         this.stage.draw();
+        Profiler.mark(4);
 
         LateUpdate();
+        Profiler.mark(5);
+        Profiler.endFrame(this);
     }
 
     @Override

@@ -9,7 +9,6 @@ import com.scramble_like.game.essential.utils.Utils;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ForkJoinPool;
 
 public abstract class Collider extends Component
 {
@@ -115,11 +114,10 @@ public abstract class Collider extends Component
         isHit = false;
         if (!this.IsActive() || !simulatePhysics) return;
 
-        ForkJoinPool pool = new ForkJoinPool();
         Set<Collider> potentialColliders = this.getOwner().getScene().getSpatialGrid().getPotentialCollisions(this);
 
         CollisionTask task = new CollisionTask(potentialColliders, this);
-        Set<Collider> tempOverlappedCollider = pool.invoke(task);
+        Set<Collider> tempOverlappedCollider = task.invoke();
 
         for (Collider other : tempOverlappedCollider)
         {
@@ -135,7 +133,5 @@ public abstract class Collider extends Component
                 overlappedCollider.remove(other);
             }
         }
-
-        pool.shutdown();
     }
 }
