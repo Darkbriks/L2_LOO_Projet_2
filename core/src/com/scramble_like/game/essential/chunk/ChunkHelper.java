@@ -238,10 +238,13 @@ public class ChunkHelper
         return new Vector2(x, y);
     }
 
-    public static float getChunkSquaredDistanceWithPosition(Vector2 chunkPosition, float cameraX, int numberOfChunksVertical)
+    // Distance de Tchebychev : chaque axe est comparé séparément aux seuils de CoreConstant
+    public static float getChunkSquaredDistanceWithPosition(Vector2 chunkPosition, Vector2 cameraPosition, int numberOfChunksVertical)
     {
         Vector2 chunkPositionInSceneUnits = getChunkPositionInSceneUnits(chunkPosition, numberOfChunksVertical);
-        return (cameraX - chunkPositionInSceneUnits.x) * (cameraX - chunkPositionInSceneUnits.x) + ( chunkPositionInSceneUnits.y) * (-chunkPositionInSceneUnits.y);
+        float dx = cameraPosition.x - chunkPositionInSceneUnits.x;
+        float dy = cameraPosition.y - chunkPositionInSceneUnits.y;
+        return Math.max(dx * dx, dy * dy);
     }
 
     public static int getTileMapSize() { return tileMap.size(); }
@@ -252,5 +255,10 @@ public class ChunkHelper
         return tileMap.get(tileIndex);
     }
 
-    public static boolean isNoColliderBlock(int blockIndex) { for (int noColliderBlockIndex : noColliderBlockIndexes) { if (blockIndex == noColliderBlockIndex) { return true; } } return false; }
+    public static boolean isNoColliderBlock(int blockIndex)
+    {
+        if (getTilePath(blockIndex).isEmpty()) { return true; }
+        for (int noColliderBlockIndex : noColliderBlockIndexes) { if (blockIndex == noColliderBlockIndex) { return true; } }
+        return false;
+    }
 }

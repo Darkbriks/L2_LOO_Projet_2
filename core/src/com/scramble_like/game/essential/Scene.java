@@ -13,6 +13,8 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.chaos.SpatialGrid;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
+import com.scramble_like.game.essential.utils.Autoplay;
+import com.scramble_like.game.essential.utils.Profiler;
 import com.scramble_like.game.game_object.Player;
 
 import java.util.ArrayList;
@@ -23,7 +25,6 @@ public abstract class Scene implements Screen
     private final ScrambleLikeApplication game;
     private final SpatialGrid spatialGrid;
     private final Stage stage;
-    private final Skin skin;
 
     protected Vector4 backgroundColor = new Vector4(0, 0, 0.2f, 1);
     protected ArrayList<GameObject> gameObjectsToAdd;
@@ -39,7 +40,6 @@ public abstract class Scene implements Screen
         this.name = name;
         this.stage = new Stage();
         this.stage.setViewport(this.game.getCamera().getViewport());
-        this.skin = new Skin(Gdx.files.internal("UI/uiskin.json"));
         this.spatialGrid = new SpatialGrid(GameConstant.GRID_CELL_X, GameConstant.GRID_CELL_Y);
 
         this.gameObjectsToAdd = new ArrayList<>();
@@ -56,7 +56,7 @@ public abstract class Scene implements Screen
     public ScrambleLikeApplication getGame() { return this.game; }
     public SpatialGrid getSpatialGrid() { return this.spatialGrid; }
     public Stage getStage() { return this.stage; }
-    public Skin getSkin() { return this.skin; }
+    public Skin getSkin() { return this.game.getSkin(); }
     public GameCamera getCamera() { return this.game.getCamera(); }
     public SpriteBatch getBatch() { return this.game.getBatch(); }
     public BitmapFont getFont() { return this.game.getFont(); }
@@ -93,11 +93,15 @@ public abstract class Scene implements Screen
     @Override
     public void render(float v)
     {
+        Profiler.beginFrame();
+        Autoplay.update(this);
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
         this.stage.act();
+        Profiler.mark(0);
 
         this.getGame().UpdateTickableObjects(v * CoreConstant.UPDATE_MULTIPLIER);
+        Profiler.mark(1);
 
         if (CoreConstant.UPDATE_MULTIPLIER != 0)
         {
@@ -105,10 +109,13 @@ public abstract class Scene implements Screen
             {
                 for (int j = 0; j < gameObjects.get(i).size(); j++)
                 {
+                    long t0 = Profiler.now();
                     gameObjects.get(i).get(j).Update(v * CoreConstant.UPDATE_MULTIPLIER);
+                    Profiler.objectUpdated(gameObjects.get(i).get(j), t0);
                 }
             }
         }
+        Profiler.mark(2);
 
         game.getBatch().begin();
 
@@ -116,15 +123,21 @@ public abstract class Scene implements Screen
         {
             for (int j = 0; j < gameObjects.get(i).size(); j++)
             {
+                long t0 = Profiler.now();
                 gameObjects.get(i).get(j).Render();
+                Profiler.objectRendered(gameObjects.get(i).get(j), t0);
             }
         }
 
         game.getBatch().end();
+        Profiler.mark(3);
 
         this.stage.draw();
+        Profiler.mark(4);
 
         LateUpdate();
+        Profiler.mark(5);
+        Profiler.endFrame(this);
     }
 
     @Override
@@ -156,6 +169,5 @@ public abstract class Scene implements Screen
         for (GameObject go : markedForDestructionGos) { go.Destroying(); }
         for (Component c : markedForDestructionComps) { c.Destroying(); }
         stage.dispose();
-        skin.dispose();
     }
 }

@@ -4,11 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.utils.Timer;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.Scene;
+import com.scramble_like.game.essential.factory.FontFactory;
 
 public class SplashScreen extends Scene {
     private Texture logo;
@@ -31,9 +33,9 @@ public class SplashScreen extends Scene {
     public void show() {
         logo = new Texture(Gdx.files.internal("Logo/codingGladiators.jpeg"));
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        font = FontFactory.newDefaultFont();
         font.setColor(Color.WHITE);
-        font.getData().setScale(2);
+        font.getData().setScale(2 * FontFactory.BASE_SCALE);
 
         float delayBeforeText = 0.5f;
         Timer.schedule(new Timer.Task() {
@@ -61,6 +63,7 @@ public class SplashScreen extends Scene {
         Gdx.gl.glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
         Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
 
+        batch.setProjectionMatrix(getCamera().getCombined());
         batch.begin();
         if (!showText) {
             float progress = Math.min(elapsedTime / displayTime, 1.0f);
@@ -73,16 +76,15 @@ public class SplashScreen extends Scene {
             float alpha = initialAlpha + (finalAlpha - initialAlpha) * progress;
 
             batch.setColor(1, 1, 1, alpha);
-            batch.draw(logo,(Gdx.graphics.getWidth() - logo.getWidth() * scale) / 2,(Gdx.graphics.getHeight() - logo.getHeight() * scale) / 2,logo.getWidth() * scale,logo.getHeight() * scale);
+            batch.draw(logo, -logo.getWidth() * scale / 2, -logo.getHeight() * scale / 2, logo.getWidth() * scale, logo.getHeight() * scale);
         } else {
             float progress = Math.min(elapsedTime / textDisplayTime, 1.0f);
             float alpha = 1.0f - progress;
             font.setColor(1, 1, 1, alpha);
 
             String text = "The Coding Gladiators";
-            float textWidth = font.getRegion().getRegionWidth();
-            float textHeight = font.getCapHeight();
-            font.draw(batch, text,(Gdx.graphics.getWidth() - textWidth) / 2,(Gdx.graphics.getHeight() + textHeight) / 2);
+            GlyphLayout layout = new GlyphLayout(font, text);
+            font.draw(batch, layout, -layout.width / 2, layout.height / 2);
         }
         batch.end();
     }

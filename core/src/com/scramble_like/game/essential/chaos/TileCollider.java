@@ -18,10 +18,10 @@ public class TileCollider extends AABBCollider
     }
 
     @Override
-    public void BeginPlay() { super.BeginPlay(); this.getOwner().getScene().getSpatialGrid().addTileCollider(this); }
+    protected float getGridX() { return x + getWidth() / 2; }
 
     @Override
-    public void Destroy() { super.Destroy(); this.getOwner().getScene().getSpatialGrid().removeTileCollider(this); }
+    protected float getGridY() { return y + getHeight() / 2; }
 
     @Override
     public float getX1() { return x; }

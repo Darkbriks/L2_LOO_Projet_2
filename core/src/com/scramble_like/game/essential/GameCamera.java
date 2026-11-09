@@ -3,23 +3,25 @@ package com.scramble_like.game.essential;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.scramble_like.game.GameConstant;
 
 public class GameCamera implements TickableObject
 {
     private OrthographicCamera camera;
-    private ScreenViewport viewport;
+    private Viewport viewport;
 
     public GameCamera()
     {
         camera = new OrthographicCamera();
-        viewport = new ScreenViewport(camera);
+        viewport = new FitViewport(GameConstant.WIDTH, GameConstant.HEIGHT, camera);
         viewport.apply();
         camera.position.set(0, 0, 0);
     }
 
     public OrthographicCamera getCamera() { return camera; }
-    public ScreenViewport getViewport() { return viewport; }
+    public Viewport getViewport() { return viewport; }
     public Matrix4 getCombined() { return camera.combined; }
 
     public Vector2 getPosition() { return new Vector2(camera.position.x, camera.position.y); }

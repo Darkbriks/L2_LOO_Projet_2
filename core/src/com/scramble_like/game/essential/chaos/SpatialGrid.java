@@ -36,56 +36,42 @@ public class SpatialGrid
 
     public void addCollider(Collider collider)
     {
-        int xIndex = getCellIndex(collider.getOwnerX());
-        int yIndex = getCellIndex(collider.getOwnerY());
-        grid.computeIfAbsent(xIndex, k -> new ConcurrentHashMap<>()).computeIfAbsent(yIndex, k -> new ArrayList<>()).add(collider);
-    }
-
-    public void addTileCollider(TileCollider tileCollider)
-    {
-        int xIndex = getCellIndex(tileCollider.getX1() + tileCollider.getWidth() / 2);
-        int yIndex = getCellIndex(tileCollider.getY1() + tileCollider.getHeight() / 2);
-        grid.computeIfAbsent(xIndex, k -> new ConcurrentHashMap<>()).computeIfAbsent(yIndex, k -> new ArrayList<>()).add(tileCollider);
+        if (collider.inGrid) { return; }
+        collider.gridCellX = getCellIndex(collider.getGridX());
+        collider.gridCellY = getCellIndex(collider.getGridY());
+        grid.computeIfAbsent(collider.gridCellX, k -> new ConcurrentHashMap<>()).computeIfAbsent(collider.gridCellY, k -> new ArrayList<>()).add(collider);
+        collider.inGrid = true;
     }
 
     public void removeCollider(Collider collider)
     {
-        int xIndex = getCellIndex(collider.getOwnerX());
-        int yIndex = getCellIndex(collider.getOwnerY());
-        if (grid.containsKey(xIndex) && grid.get(xIndex).containsKey(yIndex))
+        if (!collider.inGrid) { return; }
+        collider.inGrid = false;
+        ConcurrentHashMap<Integer, ArrayList<Collider>> column = grid.get(collider.gridCellX);
+        if (column == null) { return; }
+        ArrayList<Collider> cell = column.get(collider.gridCellY);
+        if (cell == null) { return; }
+        cell.remove(collider);
+        if (cell.isEmpty())
         {
-            if (grid.get(xIndex).get(yIndex) == null) { return; }
-            grid.get(xIndex).get(yIndex).remove(collider);
-            if (grid.get(xIndex).get(yIndex).isEmpty())
-            {
-                grid.get(xIndex).remove(yIndex);
-                if (grid.get(xIndex).isEmpty()) { grid.remove(xIndex); }
-            }
+            column.remove(collider.gridCellY);
+            if (column.isEmpty()) { grid.remove(collider.gridCellX); }
         }
     }
 
-    public void removeTileCollider(TileCollider tileCollider)
+    public void updateCollider(Collider collider)
     {
-        int xIndex = getCellIndex(tileCollider.getX1() + tileCollider.getWidth() / 2);
-        int yIndex = getCellIndex(tileCollider.getY1() + tileCollider.getHeight() / 2);
-        if (grid.containsKey(xIndex) && grid.get(xIndex).containsKey(yIndex))
-        {
-            grid.get(xIndex).get(yIndex).remove(tileCollider);
-            if (grid.get(xIndex).get(yIndex).isEmpty())
-            {
-                grid.get(xIndex).remove(yIndex);
-                if (grid.get(xIndex).isEmpty()) { grid.remove(xIndex); }
-            }
-        }
+        if (!collider.inGrid) { return; }
+        if (collider.gridCellX == getCellIndex(collider.getGridX()) && collider.gridCellY == getCellIndex(collider.getGridY())) { return; }
+        removeCollider(collider);
+        addCollider(collider);
     }
-
-    public void updateCollider(Collider collider) { removeCollider(collider); addCollider(collider); }
 
     public Set<Collider> getPotentialCollisions(Collider collider)
     {
         Set<Collider> potentialColliders = new HashSet<>();
-        int xIndex = getCellIndex(collider.getOwnerX());
-        int yIndex = getCellIndex(collider.getOwnerY());
+        int xIndex = getCellIndex(collider.getGridX());
+        int yIndex = getCellIndex(collider.getGridY());
 
         for (int i = -1; i <= 1; i++)
         {
@@ -103,6 +89,30 @@ public class SpatialGrid
             }
         }
         return potentialColliders;
+    }
+
+    public int countEntries()
+    {
+        int count = 0;
+        for (ConcurrentHashMap<Integer, ArrayList<Collider>> column : grid.values())
+        {
+            for (ArrayList<Collider> cell : column.values()) { count += cell.size(); }
+        }
+        return count;
+    }
+
+    public int countStaleEntries()
+    {
+        int stale = 0;
+        Set<Collider> seen = new HashSet<>();
+        for (ConcurrentHashMap<Integer, ArrayList<Collider>> column : grid.values())
+        {
+            for (ArrayList<Collider> cell : column.values())
+            {
+                for (Collider c : cell) { if (c.getOwner() == null || !seen.add(c)) { stale++; } }
+            }
+        }
+        return stale;
     }
 
     public void clear()

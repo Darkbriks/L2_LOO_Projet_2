@@ -1,5 +1,6 @@
 package com.scramble_like.game.map;
 
+import com.scramble_like.game.essential.factory.FontFactory;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.*;
@@ -29,7 +30,7 @@ public class LevelSlide extends Scene
         table.center();
 
         Label titleLabel = new Label("Level Completed!", getSkin(), "default");
-        titleLabel.setFontScale(2);
+        titleLabel.setFontScale(2 * FontFactory.BASE_SCALE);
         table.add(titleLabel).colspan(2).padBottom(50);
         table.row();
 
