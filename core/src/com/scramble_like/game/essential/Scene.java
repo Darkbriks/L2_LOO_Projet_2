@@ -13,6 +13,7 @@ import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.ScrambleLikeApplication;
 import com.scramble_like.game.essential.chaos.SpatialGrid;
 import com.scramble_like.game.essential.event_dispatcher.EventDispatcher;
+import com.scramble_like.game.essential.utils.Autoplay;
 import com.scramble_like.game.essential.utils.Profiler;
 import com.scramble_like.game.game_object.Player;
 
@@ -24,7 +25,6 @@ public abstract class Scene implements Screen
     private final ScrambleLikeApplication game;
     private final SpatialGrid spatialGrid;
     private final Stage stage;
-    private final Skin skin;
 
     protected Vector4 backgroundColor = new Vector4(0, 0, 0.2f, 1);
     protected ArrayList<GameObject> gameObjectsToAdd;
@@ -40,7 +40,6 @@ public abstract class Scene implements Screen
         this.name = name;
         this.stage = new Stage();
         this.stage.setViewport(this.game.getCamera().getViewport());
-        this.skin = new Skin(Gdx.files.internal("UI/uiskin.json"));
         this.spatialGrid = new SpatialGrid(GameConstant.GRID_CELL_X, GameConstant.GRID_CELL_Y);
 
         this.gameObjectsToAdd = new ArrayList<>();
@@ -57,7 +56,7 @@ public abstract class Scene implements Screen
     public ScrambleLikeApplication getGame() { return this.game; }
     public SpatialGrid getSpatialGrid() { return this.spatialGrid; }
     public Stage getStage() { return this.stage; }
-    public Skin getSkin() { return this.skin; }
+    public Skin getSkin() { return this.game.getSkin(); }
     public GameCamera getCamera() { return this.game.getCamera(); }
     public SpriteBatch getBatch() { return this.game.getBatch(); }
     public BitmapFont getFont() { return this.game.getFont(); }
@@ -95,6 +94,7 @@ public abstract class Scene implements Screen
     public void render(float v)
     {
         Profiler.beginFrame();
+        Autoplay.update(this);
         ScreenUtils.clear(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 
         this.stage.act();
@@ -169,6 +169,5 @@ public abstract class Scene implements Screen
         for (GameObject go : markedForDestructionGos) { go.Destroying(); }
         for (Component c : markedForDestructionComps) { c.Destroying(); }
         stage.dispose();
-        skin.dispose();
     }
 }

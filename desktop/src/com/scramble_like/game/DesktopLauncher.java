@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.setWindowedMode(GameConstant.WIDTH, GameConstant.HEIGHT);
 		config.useVsync(true);
 		if (System.getProperty("ae.profile") != null) { config.setForegroundFPS(0); config.useVsync(false); }
+		if (System.getProperty("ae.window") != null) { String[] size = System.getProperty("ae.window").split("x"); config.setWindowedMode(Integer.parseInt(size[0]), Integer.parseInt(size[1])); }
 		new Lwjgl3Application(new ScrambleLikeApplication(), config);
 	}
 }

@@ -1,6 +1,7 @@
 package com.scramble_like.game.component.controller;
 
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.scramble_like.game.GameConstant;
 import com.scramble_like.game.essential.GameCamera;
@@ -18,6 +19,12 @@ public class PlayerController extends CharacterController
     private boolean inverseScroll; // false, scroll is horizontal, true, scroll is vertical
     private Vector2 origin;
     protected boolean hasGoldenStrawberry = false;
+
+    private boolean isAligningCamera = false;
+    private float alignmentStart;
+    private float alignmentTarget;
+    private float alignmentDuration;
+    private float alignmentElapsed;
 
     public PlayerController(AnimationController animationController, AABBCollider collider)
     {
@@ -41,6 +48,15 @@ public class PlayerController extends CharacterController
 
     public Vector2 getOrigin() { return origin; }
     public void setOrigin(Vector2 origin) { this.origin = origin; }
+
+    public void alignCamera(float target, float duration)
+    {
+        this.alignmentStart = inverseScroll ? camera.getPosition().x : camera.getPosition().y;
+        this.alignmentTarget = target;
+        this.alignmentDuration = duration;
+        this.alignmentElapsed = 0;
+        this.isAligningCamera = true;
+    }
 
     public boolean hasGoldenStrawberry() { return hasGoldenStrawberry; }
     public void setGoldenStrawberry(boolean hasGoldenStrawberry) { this.hasGoldenStrawberry = hasGoldenStrawberry; }
@@ -96,6 +112,16 @@ public class PlayerController extends CharacterController
             camera.addPosition(dt * GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER, 0);
             this.getOwner().getTransform().Translate(dt * GameConstant.CAMERA_SPEED * GameConstant.CAMERA_SPEED_MULTIPLIER, 0);
         }
+
+        if (isAligningCamera)
+        {
+            alignmentElapsed += dt;
+            float alpha = Math.min(alignmentElapsed / alignmentDuration, 1);
+            float value = Interpolation.smooth.apply(alignmentStart, alignmentTarget, alpha);
+            if (inverseScroll) { camera.setX(value); }
+            else { camera.setY(value); }
+            if (alpha >= 1) { isAligningCamera = false; }
+        }
     }
 
     private void move(float dt)
@@ -128,13 +154,13 @@ public class PlayerController extends CharacterController
             this.getOwner().getTransform().getLocation().x = (float) Utils.clamp(this.getOwner().getTransform().getLocation().x + dx, camera.getPosition().x - (double) GameConstant.LEFT_LIMIT, camera.getPosition().x + (double) GameConstant.RIGHT_LIMIT);
             this.getOwner().getTransform().getLocation().y = (float) Utils.clamp(this.getOwner().getTransform().getLocation().y + dy, camera.getPosition().y - (double) GameConstant.BOTTOM_LIMIT, camera.getPosition().y + (double) GameConstant.TOP_LIMIT);
 
-            if (!inverseScroll && dy != 0)
+            if (!isAligningCamera && !inverseScroll && dy != 0)
             {
                 if (this.getOwner().getTransform().getLocation().y < GameConstant.BOTTOM_SCROLL_LIMIT + origin.y) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.BOTTOM_SCROLL_LIMIT); }
                 else if (this.getOwner().getTransform().getLocation().y > GameConstant.TOP_SCROLL_LIMIT + origin.y) { camera.setY(this.getOwner().getTransform().getLocation().y - GameConstant.TOP_SCROLL_LIMIT); }
                 else { camera.getPosition().y = origin.y; }
             }
-            else if (inverseScroll && dx != 0)
+            else if (!isAligningCamera && inverseScroll && dx != 0)
             {
                 if (this.getOwner().getTransform().getLocation().x < GameConstant.LEFT_SCROLL_LIMIT + origin.x) { camera.setX(this.getOwner().getTransform().getLocation().x - GameConstant.LEFT_SCROLL_LIMIT); }
                 else if (this.getOwner().getTransform().getLocation().x > GameConstant.RIGHT_SCROLL_LIMIT + origin.x) { camera.setX(this.getOwner().getTransform().getLocation().x - GameConstant.RIGHT_SCROLL_LIMIT); }

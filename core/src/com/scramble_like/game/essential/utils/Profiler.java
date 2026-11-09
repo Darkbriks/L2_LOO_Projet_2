@@ -48,7 +48,7 @@ public class Profiler
         try
         {
             out = new PrintWriter(new FileWriter(System.getProperty("ae.profile")), true);
-            out.println("t_s,scene,fps,work_avg_ms,work_max_ms,interval_max_ms,act_ms,tick_ms,update_ms,render_ms,draw_ms,late_ms,cam_x,cam_y,game_objects,components,pending_removals,grid_entries,threads,heap_mb,top_update,top_render");
+            out.println("t_s,scene,fps,work_avg_ms,work_max_ms,interval_max_ms,act_ms,tick_ms,update_ms,render_ms,draw_ms,late_ms,cam_x,cam_y,game_objects,components,pending_removals,grid_entries,grid_stale,threads,heap_mb,top_update,top_render");
         }
         catch (IOException e) { Gdx.app.error("Profiler", "Impossible d'ouvrir le fichier : " + e.getMessage()); }
         startNanos = System.nanoTime();
@@ -124,9 +124,9 @@ public class Profiler
                 (now - startNanos) / 1e9, scene.getName(), frames,
                 ms(workNanos) / Math.max(frames, 1), ms(maxWorkNanos), ms(maxIntervalNanos)));
         for (long s : sectionNanos) { sb.append(String.format(java.util.Locale.ROOT, ",%.2f", ms(s) / Math.max(frames, 1))); }
-        sb.append(String.format(java.util.Locale.ROOT, ",%.0f,%.0f,%d,%d,%d,%d,%d,%d,%s,%s",
+        sb.append(String.format(java.util.Locale.ROOT, ",%.0f,%.0f,%d,%d,%d,%d,%d,%d,%d,%s,%s",
                 scene.getCamera().getPosition().x, scene.getCamera().getPosition().y,
-                gameObjects, components, pending, scene.getSpatialGrid().countEntries(),
+                gameObjects, components, pending, scene.getSpatialGrid().countEntries(), scene.getSpatialGrid().countStaleEntries(),
                 Thread.activeCount(), (rt.totalMemory() - rt.freeMemory()) / (1024 * 1024),
                 top(updateByClass), top(renderByClass)));
         out.println(sb);

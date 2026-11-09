@@ -6,11 +6,16 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.scramble_like.game.essential.ControllersListener;
 import com.scramble_like.game.essential.GameCamera;
+import com.scramble_like.game.essential.Scene;
 import com.scramble_like.game.essential.TickableObject;
 import com.scramble_like.game.essential.chunk.ChunkHelper;
+import com.scramble_like.game.essential.factory.FontFactory;
+import com.scramble_like.game.essential.utils.Autoplay;
 import com.scramble_like.game.essential.factory.ImageFactory;
 import com.scramble_like.game.essential.factory.SoundFactory;
 import com.scramble_like.game.map.MainMenu;
@@ -29,12 +34,14 @@ public class ScrambleLikeApplication extends Game
 	private BitmapFont font;
 	private GameCamera camera;
 	private Controller controller;
+	private Skin skin;
 
 	public ShapeRenderer getShapeRenderer() { return shapeRenderer; }
 	public SpriteBatch getBatch() { return batch; }
 	public BitmapFont getFont() { return font; }
 	public GameCamera getCamera() { return camera; }
 	public Controller getController() { return controller; }
+	public Skin getSkin() { return skin; }
 
 	private List<TickableObject> tickableObjects;
 	public List<TickableObject> getTickableObjects() { return tickableObjects; }
@@ -50,6 +57,9 @@ public class ScrambleLikeApplication extends Game
 		shapeRenderer = new ShapeRenderer();
 		batch = new SpriteBatch();
 		font = new BitmapFont();
+		skin = new Skin(new TextureAtlas(Gdx.files.internal("UI/uiskin.atlas")));
+		skin.add("default-font", FontFactory.newDefaultFont(), BitmapFont.class);
+		skin.load(Gdx.files.internal("UI/uiskin.json"));
 		camera = new GameCamera();
 		controller = Controllers.getCurrent();
 		Controllers.addListener(new ControllersListener());
@@ -74,6 +84,7 @@ public class ScrambleLikeApplication extends Game
 		if (autoLevel != null)
 		{
 			GameConstant.GOD_MODE = !"false".equals(System.getProperty("ae.god"));
+			GameConstant.DEBUG = Boolean.getBoolean("ae.debug");
 			GameConstant.SOUND_MUSIC_VOLUME = 0;
 			GameConstant.SOUND_EFFECT_VOLUME = 0;
 			try { setScreen(GameConstant.LEVEL_LIST.get(Integer.parseInt(autoLevel)).getConstructor().newInstance()); }
@@ -91,6 +102,7 @@ public class ScrambleLikeApplication extends Game
 
 		batch.setProjectionMatrix(camera.getCombined());
 		super.render();
+		if (getScreen() instanceof Scene) { Autoplay.capture((Scene) getScreen()); }
 	}
 
 	@Override
@@ -114,6 +126,7 @@ public class ScrambleLikeApplication extends Game
 		shapeRenderer.dispose();
 		batch.dispose();
 		font.dispose();
+		skin.dispose();
 		camera.dispose();
 	}
 }

@@ -1,5 +1,6 @@
 package com.scramble_like.game.map;
 
+import com.scramble_like.game.essential.factory.FontFactory;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -49,7 +50,7 @@ public class ControlConfig extends Scene {
 
         // Create title label
         Label titleLabel = new Label("Control Configuration", getSkin(), "default");
-        titleLabel.setFontScale(2);
+        titleLabel.setFontScale(2 * FontFactory.BASE_SCALE);
         table.add(titleLabel).colspan(2).padBottom(50);
         table.row();
 

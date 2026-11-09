@@ -1,5 +1,6 @@
 package com.scramble_like.game.ui;
 
+import com.scramble_like.game.essential.factory.FontFactory;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -84,6 +85,9 @@ public class AE_Label extends Label
         this.setAlignment(1);
         this.setWidth(500);
     }
+
+    @Override
+    public void setFontScale(float fontScaleX, float fontScaleY) { super.setFontScale(fontScaleX * FontFactory.BASE_SCALE, fontScaleY * FontFactory.BASE_SCALE); }
 
     public void act(float delta)
     {

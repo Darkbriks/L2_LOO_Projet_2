@@ -41,6 +41,7 @@ public class GameConstant
     public static float PLAYER_ATTACK_MULTIPLIER = 1;
     public static float PLAYER_SPEED_MULTIPLIER = 1;
     public static float CAMERA_SPEED = 250;
+    public static final float CAMERA_ALIGNMENT_DURATION = 1.5f;
     public static float PLAYER_SPEED = 500;
     public static float CAMERA_SPEED_MULTIPLIER = (Writer.getSetting(GameConstant.SOUND_EFFECTS_OPTION, GameConstant.SETTINGS_FILE)/100.0f)+0.5f;
     public static int PLAYER_LIFE() { return 100 + (LEVEL_1_GOLDEN_STRAWBERRY ? 25 : 0) + (LEVEL_2_GOLDEN_STRAWBERRY ? 50 : 0) + (LEVEL_3_GOLDEN_STRAWBERRY ? 125 : 0); }

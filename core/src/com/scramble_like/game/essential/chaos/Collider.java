@@ -18,6 +18,10 @@ public abstract class Collider extends Component
     protected boolean isHit;
     protected Set<Collider> overlappedCollider;
 
+    boolean inGrid = false;
+    int gridCellX;
+    int gridCellY;
+
     ////////// Constructor //////////
     public Collider(boolean generateOverlappedEvent, boolean simulatePhysics)
     {
@@ -41,6 +45,9 @@ public abstract class Collider extends Component
 
     public float getOwnerX() { return this.getOwner().getTransform().getLocation().x; }
     public float getOwnerY() { return this.getOwner().getTransform().getLocation().y; }
+
+    protected float getGridX() { return getOwnerX(); }
+    protected float getGridY() { return getOwnerY(); }
 
     ////////// Setters //////////
     public void setGenerateOverlappedEvent(boolean generateOverlappedEvent) { this.generateOverlappedEvent = generateOverlappedEvent; }
